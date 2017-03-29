@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RestSharp;
-using RestSharp.Authenticators;
-using System.IO;
+﻿using RestSharp;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.YouTube.v3;
 using System.Threading;
@@ -13,8 +6,7 @@ using Google.Apis.Util.Store;
 using Google.Apis.Services;
 
 
-namespace Songrequest
-{
+namespace Songrequest {
     public class GoogleCheck
     {
 		public static void Authenticate()

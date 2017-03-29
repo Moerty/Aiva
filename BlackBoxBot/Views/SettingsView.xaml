@@ -8,12 +8,15 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="1092">
     <Grid>
-		<ComboBox x:Name="cbLanguage" HorizontalAlignment="Left" Margin="237,97,0,0" VerticalAlignment="Top" Width="231" SelectedIndex="0"/>
-		<TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="190,107,0,0" TextWrapping="Wrap" Text="Sprache" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbLanguage" HorizontalAlignment="Left" Margin="803,107,0,0" VerticalAlignment="Top" Width="231" SelectedIndex="0"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="756,117,0,0" TextWrapping="Wrap" Text="Sprache" VerticalAlignment="Top"/>
         <StackPanel Orientation="Horizontal" Margin="717,46,176,228">
             <CheckBox x:Name="checkBox" IsChecked="{Binding LogChat}" Content="Speichere Log" HorizontalAlignment="Left" />
             <Button Content="Open" Command="{Binding OpenChat}" Width="114"/>
         </StackPanel>
+        <ScrollViewer HorizontalAlignment="Left" Height="280" Margin="10,10,0,0" VerticalAlignment="Top" Width="379">
+            <TreeView Height="267" Width="369"/>
+        </ScrollViewer>
 
     </Grid>
 </Controls:MetroContentControl>
