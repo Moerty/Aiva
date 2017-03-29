@@ -2,3 +2,4 @@ language: csharp
 solution: BlackBoxBot.sln
     os:
         - windows
+        
