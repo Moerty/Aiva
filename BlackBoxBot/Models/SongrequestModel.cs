@@ -16,7 +16,6 @@ namespace BlackBoxBot.Models
         public bool Songrequest { get; set; } = true;
         public string OnOffSongrequestText { get; set; }
         public Songrequest.PlaylistHandler Playlist { get; set; }
-        //public ObservableCollection<Songrequest.Song> SongList { get; set; }
         public AsyncObservableCollection<Songrequest.Song> SongList { get; set; } = new AsyncObservableCollection<Songrequest.Song>();
         public Songrequest.Player Player { get; set; }
 

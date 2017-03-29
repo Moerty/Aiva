@@ -26,9 +26,6 @@ namespace BlackBoxBot.ViewModels
     [PropertyChanged.ImplementPropertyChanged]
     class ChartsViewModel
     {
-        private double _lastLecture;
-        private double _trend;
-
         public SeriesCollection LastHourSeries { get; set; }
 
         public ChartsViewModel()
@@ -44,41 +41,8 @@ namespace BlackBoxBot.ViewModels
                     }
                 }
             };
-
-
-            /*Task.Run(() =>
-            {
-                var r = new Random();
-                while (true)
-                {
-                    Thread.Sleep(500);
-                    _trend += (r.NextDouble() > 0.3 ? 1 : -1) * r.Next(0, 5);
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        LastHourSeries[0].Values.Add(new ObservableValue(_trend));
-                        LastHourSeries[0].Values.RemoveAt(0);
-                    });
-                }
-            }); */
-
-
         }
-
-        private void SetAxisLimits(DateTime now)
-        {
-            
-        }
-
-
-
-
     }
-
-    
-
-
-
-
 
 
     [PropertyChanged.ImplementPropertyChanged]

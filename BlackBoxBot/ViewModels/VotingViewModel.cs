@@ -73,7 +73,7 @@ namespace BlackBoxBot.ViewModels {
         List<string> JoinedUsers = new List<string>();
         private void TwitchClient_OnChatCommandReceived(object sender, TwitchLib.Events.Client.OnChatCommandReceivedArgs e) {
             if (e.Command.Command == Command) {
-                if (true)//JoinedUsers.Exists(user => user == e.Command.ChatMessage.Username))
+                if (JoinedUsers.Exists(user => user == e.Command.ChatMessage.Username))
                 {
                     JoinedUsers.Add(e.Command.ChatMessage.Username);
 

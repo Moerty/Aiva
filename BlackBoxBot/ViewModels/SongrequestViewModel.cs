@@ -108,8 +108,6 @@ namespace BlackBoxBot.ViewModels
                 {
                     InformUser(Models.SongrequestModel.InformUser.VideoNotFound, null , e.Command.ChatMessage.Username);
                 }
-
-
             }
 
             // GetSong
