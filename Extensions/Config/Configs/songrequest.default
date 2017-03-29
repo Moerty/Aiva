@@ -1,0 +1,6 @@
+﻿[General]
+PlaylistID=
+YoutubeUrl=https://www.youtube.com/embed/@VIDEOID@
+[UserCommands]
+; Get played song
+GetSongCommand=song

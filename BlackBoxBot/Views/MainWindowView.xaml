@@ -1,0 +1,186 @@
+﻿<Controls:MetroWindow x:Class="BlackBoxBot.Views.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+					  xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+					  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+					  xmlns:cControls="clr-namespace:BlackBoxBot.Controls"
+                      xmlns:Flyout="clr-namespace:BlackBoxBot.Controls.Flyout" 
+					  xmlns:viewModel="clr-namespace:BlackBoxBot.ViewModels"
+					  xmlns:cefSharp="cefsharp.wpf"
+						xmlns:local="clr-namespace:BlackBoxBot.Views"
+					  mc:Ignorable="d"
+					  d:DesignHeight="400" d:DesignWidth="600"
+                      Title="BlackBoxBot"
+					  TitleCharacterCasing="Normal"
+					  WindowTransitionsEnabled="False"
+					  BorderThickness="1"
+					  ResizeMode="NoResize"
+					  WindowStartupLocation="CenterScreen"
+					  MinHeight="400" MinWidth="600"
+                      Height="600"
+                      Width="1100"
+                      
+	>
+    
+    <Controls:MetroWindow.DataContext>
+		<viewModel:MainViewModel/>
+	</Controls:MetroWindow.DataContext>
+
+	<Controls:MetroWindow.WindowTitleBrush>
+		<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+	</Controls:MetroWindow.WindowTitleBrush>
+
+	<Controls:MetroWindow.Flyouts>
+		<Controls:FlyoutsControl>
+			<Flyout:ucBans x:Name="BansFlyout" Header="Bans" Position="Left" Width="600" />
+			<controls:Flyout x:Name="UsersFlyout" Header="Users" Position="Left" Width="300"/>
+		</Controls:FlyoutsControl>
+	</Controls:MetroWindow.Flyouts>
+
+	<Controls:MetroWindow.RightWindowCommands>
+		<Controls:WindowCommands>
+			<Button x:Name="btnUsers" Click="btnUsers_Click">
+				<StackPanel Orientation="Horizontal">
+					<Rectangle Width="20"
+                   Height="20"
+                   Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
+						<Rectangle.OpacityMask>
+							<VisualBrush Stretch="Fill" Visual="{StaticResource users}" />
+						</Rectangle.OpacityMask>
+					</Rectangle>
+					<TextBlock Margin="4 0 0 0"
+                   VerticalAlignment="Center"
+                   Text="Viewer" />
+				</StackPanel>
+			</Button>
+			<Button x:Name="btnHome" Click="btnHome_Click">
+				<StackPanel Orientation="Horizontal">
+					<Rectangle Width="20"
+                   Height="20"
+                   Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
+						<Rectangle.OpacityMask>
+							<VisualBrush Stretch="Fill" Visual="{StaticResource appbar_home}" />
+						</Rectangle.OpacityMask>
+					</Rectangle>
+					<TextBlock Margin="4 0 0 0"
+                   VerticalAlignment="Center"
+                   Text="Home" />
+				</StackPanel>
+			</Button>
+			<Button x:Name="btnDashboard" Click="btnDashboard_Click">
+				<StackPanel Orientation="Horizontal">
+					<Rectangle Width="20"
+                   Height="20"
+                   Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
+						<Rectangle.OpacityMask>
+							<VisualBrush Stretch="Fill" Visual="{StaticResource theater}" />
+						</Rectangle.OpacityMask>
+					</Rectangle>
+					<TextBlock Margin="4 0 0 0"
+                   VerticalAlignment="Center"
+                   Text="Dashboard" />
+				</StackPanel>
+			</Button>
+			<Button x:Name="btnSettings" Click="btnSettings_Click">
+				<StackPanel Orientation="Horizontal">
+					<Rectangle Width="20"
+                   Height="20"
+                   Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
+						<Rectangle.OpacityMask>
+							<VisualBrush Stretch="Fill" Visual="{StaticResource settings}" />
+						</Rectangle.OpacityMask>
+					</Rectangle>
+					<TextBlock Margin="4 0 0 0"
+                   VerticalAlignment="Center"
+                   Text="Einstellungen" />
+				</StackPanel>
+			</Button>
+			<!-- DAS IST EIN KOMMENTAR -->
+		</Controls:WindowCommands>
+	</Controls:MetroWindow.RightWindowCommands>
+
+	<Grid x:Name="mainGrid" Background="#FF8C8E94">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="45*" />
+			<RowDefinition Height="503*"/>
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+
+		<TabControl x:Name="tControlMain" 
+					Grid.Row="0" 
+					Grid.RowSpan="3" 
+					ItemsSource="{Binding tabItems}"
+					Style="{StaticResource CustomTabControlStyle}"
+					>
+			<TabControl.ItemTemplate>
+				<DataTemplate>
+					<TextBlock
+                    Text="{Binding Header}" />
+				</DataTemplate>
+			</TabControl.ItemTemplate>
+			<TabControl.ContentTemplate>
+				<DataTemplate>
+					<Controls:MetroContentControl
+						Content="{Binding Content}" />
+				</DataTemplate>
+			</TabControl.ContentTemplate>
+		</TabControl>
+
+		<ToggleButton x:Name="btnBansIntern" Visibility="Hidden" Content="Bans" IsChecked="{Binding ElementName=BansFlyout, Path=IsOpen}" Cursor="Hand" />
+
+		<StatusBar Grid.Row="2">
+			<StatusBarItem Content="BlackBoxBot v1" >
+				<StatusBarItem.Background>
+					<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+				</StatusBarItem.Background>
+			</StatusBarItem>
+			<Separator Style="{DynamicResource MetroStatusBarSeparator}" Background="#FF646464" >
+				<Separator.Foreground>
+					<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+				</Separator.Foreground>
+			</Separator>
+			<StatusBarItem Content="(c) MJ &amp; GZ" ContentStringFormat="BlackBoxBot" >
+				<StatusBarItem.Background>
+					<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+				</StatusBarItem.Background>
+			</StatusBarItem>
+			<Separator Style="{DynamicResource MetroStatusBarSeparator}" Background="#FF646464" >
+				<Separator.Foreground>
+					<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+				</Separator.Foreground>
+			</Separator>
+			<StatusBarItem x:Name="StatusBarStreamOnOff" ContentStringFormat="BlackBoxBot" >
+                <StatusBarItem.Style>
+                    <Style TargetType="StatusBarItem">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding model.IsOnline}" Value="True">
+                                <Setter Property="Foreground" Value="GreenYellow"/>
+                                <Setter Property="Content" Value="{Binding model.StreamerOnlineText}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding model.IsOnline}" Value="False">
+                                <Setter Property="Foreground" Value="Red"/>
+                                <Setter Property="Content" Value="{Binding model.StreamerOnlineText}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                    <!--<StatusBarItem.Style.Triggers>
+                        <DataTrigger Binding="{Binding model.Songrequest}" Value="True">
+                            <Setter Property="Background" Value="#CC53F324" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding model.Songrequest}" Value="False">
+                            <Setter Property="Background" Value="#CCF32424" />
+                        </DataTrigger>
+                    </StatusBarItem.Style.Triggers> -->
+                </StatusBarItem.Style>
+                <StatusBarItem.Background>
+                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+                </StatusBarItem.Background>
+            </StatusBarItem>
+		</StatusBar>
+	</Grid>
+	
+	
+</Controls:MetroWindow>

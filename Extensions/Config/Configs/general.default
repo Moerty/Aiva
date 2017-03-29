@@ -1,0 +1,56 @@
+﻿[Credentials]
+TwitchOAuth=
+TwitchClientID=
+
+[General]
+Channel=
+BotName=
+Language=german
+
+; CommandIdentifier does have only one character (ex: '!' or '#')
+CommandIdentifier=!
+
+; Dev: 1; Debug=2; Info=3; Announcement=4; Warning=5; Error=6
+LogLevel=1
+
+[SpamCheck]
+; Spamcheck -> true = activated | false = deactivated
+; std -> true
+CheckEnable=true
+
+; Admin
+SkipMessageCheckAdmin=true
+
+; Streamer
+SkipMessageCheckBroadcaster=true
+
+; GlobalMod
+SkipMessageCheckGlobalMod=true
+
+; Mod
+SkipMessageCheckMod=true
+
+; Twitch Worker
+SkipMessageCheckStaff=false
+
+; Viewer
+SkipMessageCheckViewer=false
+
+
+; Times --- Format: Hours:Minutes:Seconds  -> ex. 5 Minutes = 00:05:00 ; 10 Seconds = 00:00:10
+TimeToNewMessage=00:00:10
+MinutesTimeoutWarning=00:10:00
+TimeoutTime=00:10:00
+WarningTimeoutTime=00:30:00
+TimeActiveWarning=00:30:00
+
+
+[Currency]
+; Active Currency? (True; False)
+Active=True
+
+; Amount of Currency to add after a specific time
+CurrencyToAdd=10
+
+; Interval Add Currency (hh:mm:ss)
+TimerAddCurrency=00:00:10

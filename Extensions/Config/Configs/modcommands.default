@@ -1,0 +1,9 @@
+﻿[Currency]
+; Add some user Currency (Syntax: !addcurrency name value)
+AddCurrency=addcurrency
+
+; Delete some user currency (Synatax: !delcurrency name value)
+DeleteCurrency=delcurrency
+
+; Transfer currency between users (Syntax: !movecurrency name1 name2 value)
+TransferCurrency=movecurrency
