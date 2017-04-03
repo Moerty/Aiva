@@ -1,3 +1,5 @@
+![2017-04-03 15_55_00](https://media.giphy.com/media/xUA7aMhSskInyGI0Ks/source.gif)
+
 A TwichBot with various functions. 
 Here it concerns everything around a learning project. 
 The code is not good, you could solve anything a lot better. 
