@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace BlackBoxBot.Models
 {
@@ -16,8 +17,6 @@ namespace BlackBoxBot.Models
         public string StreamerOnlineText {get;set;}
         public bool IsOnline { get; set; } = false;
 
-        //public Mahapps.
-
         public MahApps.Metro.Controls.MetroContentControl Content { get; set; }
         public ObservableCollection<WindowCommandModel> WindowCommandItems { get; set; }
 
@@ -25,6 +24,7 @@ namespace BlackBoxBot.Models
         public class WindowCommandModel {
             public string Header { get; set; }
             public ICommand Command { get; set; } = new RoutedCommand();
+            public Visual Icon { get; set; }
         }
     }
 

@@ -51,11 +51,6 @@ namespace BlackBoxBot.ViewModels {
                     Header = "Rangverwaltung",
                     Content = new Controls.ucRank()
                 },
-                /*new Models.MainModel
-                {
-                    Header = "Toplisten",
-                    Content = new Controls.ucToplist()
-                },*/
                 new Models.HomeModel
                 {
                     Header = "Charts",

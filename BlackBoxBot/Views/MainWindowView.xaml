@@ -18,24 +18,37 @@
                       Width="1100"
                       
 	>
-   
 
-	<Controls:MetroWindow.WindowTitleBrush>
-		<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
-	</Controls:MetroWindow.WindowTitleBrush>
+
+    <Controls:MetroWindow.WindowTitleBrush>
+        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+    </Controls:MetroWindow.WindowTitleBrush>
 
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands Name="WindowCommand" ItemsSource="{Binding Model.WindowCommandItems}">
             <Controls:WindowCommands.ItemTemplate>
                 <DataTemplate DataType="{x:Type ModelType:MainModel}">
-                    <Button Content="{Binding Header}" Command="{Binding Command}" Foreground="#FF919191" />
+                    <Button Command="{Binding Command}">
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Width="20"
+                               Height="20"
+                               Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{Binding Icon}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <TextBlock Margin="4 0 0 0"
+                               VerticalAlignment="Center"
+                               Text="{Binding Header}" />
+                        </StackPanel>
+                    </Button>
                 </DataTemplate>
             </Controls:WindowCommands.ItemTemplate>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
-    
-	<!--<Controls:MetroWindow.RightWindowCommands>
+
+    <!--<Controls:MetroWindow.RightWindowCommands>
 		<Controls:WindowCommands>
 			<Button x:Name="btnUsers" Click="btnUsers_Click">
 				<StackPanel Orientation="Horizontal">
@@ -93,44 +106,46 @@
                    Text="Einstellungen" />
 				</StackPanel>
 			</Button>
-			--><!-- DAS IST EIN KOMMENTAR --><!--
+			-->
+    <!-- DAS IST EIN KOMMENTAR -->
+    <!--
 		</Controls:WindowCommands>
 	</Controls:MetroWindow.RightWindowCommands>-->
 
-	<Grid x:Name="mainGrid" Background="#FF8C8E94">
+    <Grid x:Name="mainGrid" Background="#FF8C8E94">
         <Grid.RowDefinitions>
             <RowDefinition Height="503*"/>
-			<RowDefinition Height="Auto" />
-		</Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-		
+
 
         <Controls:MetroContentControl Grid.Row="0" Content="{Binding Model.Content}"/>
 
         <ToggleButton x:Name="btnBansIntern" Visibility="Hidden" Content="Bans" IsChecked="{Binding ElementName=BansFlyout, Path=IsOpen}" Cursor="Hand" />
 
-		<StatusBar Grid.Row="2">
-			<StatusBarItem Content="BlackBoxBot v1" >
-				<StatusBarItem.Background>
-					<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
-				</StatusBarItem.Background>
-			</StatusBarItem>
-			<Separator Style="{DynamicResource MetroStatusBarSeparator}" Background="#FF646464" >
-				<Separator.Foreground>
-					<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
-				</Separator.Foreground>
-			</Separator>
-			<StatusBarItem Content="(c) MJ &amp; GZ" ContentStringFormat="BlackBoxBot" >
-				<StatusBarItem.Background>
-					<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
-				</StatusBarItem.Background>
-			</StatusBarItem>
-			<Separator Style="{DynamicResource MetroStatusBarSeparator}" Background="#FF646464" >
-				<Separator.Foreground>
-					<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
-				</Separator.Foreground>
-			</Separator>
-			<StatusBarItem x:Name="StatusBarStreamOnOff" ContentStringFormat="BlackBoxBot" >
+        <StatusBar Grid.Row="2">
+            <StatusBarItem Content="BlackBoxBot v1" >
+                <StatusBarItem.Background>
+                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+                </StatusBarItem.Background>
+            </StatusBarItem>
+            <Separator Style="{DynamicResource MetroStatusBarSeparator}" Background="#FF646464" >
+                <Separator.Foreground>
+                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+                </Separator.Foreground>
+            </Separator>
+            <StatusBarItem Content="(c) MJ &amp; GZ" ContentStringFormat="BlackBoxBot" >
+                <StatusBarItem.Background>
+                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+                </StatusBarItem.Background>
+            </StatusBarItem>
+            <Separator Style="{DynamicResource MetroStatusBarSeparator}" Background="#FF646464" >
+                <Separator.Foreground>
+                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
+                </Separator.Foreground>
+            </Separator>
+            <StatusBarItem x:Name="StatusBarStreamOnOff" ContentStringFormat="BlackBoxBot" >
                 <StatusBarItem.Style>
                     <Style TargetType="StatusBarItem">
                         <Style.Triggers>
@@ -157,8 +172,8 @@
                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
                 </StatusBarItem.Background>
             </StatusBarItem>
-		</StatusBar>
-	</Grid>
-	
-	
+        </StatusBar>
+    </Grid>
+
+
 </Controls:MetroWindow>

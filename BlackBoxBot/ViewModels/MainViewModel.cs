@@ -1,26 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Shapes;
 using PropertyChanged;
-using System.Threading;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Windows.Threading;
 using TwitchLib;
 using System.Windows.Input;
+using System.Windows;
 
-namespace BlackBoxBot.ViewModels
-{
+namespace BlackBoxBot.ViewModels {
     [ImplementPropertyChanged]
 	class MainViewModel
 	{
-		
         public Models.MainModel Model { get; set; }
         private DispatcherTimer OnoffTimer;
 
@@ -37,18 +28,27 @@ namespace BlackBoxBot.ViewModels
         }
 
         private void CreateWindowCommands() {
+            var myResourceDictionary = new ResourceDictionary();
+            myResourceDictionary.Source =
+                new Uri("/BlackBoxBot;component/Resources/Icons.xaml",
+                        UriKind.RelativeOrAbsolute);
+
             Model.WindowCommandItems = new ObservableCollection<Models.MainModel.WindowCommandModel> {
                 new Models.MainModel.WindowCommandModel {
                     Header = "Viewer",
+                    Icon = myResourceDictionary["users"] as Canvas
                 },
                 new Models.MainModel.WindowCommandModel {
-                    Header = "Home"
+                    Header = "Home",
+                    Icon = myResourceDictionary["appbar_home"] as Canvas 
                 },
                 new Models.MainModel.WindowCommandModel {
-                    Header = "Dashboard"
+                    Header = "Dashboard",
+                    Icon = myResourceDictionary["theater"] as Canvas
                 },
                 new Models.MainModel.WindowCommandModel {
                     Header = "Einstellungen",
+                    Icon = myResourceDictionary["settings"] as Canvas
                 }
             };
 
@@ -58,6 +58,8 @@ namespace BlackBoxBot.ViewModels
             CommandManager.RegisterClassCommandBinding(buttonType, new CommandBinding(Model.WindowCommandItems[1].Command, HomeCommand));
             CommandManager.RegisterClassCommandBinding(buttonType, new CommandBinding(Model.WindowCommandItems[2].Command, DashboardCommand));
             CommandManager.RegisterClassCommandBinding(buttonType, new CommandBinding(Model.WindowCommandItems[3].Command, SettingsCommand));
+
+            Model.Content = new Views.HomeViewModel();
         }
 
         private void SettingsCommand(object sender, ExecutedRoutedEventArgs e) {
@@ -69,7 +71,8 @@ namespace BlackBoxBot.ViewModels
         }
 
         private void HomeCommand(object sender, ExecutedRoutedEventArgs e) {
-            Model.Content = new Views.HomeViewModel();
+            if(Model.Content.GetType() != new Views.HomeViewModel().GetType())
+                Model.Content = new Views.HomeViewModel();
         }
 
         private void ViewerCommand(object sender, ExecutedRoutedEventArgs e) {
