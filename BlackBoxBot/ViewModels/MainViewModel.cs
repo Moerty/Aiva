@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Windows.Media;
 using System.Windows.Controls;
 using PropertyChanged;
 using System.Windows.Threading;
@@ -10,13 +9,11 @@ using System.Windows;
 
 namespace BlackBoxBot.ViewModels {
     [ImplementPropertyChanged]
-	class MainViewModel
-	{
+    class MainViewModel {
         public Models.MainModel Model { get; set; }
         private DispatcherTimer OnoffTimer;
 
-		public MainViewModel()
-		{
+        public MainViewModel() {
             // Create Model
             Model = new Models.MainModel();
 
@@ -40,7 +37,7 @@ namespace BlackBoxBot.ViewModels {
                 },
                 new Models.MainModel.WindowCommandModel {
                     Header = "Home",
-                    Icon = myResourceDictionary["appbar_home"] as Canvas 
+                    Icon = myResourceDictionary["appbar_home"] as Canvas
                 },
                 new Models.MainModel.WindowCommandModel {
                     Header = "Dashboard",
@@ -71,8 +68,7 @@ namespace BlackBoxBot.ViewModels {
         }
 
         private void HomeCommand(object sender, ExecutedRoutedEventArgs e) {
-            if(Model.Content.GetType() != new Views.HomeViewModel().GetType())
-                Model.Content = new Views.HomeViewModel();
+            Model.Content = new Views.HomeViewModel();
         }
 
         private void ViewerCommand(object sender, ExecutedRoutedEventArgs e) {
@@ -80,8 +76,7 @@ namespace BlackBoxBot.ViewModels {
             u.Show();
         }
 
-        private void SetOnOffTimer()
-        {
+        private void SetOnOffTimer() {
             OnoffTimer = new DispatcherTimer();
             OnoffTimer.Tick += CheckStreamOnOrOffAsync;
             OnoffTimer.Interval = new TimeSpan(0, 0, 5);
@@ -93,23 +88,18 @@ namespace BlackBoxBot.ViewModels {
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private async void CheckStreamOnOrOffAsync(object sender, EventArgs e)
-        {
+		private async void CheckStreamOnOrOffAsync(object sender, EventArgs e) {
             var result = await TwitchApi.Streams.BroadcasterOnlineAsync(Config.General.Config["General"]["Channel"].ToLower());
 
 
-            if (result)
-            {
+            if (result) {
                 Model.StreamerOnlineText = Config.Language.Instance.GetString("StreamOn");
                 Model.IsOnline = true;
             }
-            else
-            {
+            else {
                 Model.StreamerOnlineText = Config.Language.Instance.GetString("StreamOff");
                 Model.IsOnline = false;
             }
         }
-
-        
     }
 }

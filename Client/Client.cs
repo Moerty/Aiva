@@ -16,7 +16,6 @@ namespace Client {
 
         public string Channel { get; set; }
         public string AccessToken { get; set; }
-        //private Tasks.Tasks TaskHandler;
 
         public Client() {
             var username = Config.General.Config["General"]["BotName"];
