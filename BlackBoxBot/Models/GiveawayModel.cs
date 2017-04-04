@@ -1,12 +1,27 @@
-﻿namespace BlackBoxBot.Models
+﻿using System.Collections.ObjectModel;
+
+namespace BlackBoxBot.Models
 {
     [PropertyChanged.ImplementPropertyChanged]
     public class GiveawayModel
     {
         public TextModel Text { get; set; }
+        public GiveawayOptions Options { get; set; } = new GiveawayOptions();
 
-
-
+        [PropertyChanged.ImplementPropertyChanged]
+        public class GiveawayOptions {
+            public bool Mod { get; set; } = true;
+            public bool Sub { get; set; } = true;
+            public bool Admin { get; set; } = true;
+            public bool User { get; set; } = true;
+            public int SubLuck { get; set; } = 1;
+            public string Keyword { get; set; }
+            public string Winner { get; set; }
+        }
+        
+        public bool UncheckWinner { get; set; } = false;
+        public ObservableCollection<string> Winners { get; set; }
+        public bool IsStarted { get; set; } = false;
 
         [PropertyChanged.ImplementPropertyChanged]
         public class TextModel

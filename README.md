@@ -7,7 +7,11 @@ Involves you in it and announces mistake!
 
 
 Todos:
+Now:
+- Settings in SQLites
 
+
+LATER:
 - Raid System
 - Link Restriction
 - Caps Restriction

@@ -139,7 +139,7 @@
                     <Style TargetType="TextBox" BasedOn="{StaticResource MetroTextBox}">
                         <Setter Property="IsReadOnly" Value="False"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="True">
+                            <DataTrigger Binding="{Binding AuctionHandler.IsStarted}" Value="True">
                                 <Setter Property="IsReadOnly" Value="True"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -165,7 +165,7 @@
                     <Style TargetType="TextBox" BasedOn="{StaticResource MetroTextBox}">
                         <Setter Property="IsReadOnly" Value="False"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="True">
+                            <DataTrigger Binding="{Binding AuctionHandler.IsStarted}" Value="True">
                                 <Setter Property="IsReadOnly" Value="True"/>
                             </DataTrigger>
                         </Style.Triggers>

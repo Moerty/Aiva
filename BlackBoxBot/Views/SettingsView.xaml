@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="1092">
+             d:DesignHeight="550" d:DesignWidth="1092">
     <Grid>
         <ComboBox x:Name="cbLanguage" HorizontalAlignment="Left" Margin="803,107,0,0" VerticalAlignment="Top" Width="231" SelectedIndex="0"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="756,117,0,0" TextWrapping="Wrap" Text="Sprache" VerticalAlignment="Top"/>
@@ -13,9 +13,15 @@
             <CheckBox x:Name="checkBox" IsChecked="{Binding LogChat}" Content="Speichere Log" HorizontalAlignment="Left" />
             <Button Content="Open" Command="{Binding OpenChat}" Width="114"/>
         </StackPanel>
-        <ScrollViewer HorizontalAlignment="Left" Height="280" Margin="10,10,0,0" VerticalAlignment="Top" Width="379">
-            <TreeView Height="267" Width="369"/>
-        </ScrollViewer>
+        <TabControl ItemsSource="{Binding Model.SettingsTabs}" HorizontalAlignment="Left" Height="550" VerticalAlignment="Top" Width="650" TabStripPlacement="Left" Style="{StaticResource CustomTabControlStyle}">
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="TabItem" BasedOn="{StaticResource CustomTabItemStyle}">
+                    <Setter Property="Header" Value="{Binding Header}" />
+                    <Setter Property="Content" Value="{Binding Content}" />
+                </Style>
+            </TabControl.ItemContainerStyle>
+        </TabControl>
+
 
     </Grid>
 </Controls:MetroContentControl>

@@ -109,6 +109,10 @@
     <Compile Include="Users.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserSettings.cs">
+      <DependentUpon>Data.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserSettingsHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

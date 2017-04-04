@@ -30,5 +30,6 @@ namespace Database
         public virtual DbSet<Currency> Currency { get; set; }
         public virtual DbSet<ActiveUsers> ActiveUsers { get; set; }
         public virtual DbSet<Chat> Chat { get; set; }
+        public virtual DbSet<UserSettings> UserSettings { get; set; }
     }
 }

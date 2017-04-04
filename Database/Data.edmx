@@ -54,12 +54,21 @@
           <Property Name="IsViewing" Type="integer" />
           <Property Name="TimeWatched" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
+        <EntityType Name="UserSettings">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Value" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
         <EntityContainer Name="DatabaseModelStoreContainer">
           <EntitySet Name="ActiveUsers" EntityType="Self.ActiveUsers" store:Type="Tables" />
           <EntitySet Name="Chat" EntityType="Self.Chat" store:Type="Tables" />
           <EntitySet Name="Currency" EntityType="Self.Currency" store:Type="Tables" />
           <EntitySet Name="ModCommandLog" EntityType="Self.ModCommandLog" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" />
+          <EntitySet Name="UserSettings" EntityType="Self.UserSettings" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -96,6 +105,7 @@
           <EntitySet Name="Currency" EntityType="DatabaseModel.Currency" />
           <EntitySet Name="ActiveUsers" EntityType="DatabaseModel.ActiveUsers" />
           <EntitySet Name="Chat" EntityType="DatabaseModel.Chat" />
+          <EntitySet Name="UserSettings" EntityType="DatabaseModel.UserSettings" />
         </EntityContainer>
         <EntityType Name="Currency">
           <Key>
@@ -120,6 +130,14 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Message" Type="String" Nullable="false" />
           <Property Name="Timestamp" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserSettings">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -178,6 +196,15 @@
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSettings">
+            <EntityTypeMapping TypeName="DatabaseModel.UserSettings">
+              <MappingFragment StoreEntitySet="UserSettings">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Index" ColumnName="Index" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

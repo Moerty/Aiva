@@ -33,9 +33,39 @@ namespace BlackBoxBot.ViewModels
             }
         }
 
+        public Models.SettingsModel Model { get; set; }
+
         public SettingsViewModel()
         {
-            
+            CreateModels();
         }
+
+        private void CreateModels() {
+            Model = new Models.SettingsModel();
+            Model.SettingsTabs = new System.Collections.ObjectModel.ObservableCollection<Models.SettingsModel.SettingsTabItem> {
+                new Models.SettingsModel.SettingsTabItem {
+                    Header = "Chat",
+                    Content = new Views.SettingsTabs.Chat(),
+                }
+            };
+
+        }
+
+        [PropertyChanged.ImplementPropertyChanged]
+        public class ChatTabViewModel {
+            public Models.SettingsModel.ChatTabModel Model { get; set; }
+
+            public ChatTabViewModel() {
+                // Create Models
+                CreateModels();
+            }
+
+            private void CreateModels() {
+                Model = new Models.SettingsModel.ChatTabModel {
+                    //BlacklistedWords = Database.UserSettingsHandler.GetConfig("BlacklistedWords")
+                };
+            }
+        }
+
     }
 }

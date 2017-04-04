@@ -21,20 +21,7 @@ namespace BlackBoxBot.ViewModels
 
         public DispatcherTimer TimerToEnd { get; set; }
 
-        public bool Mod { get; set; } = true;
-        public bool Sub { get; set; } = true;
-        public bool Admin { get; set; } = true;
-        public bool User { get; set; } = true;
-        public int SubLuck { get; set; } = 1;
-        public string Keyword { get; set; }
-        public string Winner { get; set; }
-
-        public bool UncheckWinner { get; set; } = false;
-
-        public bool IsStarted { get; set; } = false;
-
         public Giveaway.Giveaway GiveawayInstance { get; set; }
-        public ObservableCollection<string> Winners { get; set; }
         public Models.GiveawayModel Model { get; set; }
 
         public GiveawayViewModel()
@@ -48,7 +35,6 @@ namespace BlackBoxBot.ViewModels
             // Create Models
             CreateModels();
             
-
             TimerToEnd = new DispatcherTimer(DispatcherPriority.Normal);
             TimerToEnd.Interval = TimeSpan.FromMinutes(3);
             TimerToEnd.Tick += TimerToEnd_Tick;
@@ -62,22 +48,22 @@ namespace BlackBoxBot.ViewModels
 
         private void Start(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(Keyword)) return;
 
-            var Model = new Giveaway.Models.GiveawayModel
-            {
-                Admin = Admin,
-                Mod = Mod,
-                Sub = Sub,
-                User = User,
-                SubLuck = SubLuck,
-                Keyword = Keyword,
+            if (String.IsNullOrEmpty(Model.Options.Keyword)) return;
+
+            var StartModel = new Giveaway.Models.GiveawayModel {
+                Admin = Model.Options.Admin,
+                Mod = Model.Options.Mod,
+                Sub = Model.Options.Sub,
+                User = Model.Options.User,
+                SubLuck = Model.Options.SubLuck,
+                Keyword = Model.Options.Keyword,
             };
 
-            Winners = new ObservableCollection<string>();
-            GiveawayInstance = new Giveaway.Giveaway(Model);
+            Model.Winners = new ObservableCollection<string>();
+            GiveawayInstance = new Giveaway.Giveaway(StartModel);
 
-            IsStarted = true;
+            Model.IsStarted = true;
             TimerToEnd.Start();
         }
 
@@ -85,14 +71,14 @@ namespace BlackBoxBot.ViewModels
         {
             var raffleWinner = GiveawayInstance.UserList.GetWinner();
 
-            if(UncheckWinner)
-                if(Winners.SingleOrDefault(x => String.Compare(raffleWinner.Username, x, StringComparison.OrdinalIgnoreCase) == 0) == null)
-                    Winners.Add(raffleWinner.Username);
+            if (Model.UncheckWinner)
+                if (Model.Winners.SingleOrDefault(x => String.Compare(raffleWinner.Username, x, StringComparison.OrdinalIgnoreCase) == 0) == null)
+                    Model.Winners.Add(raffleWinner.Username);
         }
 
         private void Stop(object sender = null, EventArgs e = null)
         {
-            IsStarted = false;
+            Model.IsStarted = false;
 
             GiveawayInstance.StopGiveawayRegistration();
         }

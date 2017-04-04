@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls" x:Class="BlackBoxBot.Views.Giveaway"
 			 xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-			 xmlns:UserFlyout="clr-namespace:BlackBoxBot.Controls.Flyout"
              mc:Ignorable="d" 
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:Styles="BlackBoxbot.Styles"
@@ -34,7 +33,7 @@
                         <Setter Property="Content" Value="{Binding Model.Text.StatusInactive, Mode=OneTime}"/>
                         <Setter Property="Background" Value="#CCF32424" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsStarted}" Value="True">
+                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="True">
                                 <Setter Property="Background" Value="#CC53F324"/>
                                 <Setter Property="Content" Value="{Binding Model.Text.StatusActive, Mode=OneTime}"/>
                             </DataTrigger>
@@ -49,29 +48,35 @@
 			    Height="35"
 			    Margin="141,41,0,0"
 			    TextWrapping="Wrap"
-			    Text="{Binding Keyword}"
+			    Text="{Binding Model.Options.Keyword}"
 			    VerticalAlignment="Top"
 			    Width="395"
 			    Controls:TextBoxHelper.ClearTextButton="True" FontSize="18"
                 Controls:TextBoxHelper.Watermark="{Binding Model.Text.CommandWatermark}" FontWeight="Bold"/>
 
-            <CheckBox x:Name="cbAdmin" Content="{Binding Model.Text.CheckBoxAdmin, Mode=OneTime}" HorizontalAlignment="Left" Margin="141,80,0,0" VerticalAlignment="Top" IsChecked="{Binding Admin}" Height="20" Width="74">
+            <CheckBox x:Name="cbAdmin" 
+                      Content="{Binding Model.Text.CheckBoxAdmin, Mode=OneTime}" 
+                      HorizontalAlignment="Left" 
+                      Margin="141,80,0,0" 
+                      VerticalAlignment="Top" 
+                      IsChecked="{Binding Model.Options.Admin}" 
+                      Height="20" Width="74">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
                 </CheckBox.LayoutTransform>
                 <CheckBox.Style>
                     <Style TargetType="CheckBox">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsStarted}" Value="True">
+                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="True">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding IsStarted}" Value="False">
+                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="False">
                                 <Setter Property="IsEnabled" Value="True"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding Admin}" Value="True">
+                            <DataTrigger Binding="{Binding Model.Options.Admin}" Value="True">
                                 <Setter Property="Foreground" Value="{DynamicResource TabItemSelectorBrush}"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding Admin}" Value="False">
+                            <DataTrigger Binding="{Binding Model.Options.Admin}" Value="False">
                                 <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -79,23 +84,23 @@
                 </CheckBox.Style>
             </CheckBox>
 
-            <CheckBox x:Name="checkBox_Copy" Content="{Binding Model.Text.CheckBoxMod, Mode=OneTime}" HorizontalAlignment="Left" Margin="259,80,0,0" VerticalAlignment="Top" Background="White" IsChecked="{Binding Mod}">
+            <CheckBox x:Name="checkBox_Copy" Content="{Binding Model.Text.CheckBoxMod, Mode=OneTime}" HorizontalAlignment="Left" Margin="259,80,0,0" VerticalAlignment="Top" Background="White" IsChecked="{Binding Model.Options.Mod}">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
                 </CheckBox.LayoutTransform>
                 <CheckBox.Style>
                     <Style TargetType="CheckBox">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsStarted}" Value="True">
+                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="True">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding IsStarted}" Value="False">
+                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="False">
                                 <Setter Property="IsEnabled" Value="True"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding Mod}" Value="True">
+                            <DataTrigger Binding="{Binding Model.Options.Mod}" Value="True">
                                 <Setter Property="Foreground" Value="{DynamicResource TabItemSelectorBrush}"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding Mod}" Value="False">
+                            <DataTrigger Binding="{Binding Model.Options.Mod}" Value="False">
                                 <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -103,23 +108,23 @@
                 </CheckBox.Style>
             </CheckBox>
 
-            <CheckBox x:Name="checkBox_Copy1" Content="{Binding Model.Text.CheckBoxViewer, Mode=OneTime}" HorizontalAlignment="Left" Margin="451,80,0,0" VerticalAlignment="Top" IsChecked="{Binding User}" >
+            <CheckBox x:Name="checkBox_Copy1" Content="{Binding Model.Text.CheckBoxViewer, Mode=OneTime}" HorizontalAlignment="Left" Margin="451,80,0,0" VerticalAlignment="Top" IsChecked="{Binding Model.Options.User}" >
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
                 </CheckBox.LayoutTransform>
                 <CheckBox.Style>
                     <Style TargetType="CheckBox">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsStarted}" Value="True">
+                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="True">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding IsStarted}" Value="False">
+                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="False">
                                 <Setter Property="IsEnabled" Value="True"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding User}" Value="True">
+                            <DataTrigger Binding="{Binding Model.Options.User}" Value="True">
                                 <Setter Property="Foreground" Value="{DynamicResource TabItemSelectorBrush}"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding User}" Value="False">
+                            <DataTrigger Binding="{Binding Model.Options.User}" Value="False">
                                 <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -127,23 +132,23 @@
                 </CheckBox.Style>
             </CheckBox>
 
-            <CheckBox x:Name="cbSub" Content="{Binding Model.Text.CheckBoxSub, Mode=OneTime}" HorizontalAlignment="Left" Margin="361,80,0,0" VerticalAlignment="Top" IsChecked="{Binding Sub}" >
+            <CheckBox x:Name="cbSub" Content="{Binding Model.Text.CheckBoxSub, Mode=OneTime}" HorizontalAlignment="Left" Margin="361,80,0,0" VerticalAlignment="Top" IsChecked="{Binding Model.Options.Sub}" >
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
                 </CheckBox.LayoutTransform>
                 <CheckBox.Style>
                     <Style TargetType="CheckBox">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsStarted}" Value="True">
+                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="True">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding IsStarted}" Value="False">
+                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="False">
                                 <Setter Property="IsEnabled" Value="True"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding Sub}" Value="True">
+                            <DataTrigger Binding="{Binding Model.Options.Sub}" Value="True">
                                 <Setter Property="Foreground" Value="{DynamicResource TabItemSelectorBrush}"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding Sub}" Value="False">
+                            <DataTrigger Binding="{Binding Model.Options.Sub}" Value="False">
                                 <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -163,7 +168,7 @@
                 VerticalAlignment="Top" 
                 Height="37" Width="359" 
                 TickPlacement="BottomRight" 
-                Value="{Binding SubLuck}"/>
+                Value="{Binding Model.Options.SubLuck}"/>
 
 
             <TextBlock x:Name="tbCountSubLuck"
@@ -185,8 +190,8 @@
             <Expander x:Name="expander1" Header="{Binding Model.Text.ExpanderWinnersDescription, Mode=OneWay}" ExpandDirection="Up" HorizontalAlignment="Left" Margin="10,327,0,0" VerticalAlignment="Top" Width="177" Height="176" Background="#CC9CA09C" BorderBrush="#CC5E5F5E">
                 <Grid Background="#FFE5E5E5" Width="auto">
                     <StackPanel Orientation="Vertical" Width="165" HorizontalAlignment="Center">
-                        <CheckBox Content="{Binding Model.Text.UncheckWinner, Mode=OneTime}" Width="auto" IsChecked="{Binding UncheckWinner}"/>
-                        <ListView x:Name="myListView" ItemsSource="{Binding Winners}" Width="auto">
+                        <CheckBox Content="{Binding Model.Text.UncheckWinner, Mode=OneTime}" Width="auto" IsChecked="{Binding Model.UncheckWinner}"/>
+                        <ListView x:Name="myListView" ItemsSource="{Binding Model.Winners}" Width="auto">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock x:Name="DataItem" FontSize="16" Text="{Binding}" />
