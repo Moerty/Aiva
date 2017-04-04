@@ -174,12 +174,14 @@
     <Compile Include="Models\Charts\ViewerCount.cs" />
     <Compile Include="Models\CurrencyModel.cs" />
     <Compile Include="Models\GiveawayModel.cs" />
+    <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\SongrequestModel.cs" />
     <Compile Include="ViewModels\AuctionViewModels.cs" />
     <Compile Include="ViewModels\BetsViewModel.cs" />
     <Compile Include="ViewModels\ChartsViewModel.cs" />
     <Compile Include="ViewModels\CurrencyViewModel.cs" />
     <Compile Include="ViewModels\GiveawayViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\SongrequestViewModel.cs" />
     <Compile Include="ViewModels\VotingViewModel.cs" />
@@ -188,6 +190,9 @@
     </Compile>
     <Compile Include="Views\BetsView.xaml.cs">
       <DependentUpon>BetsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomeViewModel.xaml.cs">
+      <DependentUpon>HomeViewModel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UsersView.xaml.cs">
       <DependentUpon>UsersView.xaml</DependentUpon>
@@ -227,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BetsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomeViewModel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

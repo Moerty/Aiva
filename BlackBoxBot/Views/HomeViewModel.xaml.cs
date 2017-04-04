@@ -14,14 +14,13 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BlackBoxBot.Views {
-	/// <summary>
-	/// Interaktionslogik für ucSettings.xaml
-	/// </summary>
-	public partial class SettingsView : MahApps.Metro.Controls.MetroContentControl {
-		public SettingsView() {
-            this.DataContext = new ViewModels.SettingsViewModel();
-			InitializeComponent();
-			cbLanguage.Items.Add("german");
-		}
-	}
+    /// <summary>
+    /// Interaktionslogik für HomeViewModel.xaml
+    /// </summary>
+    public partial class HomeViewModel : MahApps.Metro.Controls.MetroContentControl {
+        public HomeViewModel() {
+            InitializeComponent();
+            this.DataContext = new ViewModels.HomeViewModel();
+        }
+    }
 }

@@ -1,11 +1,10 @@
-﻿<Controls:MetroContentControl x:Class="BlackBoxBot.Controls.Main.ucDashboard"
+﻿<Controls:MetroContentControl x:Class="BlackBoxBot.Views.DashboardView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
 			 xmlns:CefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
-             xmlns:local="clr-namespace:BlackBoxBot.Controls.Main"
              mc:Ignorable="d" 
              d:DesignHeight="503" d:DesignWidth="1092">
 	<Grid Background="#FF8C8E94">

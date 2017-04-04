@@ -4,18 +4,29 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BlackBoxBot.Models
 {
     [PropertyChanged.ImplementPropertyChanged]
-    class MainModel
+    public class MainModel
     {
-        public string Header { get; set; }
-        public MahApps.Metro.Controls.MetroContentControl Content { get; set; }
+        
         public Button SubMenu { get; set; }
         public string StreamerOnlineText {get;set;}
         public bool IsOnline { get; set; } = false;
-	}
+
+        //public Mahapps.
+
+        public MahApps.Metro.Controls.MetroContentControl Content { get; set; }
+        public ObservableCollection<WindowCommandModel> WindowCommandItems { get; set; }
+
+        [PropertyChanged.ImplementPropertyChanged]
+        public class WindowCommandModel {
+            public string Header { get; set; }
+            public ICommand Command { get; set; } = new RoutedCommand();
+        }
+    }
 
     public class AsyncObservableCollection<T> : ObservableCollection<T>
     {

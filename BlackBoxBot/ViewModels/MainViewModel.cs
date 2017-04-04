@@ -13,27 +13,68 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Threading;
 using TwitchLib;
+using System.Windows.Input;
 
 namespace BlackBoxBot.ViewModels
 {
     [ImplementPropertyChanged]
 	class MainViewModel
 	{
-		public ObservableCollection<Models.MainModel> tabItems { get; set; }
-        public Models.MainModel model { get; set; }
-
+		
+        public Models.MainModel Model { get; set; }
         private DispatcherTimer OnoffTimer;
 
 		public MainViewModel()
 		{
             // Create Model
-            model = new Models.MainModel();
+            Model = new Models.MainModel();
 
-            // Tabs
-            CreateTabs();
+            // Create WindowCommand
+            CreateWindowCommands();
 
             // Stream online check
             SetOnOffTimer();
+        }
+
+        private void CreateWindowCommands() {
+            Model.WindowCommandItems = new ObservableCollection<Models.MainModel.WindowCommandModel> {
+                new Models.MainModel.WindowCommandModel {
+                    Header = "Viewer",
+                },
+                new Models.MainModel.WindowCommandModel {
+                    Header = "Home"
+                },
+                new Models.MainModel.WindowCommandModel {
+                    Header = "Dashboard"
+                },
+                new Models.MainModel.WindowCommandModel {
+                    Header = "Einstellungen",
+                }
+            };
+
+            var buttonType = new Button().GetType();
+
+            CommandManager.RegisterClassCommandBinding(buttonType, new CommandBinding(Model.WindowCommandItems[0].Command, ViewerCommand));
+            CommandManager.RegisterClassCommandBinding(buttonType, new CommandBinding(Model.WindowCommandItems[1].Command, HomeCommand));
+            CommandManager.RegisterClassCommandBinding(buttonType, new CommandBinding(Model.WindowCommandItems[2].Command, DashboardCommand));
+            CommandManager.RegisterClassCommandBinding(buttonType, new CommandBinding(Model.WindowCommandItems[3].Command, SettingsCommand));
+        }
+
+        private void SettingsCommand(object sender, ExecutedRoutedEventArgs e) {
+            Model.Content = new Views.SettingsView();
+        }
+
+        private void DashboardCommand(object sender, ExecutedRoutedEventArgs e) {
+            Model.Content = new Views.DashboardView();
+        }
+
+        private void HomeCommand(object sender, ExecutedRoutedEventArgs e) {
+            Model.Content = new Views.HomeViewModel();
+        }
+
+        private void ViewerCommand(object sender, ExecutedRoutedEventArgs e) {
+            var u = new Views.pUsers();
+            u.Show();
         }
 
         private void SetOnOffTimer()
@@ -56,66 +97,16 @@ namespace BlackBoxBot.ViewModels
 
             if (result)
             {
-                model.StreamerOnlineText = Config.Language.Instance.GetString("StreamOn");
-                model.IsOnline = true;
+                Model.StreamerOnlineText = Config.Language.Instance.GetString("StreamOn");
+                Model.IsOnline = true;
             }
             else
             {
-                model.StreamerOnlineText = Config.Language.Instance.GetString("StreamOff");
-                model.IsOnline = false;
+                Model.StreamerOnlineText = Config.Language.Instance.GetString("StreamOff");
+                Model.IsOnline = false;
             }
         }
 
-        private void CreateTabs()
-        {
-            tabItems = new ObservableCollection<Models.MainModel>
-            {
-                new Models.MainModel
-                {
-                    Header = nameof(Giveaway),
-                    Content = new Views.Giveaway(),
-                },
-                new Models.MainModel
-                {
-                    Header = "Losung",
-                    Content = new Views.Auction(),
-                },
-                new Models.MainModel
-                {
-                    Header = nameof(Songrequest),
-                    Content = new Views.ucSongrequest()
-                },
-                new Models.MainModel
-                {
-                    Header = "Voting",
-                    Content = new Views.ucVoting()
-                },
-                new Models.MainModel
-                {
-                    Header = "Streamwährung",
-                    Content = new Views.ucCurrency()
-                },
-                new Models.MainModel
-                {
-                    Header = "Wetten",
-                    Content = new Views.Bets(),
-                },
-                new Models.MainModel
-                {
-                    Header = "Rangverwaltung",
-                    Content = new Controls.ucRank()
-                },
-                /*new Models.MainModel
-                {
-                    Header = "Toplisten",
-                    Content = new Controls.ucToplist()
-                },*/
-                new Models.MainModel
-                {
-                    Header = "Charts",
-                    Content = new Views.ucStatistics(),
-                }
-            };
-        }
+        
     }
 }

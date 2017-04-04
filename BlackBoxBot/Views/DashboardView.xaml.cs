@@ -14,15 +14,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BlackBoxBot.Controls.Main {
+namespace BlackBoxBot.Views {
 	/// <summary>
 	/// Interaktionslogik für ucDashboard.xaml
 	/// </summary>
 	///
 
-	public partial class ucDashboard : MahApps.Metro.Controls.MetroContentControl {
+	public partial class DashboardView : MahApps.Metro.Controls.MetroContentControl {
 
-		public ucDashboard() {
+		public DashboardView() {
 			InitializeComponent();
 
 			if (!DesignerProperties.GetIsInDesignMode(this)) LoadGamesFromTwitchAsync();

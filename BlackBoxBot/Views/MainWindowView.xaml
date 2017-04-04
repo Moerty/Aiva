@@ -2,15 +2,9 @@
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-					  xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
 					  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-					  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-					  xmlns:cControls="clr-namespace:BlackBoxBot.Controls"
-                      xmlns:Flyout="clr-namespace:BlackBoxBot.Controls.Flyout" 
-					  xmlns:viewModel="clr-namespace:BlackBoxBot.ViewModels"
-					  xmlns:cefSharp="cefsharp.wpf"
-						xmlns:local="clr-namespace:BlackBoxBot.Views"
+                      xmlns:ModelType="clr-namespace:BlackBoxBot.Models"
 					  mc:Ignorable="d"
 					  d:DesignHeight="400" d:DesignWidth="600"
                       Title="BlackBoxBot"
@@ -24,23 +18,24 @@
                       Width="1100"
                       
 	>
-    
-    <Controls:MetroWindow.DataContext>
-		<viewModel:MainViewModel/>
-	</Controls:MetroWindow.DataContext>
+   
 
 	<Controls:MetroWindow.WindowTitleBrush>
 		<SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
 	</Controls:MetroWindow.WindowTitleBrush>
 
-	<Controls:MetroWindow.Flyouts>
-		<Controls:FlyoutsControl>
-			<Flyout:ucBans x:Name="BansFlyout" Header="Bans" Position="Left" Width="600" />
-			<controls:Flyout x:Name="UsersFlyout" Header="Users" Position="Left" Width="300"/>
-		</Controls:FlyoutsControl>
-	</Controls:MetroWindow.Flyouts>
 
-	<Controls:MetroWindow.RightWindowCommands>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands Name="WindowCommand" ItemsSource="{Binding Model.WindowCommandItems}">
+            <Controls:WindowCommands.ItemTemplate>
+                <DataTemplate DataType="{x:Type ModelType:MainModel}">
+                    <Button Content="{Binding Header}" Command="{Binding Command}" Foreground="#FF919191" />
+                </DataTemplate>
+            </Controls:WindowCommands.ItemTemplate>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    
+	<!--<Controls:MetroWindow.RightWindowCommands>
 		<Controls:WindowCommands>
 			<Button x:Name="btnUsers" Click="btnUsers_Click">
 				<StackPanel Orientation="Horizontal">
@@ -98,38 +93,21 @@
                    Text="Einstellungen" />
 				</StackPanel>
 			</Button>
-			<!-- DAS IST EIN KOMMENTAR -->
+			--><!-- DAS IST EIN KOMMENTAR --><!--
 		</Controls:WindowCommands>
-	</Controls:MetroWindow.RightWindowCommands>
+	</Controls:MetroWindow.RightWindowCommands>-->
 
 	<Grid x:Name="mainGrid" Background="#FF8C8E94">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="45*" />
-			<RowDefinition Height="503*"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="503*"/>
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
-		<TabControl x:Name="tControlMain" 
-					Grid.Row="0" 
-					Grid.RowSpan="3" 
-					ItemsSource="{Binding tabItems}"
-					Style="{StaticResource CustomTabControlStyle}"
-					>
-			<TabControl.ItemTemplate>
-				<DataTemplate>
-					<TextBlock
-                    Text="{Binding Header}" />
-				</DataTemplate>
-			</TabControl.ItemTemplate>
-			<TabControl.ContentTemplate>
-				<DataTemplate>
-					<Controls:MetroContentControl
-						Content="{Binding Content}" />
-				</DataTemplate>
-			</TabControl.ContentTemplate>
-		</TabControl>
+		
 
-		<ToggleButton x:Name="btnBansIntern" Visibility="Hidden" Content="Bans" IsChecked="{Binding ElementName=BansFlyout, Path=IsOpen}" Cursor="Hand" />
+        <Controls:MetroContentControl Grid.Row="0" Content="{Binding Model.Content}"/>
+
+        <ToggleButton x:Name="btnBansIntern" Visibility="Hidden" Content="Bans" IsChecked="{Binding ElementName=BansFlyout, Path=IsOpen}" Cursor="Hand" />
 
 		<StatusBar Grid.Row="2">
 			<StatusBarItem Content="BlackBoxBot v1" >
