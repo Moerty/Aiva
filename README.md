@@ -22,3 +22,17 @@ LATER:
 - Timed Messages Put commands and messages on automated timers.
 - Russian Roulette Let viewers test their luck.
 - Random Text The bot will let loose and say a random item. Let chat get awkward really fast with this.
+
+
+
+## Dependencies
+
+* CefSharp ([Github](https://github.com/cefsharp/CefSharp))
+* Google.Api ([Google](https://developers.google.com/api-client-library/dotnet/))
+* Log4Net ([Apache](http://logging.apache.org/log4net/))
+* MahApps.Metro ([Github](https://github.com/MahApps/MahApps.Metro))
+* Newtonsoft.Json ([Newtonsoft](http://www.newtonsoft.com/json))
+* Fody.PropertyChanged ([Github](https://github.com/Fody/PropertyChanged))
+* RestSharp ([Github](https://github.com/restsharp/RestSharp))
+* SQLite ([SQLite](https://system.data.sqlite.org/index.html/doc/trunk/www/index.wiki))
+* TwichLib ([Github](https://github.com/swiftyspiffy/TwitchLib))
