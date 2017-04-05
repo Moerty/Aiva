@@ -3,9 +3,6 @@ using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using static BlackBoxBot.ViewModels.Extension;
 
@@ -73,8 +70,7 @@ namespace BlackBoxBot.ViewModels {
         List<string> JoinedUsers = new List<string>();
         private void TwitchClient_OnChatCommandReceived(object sender, TwitchLib.Events.Client.OnChatCommandReceivedArgs e) {
             if (e.Command.Command == Command) {
-                if (JoinedUsers.Exists(user => user == e.Command.ChatMessage.Username))
-                {
+                if (JoinedUsers.Exists(user => user == e.Command.ChatMessage.Username)) {
                     JoinedUsers.Add(e.Command.ChatMessage.Username);
 
                     new Switch<string>(e.Command.ArgumentsAsString)
