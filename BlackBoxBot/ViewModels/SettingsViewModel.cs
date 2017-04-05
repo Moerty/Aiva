@@ -126,7 +126,6 @@ namespace BlackBoxBot.ViewModels
                     BlacklistedWordsActive = Convert.ToBoolean(Settings.Find(setting => String.Compare(setting.Name, "BlackListedWordsActive") == 0).Value),
                     SpamCheck = Convert.ToBoolean(Settings.Find(setting => String.Compare(setting.Name, "Spamcheck") == 0).Value),
 
-
                     Text = new Models.SettingsModel.ChatTabModel.TextModel {
                         ButtonSaveText = Config.Language.Instance.GetString("SettingsSaveButtonText"),
                     }
