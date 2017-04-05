@@ -14,14 +14,27 @@ namespace Database {
 
         public static void WriteConfig(List<UserSettings> settings) {
             using (var context = new DatabaseEntities()) {
-                context.UserSettings.RemoveRange(context.UserSettings);
-                context.UserSettings.AddRange(settings);
+
+                foreach(var setting in settings) {
+                    var entry = context.UserSettings.SingleOrDefault(x => String.Compare(setting.Name, x.Name, true) == 0);
+
+                    if (entry != null)
+                        entry.Value = setting.Value;
+                }
                 context.SaveChanges();
             }
         }
 
-        //public Database.UserSettings GetConfig() {
+        public static bool GetBlacklistedCheckActive() {
+            using(var context = new DatabaseEntities()) {
+                return Convert.ToBoolean(context.UserSettings.SingleOrDefault(x => x.Name == "BlackListedWordsActive").Value);
+            }
+        }
 
-        //}
+        public static List<string> GetBlacklistedWords() {
+            using(var context = new DatabaseEntities()) {
+                return context.UserSettings.SingleOrDefault(x => x.Name == "BlacklistedWords").Value.Split(',').ToList();
+            }
+        }
     }
 }

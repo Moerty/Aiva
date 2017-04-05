@@ -327,8 +327,8 @@
   <data name="StreamOn" xml:space="preserve">
     <value>Stream online!</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
+  <data name="SettingsSaveButtonText" xml:space="preserve">
+    <value>Speichern</value>
   </data>
   <data name="BankheistCommandWatermark" xml:space="preserve">
     <value />

@@ -27,7 +27,7 @@ namespace Client.Tasks
 
             //case "OnChatCommandReceived":
             Client.OnChatCommandReceived += Client_OnChatCommandReceived;
-
+            
             //case "OnExistingUsersDetected":
             Client.OnExistingUsersDetected += Client_OnExistingUsersDetected;
 
@@ -35,6 +35,10 @@ namespace Client.Tasks
              * case "OnUserBanned":
 						client.OnUserBanned += TwitchClient_OnUserBanned;
                         */
+
+            // case "OnMessageReceiveArgs
+            if (Database.UserSettingsHandler.GetBlacklistedCheckActive())
+                Client.OnMessageReceived += ChatChecker.BlacklistWordsChecker;
 
             return Client;
         }

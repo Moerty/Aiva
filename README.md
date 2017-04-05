@@ -1,5 +1,3 @@
-![2017-04-03 15_55_00](https://media.giphy.com/media/xUA7aMhSskInyGI0Ks/source.gif)
-
 A TwichBot with various functions. 
 Here it concerns everything around a learning project. 
 The code is not good, you could solve anything a lot better. 
@@ -10,12 +8,13 @@ Todos:
 Now:
 - Settings in SQLites
 
+Complete Settings:
+- Blacklist Words
 
 LATER:
 - Raid System
 - Link Restriction
 - Caps Restriction
-- Blacklist Words
 - Custom Command 
 - Donation Alerts Thank and reward viewers for donating via StreamTip, TipeeeStream or StreamLabs.
 - Keyword Replies Automatically reply to a keyword or phrase in chat.

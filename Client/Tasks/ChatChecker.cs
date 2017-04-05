@@ -196,6 +196,20 @@ namespace Client.Tasks
             }
         }
 
+        /// <summary>
+        /// Check if User have written a BlacklistedWord and timeout him
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void BlacklistWordsChecker(object sender, OnMessageReceivedArgs e) {
+            BlacklistedWords.ForEach(x => {
+                if (e.ChatMessage.Message.Contains(x)) {
+                    Client.ClientBBB.TwitchClientBBB.TimeoutUser(e.ChatMessage.Username, new TimeSpan(0, 5, 0), "Du wurdest getimeoutet wegen Benutzung eines bösen Wortes!");
+                }
+            });
+        }
+        public static List<string> BlacklistedWords { get; set; } = Database.UserSettingsHandler.GetBlacklistedWords();
+
         /*public class Commands
 		{
             private CommandChecker commandChecker;
