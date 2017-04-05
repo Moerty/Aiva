@@ -84,6 +84,10 @@ namespace BlackBoxBot.ViewModels
                     new Database.UserSettings {
                         Name = "BlackListedWordsActive",
                         Value = Model.BlacklistedWordsActive.ToString()
+                    },
+                    new Database.UserSettings {
+                        Name = "Spamcheck",
+                        Value = Model.SpamCheck.ToString(),
                     }
                 });
 
@@ -100,6 +104,16 @@ namespace BlackBoxBot.ViewModels
 
                 // Update BlacklistedWords 4 
                 Client.Tasks.ChatChecker.BlacklistedWords = Model.BlacklistedWords.ToList();
+
+                if(Model.BlacklistedWordsActive) {
+                    Client.Client.ClientBBB.TwitchClientBBB.OnMessageReceived += Client.Tasks.ChatChecker.BlacklistWordsChecker;
+                } else {
+                    Client.Client.ClientBBB.TwitchClientBBB.OnMessageReceived -= Client.Tasks.ChatChecker.BlacklistWordsChecker;
+                }
+
+                if(Model.SpamCheck) {
+
+                }
             }
 
             private void CreateModels() {
@@ -108,6 +122,7 @@ namespace BlackBoxBot.ViewModels
                 Model = new Models.SettingsModel.ChatTabModel {
                     BlacklistedWords = new System.Collections.ObjectModel.ObservableCollection<string>(),
                     BlacklistedWordsActive = Convert.ToBoolean(Settings.Find(setting => String.Compare(setting.Name, "BlackListedWordsActive") == 0).Value),
+                    SpamCheck = Convert.ToBoolean(Settings.Find(setting => String.Compare(setting.Name, "Spamcheck") == 0).Value),
 
 
                     Text = new Models.SettingsModel.ChatTabModel.TextModel {

@@ -25,9 +25,9 @@ namespace Database {
             }
         }
 
-        public static bool GetBlacklistedCheckActive() {
+        public static bool GetBoolean(string name) {
             using(var context = new DatabaseEntities()) {
-                return Convert.ToBoolean(context.UserSettings.SingleOrDefault(x => x.Name == "BlackListedWordsActive").Value);
+                return Convert.ToBoolean(context.UserSettings.SingleOrDefault(x => x.Name == name).Value);
             }
         }
 

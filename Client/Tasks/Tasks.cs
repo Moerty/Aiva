@@ -36,9 +36,12 @@ namespace Client.Tasks
 						client.OnUserBanned += TwitchClient_OnUserBanned;
                         */
 
-            // case "OnMessageReceiveArgs
-            if (Database.UserSettingsHandler.GetBlacklistedCheckActive())
+            // case "OnMessageReceive
+            if (Database.UserSettingsHandler.GetBoolean("BlackListedWordsActive"))
                 Client.OnMessageReceived += ChatChecker.BlacklistWordsChecker;
+
+            if (Database.UserSettingsHandler.GetBoolean("Spamcheck"))
+                Client.OnMessageReceived += Client_OnMessageReceived;
 
             return Client;
         }

@@ -22,41 +22,11 @@ namespace BlackBoxBot.Models {
         public class ChatTabModel {
             public TextModel Text { get; set; }
             public string NewKeyword { get; set; }
-            //public Dictionary<string, string> Settings { get; set; } = new Dictionary<string, string>();
-
-            //private List<Database.UserSettings> _DatabaseEntrys;
-            //public List<Database.UserSettings> DatabaseEntrys {
-            //    get {
-            //        if(_DatabaseEntrys == null) {
-            //            _DatabaseEntrys = Database.UserSettingsHandler.GetConfig();
-            //        }
-
-            //        return _DatabaseEntrys;
-            //    }
-            //    set {
-            //        DatabaseEntrys = value;
-            //    }
-            //}
 
             public ObservableCollection<string> BlacklistedWords { get; set; }
 
-            private bool _BlacklistedWordsActive = false;
-            public bool BlacklistedWordsActive {
-                get {
-                    return _BlacklistedWordsActive;
-                }
-                set {
-                    if(_BlacklistedWordsActive) {
-                        Client.Client.ClientBBB.TwitchClientBBB.OnMessageReceived -= Client.Tasks.ChatChecker.BlacklistWordsChecker;
-                        _BlacklistedWordsActive = value;
-                    }
-                    else {
-                        Client.Tasks.ChatChecker.BlacklistedWords = Database.UserSettingsHandler.GetBlacklistedWords();
-                        Client.Client.ClientBBB.TwitchClientBBB.OnMessageReceived += Client.Tasks.ChatChecker.BlacklistWordsChecker;
-                        _BlacklistedWordsActive = value;
-                    }
-                }
-            }
+            public bool BlacklistedWordsActive { get; set; }
+            public bool SpamCheck { get; set; }
 
             [PropertyChanged.ImplementPropertyChanged]
             public class TextModel {

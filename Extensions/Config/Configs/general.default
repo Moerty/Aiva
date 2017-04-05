@@ -14,9 +14,6 @@ CommandIdentifier=!
 LogLevel=1
 
 [SpamCheck]
-; Spamcheck -> true = activated | false = deactivated
-; std -> true
-CheckEnable=true
 
 ; Admin
 SkipMessageCheckAdmin=true
@@ -35,9 +32,6 @@ SkipMessageCheckStaff=false
 
 ; Viewer
 SkipMessageCheckViewer=false
-
-; Blacklisted Words, Seperator = ","
-BlacklistedWords=arsch,penners
 
 ; Times --- Format: Hours:Minutes:Seconds  -> ex. 5 Minutes = 00:05:00 ; 10 Seconds = 00:00:10
 TimeToNewMessage=00:00:10
