@@ -112,7 +112,9 @@ namespace BlackBoxBot.ViewModels
                 }
 
                 if(Model.SpamCheck) {
-
+                    Client.Client.ClientBBB.TwitchClientBBB.OnMessageReceived += Client.Tasks.ChatChecker.CheckMessage;
+                } else {
+                    Client.Client.ClientBBB.TwitchClientBBB.OnMessageReceived -= Client.Tasks.ChatChecker.CheckMessage;
                 }
             }
 

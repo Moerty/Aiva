@@ -13,10 +13,6 @@ namespace Client.Tasks
     {
         public static TwitchLib.TwitchClient GetEvents(TwitchLib.TwitchClient Client)
         {
-            //case "OnMessageReceived":
-            if (Convert.ToBoolean(Config.General.Config["SpamCheck"]["CheckEnable"]))
-                Client.OnMessageReceived += Client_OnMessageReceived;
-
             //case "OnUserJoined":
             Client.OnUserJoined += Client_OnUserJoined;
             Client.OnUserJoined += TimeWatched.AddUser;
@@ -31,32 +27,18 @@ namespace Client.Tasks
             //case "OnExistingUsersDetected":
             Client.OnExistingUsersDetected += Client_OnExistingUsersDetected;
 
-            /*
-             * case "OnUserBanned":
-						client.OnUserBanned += TwitchClient_OnUserBanned;
-                        */
-
             // case "OnMessageReceive
             if (Database.UserSettingsHandler.GetBoolean("BlackListedWordsActive"))
                 Client.OnMessageReceived += ChatChecker.BlacklistWordsChecker;
 
             if (Database.UserSettingsHandler.GetBoolean("Spamcheck"))
-                Client.OnMessageReceived += Client_OnMessageReceived;
+                Client.OnMessageReceived += ChatChecker.CheckMessage;
 
             return Client;
         }
 
-        private static void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
-        {
-            // SpamCheck
-            ChatChecker.CheckMessage(sender, e);
-        }
-
         private static void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
-            //var command = new Helpers.ChatHelper.Commands(e);
-            //command.StartCommand();
-
             // Check Currency
             if (String.Compare(e.Command.Command, Config.Currency.Config["General"]["UserCommandCheckCurrency"], true) == 0)
                 Commands.Currency.WriteCurrencyForUser(e.Command.ChatMessage.Username);

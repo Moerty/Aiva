@@ -45,6 +45,6 @@
             </StackPanel>
         </Button>
         <Separator HorizontalAlignment="Left" Height="19" Margin="0,207,0,0" VerticalAlignment="Top" Width="459"/>
-        <CheckBox Content="Spamcheck" HorizontalAlignment="Left" Margin="10,231,0,0" VerticalAlignment="Top" Height="28" Width="103"/>
+        <CheckBox Content="Spamcheck" HorizontalAlignment="Left" Margin="10,231,0,0" VerticalAlignment="Top" Height="28" Width="103" IsChecked="{Binding Model.SpamCheck}"/>
     </Grid>
 </Controls:MetroContentControl>

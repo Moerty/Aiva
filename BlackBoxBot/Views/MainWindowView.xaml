@@ -63,7 +63,7 @@
                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
                 </Separator.Foreground>
             </Separator>
-            <StatusBarItem Content="(c) MJ &amp; GZ" ContentStringFormat="BlackBoxBot" >
+            <StatusBarItem Content="(c) MJ 2017" ContentStringFormat="BlackBoxBot" >
                 <StatusBarItem.Background>
                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}"/>
                 </StatusBarItem.Background>
