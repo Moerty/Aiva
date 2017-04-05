@@ -12,6 +12,14 @@ namespace Database {
             }
         }
 
+        public static void WriteConfig(List<UserSettings> settings) {
+            using (var context = new DatabaseEntities()) {
+                context.UserSettings.RemoveRange(context.UserSettings);
+                context.UserSettings.AddRange(settings);
+                context.SaveChanges();
+            }
+        }
+
         //public Database.UserSettings GetConfig() {
 
         //}

@@ -29,6 +29,16 @@ namespace BlackBoxBot.Models {
                     return _DatabaseEntrys;
                 }
             }
+
+
+            public string BlacklistedWords {
+                get {
+                    return DatabaseEntrys.Find(words => (string.Compare(words.Name, "BlacklistedWords")) == 0).Value;
+                }
+                set {
+                    DatabaseEntrys.Find(words => (string.Compare(words.Name, "BlacklistedWords")) == 0).Value = value;
+                }
+            }
         }
     }
 }
