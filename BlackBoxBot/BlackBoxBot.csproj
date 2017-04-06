@@ -111,6 +111,9 @@
     <Reference Include="MahApps.Metro.IconPacks, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.IconPacks.1.8.0\lib\net45\MahApps.Metro.IconPacks.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Owin.Host.HttpListener, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.HttpListener.3.0.1\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -167,6 +170,7 @@
     <Compile Include="Models\BetsModel.cs" />
     <Compile Include="Models\Charts\ViewerCount.cs" />
     <Compile Include="Models\CurrencyModel.cs" />
+    <Compile Include="Models\FirstStartModel.cs" />
     <Compile Include="Models\GiveawayModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\SettingsModel.cs" />
@@ -175,6 +179,7 @@
     <Compile Include="ViewModels\BetsViewModel.cs" />
     <Compile Include="ViewModels\ChartsViewModel.cs" />
     <Compile Include="ViewModels\CurrencyViewModel.cs" />
+    <Compile Include="ViewModels\FirstStartViewModel.cs" />
     <Compile Include="ViewModels\GiveawayViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -185,6 +190,9 @@
     </Compile>
     <Compile Include="Views\BetsView.xaml.cs">
       <DependentUpon>BetsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FirstStart\MainStart.xaml.cs">
+      <DependentUpon>MainStart.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeViewModel.xaml.cs">
       <DependentUpon>HomeViewModel.xaml</DependentUpon>
@@ -222,6 +230,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BetsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FirstStart\MainStart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

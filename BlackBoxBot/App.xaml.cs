@@ -16,6 +16,11 @@ namespace BlackBoxBot {
 	public partial class App : Application {
         private void Application_Startup(object sender, EventArgs e)
         {
+            // TEST
+            //Task<Client.TwitchAuthentication.AuthenticationModel> test = Task.Run(Client.TwitchAuthentication.Instance.GetAuthenticationValues());
+            Client.TwitchAuthentication.Instance.GetAuthenticationValues();
+
+
             // Set Twitch Client
             Client.Client client = new Client.Client();
 
