@@ -22,7 +22,7 @@ namespace BlackBoxBot {
             }
             else {
                 var firstStart = new Views.FirstStart.MainStart();
-                firstStart.Closed += FirstStart_Closed;
+                firstStart.Closing += FirstStart_Closed;
                 firstStart.Show();
             }
         }
@@ -41,7 +41,7 @@ namespace BlackBoxBot {
         private static void StartMainForm() {
             SetUpDependencys();
             var main = new Views.MainWindow();
-            main.Closed += Main_Closed;
+            main.Closing += Main_Closed;
             main.Closed += Database.ActiveUsersHandler.OnExistProgram;
             main.Closed += Database.UserHandler.UpdateUser.OnExistProgramm; // Set IsViewing to false
 
