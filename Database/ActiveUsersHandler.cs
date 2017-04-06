@@ -88,9 +88,14 @@ namespace Database
 
                     if(user != null)
                     {
-                        var timeWatched = long.Parse(user.TimeWatched);
-                        timeWatched += DateTime.Parse(entry.Joined).Ticks;
-                        user.TimeWatched = timeWatched.ToString();
+                        long parsedTimeWatched;
+                        if(long.TryParse(user.TimeWatched, out parsedTimeWatched)) {
+                            parsedTimeWatched += DateTime.Parse(entry.Joined).Ticks;
+                        }
+                        else {
+                            user.TimeWatched = "1";
+                        }
+                        user.TimeWatched = parsedTimeWatched.ToString();
                     }
                 }
                 context.ActiveUsers.RemoveRange(context.ActiveUsers);

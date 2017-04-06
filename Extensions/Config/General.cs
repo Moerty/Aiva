@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Config
 {
     public class General {
-		public static IniData Config { get; } = new IniData(new FileIniDataParser().ReadFile("Configs\\general.ini"));
+		public static IniData Config { get; private set; } = new IniData(new FileIniDataParser().ReadFile("Configs\\general.ini"));
 
 		public General() { }
 
@@ -20,8 +20,7 @@ namespace Config
 
         public static void WriteConfig(IniData Config) {
             new FileIniDataParser().WriteFile("Configs\\general.ini", Config, Encoding.UTF8);
+            General.Config = new IniData(new FileIniDataParser().ReadFile("Configs\\general.ini"));
         }
     }
 }
-
-

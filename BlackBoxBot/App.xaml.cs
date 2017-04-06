@@ -15,17 +15,9 @@ namespace BlackBoxBot {
 	/// </summary>
 	public partial class App : Application {
         private void Application_Startup(object sender, EventArgs e) {
-            // TEST
-            //Task<Client.TwitchAuthentication.AuthenticationModel> test = Task.Run(Client.TwitchAuthentication.Instance.GetAuthenticationValues());
-            //Task.Run(() => Client.TwitchAuthentication.Instance.SendRequestToBrowser());
-            //var result = Client.TwitchAuthentication.Instance.GetAuthenticationValues();
-
-
-
             // Check first Start
             if (File.Exists("Configs\\general.ini")) {
                 // Start Application
-                SetUpDependencys();
                 StartMainForm();
             }
             else {
@@ -47,6 +39,7 @@ namespace BlackBoxBot {
         }
 
         private static void StartMainForm() {
+            SetUpDependencys();
             var main = new Views.MainWindow();
             main.Closed += Main_Closed;
             main.Closed += Database.ActiveUsersHandler.OnExistProgram;

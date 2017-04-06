@@ -2,6 +2,7 @@
 using IniParser.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace Config
 {
 	public class Bankheist
 	{
-		public static IniData Config { get; } = new IniData(new FileIniDataParser().ReadFile("Configs\\Games\\bankheist.ini"));
+		public static IniData Config { get; private set; } = new IniData(new FileIniDataParser().ReadFile("Configs\\Games\\bankheist.ini"));
 
 		public Bankheist() { }
 
@@ -18,5 +19,18 @@ namespace Config
 		{
 			new FileIniDataParser().WriteFile("Configs\\Games\\bankheist.ini", Config, Encoding.UTF8);
 		}
-	}
+
+        public static void WriteInitialConfig() {
+            IniData Config = new FileIniDataParser().ReadFile("Configs\\Games\\bankheist.default");
+
+            if (File.Exists("Configs\\Games\\bankheist.ini")) {
+                new FileIniDataParser().WriteFile("Configs\\Games\\bankheist.ini", Config, Encoding.UTF8);
+                Bankheist.Config = new IniData(new FileIniDataParser().ReadFile("Configs\\Games\\bankheist.ini"));
+            }
+            else {
+                File.Create("Configs\\Games\\bankheist.ini").Dispose();
+                WriteInitialConfig();
+            }
+        }
+    }
 }

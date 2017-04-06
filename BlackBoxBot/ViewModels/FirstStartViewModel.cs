@@ -36,8 +36,26 @@ namespace BlackBoxBot.ViewModels {
             if (!File.Exists("Configs\\general.ini")) {
                 File.Create("Configs\\general.ini").Dispose();
             }
+            if (!File.Exists("Configs\\Games\\bankheist.ini")) {
+                File.Create("Configs\\Games\\bankheist.ini").Dispose();
+            }
+            if (!File.Exists("Configs\\currency.ini")) {
+                File.Create("Configs\\currency.ini").Dispose();
+            }
+            if (!File.Exists("Configs\\modcommands.ini")) {
+                File.Create("Configs\\modcommands.ini").Dispose();
+            }
+            if (!File.Exists("Configs\\songrequest.ini")) {
+                File.Create("Configs\\songrequest.ini").Dispose();
+            }
 
+            // Create Configs
             Config.General.WriteConfig(config);
+            Config.Bankheist.WriteInitialConfig();
+            Config.Currency.WriteInitialConfig();
+            Config.ModCommands.WriteInitialConfig();
+            Config.Songrequest.WriteInitialConfig();
+            
 
             Application.Current.MainWindow.Close();
         }

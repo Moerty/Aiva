@@ -21,13 +21,12 @@
     <Grid>
         <TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="33" Margin="263,28,0,0" TextWrapping="Wrap" Text="{Binding Model.OAuthToken}" VerticalAlignment="Top" Width="303"/>
         <Button Content="Request Twitch Token" Command="{Binding StartRequestCommand}" HorizontalAlignment="Left" Margin="79,31,0,0" VerticalAlignment="Top" Width="165" Height="30"/>
-        <ListView HorizontalAlignment="Left" Height="355" Margin="606,68,0,0" VerticalAlignment="Top" Width="328">
+        <ListView HorizontalAlignment="Left" Height="355" Margin="606,68,0,0" VerticalAlignment="Top" Width="328" ItemsSource="{Binding Model.Scopes}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="325"/>
                 </GridView>
             </ListView.View>
-            <Button Content="Button" HorizontalAlignment="Left" Margin="141,0,0,0" Width="75"/>
         </ListView>
         <Button Content="Get Youtube Auth" HorizontalAlignment="Left" Command="{Binding StartRequestYouTubeCommand}" Margin="79,71,0,0" VerticalAlignment="Top" Width="165" Height="39"/>
         <Label Content="Requested Twitch Auth Scopes" HorizontalAlignment="Left" Margin="606,35,0,0" VerticalAlignment="Top" Width="176"/>
@@ -62,14 +61,14 @@
             </Rectangle.Style>
         </Rectangle>
         <Button Content="StartBot" Command="{Binding StartBotCommand}" HorizontalAlignment="Left" Margin="777,432,0,0" VerticalAlignment="Top" Width="157"/>
-        <Expander Header="Expander" HorizontalAlignment="Left" Height="163" Margin="79,203,0,0" VerticalAlignment="Top" Width="253">
+        <Expander Header="Bot Settings" HorizontalAlignment="Left" Height="163" Margin="79,203,0,0" VerticalAlignment="Top" Width="253">
             <Grid Background="#FFE5E5E5">
                 <TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Controls:TextBoxHelper.AutoWatermark="True"
                          Text="{Binding Model.Channel}" VerticalAlignment="Top" Width="120"
                          Controls:TextBoxHelper.Watermark="Channel"/>
                 <TextBox HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" Controls:TextBoxHelper.AutoWatermark="True"
                     Text="{Binding Model.BotName}" VerticalAlignment="Top" Width="120"
-                    Controls:TextBoxHelper.Watermark="Channel"/>
+                    Controls:TextBoxHelper.Watermark="Bot name"/>
 
             </Grid>
         </Expander>
