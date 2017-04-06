@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -40,14 +41,30 @@ namespace BlackBoxBot.ViewModels
         {
             CreateModels();
         }
-
+        // TODO: Tabs
         private void CreateModels() {
             Model = new Models.SettingsModel();
             Model.SettingsTabs = new System.Collections.ObjectModel.ObservableCollection<Models.SettingsModel.SettingsTabItem> {
                 new Models.SettingsModel.SettingsTabItem {
+                    Header = "General",
+                    Content = new Views.SettingsTabs.General(),
+                },
+                new Models.SettingsModel.SettingsTabItem {
                     Header = "Chat",
                     Content = new Views.SettingsTabs.Chat(),
-                }
+                },
+                new Models.SettingsModel.SettingsTabItem {
+                    Header = "Currency",
+                    Content = new MahApps.Metro.Controls.MetroContentControl(),
+                },
+                new Models.SettingsModel.SettingsTabItem {
+                    Header = "Minigames",
+                    Content = new MahApps.Metro.Controls.MetroContentControl(),
+                },
+                new Models.SettingsModel.SettingsTabItem {
+                    Header = "Commands",
+                    Content = new MahApps.Metro.Controls.MetroContentControl(),
+                },
             };
         }
 
@@ -88,7 +105,7 @@ namespace BlackBoxBot.ViewModels
                     new Database.UserSettings {
                         Name = "Spamcheck",
                         Value = Model.SpamCheck.ToString(),
-                    }
+                    },
                 });
 
                 string GetKeywordsFormattet()
@@ -136,6 +153,34 @@ namespace BlackBoxBot.ViewModels
                 foreach(var word in BlacklistedWords) {
                     Model.BlacklistedWords.Add(word);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Viewmodel from Settings General Tab
+        /// </summary>
+        [PropertyChanged.ImplementPropertyChanged]
+        public class GeneralTabViewModel {
+            public Models.SettingsModel.GeneralTabModel Model { get; set; }
+
+            public GeneralTabViewModel() {
+
+                string encryptedOAuthKey;
+                byte[] data = Encoding.UTF8.GetBytes(Config.General.Config["Credentials"]["TwitchOAuth"]);
+                using (SHA512 shaM = new SHA512Managed()) {
+                    byte[] result = shaM.ComputeHash(data);
+                    encryptedOAuthKey = Convert.ToBase64String(result);
+                }
+
+                Model = new Models.SettingsModel.GeneralTabModel {
+                    TwitchOAuthKeyEncrypt = encryptedOAuthKey,
+                    TwitchOAuthDecrypt = Config.General.Config["Credentials"]["TwitchOAuth"],
+                    Channel = Config.General.Config["General"]["Channel"],
+                    BotName = Config.General.Config["General"]["BotName"],
+                    Language = Config.General.Config["General"]["Language"],
+                    CommandIdentifier = Convert.ToChar(Config.General.Config["General"]["CommandIdentifier"]),
+                    LogLevel = Convert.ToInt32(Config.General.Config["General"]["LogLevel"])
+                };
             }
         }
     }

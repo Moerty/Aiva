@@ -1,6 +1,7 @@
 ﻿[Credentials]
 TwitchOAuth=
 TwitchClientID=
+EncryptedOAuth=
 
 [General]
 Channel=
