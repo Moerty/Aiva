@@ -14,6 +14,8 @@
 		ResizeMode="NoResize"
 		WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <TextBox HorizontalAlignment="Left" Height="50" Margin="45,30,0,0" TextWrapping="Wrap" Text="{Binding Model.OAuthToken}" VerticalAlignment="Top" Width="165"/>
+        <Button Content="Request Twitch Token" Command="{Binding StartRequestCommand}" HorizontalAlignment="Left" Margin="45,85,0,0" VerticalAlignment="Top" Width="165" Height="50"/>
+
     </Grid>
 </Controls:MetroWindow>

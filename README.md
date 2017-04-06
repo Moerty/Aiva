@@ -6,6 +6,7 @@ Involves you in it and announces mistake!
 
 Todos:
 Now:
+- First Start get OAuth Token Twitch & YouTube
 - Settings in SQLites
 
 Complete Settings:

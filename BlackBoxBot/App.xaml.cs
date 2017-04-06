@@ -14,13 +14,28 @@ namespace BlackBoxBot {
 	/// Interaktionslogik für "App.xaml"
 	/// </summary>
 	public partial class App : Application {
-        private void Application_Startup(object sender, EventArgs e)
-        {
+        private void Application_Startup(object sender, EventArgs e) {
             // TEST
             //Task<Client.TwitchAuthentication.AuthenticationModel> test = Task.Run(Client.TwitchAuthentication.Instance.GetAuthenticationValues());
-            Client.TwitchAuthentication.Instance.GetAuthenticationValues();
+            //Task.Run(() => Client.TwitchAuthentication.Instance.SendRequestToBrowser());
+            //var result = Client.TwitchAuthentication.Instance.GetAuthenticationValues();
 
 
+
+            // Check first Start
+            if (File.Exists("Configs\\general.ini")) {
+                // Start Application
+                SetUpDependencys();
+                StartMainForm();
+            }
+            else {
+                var firstStart = new Views.FirstStart.MainStart();
+                firstStart.Closed += FirstStart_Closed;
+                firstStart.Show();
+            }
+        }
+
+        private static void SetUpDependencys() {
             // Set Twitch Client
             Client.Client client = new Client.Client();
 
@@ -29,14 +44,21 @@ namespace BlackBoxBot {
             //Any CefSharp references have to be in another method with NonInlining
             // attribute so the assembly rolver has time to do it's thing.
             InitializeCefSharp();
+        }
 
-            // Start Application
+        private static void StartMainForm() {
             var main = new Views.MainWindow();
             main.Closed += Main_Closed;
             main.Closed += Database.ActiveUsersHandler.OnExistProgram;
             main.Closed += Database.UserHandler.UpdateUser.OnExistProgramm; // Set IsViewing to false
 
             main.Show();
+        }
+
+        private void FirstStart_Closed(object sender, EventArgs e) {
+            if (File.Exists("Configs\\general.ini")) {
+                StartMainForm();
+            }
         }
 
         private static void Main_Closed(object sender, EventArgs e)

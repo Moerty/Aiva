@@ -8,5 +8,7 @@ namespace BlackBoxBot.Models {
     [PropertyChanged.ImplementPropertyChanged]
     public class FirstStartModel {
         public MahApps.Metro.Controls.MetroContentControl Content { get; set; }
+        public string OAuthToken { get; set; }
+        public string Scopes { get; set; }
     }
 }
