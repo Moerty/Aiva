@@ -54,6 +54,10 @@ namespace Client {
             listener.Stop();
         }
 
+        /// <summary>
+        /// Get Twitch Auths
+        /// </summary>
+        /// <returns></returns>
         public AuthenticationModel GetAuthenticationValues() {
 
             StartListener();
@@ -87,7 +91,6 @@ namespace Client {
                     StopListener();
                     return Values;
                 }
-
             }
 
             return null;
