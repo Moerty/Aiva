@@ -6,11 +6,11 @@ Involves you in it and announces mistake!
 
 Todos:
 Now:
-- First Start get OAuth Token Twitch & YouTube
 - Settings in SQLites
 
-Complete Settings:
-- Blacklist Words
+Complete:
+- Blacklist Words in Settings
+- First Start Page 4 initial setup (Twitch OAuth & YouTube OAuth)
 
 LATER:
 - Raid System
