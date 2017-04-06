@@ -129,6 +129,36 @@ namespace BlackBoxBot.Models {
                     Config.General.WriteConfig();
                 }
             }
+
+            public bool Active {
+                get {
+                    return Convert.ToBoolean(Config.General.Config["Currency"]["Active"]);
+                }
+                set {
+                    Config.General.Config["Currency"]["Active"] = value.ToString();
+                    Config.General.WriteConfig();
+                }
+            }
+
+            public int CurrencyToAdd {
+                get {
+                    return Convert.ToInt32(Config.General.Config["Currency"]["CurrencyToAdd"]);
+                }
+                set {
+                    Config.General.Config["Currency"]["CurrencyToAdd"] = value.ToString();
+                    Config.General.WriteConfig();
+                }
+            }
+
+            public TimeSpan TimerAddCurrency {
+                get {
+                    return new TimeSpan(Convert.ToInt64(Config.General.Config["Currency"]["TimerAddCurrency"]));
+                }
+                set {
+                    Config.General.Config["Currency"]["TimerAddCurrency"] = value.Ticks.ToString();
+                    Config.General.WriteConfig();
+                }
+            }
         }
     }
 }

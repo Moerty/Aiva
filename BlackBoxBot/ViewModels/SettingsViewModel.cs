@@ -179,7 +179,10 @@ namespace BlackBoxBot.ViewModels
                     BotName = Config.General.Config["General"]["BotName"],
                     Language = Config.General.Config["General"]["Language"],
                     CommandIdentifier = Convert.ToChar(Config.General.Config["General"]["CommandIdentifier"]),
-                    LogLevel = Convert.ToInt32(Config.General.Config["General"]["LogLevel"])
+                    LogLevel = Convert.ToInt32(Config.General.Config["General"]["LogLevel"]),
+                    Active = Convert.ToBoolean(Config.General.Config["Currency"]["Active"]),
+                    CurrencyToAdd = Convert.ToInt32(Config.General.Config["Currency"]["CurrencyToAdd"]),
+                    TimerAddCurrency = TimeSpan.FromTicks(Convert.ToInt64(Config.General.Config["Currency"]["TimerAddCurrency"])),
                 };
             }
         }

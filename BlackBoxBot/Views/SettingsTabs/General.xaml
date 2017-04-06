@@ -9,10 +9,6 @@
       Height="500" Width="459.233">
     <Grid>
         <Label Content="lblBotSettings" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="37" Width="140" FontSize="20"/>
-
-        <TextBlock HorizontalAlignment="Left" Text="{Binding Model.TwitchOAutchEncrypt}" Controls:TextBoxHelper.Watermark="Twitch OAuth Key"  Height="22" Margin="176,47,0,0" VerticalAlignment="Top" Width="196"/>
-        <Label Content="Twitch OAuth Key" HorizontalAlignment="Left" Margin="47,47,0,0" VerticalAlignment="Top"/>
-        <Button Content="SHOW" HorizontalAlignment="Left" Margin="377,46,0,0" VerticalAlignment="Top" Width="47"/>
         <TextBox HorizontalAlignment="Left" Height="22" Margin="176,102,0,0" TextWrapping="Wrap" Text="{Binding Model.Channel}" VerticalAlignment="Top" Width="196"/>
         <Label Content="Channel" HorizontalAlignment="Left" Margin="47,102,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="22" Margin="176,156,0,0" TextWrapping="Wrap" Text="{Binding Model.BotName}" VerticalAlignment="Top" Width="196"/>
@@ -23,6 +19,21 @@
         <Label Content="Command Identifier" HorizontalAlignment="Left" Margin="47,286,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="22" Margin="176,354,0,0" TextWrapping="Wrap" Text="{Binding Model.LogLevel}" VerticalAlignment="Top" Width="196"/>
         <Label Content="Log level" HorizontalAlignment="Left" Margin="47,354,0,0" VerticalAlignment="Top"/>
+
+
+        <Separator HorizontalAlignment="Left" Height="19" VerticalAlignment="Top" Width="459" Margin="0,385,0,0"/>
+        <Label Content="Currency Settings" HorizontalAlignment="Left" Margin="0,404,0,0" VerticalAlignment="Top" Height="37" Width="172" FontSize="20"/>
+        <CheckBox Content="Currency Active" IsChecked="{Binding Model.Active}" HorizontalAlignment="Left" Margin="65,441,0,0" VerticalAlignment="Top"/>
+        <StackPanel Width="100" Height="80" Orientation="Vertical" Margin="349,420,10,0">
+            <Label Content="Currency to add" Margin="-5,0,-8,0"/>
+            <Controls:NumericUpDown Minimum="1" Value="{Binding Model.CurrencyToAdd}" Height="50" Width="100" FontSize="20"/>
+        </StackPanel>
+        <StackPanel Width="100" Height="80" Orientation="Vertical" Margin="245,420,114,0">
+            <Label Content="Interval" Width="100"/>
+            <Controls:TimePicker Width="100" SelectedTime="{Binding Model.TimerAddCurrency}" Culture="de-DE" Height="50"/>
+        </StackPanel>
+
+
 
     </Grid>
 </Controls:MetroContentControl>

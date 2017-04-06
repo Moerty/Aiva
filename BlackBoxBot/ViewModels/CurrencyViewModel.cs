@@ -101,7 +101,7 @@ namespace BlackBoxBot.ViewModels
             {
                 var timer = new System.Windows.Threading.DispatcherTimer();
                 timer.Tick += Database.CurrencyHandler.AddCurrencyFrequentlyAsync;
-                timer.Interval = TimeSpan.Parse(Config.General.Config["Currency"]["TimerAddCurrency"]);
+                timer.Interval = new TimeSpan(Convert.ToInt64(Config.General.Config["Currency"]["TimerAddCurrency"]));
                 timer.Start();
             }
         }
