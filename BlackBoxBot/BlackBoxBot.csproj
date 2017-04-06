@@ -378,12 +378,6 @@
     </Resource>
     <Resource Include="1484874802_box.ico" />
     <Resource Include="FodyWeavers.xml" />
-    <Content Include="Resources\TwitchAuth.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\youtube.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Client\BlackBoxBot.Client.csproj">
