@@ -13,9 +13,53 @@
 		BorderThickness="1"
 		ResizeMode="NoResize"
 		WindowStartupLocation="CenterScreen">
+    <Controls:MetroWindow.Resources>
+        <VisualBrush x:Key="CheckBrush" Stretch="Fill"  Visual="{StaticResource appbar_checkmark_thick}" ></VisualBrush>
+        <VisualBrush x:Key="UncheckBrush" Stretch="Fill"  Visual="{StaticResource appbar_checkmark_thick_unchecked}" ></VisualBrush>
+    </Controls:MetroWindow.Resources>
+    
     <Grid>
-        <TextBox HorizontalAlignment="Left" Height="50" Margin="45,30,0,0" TextWrapping="Wrap" Text="{Binding Model.OAuthToken}" VerticalAlignment="Top" Width="165"/>
-        <Button Content="Request Twitch Token" Command="{Binding StartRequestCommand}" HorizontalAlignment="Left" Margin="45,85,0,0" VerticalAlignment="Top" Width="165" Height="50"/>
+        <TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="33" Margin="263,28,0,0" TextWrapping="Wrap" Text="{Binding Model.OAuthToken}" VerticalAlignment="Top" Width="303"/>
+        <Button Content="Request Twitch Token" Command="{Binding StartRequestCommand}" HorizontalAlignment="Left" Margin="79,31,0,0" VerticalAlignment="Top" Width="165" Height="30"/>
+        <ListView HorizontalAlignment="Left" ItemsSource="{Binding Model.Scopes}" Height="355" Margin="606,68,0,0" VerticalAlignment="Top" Width="328">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="325"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Get Youtube Auth" HorizontalAlignment="Left" Command="{Binding StartRequestYouTubeCommand}" Margin="79,71,0,0" VerticalAlignment="Top" Width="165" Height="39"/>
+        <Label Content="Requested Twitch Auth Scopes" HorizontalAlignment="Left" Margin="606,35,0,0" VerticalAlignment="Top" Width="176"/>
+        <Rectangle Width="20"
+                               Height="20"
+                               Fill="Black" Margin="45,90,927,359">
+
+            <Rectangle.Style>
+                <Style TargetType="Rectangle">
+                    <Setter Property="OpacityMask" Value="{StaticResource UncheckBrush}"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Model.GoogleAuth}" Value="True">
+                            <Setter Property="OpacityMask" Value="{StaticResource CheckBrush}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
+        </Rectangle>
+        <Rectangle Width="20"
+            Height="20"
+            Fill="Black" Margin="45,43,927,406">
+
+            <Rectangle.Style>
+                <Style TargetType="{x:Type Rectangle}">
+                    <Setter Property="OpacityMask" Value="{StaticResource UncheckBrush}"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Model.TwitchAuth}" Value="True">
+                            <Setter Property="OpacityMask" Value="{StaticResource CheckBrush}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
+        </Rectangle>
 
     </Grid>
 </Controls:MetroWindow>

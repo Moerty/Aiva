@@ -9,7 +9,7 @@ using Google.Apis.Services;
 namespace Songrequest {
     public class GoogleCheck
     {
-		public static void Authenticate()
+		public static bool Authenticate()
 		{
 			var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(new ClientSecrets
 			{
@@ -27,6 +27,8 @@ namespace Songrequest {
 				HttpClientInitializer = credential,
 				ApplicationName = "BlackBoxBot"
 			});
+
+            return credential != null;
 		}
 
 		public static void GetToken()

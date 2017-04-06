@@ -10,20 +10,37 @@ namespace BlackBoxBot.ViewModels {
     public class FirstStartViewModel {
         public Models.FirstStartModel Model { get; set; } = new Models.FirstStartModel();
         public ICommand StartRequestCommand { get; set; } = new RoutedCommand();
+        public ICommand StartRequestYouTubeCommand { get; set; } = new RoutedCommand();
 
         public FirstStartViewModel() {
-            CommandManager.RegisterClassCommandBinding(new MahApps.Metro.Controls.MetroContentControl().GetType(), new CommandBinding(StartRequestCommand, StartRequest));
+            var type = new MahApps.Metro.Controls.MetroContentControl().GetType();
+            CommandManager.RegisterClassCommandBinding(type, new CommandBinding(StartRequestCommand, StartRequest));
+            CommandManager.RegisterClassCommandBinding(type, new CommandBinding(StartRequestYouTubeCommand, StartRequestYoutube));
+        }
+
+        private void StartRequestYoutube(object sender, ExecutedRoutedEventArgs e) {
+            Model.GoogleAuth = Songrequest.GoogleCheck.Authenticate();
+        }
+
+        private void SendRequest() {
+            Task.Run(() => Client.TwitchAuthentication.Instance.SendRequestToBrowser());
         }
 
         private async void StartRequest(object sender, ExecutedRoutedEventArgs e) {
             // Send Request
-            Task.Run(() =>Client.TwitchAuthentication.Instance.SendRequestToBrowser());
+            SendRequest();
 
             var result = await Client.TwitchAuthentication.Instance.GetAuthenticationValuesAsync();
 
             if(result != null) {
                 Model.OAuthToken = result.Token;
-                Model.Scopes = result.Scopes;
+
+                if (Model.Scopes == null) Model.Scopes = new System.Collections.ObjectModel.ObservableCollection<string>();
+                foreach(var scope in result.Scopes.Split(' ')) {
+                    Model.Scopes.Add(scope);
+                }
+
+                Model.TwitchAuth = true;
             }
         }
     }
