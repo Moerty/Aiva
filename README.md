@@ -3,23 +3,18 @@ Here it concerns everything around a learning project.
 The code is not good, you could solve anything a lot better. 
 Involves you in it and announces mistake!
 
-
-Todos:
-Now:
+## Todos:
+### Now:
 - Settings in SQLites
 - Finish Settings to GUI
 - Setup Project
 - Dashboard
 
-
-Complete:
+### Complete:
 - Blacklist Words in Settings
-- First Start Page 4 initial setup (Twitch OAuth & YouTube OAuth)
+- First Start Page for initial setup (Twitch OAuth & YouTube OAuth)
 
-
-
-
-LATER:
+### LATER:
 - Raid System
 - Link Restriction
 - Caps Restriction
