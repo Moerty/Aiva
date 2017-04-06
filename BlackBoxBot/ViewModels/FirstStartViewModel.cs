@@ -1,9 +1,13 @@
-﻿using System;
+﻿using IniParser;
+using IniParser.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.IO;
+using System.Windows;
 
 namespace BlackBoxBot.ViewModels {
     [PropertyChanged.ImplementPropertyChanged]
@@ -11,11 +15,39 @@ namespace BlackBoxBot.ViewModels {
         public Models.FirstStartModel Model { get; set; } = new Models.FirstStartModel();
         public ICommand StartRequestCommand { get; set; } = new RoutedCommand();
         public ICommand StartRequestYouTubeCommand { get; set; } = new RoutedCommand();
+        public ICommand StartBotCommand { get; set; } = new RoutedCommand();
 
         public FirstStartViewModel() {
             var type = new MahApps.Metro.Controls.MetroContentControl().GetType();
             CommandManager.RegisterClassCommandBinding(type, new CommandBinding(StartRequestCommand, StartRequest));
             CommandManager.RegisterClassCommandBinding(type, new CommandBinding(StartRequestYouTubeCommand, StartRequestYoutube));
+            CommandManager.RegisterClassCommandBinding(type, new CommandBinding(StartBotCommand, StartBot));
+        }
+
+        private void StartBot(object sender, ExecutedRoutedEventArgs e) {
+            IniData config = new IniData(new FileIniDataParser().ReadFile("Configs\\general.default"));
+
+            config["Credentials"]["TwitchOAuth"] = Model.OAuthToken;
+            config["Credentials"]["TwitchClientID"] = "1vvme3nbvmh7ylljb35mb7xl3dokdv";
+
+            config["General"]["Channel"] = Model.Channel.ToLower();
+            config["General"]["BotName"] = Model.BotName;
+
+            if (!File.Exists("Configs\\general.ini")) {
+                File.Create("Configs\\general.ini").Dispose();
+            }
+
+            Config.General.WriteConfig(config);
+
+            Application.Current.MainWindow.Close();
+        }
+
+        private string GetText() {
+            StringBuilder builder = new StringBuilder();
+
+            
+
+            return builder.ToString();
         }
 
         private void StartRequestYoutube(object sender, ExecutedRoutedEventArgs e) {

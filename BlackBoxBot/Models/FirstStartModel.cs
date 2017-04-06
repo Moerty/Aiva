@@ -13,5 +13,7 @@ namespace BlackBoxBot.Models {
         public ObservableCollection<string> Scopes { get; set; }
         public bool GoogleAuth { get; set; } = false;
         public bool TwitchAuth { get; set; } = false;
+        public string Channel { get; set; }
+        public string BotName { get; set; }
     }
 }
