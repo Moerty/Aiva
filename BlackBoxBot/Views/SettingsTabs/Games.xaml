@@ -24,7 +24,8 @@
                     Height="20"
                     Margin="20,0,0,0"
                     HorizontalAlignment="Left"
-                    Content="Aktiviert" />
+                    Content="Aktiviert" 
+                    IsChecked="{Binding Model.BankheistActive}"/>
                 <TextBox
                     x:Name="tbBankheistCommand"
                     Width="194"
@@ -34,7 +35,7 @@
                     Controls:TextBoxHelper.AutoWatermark="True"
                     Controls:TextBoxHelper.ClearTextButton="True"
                     Controls:TextBoxHelper.Watermark="Bankheist Command"
-                    Text=""
+                    Text="{Binding Model.BankheistCommand}"
                     TextWrapping="Wrap" />
                 <Label
                     x:Name="label"
@@ -47,7 +48,8 @@
                     Margin="50,0,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Culture="de-DE" />
+                    Culture="de-DE" 
+                    SelectedTime="{Binding Model.BankheistDuration}"/>
                 <Label
                     x:Name="lblTimeToNewBankheist"
                     HorizontalAlignment="Left"
@@ -59,7 +61,8 @@
                     Margin="50,0,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Culture="de-DE" />
+                    Culture="de-DE" 
+                    SelectedTime="{Binding Model.BankheistPause}"/>
                 <!--  Bank1  -->
                 <Separator
                     Width="450"
@@ -82,7 +85,8 @@
                     Maximum="100"
                     Minimum="1"
                     TickFrequency="1"
-                    TickPlacement="BottomRight" />
+                    TickPlacement="BottomRight" 
+                    Ticks="{Binding Model.Bank1SuccessRate}"/>
                 <Label
                     x:Name="Bank1MinPlayers"
                     HorizontalAlignment="Left"
@@ -95,7 +99,8 @@
                     Minimum="1"
                     TickFrequency="1"
                     AutoToolTipPlacement="BottomRight"
-                    TickPlacement="BottomRight" />
+                    TickPlacement="BottomRight" 
+                    Ticks="{Binding Model.Bank1MinimumPlayers}"/>
                 <Label
                     x:Name="Bank1WinningMultiplicator"
                     HorizontalAlignment="Left"
@@ -108,7 +113,8 @@
                     Minimum="0.25"
                     TickFrequency="0.25"
                     AutoToolTipPlacement="BottomRight"
-                    TickPlacement="BottomRight" />
+                    TickPlacement="BottomRight" 
+                    Ticks="{Binding Model.Bank1WinningMultiplier}"/>
                 <!--  Bank2  -->
                 <Separator Width="450" Height="20" />
                 <Label
@@ -127,7 +133,8 @@
                     Minimum="1"
                     TickFrequency="1"
                     AutoToolTipPlacement="BottomRight"
-                    TickPlacement="BottomRight" />
+                    TickPlacement="BottomRight" 
+                    Ticks="{Binding Model.Bank2SuccessRate}"/>
                 <Label
                     x:Name="Bank2MinPlayers_Copy"
                     HorizontalAlignment="Left"
@@ -140,7 +147,8 @@
                     Minimum="1"
                     TickFrequency="1"
                     AutoToolTipPlacement="BottomRight"
-                    TickPlacement="BottomRight" />
+                    TickPlacement="BottomRight" 
+                    Ticks="{Binding Model.Bank2MinimumPlayers}"/>
                 <Label
                     x:Name="Bank2WinningMultiplicator_Copy"
                     HorizontalAlignment="Left"
@@ -153,7 +161,8 @@
                     Minimum="0.25"
                     TickFrequency="0.25"
                     AutoToolTipPlacement="BottomRight"
-                    TickPlacement="BottomRight" />
+                    TickPlacement="BottomRight" 
+                    Ticks="{Binding Model.Bank2WinningMultiplier}"/>
                 <Separator
                     Width="450"
                     Height="20"
@@ -176,7 +185,8 @@
                     Minimum="1"
                     TickFrequency="1"
                     AutoToolTipPlacement="BottomRight"
-                    TickPlacement="BottomRight" />
+                    TickPlacement="BottomRight" 
+                    Ticks="{Binding Model.Bank3SuccessRate}"/>
                 <Label
                     x:Name="Bank3MinPlayers_Copy"
                     HorizontalAlignment="Left"
@@ -189,7 +199,8 @@
                     Minimum="1"
                     TickFrequency="1"
                     AutoToolTipPlacement="BottomRight"
-                    TickPlacement="BottomRight" />
+                    TickPlacement="BottomRight" 
+                    Ticks="{Binding Model.Bank3MinimumPlayers}"/>
                 <Label
                     x:Name="Bank3WinningMultiplicator_Copy"
                     HorizontalAlignment="Left"
@@ -202,7 +213,8 @@
                     Minimum="0.25"
                     TickFrequency="0.25"
                     AutoToolTipPlacement="BottomRight"
-                    TickPlacement="BottomRight" />
+                    TickPlacement="BottomRight" 
+                    Ticks="{Binding Model.Bank3WinningMultiplier}"/>
                 <!--  Bank4  -->
                 <Separator
                     Width="450"
@@ -225,7 +237,8 @@
                     Minimum="1"
                     TickFrequency="1"
                     AutoToolTipPlacement="BottomRight"
-                    TickPlacement="BottomRight" />
+                    TickPlacement="BottomRight" 
+                    Ticks="{Binding Model.Bank4SuccessRate}"/>
                 <Label
                     x:Name="Bank4MinPlayers_Copy1"
                     HorizontalAlignment="Left"
@@ -238,7 +251,8 @@
                     Minimum="1"
                     TickFrequency="1"
                     AutoToolTipPlacement="BottomRight"
-                    TickPlacement="BottomRight" />
+                    TickPlacement="BottomRight" 
+                    Ticks="{Binding Model.Bank4MinimumPlayers}"/>
                 <Label
                     x:Name="Bank1WinningMultiplicator_Copy1"
                     HorizontalAlignment="Left"
@@ -251,7 +265,8 @@
                     Minimum="0.25"
                     TickFrequency="0.25"
                     AutoToolTipPlacement="BottomRight"
-                    TickPlacement="BottomRight" />
+                    TickPlacement="BottomRight" 
+                    Ticks="{Binding Model.Bank4WinningMultiplier}"/>
                 <!--  Bank 5  -->
                 <Separator
                     Width="450"
@@ -274,7 +289,8 @@
                     Minimum="1"
                     TickFrequency="1"
                     AutoToolTipPlacement="BottomRight"
-                    TickPlacement="BottomRight" />
+                    TickPlacement="BottomRight" 
+                    Ticks="{Binding Model.Bank5SuccessRate}"/>
                 <Label
                     x:Name="Bank5MinPlayers_Copy2"
                     HorizontalAlignment="Left"
@@ -287,7 +303,8 @@
                     Minimum="1"
                     TickFrequency="1"
                     AutoToolTipPlacement="BottomRight"
-                    TickPlacement="BottomRight" />
+                    TickPlacement="BottomRight" 
+                    Ticks="{Binding Model.Bank5MinimumPlayers}"/>
                 <Label
                     x:Name="Bank5WinningMultiplicator_Copy2"
                     HorizontalAlignment="Left"
@@ -300,7 +317,8 @@
                     Minimum="0.25"
                     TickFrequency="0.25"
                     AutoToolTipPlacement="BottomRight"
-                    TickPlacement="BottomRight" />
+                    TickPlacement="BottomRight" 
+                    Ticks="{Binding Model.Bank5WinningMultiplier}"/>
 
 
             </StackPanel>

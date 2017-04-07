@@ -160,6 +160,175 @@ namespace BlackBoxBot.Models {
                 }
             }
         }
+
+
+        [PropertyChanged.ImplementPropertyChanged]
+        public class GamesTabModel {
+            public BankheistModel Bankheist { get; set; }
+
+            [PropertyChanged.ImplementPropertyChanged]
+            public class BankheistModel {
+                public bool BankheistActive { get; set; }
+                public string BankheistCommand { get; set; }
+                public TimeSpan BankheistDuration { get; set; } 
+                public TimeSpan BankheistPause { get; set; }
+
+                // Bank1
+                public int Bank1SuccessRate {
+                    get {
+                        return Convert.ToInt32(Config.Bankheist.Config["Bank1"]["SuccessRate"]);
+                    }
+                    set {
+                        Config.Bankheist.Config["Bank1"]["SuccessRate"] = value.ToString();
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
+
+                public int Bank1MinimumPlayers {
+                    get {
+                        return Convert.ToInt32(Config.Bankheist.Config["Bank1"]["MinimumPlayers"]);
+                    }
+                    set {
+                        Config.Bankheist.Config["Bank1"]["MinimumPlayers"] = value.ToString();
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
+
+                public double Bank1WinningMultiplier {
+                    get {
+                        return Convert.ToDouble(Config.Bankheist.Config["Bank1"]["WinningMultiplier"]);
+                    }
+                    set {
+                        Config.Bankheist.Config["Bank1"]["WinningMultiplier"] = value.ToString();
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
+
+                // Bank2
+                public int Bank2SuccessRate {
+                    get {
+                        return Convert.ToInt32(Config.Bankheist.Config["Bank2"]["SuccessRate"]);
+                    }
+                    set {
+                        Config.Bankheist.Config["Bank2"]["SuccessRate"] = value.ToString();
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
+
+                public int Bank2MinimumPlayers {
+                    get {
+                        return Convert.ToInt32(Config.Bankheist.Config["Bank2"]["MinimumPlayers"]);
+                    }
+                    set {
+                        Config.Bankheist.Config["Bank2"]["MinimumPlayers"] = value.ToString();
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
+
+                public double Bank2WinningMultiplier {
+                    get {
+                        return Convert.ToDouble(Config.Bankheist.Config["Bank2"]["WinningMultiplier"]);
+                    }
+                    set {
+                        Config.Bankheist.Config["Bank2"]["WinningMultiplier"] = value.ToString();
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
+
+                // Bank3
+                public int Bank3SuccessRate {
+                    get {
+                        return Convert.ToInt32(Config.Bankheist.Config["Bank3"]["SuccessRate"]);
+                    }
+                    set {
+                        Config.Bankheist.Config["Bank3"]["SuccessRate"] = value.ToString();
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
+
+                public int Bank3MinimumPlayers {
+                    get {
+                        return Convert.ToInt32(Config.Bankheist.Config["Bank3"]["MinimumPlayers"]);
+                    }
+                    set {
+                        Config.Bankheist.Config["Bank3"]["MinimumPlayers"] = value.ToString();
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
+
+                public double Bank3WinningMultiplier {
+                    get {
+                        return Convert.ToDouble(Config.Bankheist.Config["Bank3"]["WinningMultiplier"]);
+                    }
+                    set {
+                        Config.Bankheist.Config["Bank3"]["WinningMultiplier"] = value.ToString();
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
+
+                // Bank4
+                public int Bank4SuccessRate {
+                    get {
+                        return Convert.ToInt32(Config.Bankheist.Config["Bank4"]["SuccessRate"]);
+                    }
+                    set {
+                        Config.Bankheist.Config["Bank4"]["SuccessRate"] = value.ToString();
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
+
+                public int Bank4MinimumPlayers {
+                    get {
+                        return Convert.ToInt32(Config.Bankheist.Config["Bank4"]["MinimumPlayers"]);
+                    }
+                    set {
+                        Config.Bankheist.Config["Bank4"]["MinimumPlayers"] = value.ToString();
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
+
+                public double Bank4WinningMultiplier {
+                    get {
+                        return Convert.ToDouble(Config.Bankheist.Config["Bank4"]["WinningMultiplier"]);
+                    }
+                    set {
+                        Config.Bankheist.Config["Bank4"]["WinningMultiplier"] = value.ToString();
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
+
+                // Bank5
+                public int Bank5SuccessRate {
+                    get {
+                        return Convert.ToInt32(Config.Bankheist.Config["Bank5"]["SuccessRate"]);
+                    }
+                    set {
+                        Config.Bankheist.Config["Bank5"]["SuccessRate"] = value.ToString();
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
+
+                public int Bank5MinimumPlayers {
+                    get {
+                        return Convert.ToInt32(Config.Bankheist.Config["Bank5"]["MinimumPlayers"]);
+                    }
+                    set {
+                        Config.Bankheist.Config["Bank5"]["MinimumPlayers"] = value.ToString();
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
+
+                public double Bank5WinningMultiplier {
+                    get {
+                        return Convert.ToDouble(Config.Bankheist.Config["Bank5"]["WinningMultiplier"]);
+                    }
+                    set {
+                        Config.Bankheist.Config["Bank5"]["WinningMultiplier"] = value.ToString();
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
+            }
+        }
     }
 }
 

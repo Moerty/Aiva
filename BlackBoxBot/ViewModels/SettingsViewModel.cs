@@ -179,5 +179,53 @@ namespace BlackBoxBot.ViewModels {
                 };
             }
         }
+
+        /// <summary>
+        /// Viewmodel from Settings Games Tab
+        /// </summary>
+        [PropertyChanged.ImplementPropertyChanged]
+        public class GamesTabViewModel {
+            public Models.SettingsModel.GamesTabModel Model;
+
+            public GamesTabViewModel() {
+                CreateModel();
+            }
+
+            private void CreateModel() {
+                Model = new Models.SettingsModel.GamesTabModel {
+                    Bankheist = new Models.SettingsModel.GamesTabModel.BankheistModel {
+                        BankheistActive = Convert.ToBoolean(Config.Bankheist.Config["General"]["Active"]),
+                        BankheistCommand = Config.Bankheist.Config["General"]["Command"],
+                        BankheistDuration = TimeSpan.Parse(Config.Bankheist.Config["General"]["BankheistTime"]),
+                        BankheistPause = TimeSpan.Parse(Config.Bankheist.Config["General"]["TimeToNewBankheist"]),
+
+                        // Bank1
+                        Bank1SuccessRate = Convert.ToInt32(Config.Bankheist.Config["Bank1"]["SuccessRate"]),
+                        Bank1MinimumPlayers = Convert.ToInt32(Config.Bankheist.Config["Bank1"]["MinimumPlayers"]),
+                        Bank1WinningMultiplier = Convert.ToDouble(Config.Bankheist.Config["Bank1"]["WinningMultiplier"]),
+
+                        // Bank2
+                        Bank2SuccessRate = Convert.ToInt32(Config.Bankheist.Config["Bank2"]["SuccessRate"]),
+                        Bank2MinimumPlayers = Convert.ToInt32(Config.Bankheist.Config["Bank2"]["MinimumPlayers"]),
+                        Bank2WinningMultiplier = Convert.ToDouble(Config.Bankheist.Config["Bank2"]["WinningMultiplier"]),
+
+                        // Bank3
+                        Bank3SuccessRate = Convert.ToInt32(Config.Bankheist.Config["Bank3"]["SuccessRate"]),
+                        Bank3MinimumPlayers = Convert.ToInt32(Config.Bankheist.Config["Bank3"]["MinimumPlayers"]),
+                        Bank3WinningMultiplier = Convert.ToDouble(Config.Bankheist.Config["Bank3"]["WinningMultiplier"]),
+
+                        // Bank4
+                        Bank4SuccessRate = Convert.ToInt32(Config.Bankheist.Config["Bank4"]["SuccessRate"]),
+                        Bank4MinimumPlayers = Convert.ToInt32(Config.Bankheist.Config["Bank4"]["MinimumPlayers"]),
+                        Bank4WinningMultiplier = Convert.ToDouble(Config.Bankheist.Config["Bank4"]["WinningMultiplier"]),
+
+                        // Bank5
+                        Bank5SuccessRate = Convert.ToInt32(Config.Bankheist.Config["Bank4"]["SuccessRate"]),
+                        Bank5MinimumPlayers = Convert.ToInt32(Config.Bankheist.Config["Bank4"]["MinimumPlayers"]),
+                        Bank5WinningMultiplier = Convert.ToDouble(Config.Bankheist.Config["Bank4"]["WinningMultiplier"]),
+                    }
+                };
+            }
+        }
     }
 }

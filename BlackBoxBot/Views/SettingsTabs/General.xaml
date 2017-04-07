@@ -24,7 +24,7 @@
             Margin="176,102,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Text="{Binding Model.Channel}"
+            Text="{Binding Model.Bankheist.Channel}"
             TextWrapping="Wrap" />
         <Label
             Margin="47,102,0,0"
@@ -37,7 +37,7 @@
             Margin="176,156,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Text="{Binding Model.BotName}"
+            Text="{Binding Model.Bankheist.BotName}"
             TextWrapping="Wrap" />
         <Label
             Margin="47,156,0,0"
@@ -50,7 +50,7 @@
             Margin="176,222,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Text="{Binding Model.Language}"
+            Text="{Binding Model.Bankheist.Language}"
             TextWrapping="Wrap" />
         <Label
             Margin="47,222,0,0"
@@ -63,7 +63,7 @@
             Margin="176,286,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Text="{Binding Model.CommandIdentifier}"
+            Text="{Binding Model.Bankheist.CommandIdentifier}"
             TextWrapping="Wrap" />
         <Label
             Margin="47,286,0,0"
@@ -76,7 +76,7 @@
             Margin="176,354,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Text="{Binding Model.LogLevel}"
+            Text="{Binding Model.Bankheist.LogLevel}"
             TextWrapping="Wrap" />
         <Label
             Margin="47,354,0,0"
@@ -104,7 +104,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Currency Active"
-            IsChecked="{Binding Model.Active}" />
+            IsChecked="{Binding Model.Bankheist.Active}" />
         <StackPanel
             Width="100"
             Height="80"
@@ -116,7 +116,7 @@
                 Height="50"
                 FontSize="20"
                 Minimum="1"
-                Value="{Binding Model.CurrencyToAdd}" />
+                Value="{Binding Model.Bankheist.CurrencyToAdd}" />
         </StackPanel>
         <StackPanel
             Width="100"
@@ -128,7 +128,7 @@
                 Width="100"
                 Height="50"
                 Culture="de-DE"
-                SelectedTime="{Binding Model.TimerAddCurrency}" />
+                SelectedTime="{Binding Model.Bankheist.TimerAddCurrency}" />
         </StackPanel>
     </Grid>
 </Controls:MetroContentControl>
