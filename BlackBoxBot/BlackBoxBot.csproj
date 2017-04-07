@@ -197,6 +197,9 @@
     <Compile Include="Views\SettingsTabs\Chat.xaml.cs">
       <DependentUpon>Chat.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SettingsTabs\Games.xaml.cs">
+      <DependentUpon>Games.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SettingsTabs\General.xaml.cs">
       <DependentUpon>General.xaml</DependentUpon>
     </Compile>
@@ -242,6 +245,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingsTabs\Chat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsTabs\Games.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

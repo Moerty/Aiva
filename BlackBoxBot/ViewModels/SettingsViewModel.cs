@@ -53,7 +53,7 @@ namespace BlackBoxBot.ViewModels {
                 },
                 new Models.SettingsModel.SettingsTabItem {
                     Header = "Minigames",
-                    Content = new MahApps.Metro.Controls.MetroContentControl(),
+                    Content = new Views.SettingsTabs.Games(),
                 },
                 new Models.SettingsModel.SettingsTabItem {
                     Header = "Commands",
