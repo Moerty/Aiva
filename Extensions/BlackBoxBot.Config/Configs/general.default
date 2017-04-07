@@ -49,4 +49,4 @@ Active=True
 CurrencyToAdd=10
 
 ; 1 Tick -> 1ms
-TimerAddCurrency=50000
+TimerAddCurrency=00:05:00

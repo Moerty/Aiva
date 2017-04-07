@@ -99,10 +99,19 @@ namespace BlackBoxBot.ViewModels
 
             if (Convert.ToBoolean(Config.General.Config["Currency"]["Active"]))
             {
-                var timer = new System.Windows.Threading.DispatcherTimer();
-                timer.Tick += Database.CurrencyHandler.AddCurrencyFrequentlyAsync;
-                timer.Interval = new TimeSpan(Convert.ToInt64(Config.General.Config["Currency"]["TimerAddCurrency"]));
-                timer.Start();
+                TimeSpan Interval;
+                if(TimeSpan.TryParse(Config.General.Config["Currency"]["TimerAddCurrency"], out Interval)) {
+                    // TODO: MASSIVE LOAD
+                    
+                    var timer = new System.Windows.Threading.DispatcherTimer();
+                    timer.Tick += Database.CurrencyHandler.AddCurrencyFrequentlyAsync;
+                    timer.Interval = Interval;
+                    //timer.Interval = new TimeSpan(Convert.ToInt64(Config.General.Config["Currency"]["TimerAddCurrency"]));
+
+                    timer.Start();
+                }
+
+                
             }
         }
         #endregion
