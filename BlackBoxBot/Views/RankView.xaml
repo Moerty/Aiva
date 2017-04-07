@@ -1,14 +1,23 @@
-﻿<Controls:MetroContentControl x:Class="BlackBoxBot.Controls.ucRank"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BlackBoxBot.Controls"
-			 xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-             mc:Ignorable="d" 
-             d:DesignHeight="503" d:DesignWidth="1092">
+﻿<Controls:MetroContentControl
+    x:Class="BlackBoxBot.Controls.ucRank"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BlackBoxBot.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="503"
+    d:DesignWidth="1092"
+    mc:Ignorable="d">
     <Grid>
-		<Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="940,447,0,0" VerticalAlignment="Top" Width="142" Height="46" Click="button_Click"/>
-
-	</Grid>
+        <Button
+            x:Name="button"
+            Width="142"
+            Height="46"
+            Margin="940,447,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Click="button_Click"
+            Content="Button" />
+    </Grid>
 </Controls:MetroContentControl>

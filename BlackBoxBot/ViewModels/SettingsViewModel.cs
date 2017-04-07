@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace BlackBoxBot.ViewModels
-{
+namespace BlackBoxBot.ViewModels {
     [PropertyChanged.ImplementPropertyChanged]
     class SettingsViewModel
     {
@@ -178,7 +176,7 @@ namespace BlackBoxBot.ViewModels
                     LogLevel = Convert.ToInt32(Config.General.Config["General"]["LogLevel"]),
                     Active = Convert.ToBoolean(Config.General.Config["Currency"]["Active"]),
                     CurrencyToAdd = Convert.ToInt32(Config.General.Config["Currency"]["CurrencyToAdd"]),
-                    //TimerAddCurrency = TimeSpan.FromTicks(Convert.ToInt64(Config.General.Config["Currency"]["TimerAddCurrency"])),
+                    TimerAddCurrency = TimeSpan.Parse(Config.General.Config["Currency"]["TimerAddCurrency"]),
                 };
             }
         }

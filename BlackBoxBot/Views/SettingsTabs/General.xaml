@@ -1,39 +1,134 @@
-﻿<Controls:MetroContentControl x:Class="BlackBoxBot.Views.SettingsTabs.General"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:BlackBoxBot.Views.SettingsTabs"
-      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-      mc:Ignorable="d"
-      Height="500" Width="459.233">
+﻿<Controls:MetroContentControl
+    x:Class="BlackBoxBot.Views.SettingsTabs.General"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BlackBoxBot.Views.SettingsTabs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="459.233"
+    Height="500"
+    mc:Ignorable="d">
     <Grid>
-        <Label Content="lblBotSettings" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="37" Width="140" FontSize="20"/>
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="176,102,0,0" TextWrapping="Wrap" Text="{Binding Model.Channel}" VerticalAlignment="Top" Width="196"/>
-        <Label Content="Channel" HorizontalAlignment="Left" Margin="47,102,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="176,156,0,0" TextWrapping="Wrap" Text="{Binding Model.BotName}" VerticalAlignment="Top" Width="196"/>
-        <Label Content="Bot name" HorizontalAlignment="Left" Margin="47,156,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="176,222,0,0" TextWrapping="Wrap" Text="{Binding Model.Language}" VerticalAlignment="Top" Width="196"/>
-        <Label Content="Language" HorizontalAlignment="Left" Margin="47,222,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="176,286,0,0" TextWrapping="Wrap" Text="{Binding Model.CommandIdentifier}" VerticalAlignment="Top" Width="196"/>
-        <Label Content="Command Identifier" HorizontalAlignment="Left" Margin="47,286,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="176,354,0,0" TextWrapping="Wrap" Text="{Binding Model.LogLevel}" VerticalAlignment="Top" Width="196"/>
-        <Label Content="Log level" HorizontalAlignment="Left" Margin="47,354,0,0" VerticalAlignment="Top"/>
+        <Label
+            Width="140"
+            Height="37"
+            Margin="10,10,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="lblBotSettings"
+            FontSize="20" />
+        <TextBox
+            Width="196"
+            Height="22"
+            Margin="176,102,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="{Binding Model.Channel}"
+            TextWrapping="Wrap" />
+        <Label
+            Margin="47,102,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Channel" />
+        <TextBox
+            Width="196"
+            Height="22"
+            Margin="176,156,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="{Binding Model.BotName}"
+            TextWrapping="Wrap" />
+        <Label
+            Margin="47,156,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Bot name" />
+        <TextBox
+            Width="196"
+            Height="22"
+            Margin="176,222,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="{Binding Model.Language}"
+            TextWrapping="Wrap" />
+        <Label
+            Margin="47,222,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Language" />
+        <TextBox
+            Width="196"
+            Height="22"
+            Margin="176,286,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="{Binding Model.CommandIdentifier}"
+            TextWrapping="Wrap" />
+        <Label
+            Margin="47,286,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Command Identifier" />
+        <TextBox
+            Width="196"
+            Height="22"
+            Margin="176,354,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="{Binding Model.LogLevel}"
+            TextWrapping="Wrap" />
+        <Label
+            Margin="47,354,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Log level" />
 
 
-        <Separator HorizontalAlignment="Left" Height="19" VerticalAlignment="Top" Width="459" Margin="0,385,0,0"/>
-        <Label Content="Currency Settings" HorizontalAlignment="Left" Margin="0,404,0,0" VerticalAlignment="Top" Height="37" Width="172" FontSize="20"/>
-        <CheckBox Content="Currency Active" IsChecked="{Binding Model.Active}" HorizontalAlignment="Left" Margin="65,441,0,0" VerticalAlignment="Top"/>
-        <StackPanel Width="100" Height="80" Orientation="Vertical" Margin="349,420,10,0">
-            <Label Content="Currency to add" Margin="-5,0,-8,0"/>
-            <Controls:NumericUpDown Minimum="1" Value="{Binding Model.CurrencyToAdd}" Height="50" Width="100" FontSize="20"/>
+        <Separator
+            Width="459"
+            Height="19"
+            Margin="0,385,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" />
+        <Label
+            Width="172"
+            Height="37"
+            Margin="0,404,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Currency Settings"
+            FontSize="20" />
+        <CheckBox
+            Margin="65,441,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Currency Active"
+            IsChecked="{Binding Model.Active}" />
+        <StackPanel
+            Width="100"
+            Height="80"
+            Margin="349,420,10,0"
+            Orientation="Vertical">
+            <Label Margin="-5,0,-8,0" Content="Currency to add" />
+            <Controls:NumericUpDown
+                Width="100"
+                Height="50"
+                FontSize="20"
+                Minimum="1"
+                Value="{Binding Model.CurrencyToAdd}" />
         </StackPanel>
-        <StackPanel Width="100" Height="80" Orientation="Vertical" Margin="245,420,114,0">
-            <Label Content="Interval" Width="100"/>
-            <Controls:TimePicker Width="100" SelectedTime="{Binding Model.TimerAddCurrency}" Culture="de-DE" Height="50"/>
+        <StackPanel
+            Width="100"
+            Height="80"
+            Margin="245,420,114,0"
+            Orientation="Vertical">
+            <Label Width="100" Content="Interval" />
+            <Controls:TimePicker
+                Width="100"
+                Height="50"
+                Culture="de-DE"
+                SelectedTime="{Binding Model.TimerAddCurrency}" />
         </StackPanel>
-
-
-
     </Grid>
 </Controls:MetroContentControl>

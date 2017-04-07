@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Media;
 using BlackBoxBot.Bankheist.Models;
 
-namespace BlackBoxBot.ViewModels
-{
+namespace BlackBoxBot.ViewModels {
     class CurrencyViewModel
     {
         public List<Database.Currency> CurrencyDatabaseList;
@@ -101,13 +95,9 @@ namespace BlackBoxBot.ViewModels
             {
                 TimeSpan Interval;
                 if(TimeSpan.TryParse(Config.General.Config["Currency"]["TimerAddCurrency"], out Interval)) {
-                    // TODO: MASSIVE LOAD
-                    
                     var timer = new System.Windows.Threading.DispatcherTimer();
                     timer.Tick += Database.CurrencyHandler.AddCurrencyFrequentlyAsync;
                     timer.Interval = Interval;
-                    //timer.Interval = new TimeSpan(Convert.ToInt64(Config.General.Config["Currency"]["TimerAddCurrency"]));
-
                     timer.Start();
                 }
 

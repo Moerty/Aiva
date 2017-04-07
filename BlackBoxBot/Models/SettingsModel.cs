@@ -152,7 +152,7 @@ namespace BlackBoxBot.Models {
 
             public TimeSpan TimerAddCurrency {
                 get {
-                    return new TimeSpan(Convert.ToInt64(Config.General.Config["Currency"]["TimerAddCurrency"]));
+                    return TimeSpan.Parse(Config.General.Config["Currency"]["TimerAddCurrency"]);
                 }
                 set {
                     Config.General.Config["Currency"]["TimerAddCurrency"] = value.Ticks.ToString();

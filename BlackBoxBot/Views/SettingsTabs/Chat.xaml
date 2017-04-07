@@ -1,50 +1,97 @@
-﻿<Controls:MetroContentControl x:Class="BlackBoxBot.Views.SettingsTabs.Chat"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-      mc:Ignorable="d" Height="500" Width="459.233"
-      >
+﻿<Controls:MetroContentControl
+    x:Class="BlackBoxBot.Views.SettingsTabs.Chat"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="459.233"
+    Height="500"
+    mc:Ignorable="d">
 
     <Grid>
-        <Label Content="Blacklisted Words" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Aktiviert" HorizontalAlignment="Left" Margin="374,14,0,0" VerticalAlignment="Top" IsChecked="{Binding Model.BlacklistedWordsActive}"/>
+        <Label
+            Margin="10,10,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Blacklisted Words" />
+        <CheckBox
+            Margin="374,14,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Aktiviert"
+            IsChecked="{Binding Model.BlacklistedWordsActive}" />
 
-        <Button HorizontalAlignment="Left" Margin="292,459,0,0" VerticalAlignment="Top" Width="167" Height="41" Command="{Binding SaveCommand}">
+        <Button
+            Width="167"
+            Height="41"
+            Margin="292,459,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Command="{Binding SaveCommand}">
             <StackPanel Orientation="Horizontal">
-                <Rectangle Width="20"
-                               Height="20"
-                               Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
+                <Rectangle
+                    Width="20"
+                    Height="20"
+                    Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
                     <Rectangle.OpacityMask>
                         <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_save}" />
                     </Rectangle.OpacityMask>
                 </Rectangle>
-                <TextBlock Margin="4 0 0 0"
-                               VerticalAlignment="Center"
-                               Text="{Binding Model.Text.ButtonSaveText}" />
+                <TextBlock
+                    Margin="4,0,0,0"
+                    VerticalAlignment="Center"
+                    Text="{Binding Model.Text.ButtonSaveText}" />
             </StackPanel>
         </Button>
-        <ListView HorizontalAlignment="Left" Height="110" Margin="13,44,0,0" VerticalAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Width="436" ItemsSource="{Binding Model.BlacklistedWords}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="auto"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <TextBox HorizontalAlignment="Left" Height="44" Margin="13,159,0,0" TextWrapping="Wrap" Text="{Binding Model.NewKeyword}" VerticalAlignment="Top" Width="363"/>
-        <Button HorizontalAlignment="Left" Margin="381,159,0,0" VerticalAlignment="Top" Width="68" Height="44" Command="{Binding AddBlacklistKeyword}">
+        <ListView
+            Width="436"
+            Height="110"
+            Margin="13,44,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            ItemsSource="{Binding Model.BlacklistedWords}"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            ScrollViewer.VerticalScrollBarVisibility="Auto" />
+        <TextBox
+            Width="363"
+            Height="44"
+            Margin="13,159,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="{Binding Model.NewKeyword}"
+            TextWrapping="Wrap" />
+        <Button
+            Width="68"
+            Height="44"
+            Margin="381,159,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Command="{Binding AddBlacklistKeyword}">
             <StackPanel Orientation="Horizontal">
-                <Rectangle Width="20"
-                               Height="20"
-                               Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
+                <Rectangle
+                    Width="20"
+                    Height="20"
+                    Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
                     <Rectangle.OpacityMask>
                         <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_add}" />
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </StackPanel>
         </Button>
-        <Separator HorizontalAlignment="Left" Height="19" Margin="0,207,0,0" VerticalAlignment="Top" Width="459"/>
-        <CheckBox Content="Spamcheck" HorizontalAlignment="Left" Margin="10,231,0,0" VerticalAlignment="Top" Height="28" Width="103" IsChecked="{Binding Model.SpamCheck}"/>
+        <Separator
+            Width="459"
+            Height="19"
+            Margin="0,207,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" />
+        <CheckBox
+            Width="103"
+            Height="28"
+            Margin="10,231,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Spamcheck"
+            IsChecked="{Binding Model.SpamCheck}" />
     </Grid>
 </Controls:MetroContentControl>
