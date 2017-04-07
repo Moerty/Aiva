@@ -102,17 +102,6 @@ namespace BlackBoxBot.ViewModels {
                     },
                 });
 
-                string GetKeywordsFormattet()
-                {
-                    StringBuilder sBuilder = new StringBuilder();
-                    foreach(var keyword in Model.BlacklistedWords) {
-                        sBuilder.Append(keyword);
-                        sBuilder.Append(',');
-                    }
-
-                    return sBuilder.ToString();
-                }
-
                 // Update BlacklistedWords 4 
                 Client.Tasks.ChatChecker.BlacklistedWords = Model.BlacklistedWords.ToList();
 
@@ -127,6 +116,16 @@ namespace BlackBoxBot.ViewModels {
                 } else {
                     Client.Client.ClientBBB.TwitchClientBBB.OnMessageReceived -= Client.Tasks.ChatChecker.CheckMessage;
                 }
+            }
+
+            string GetKeywordsFormattet() {
+                StringBuilder sBuilder = new StringBuilder();
+                foreach (var keyword in Model.BlacklistedWords) {
+                    sBuilder.Append(keyword);
+                    sBuilder.Append(',');
+                }
+
+                return sBuilder.ToString();
             }
 
             private void CreateModels() {
