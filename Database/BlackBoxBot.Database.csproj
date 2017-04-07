@@ -142,7 +142,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Extensions\Config\BlackBoxBot.Config.csproj">
+    <ProjectReference Include="..\Extensions\BlackBoxBot.Config\BlackBoxBot.Config.csproj">
       <Project>{dc5b9f3f-41cc-4a43-9643-9fdd86812c6e}</Project>
       <Name>BlackBoxBot.Config</Name>
     </ProjectReference>

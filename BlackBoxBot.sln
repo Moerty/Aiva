@@ -5,13 +5,13 @@ VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackBoxBot", "BlackBoxBot\BlackBoxBot.csproj", "{482DA762-7054-4CDD-9007-19FBE67AD455}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackBoxBot.Songrequest", "Extensions\Songrequest\BlackBoxBot.Songrequest.csproj", "{4A16A1BE-39FC-4FDA-AE18-FF647364AC83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackBoxBot.Songrequest", "Extensions\BlackBoxBot.Songrequest\BlackBoxBot.Songrequest.csproj", "{4A16A1BE-39FC-4FDA-AE18-FF647364AC83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackBoxBot.Giveaway", "Extensions\Giveaway\BlackBoxBot.Giveaway.csproj", "{6E0E1240-D322-4183-8BDB-182CA6B8469F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackBoxBot.Giveaway", "Extensions\BlackBoxBot.Giveaway\BlackBoxBot.Giveaway.csproj", "{6E0E1240-D322-4183-8BDB-182CA6B8469F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackBoxBot.Config", "Extensions\Config\BlackBoxBot.Config.csproj", "{DC5B9F3F-41CC-4A43-9643-9FDD86812C6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackBoxBot.Config", "Extensions\BlackBoxBot.Config\BlackBoxBot.Config.csproj", "{DC5B9F3F-41CC-4A43-9643-9FDD86812C6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackBoxBot.ModCommands", "Extensions\ModCommands\BlackBoxBot.ModCommands.csproj", "{737DA2A6-A7F6-496C-B91A-DF049B68D4BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackBoxBot.ModCommands", "Extensions\BlackBoxBot.ModCommands\BlackBoxBot.ModCommands.csproj", "{737DA2A6-A7F6-496C-B91A-DF049B68D4BC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackBoxBot.Database", "Database\BlackBoxBot.Database.csproj", "{CF7C5037-4A14-4782-8D1B-700845F9779F}"
 EndProject

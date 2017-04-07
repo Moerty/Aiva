@@ -69,7 +69,7 @@
       <Project>{cf7c5037-4a14-4782-8d1b-700845f9779f}</Project>
       <Name>BlackBoxBot.Database</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Config\BlackBoxBot.Config.csproj">
+    <ProjectReference Include="..\BlackBoxBot.Config\BlackBoxBot.Config.csproj">
       <Project>{dc5b9f3f-41cc-4a43-9643-9fdd86812c6e}</Project>
       <Name>BlackBoxBot.Config</Name>
     </ProjectReference>

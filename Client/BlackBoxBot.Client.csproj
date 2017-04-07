@@ -66,11 +66,11 @@
       <Project>{cf7c5037-4a14-4782-8d1b-700845f9779f}</Project>
       <Name>BlackBoxBot.Database</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Extensions\Config\BlackBoxBot.Config.csproj">
+    <ProjectReference Include="..\Extensions\BlackBoxBot.Config\BlackBoxBot.Config.csproj">
       <Project>{dc5b9f3f-41cc-4a43-9643-9fdd86812c6e}</Project>
       <Name>BlackBoxBot.Config</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Extensions\ModCommands\BlackBoxBot.ModCommands.csproj">
+    <ProjectReference Include="..\Extensions\BlackBoxBot.ModCommands\BlackBoxBot.ModCommands.csproj">
       <Project>{737da2a6-a7f6-496c-b91a-df049b68d4bc}</Project>
       <Name>BlackBoxBot.ModCommands</Name>
     </ProjectReference>

@@ -407,19 +407,19 @@
       <Project>{3faa8d3c-4589-40b8-8c6b-59a28979054a}</Project>
       <Name>BlackBoxBot.Bets</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Extensions\Config\BlackBoxBot.Config.csproj">
+    <ProjectReference Include="..\Extensions\BlackBoxBot.Config\BlackBoxBot.Config.csproj">
       <Project>{dc5b9f3f-41cc-4a43-9643-9fdd86812c6e}</Project>
       <Name>BlackBoxBot.Config</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Extensions\Giveaway\BlackBoxBot.Giveaway.csproj">
+    <ProjectReference Include="..\Extensions\BlackBoxBot.Giveaway\BlackBoxBot.Giveaway.csproj">
       <Project>{6e0e1240-d322-4183-8bdb-182ca6b8469f}</Project>
       <Name>BlackBoxBot.Giveaway</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Extensions\ModCommands\BlackBoxBot.ModCommands.csproj">
+    <ProjectReference Include="..\Extensions\BlackBoxBot.ModCommands\BlackBoxBot.ModCommands.csproj">
       <Project>{737da2a6-a7f6-496c-b91a-df049b68d4bc}</Project>
       <Name>BlackBoxBot.ModCommands</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Extensions\Songrequest\BlackBoxBot.Songrequest.csproj">
+    <ProjectReference Include="..\Extensions\BlackBoxBot.Songrequest\BlackBoxBot.Songrequest.csproj">
       <Project>{4a16a1be-39fc-4fda-ae18-ff647364ac83}</Project>
       <Name>BlackBoxBot.Songrequest</Name>
     </ProjectReference>
