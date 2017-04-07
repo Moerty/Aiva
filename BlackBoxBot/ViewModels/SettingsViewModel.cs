@@ -54,10 +54,6 @@ namespace BlackBoxBot.ViewModels
                     Content = new Views.SettingsTabs.Chat(),
                 },
                 new Models.SettingsModel.SettingsTabItem {
-                    Header = "Currency",
-                    Content = new MahApps.Metro.Controls.MetroContentControl(),
-                },
-                new Models.SettingsModel.SettingsTabItem {
                     Header = "Minigames",
                     Content = new MahApps.Metro.Controls.MetroContentControl(),
                 },
