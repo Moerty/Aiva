@@ -168,10 +168,44 @@ namespace BlackBoxBot.Models {
 
             [PropertyChanged.ImplementPropertyChanged]
             public class BankheistModel {
-                public bool BankheistActive { get; set; }
-                public string BankheistCommand { get; set; }
-                public TimeSpan BankheistDuration { get; set; } 
-                public TimeSpan BankheistPause { get; set; }
+                // General
+                public bool BankheistActive {
+                    get {
+                        return Convert.ToBoolean(Config.Bankheist.Config["General"]["Active"]);
+                    }
+                    set {
+                        Config.Bankheist.Config["General"]["Active"] = value.ToString();
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
+
+                public string BankheistCommand {
+                    get {
+                        return Config.Bankheist.Config["General"]["Command"];
+                    }
+                    set {
+                        Config.Bankheist.Config["General"]["Command"] = value;
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
+                public TimeSpan BankheistDuration {
+                    get {
+                        return TimeSpan.Parse(Config.Bankheist.Config["General"]["BankheistTime"]);
+                    }
+                    set {
+                        Config.Bankheist.Config["General"]["BankheistTime"] = value.ToString();
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
+                public TimeSpan BankheistPause {
+                    get {
+                        return TimeSpan.Parse(Config.Bankheist.Config["General"]["TimeToNewBankheist"]);
+                    }
+                    set {
+                        Config.Bankheist.Config["General"]["TimeToNewBankheist"] = value.ToString();
+                        Config.Bankheist.WriteConfig();
+                    }
+                }
 
                 // Bank1
                 public int Bank1SuccessRate {

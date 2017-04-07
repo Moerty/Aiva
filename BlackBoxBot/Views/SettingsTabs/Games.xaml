@@ -25,7 +25,7 @@
                     Margin="20,0,0,0"
                     HorizontalAlignment="Left"
                     Content="Aktiviert" 
-                    IsChecked="{Binding Model.BankheistActive}"/>
+                    IsChecked="{Binding Model.Bankheist.BankheistActive}"/>
                 <TextBox
                     x:Name="tbBankheistCommand"
                     Width="194"
@@ -35,7 +35,7 @@
                     Controls:TextBoxHelper.AutoWatermark="True"
                     Controls:TextBoxHelper.ClearTextButton="True"
                     Controls:TextBoxHelper.Watermark="Bankheist Command"
-                    Text="{Binding Model.BankheistCommand}"
+                    Text="{Binding Model.Bankheist.BankheistCommand}"
                     TextWrapping="Wrap" />
                 <Label
                     x:Name="label"
@@ -49,7 +49,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Culture="de-DE" 
-                    SelectedTime="{Binding Model.BankheistDuration}"/>
+                    SelectedTime="{Binding Model.Bankheist.BankheistDuration}"/>
                 <Label
                     x:Name="lblTimeToNewBankheist"
                     HorizontalAlignment="Left"
@@ -62,7 +62,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Culture="de-DE" 
-                    SelectedTime="{Binding Model.BankheistPause}"/>
+                    SelectedTime="{Binding Model.Bankheist.BankheistPause}"/>
                 <!--  Bank1  -->
                 <Separator
                     Width="450"
@@ -86,7 +86,7 @@
                     Minimum="1"
                     TickFrequency="1"
                     TickPlacement="BottomRight" 
-                    Ticks="{Binding Model.Bank1SuccessRate}"/>
+                    Value="{Binding Model.Bankheist.Bank1SuccessRate}"/>
                 <Label
                     x:Name="Bank1MinPlayers"
                     HorizontalAlignment="Left"
@@ -100,7 +100,7 @@
                     TickFrequency="1"
                     AutoToolTipPlacement="BottomRight"
                     TickPlacement="BottomRight" 
-                    Ticks="{Binding Model.Bank1MinimumPlayers}"/>
+                    Value="{Binding Model.Bankheist.Bank1MinimumPlayers}"/>
                 <Label
                     x:Name="Bank1WinningMultiplicator"
                     HorizontalAlignment="Left"
@@ -109,12 +109,12 @@
                 <Slider
                     Width="400"
                     Height="30"
-                    Maximum="10"
+                    Maximum="10.0"
                     Minimum="0.25"
                     TickFrequency="0.25"
                     AutoToolTipPlacement="BottomRight"
-                    TickPlacement="BottomRight" 
-                    Ticks="{Binding Model.Bank1WinningMultiplier}"/>
+                    TickPlacement="BottomRight"
+                    Value="{Binding Model.Bankheist.Bank1WinningMultiplier}"/>
                 <!--  Bank2  -->
                 <Separator Width="450" Height="20" />
                 <Label
@@ -134,7 +134,7 @@
                     TickFrequency="1"
                     AutoToolTipPlacement="BottomRight"
                     TickPlacement="BottomRight" 
-                    Ticks="{Binding Model.Bank2SuccessRate}"/>
+                    Value="{Binding Model.Bankheist.Bank2SuccessRate}"/>
                 <Label
                     x:Name="Bank2MinPlayers_Copy"
                     HorizontalAlignment="Left"
@@ -148,7 +148,7 @@
                     TickFrequency="1"
                     AutoToolTipPlacement="BottomRight"
                     TickPlacement="BottomRight" 
-                    Ticks="{Binding Model.Bank2MinimumPlayers}"/>
+                    Value="{Binding Model.Bankheist.Bank2MinimumPlayers}"/>
                 <Label
                     x:Name="Bank2WinningMultiplicator_Copy"
                     HorizontalAlignment="Left"
@@ -162,7 +162,7 @@
                     TickFrequency="0.25"
                     AutoToolTipPlacement="BottomRight"
                     TickPlacement="BottomRight" 
-                    Ticks="{Binding Model.Bank2WinningMultiplier}"/>
+                    Value="{Binding Model.Bankheist.Bank2WinningMultiplier}"/>
                 <Separator
                     Width="450"
                     Height="20"
@@ -186,7 +186,7 @@
                     TickFrequency="1"
                     AutoToolTipPlacement="BottomRight"
                     TickPlacement="BottomRight" 
-                    Ticks="{Binding Model.Bank3SuccessRate}"/>
+                    Value="{Binding Model.Bankheist.Bank3SuccessRate}"/>
                 <Label
                     x:Name="Bank3MinPlayers_Copy"
                     HorizontalAlignment="Left"
@@ -200,7 +200,7 @@
                     TickFrequency="1"
                     AutoToolTipPlacement="BottomRight"
                     TickPlacement="BottomRight" 
-                    Ticks="{Binding Model.Bank3MinimumPlayers}"/>
+                    Value="{Binding Model.Bankheist.Bank3MinimumPlayers}"/>
                 <Label
                     x:Name="Bank3WinningMultiplicator_Copy"
                     HorizontalAlignment="Left"
@@ -214,7 +214,7 @@
                     TickFrequency="0.25"
                     AutoToolTipPlacement="BottomRight"
                     TickPlacement="BottomRight" 
-                    Ticks="{Binding Model.Bank3WinningMultiplier}"/>
+                    Value="{Binding Model.Bankheist.Bank3WinningMultiplier}"/>
                 <!--  Bank4  -->
                 <Separator
                     Width="450"
@@ -238,7 +238,7 @@
                     TickFrequency="1"
                     AutoToolTipPlacement="BottomRight"
                     TickPlacement="BottomRight" 
-                    Ticks="{Binding Model.Bank4SuccessRate}"/>
+                    Value="{Binding Model.Bankheist.Bank4SuccessRate}"/>
                 <Label
                     x:Name="Bank4MinPlayers_Copy1"
                     HorizontalAlignment="Left"
@@ -252,7 +252,7 @@
                     TickFrequency="1"
                     AutoToolTipPlacement="BottomRight"
                     TickPlacement="BottomRight" 
-                    Ticks="{Binding Model.Bank4MinimumPlayers}"/>
+                    Value="{Binding Model.Bankheist.Bank4MinimumPlayers}"/>
                 <Label
                     x:Name="Bank1WinningMultiplicator_Copy1"
                     HorizontalAlignment="Left"
@@ -266,7 +266,7 @@
                     TickFrequency="0.25"
                     AutoToolTipPlacement="BottomRight"
                     TickPlacement="BottomRight" 
-                    Ticks="{Binding Model.Bank4WinningMultiplier}"/>
+                    Value="{Binding Model.Bankheist.Bank4WinningMultiplier}"/>
                 <!--  Bank 5  -->
                 <Separator
                     Width="450"
@@ -290,7 +290,7 @@
                     TickFrequency="1"
                     AutoToolTipPlacement="BottomRight"
                     TickPlacement="BottomRight" 
-                    Ticks="{Binding Model.Bank5SuccessRate}"/>
+                    Value="{Binding Model.Bankheist.Bank5SuccessRate}"/>
                 <Label
                     x:Name="Bank5MinPlayers_Copy2"
                     HorizontalAlignment="Left"
@@ -304,7 +304,7 @@
                     TickFrequency="1"
                     AutoToolTipPlacement="BottomRight"
                     TickPlacement="BottomRight" 
-                    Ticks="{Binding Model.Bank5MinimumPlayers}"/>
+                    Value="{Binding Model.Bankheist.Bank5MinimumPlayers}"/>
                 <Label
                     x:Name="Bank5WinningMultiplicator_Copy2"
                     HorizontalAlignment="Left"
@@ -318,7 +318,7 @@
                     TickFrequency="0.25"
                     AutoToolTipPlacement="BottomRight"
                     TickPlacement="BottomRight" 
-                    Ticks="{Binding Model.Bank5WinningMultiplier}"/>
+                    Value="{Binding Model.Bankheist.Bank5WinningMultiplier}"/>
 
 
             </StackPanel>

@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace BlackBoxBot.ViewModels {
     [PropertyChanged.ImplementPropertyChanged]
-    class SettingsViewModel
+    public class SettingsViewModel
     {
         private bool _LogChat = false;
         public bool LogChat
@@ -185,7 +185,7 @@ namespace BlackBoxBot.ViewModels {
         /// </summary>
         [PropertyChanged.ImplementPropertyChanged]
         public class GamesTabViewModel {
-            public Models.SettingsModel.GamesTabModel Model;
+            public Models.SettingsModel.GamesTabModel Model { get; set; }
 
             public GamesTabViewModel() {
                 CreateModel();
