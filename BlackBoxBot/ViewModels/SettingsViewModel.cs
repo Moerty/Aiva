@@ -136,6 +136,19 @@ namespace BlackBoxBot.ViewModels {
                     BlacklistedWordsActive = Convert.ToBoolean(Settings.Find(setting => String.Compare(setting.Name, "BlackListedWordsActive") == 0).Value),
                     SpamCheck = Convert.ToBoolean(Settings.Find(setting => String.Compare(setting.Name, "Spamcheck") == 0).Value),
 
+                    // SpamCheck Settings
+                    SkipMessageCheckAdmin = Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckAdmin"]),
+                    SkipMessageCheckBroadcaster = Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckBroadcaster"]),
+                    SkipMessageCheckGlobalMod = Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckGlobalMod"]),
+                    SkipMessageCheckMod = Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckMod"]),
+                    SkipMessageCheckStaff = Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckStaff"]),
+                    SkipMessageCheckViewer = Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckViewer"]),
+                    TimeToNewMessage = TimeSpan.Parse(Config.General.Config["SpamCheck"]["TimeToNewMessage"]),
+                    MinutesTimeoutWarning = TimeSpan.Parse(Config.General.Config["SpamCheck"]["MinutesTimeoutWarning"]),
+                    TimeoutTime = TimeSpan.Parse(Config.General.Config["SpamCheck"]["TimeoutTime"]),
+                    WarningTimeoutTime = TimeSpan.Parse(Config.General.Config["SpamCheck"]["WarningTimeoutTime"]),
+                    TimeActiveWarning = TimeSpan.Parse(Config.General.Config["SpamCheck"]["TimeActiveWarning"]),
+
                     Text = new Models.SettingsModel.ChatTabModel.TextModel {
                         ButtonSaveText = Config.Language.Instance.GetString("SettingsSaveButtonText"),
                     }

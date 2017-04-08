@@ -48,5 +48,5 @@ Active=True
 ; Amount of Currency to add after a specific time
 CurrencyToAdd=10
 
-; 1 Tick -> 1ms
+; hh:mm:ss
 TimerAddCurrency=00:05:00
