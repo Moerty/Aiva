@@ -21,7 +21,6 @@
             VerticalAlignment="Top"
             Content="Aktiviert"
             IsChecked="{Binding Model.BlacklistedWordsActive}" />
-
         <Button
             Width="167"
             Height="41"
@@ -93,5 +92,100 @@
             VerticalAlignment="Top"
             Content="Spamcheck"
             IsChecked="{Binding Model.SpamCheck}" />
+        <CheckBox
+            x:Name="checkBox"
+            Margin="55,264,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Skip spam check for Admin"
+            IsChecked="{Binding Model.SkipMessageCheckAdmin}" />
+        <CheckBox
+            x:Name="checkBox_Copy"
+            Margin="55,379,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Skip spam check for global Mod"
+            IsChecked="{Binding Model.SkipMessageCheckGlobalMod}" />
+        <CheckBox
+            x:Name="checkBox_Copy1"
+            Margin="55,356,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Skip spam check for Mod"
+            IsChecked="{Binding Model.SkipMessageCheckMod}" />
+        <CheckBox
+            x:Name="checkBox_Copy2"
+            Margin="55,333,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Skip spam check for Twitch worker"
+            IsChecked="{Binding Model.SkipMessageCheckStaff}" />
+        <CheckBox
+            x:Name="checkBox_Copy3"
+            Margin="55,310,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Skip spam check for Viewer"
+            IsChecked="{Binding Model.SkipMessageCheckViewer}" />
+        <CheckBox
+            x:Name="checkBox_Copy4"
+            Margin="55,287,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Skip spam check for Streamer"
+            IsChecked="{Binding Model.SkipMessageCheckBroadcaster}" />
+        <StackPanel Margin="30,413,229,23">
+            <Label
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Time to new message" />
+            <Controls:TimePicker
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Culture="de-DE"
+                SelectedTime="{Binding Model.TimeToNewMessage}" />
+        </StackPanel>
+
+        <StackPanel Margin="266,226,10,46">
+            <Label
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="MinutesTimeoutWarning" />
+            <Controls:TimePicker
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Culture="de-DE"
+                SelectedTime="{Binding Model.MinutesTimeoutWarning}" />
+            <Separator />
+            <Label
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Normal timeouttime" />
+            <Controls:TimePicker
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Culture="de-DE"
+                SelectedTime="{Binding Model.TimeoutTime}" />
+            <Separator />
+            <Label
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Timeout time after 3 warnings" />
+            <Controls:TimePicker
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Culture="de-DE"
+                SelectedTime="{Binding Model.WarningTimeoutTime}" />
+            <Separator />
+            <Label
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Active warning time" />
+            <Controls:TimePicker
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Culture="de-DE"
+                SelectedTime="{Binding Model.TimeActiveWarning}" />
+        </StackPanel>
     </Grid>
 </Controls:MetroContentControl>

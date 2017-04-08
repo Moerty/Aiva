@@ -130,6 +130,118 @@ namespace BlackBoxBot.Models {
                 }
             }
 
+            //SpamCheck
+            public bool SkipMessageCheckAdmin {
+                get {
+                    return Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckAdmin"]);
+                }
+                set {
+                    Config.General.Config["SpamCheck"]["SkipMessageCheckAdmin"] = value.ToString();
+                    Config.General.WriteConfig();
+                }
+            }
+
+            public bool SkipMessageCheckBroadcaster {
+                get {
+                    return Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckBroadcaster"]);
+                }
+                set {
+                    Config.General.Config["SpamCheck"]["SkipMessageCheckBroadcaster"] = value.ToString();
+                    Config.General.WriteConfig();
+                }
+            }
+
+            public bool SkipMessageCheckGlobalMod {
+                get {
+                    return Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckGlobalMod"]);
+                }
+                set {
+                    Config.General.Config["SpamCheck"]["SkipMessageCheckGlobalMod"] = value.ToString();
+                    Config.General.WriteConfig();
+                }
+            }
+
+            public bool SkipMessageCheckMod {
+                get {
+                    return Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckMod"]);
+                }
+                set {
+                    Config.General.Config["SpamCheck"]["SkipMessageCheckMod"] = value.ToString();
+                    Config.General.WriteConfig();
+                }
+            }
+
+            public bool SkipMessageCheckStaff {
+                get {
+                    return Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckStaff"]);
+                }
+                set {
+                    Config.General.Config["SpamCheck"]["SkipMessageCheckStaff"] = value.ToString();
+                    Config.General.WriteConfig();
+                }
+            }
+
+            public bool SkipMessageCheckViewer {
+                get {
+                    return Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckViewer"]);
+                }
+                set {
+                    Config.General.Config["SpamCheck"]["SkipMessageCheckViewer"] = value.ToString();
+                    Config.General.WriteConfig();
+                }
+            }
+
+            public TimeSpan TimeToNewMessage {
+                get {
+                    return TimeSpan.Parse(Config.General.Config["SpamCheck"]["TimeToNewMessage"]);
+                }
+                set {
+                    Config.General.Config["SpamCheck"]["TimeToNewMessage"] = value.ToString();
+                    Config.General.WriteConfig();
+                }
+            }
+
+            public TimeSpan MinutesTimeoutWarning {
+                get {
+                    return TimeSpan.Parse(Config.General.Config["SpamCheck"]["MinutesTimeoutWarning"]);
+                }
+                set {
+                    Config.General.Config["SpamCheck"]["MinutesTimeoutWarning"] = value.ToString();
+                    Config.General.WriteConfig();
+                }
+            }
+
+            public TimeSpan TimeoutTime {
+                get {
+                    return TimeSpan.Parse(Config.General.Config["SpamCheck"]["TimeoutTime"]);
+                }
+                set {
+                    Config.General.Config["SpamCheck"]["TimeoutTime"] = value.ToString();
+                    Config.General.WriteConfig();
+                }
+            }
+
+            public TimeSpan WarningTimeoutTime {
+                get {
+                    return TimeSpan.Parse(Config.General.Config["SpamCheck"]["WarningTimeoutTime"]);
+                }
+                set {
+                    Config.General.Config["SpamCheck"]["WarningTimeoutTime"] = value.ToString();
+                    Config.General.WriteConfig();
+                }
+            }
+
+            public TimeSpan TimeActiveWarning {
+                get {
+                    return TimeSpan.Parse(Config.General.Config["SpamCheck"]["TimeActiveWarning"]);
+                }
+                set {
+                    Config.General.Config["SpamCheck"]["TimeActiveWarning"] = value.ToString();
+                    Config.General.WriteConfig();
+                }
+            }
+
+            // Currency
             public bool Active {
                 get {
                     return Convert.ToBoolean(Config.General.Config["Currency"]["Active"]);

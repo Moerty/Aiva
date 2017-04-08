@@ -129,6 +129,7 @@
                     Text="{Binding Model.Channel}"
                     TextWrapping="Wrap" />
                 <TextBox
+                    Name="tbBotName"
                     Width="120"
                     Height="23"
                     Margin="10,41,0,0"

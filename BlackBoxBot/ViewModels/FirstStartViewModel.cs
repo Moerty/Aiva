@@ -25,6 +25,11 @@ namespace BlackBoxBot.ViewModels {
         }
 
         private void StartBot(object sender, ExecutedRoutedEventArgs e) {
+            if(String.IsNullOrEmpty(Model.BotName) || String.IsNullOrEmpty(Model.Channel)) {
+                return;
+            }
+
+
             IniData config = new IniData(new FileIniDataParser().ReadFile("Configs\\general.default"));
 
             config["Credentials"]["TwitchOAuth"] = Model.OAuthToken;
