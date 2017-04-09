@@ -13,14 +13,18 @@ Involves you in it and announces mistake!
 
 ## Todos:
 ### Now:
-- Settings in SQLites
 - Finish Settings to GUI
 - Setup Project
 - Dashboard
 
 ### Complete:
-- Blacklist Words in Settings
 - First Start Page for initial setup (Twitch OAuth & YouTube OAuth)
+* **Settings**:
+	* Blacklist word
+	* Spam check
+	* Bankheist
+	* General settings
+	* Currency settings
 
 ### LATER:
 - Raid System
