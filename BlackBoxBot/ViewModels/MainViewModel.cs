@@ -11,11 +11,24 @@ namespace BlackBoxBot.ViewModels {
     [ImplementPropertyChanged]
     class MainViewModel {
         public Models.MainModel Model { get; set; }
+
+        // Models
+        private Views.pUsers ViewersView;
+        private Views.SettingsView SettingsView;
+        private Views.DashboardView DashboardView;
+        private Views.HomeViewModel HomeView;
+
         private DispatcherTimer OnoffTimer;
 
         public MainViewModel() {
             // Create Model
             Model = new Models.MainModel();
+
+            // Create Models
+            ViewersView = new Views.pUsers();
+            SettingsView = new Views.SettingsView();
+            DashboardView = new Views.DashboardView();
+            HomeView = new Views.HomeViewModel();
 
             // Create WindowCommand
             CreateWindowCommands();
@@ -60,20 +73,35 @@ namespace BlackBoxBot.ViewModels {
         }
 
         private void SettingsCommand(object sender, ExecutedRoutedEventArgs e) {
-            Model.Content = new Views.SettingsView();
+            Model.Content = SettingsView;
         }
 
         private void DashboardCommand(object sender, ExecutedRoutedEventArgs e) {
-            Model.Content = new Views.DashboardView();
+            if(Model.Content == SettingsView) {
+                Config.Bankheist.WriteConfig();
+                Config.Currency.WriteConfig();
+                Config.General.WriteConfig();
+                Config.ModCommands.WriteConfig();
+                Config.Songrequest.WriteConfig();
+            }
+
+            Model.Content = DashboardView;
         }
 
         private void HomeCommand(object sender, ExecutedRoutedEventArgs e) {
-            Model.Content = new Views.HomeViewModel();
+            if (Model.Content == SettingsView) {
+                Config.Bankheist.WriteConfig();
+                Config.Currency.WriteConfig();
+                Config.General.WriteConfig();
+                Config.ModCommands.WriteConfig();
+                Config.Songrequest.WriteConfig();
+            }
+
+            Model.Content = HomeView;
         }
 
         private void ViewerCommand(object sender, ExecutedRoutedEventArgs e) {
-            var u = new Views.pUsers();
-            u.Show();
+            ViewersView.Show();
         }
 
         private void SetOnOffTimer() {
