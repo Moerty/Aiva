@@ -185,14 +185,14 @@
     <Compile Include="Views\AuctionView.xaml.cs">
       <DependentUpon>AuctionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\BetsView.xaml.cs">
-      <DependentUpon>BetsView.xaml</DependentUpon>
+    <Compile Include="Views\Bets.xaml.cs">
+      <DependentUpon>Bets.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FirstStart\MainStart.xaml.cs">
       <DependentUpon>MainStart.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HomeViewModel.xaml.cs">
-      <DependentUpon>HomeViewModel.xaml</DependentUpon>
+    <Compile Include="Views\Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsTabs\Chat.xaml.cs">
       <DependentUpon>Chat.xaml</DependentUpon>
@@ -203,22 +203,22 @@
     <Compile Include="Views\SettingsTabs\General.xaml.cs">
       <DependentUpon>General.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UsersView.xaml.cs">
-      <DependentUpon>UsersView.xaml</DependentUpon>
+    <Compile Include="Views\Users.xaml.cs">
+      <DependentUpon>Users.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ModCommandLog.xaml.cs">
       <DependentUpon>ModCommandLog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CurrencyView.xaml.cs">
-      <DependentUpon>CurrencyView.xaml</DependentUpon>
+    <Compile Include="Views\Currency.xaml.cs">
+      <DependentUpon>Currency.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GiveawayView.xaml.cs">
-      <DependentUpon>GiveawayView.xaml</DependentUpon>
+    <Compile Include="Views\Giveaway.xaml.cs">
+      <DependentUpon>Giveaway.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\MainModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="Views\StatisticsView.xaml.cs">
-      <DependentUpon>StatisticsView.xaml</DependentUpon>
+    <Compile Include="Views\Statistics.xaml.cs">
+      <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
     <Resource Include="Styles\Auction.xaml">
       <SubType>Designer</SubType>
@@ -232,7 +232,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\BetsView.xaml">
+    <Page Include="Views\Bets.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -240,7 +240,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HomeViewModel.xaml">
+    <Page Include="Views\Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -256,7 +256,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UsersView.xaml">
+    <Page Include="Views\Users.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -264,15 +264,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CurrencyView.xaml">
+    <Page Include="Views\Currency.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\GiveawayView.xaml">
+    <Page Include="Views\Giveaway.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DashboardView.xaml">
+    <Page Include="Views\Dashboard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -288,7 +288,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\VotingView.xaml">
+    <Page Include="Views\Voting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -300,8 +300,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\DashboardView.xaml.cs">
-      <DependentUpon>DashboardView.xaml</DependentUpon>
+    <Compile Include="Views\Dashboard.xaml.cs">
+      <DependentUpon>Dashboard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
@@ -312,8 +312,8 @@
     <Compile Include="Views\SongrequestView.xaml.cs">
       <DependentUpon>SongrequestView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\VotingView.xaml.cs">
-      <DependentUpon>VotingView.xaml</DependentUpon>
+    <Compile Include="Views\Voting.xaml.cs">
+      <DependentUpon>Voting.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
@@ -328,7 +328,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\StatisticsView.xaml">
+    <Page Include="Views\Statistics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
