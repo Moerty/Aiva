@@ -1,5 +1,5 @@
 ﻿<Controls:MetroContentControl
-    x:Class="BlackBoxBot.Controls.ucRank"
+    x:Class="BlackBoxBot.Controls.Rank"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"

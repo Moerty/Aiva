@@ -5,8 +5,8 @@ namespace BlackBoxBot.Views {
     /// <summary>
     /// Interaktionslogik für pUsers.xaml
     /// </summary>
-    public partial class pUsers : MahApps.Metro.Controls.MetroWindow {
-        public pUsers() {
+    public partial class Users : MahApps.Metro.Controls.MetroWindow {
+        public Users() {
             InitializeComponent();
         }
 

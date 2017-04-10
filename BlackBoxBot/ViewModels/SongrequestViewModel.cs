@@ -162,7 +162,7 @@ namespace BlackBoxBot.ViewModels
 
         private void playSong(object sender, ExecutedRoutedEventArgs e)
         {
-            var Song = (Songrequest.Song)(sender as Views.ucSongrequest).listView.SelectedItem;
+            var Song = (Songrequest.Song)(sender as Views.Songrequest).listView.SelectedItem;
             if (Player == null) Player = new Player(true);
 
             // Handle DoubleClick cause Pause
@@ -199,7 +199,7 @@ namespace BlackBoxBot.ViewModels
         {
             Player.MusicOnOff();
 
-            var Song = (Songrequest.Song)(sender as Views.ucSongrequest).listView.SelectedItem;
+            var Song = (Songrequest.Song)(sender as Views.Songrequest).listView.SelectedItem;
             if(Song != null)
             {
                 Song.IsPlaying = false;

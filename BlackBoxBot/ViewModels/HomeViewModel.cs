@@ -29,17 +29,17 @@ namespace BlackBoxBot.ViewModels {
                 new Models.HomeModel
                 {
                     Header = nameof(Songrequest),
-                    Content = new Views.ucSongrequest()
+                    Content = new Views.Songrequest()
                 },
                 new Models.HomeModel
                 {
                     Header = "Voting",
-                    Content = new Views.ucVoting()
+                    Content = new Views.Voting()
                 },
                 new Models.HomeModel
                 {
                     Header = "Streamwährung",
-                    Content = new Views.ucCurrency()
+                    Content = new Views.Currency()
                 },
                 new Models.HomeModel
                 {
@@ -49,12 +49,12 @@ namespace BlackBoxBot.ViewModels {
                 new Models.HomeModel
                 {
                     Header = "Rangverwaltung",
-                    Content = new Controls.ucRank()
+                    Content = new Controls.Rank()
                 },
                 new Models.HomeModel
                 {
                     Header = "Charts",
-                    Content = new Views.ucStatistics(),
+                    Content = new Views.Statistics(),
                 }
             };
         }

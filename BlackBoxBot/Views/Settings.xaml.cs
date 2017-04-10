@@ -2,8 +2,8 @@
     /// <summary>
     /// Interaktionslogik für ucSettings.xaml
     /// </summary>
-    public partial class SettingsView : MahApps.Metro.Controls.MetroContentControl {
-        public SettingsView() {
+    public partial class Settings : MahApps.Metro.Controls.MetroContentControl {
+        public Settings() {
             this.DataContext = new ViewModels.SettingsViewModel();
             InitializeComponent();
             cbLanguage.Items.Add("german");

@@ -4,8 +4,8 @@ namespace BlackBoxBot.Controls {
     /// <summary>
     /// Interaktionslogik für ucRank.xaml
     /// </summary>
-    public partial class ucRank : MahApps.Metro.Controls.MetroContentControl {
-        public ucRank() {
+    public partial class Rank : MahApps.Metro.Controls.MetroContentControl {
+        public Rank() {
             InitializeComponent();
         }
 

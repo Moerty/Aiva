@@ -2,9 +2,9 @@
     /// <summary>
     /// Interaktionslogik für ucCurrency.xaml
     /// </summary>
-    public partial class ucCurrency : MahApps.Metro.Controls.MetroContentControl {
+    public partial class Currency : MahApps.Metro.Controls.MetroContentControl {
 
-        public ucCurrency() {
+        public Currency() {
             InitializeComponent();
             this.DataContext = new ViewModels.CurrencyViewModel();
         }

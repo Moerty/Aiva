@@ -20,9 +20,9 @@ namespace BlackBoxBot.Views {
 	/// </summary>
 	///
 
-	public partial class DashboardView : MahApps.Metro.Controls.MetroContentControl {
+	public partial class Dashboard : MahApps.Metro.Controls.MetroContentControl {
 
-		public DashboardView() {
+		public Dashboard() {
 			InitializeComponent();
 
 			if (!DesignerProperties.GetIsInDesignMode(this)) LoadGamesFromTwitchAsync();

@@ -2,8 +2,8 @@
     /// <summary>
     /// Interaktionslogik für ucStatistics.xaml
     /// </summary>
-    public partial class ucStatistics : MahApps.Metro.Controls.MetroContentControl {
-        public ucStatistics() {
+    public partial class Statistics : MahApps.Metro.Controls.MetroContentControl {
+        public Statistics() {
             InitializeComponent();
             this.DataContext = new ViewModels.ChartsViewModel();
         }

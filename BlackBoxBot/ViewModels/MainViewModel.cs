@@ -13,10 +13,9 @@ namespace BlackBoxBot.ViewModels {
         public Models.MainModel Model { get; set; }
 
         // Models
-        private Views.pUsers ViewersView;
-        private Views.SettingsView SettingsView;
-        private Views.DashboardView DashboardView;
-        private Views.HomeViewModel HomeView;
+        private Views.Settings SettingsView;
+        private Views.Dashboard DashboardView;
+        private Views.Home HomeView;
 
         private DispatcherTimer OnoffTimer;
 
@@ -25,10 +24,9 @@ namespace BlackBoxBot.ViewModels {
             Model = new Models.MainModel();
 
             // Create Models
-            ViewersView = new Views.pUsers();
-            SettingsView = new Views.SettingsView();
-            DashboardView = new Views.DashboardView();
-            HomeView = new Views.HomeViewModel();
+            SettingsView = new Views.Settings();
+            DashboardView = new Views.Dashboard();
+            HomeView = new Views.Home();
 
             // Create WindowCommand
             CreateWindowCommands();
@@ -69,7 +67,7 @@ namespace BlackBoxBot.ViewModels {
             CommandManager.RegisterClassCommandBinding(buttonType, new CommandBinding(Model.WindowCommandItems[2].Command, DashboardCommand));
             CommandManager.RegisterClassCommandBinding(buttonType, new CommandBinding(Model.WindowCommandItems[3].Command, SettingsCommand));
 
-            Model.Content = new Views.HomeViewModel();
+            Model.Content = HomeView;
         }
 
         private void SettingsCommand(object sender, ExecutedRoutedEventArgs e) {
@@ -101,7 +99,8 @@ namespace BlackBoxBot.ViewModels {
         }
 
         private void ViewerCommand(object sender, ExecutedRoutedEventArgs e) {
-            ViewersView.Show();
+            var users = new Views.Users();
+            users.Show();
         }
 
         private void SetOnOffTimer() {

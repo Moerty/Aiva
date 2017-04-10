@@ -206,8 +206,8 @@
     <Compile Include="Views\UsersView.xaml.cs">
       <DependentUpon>UsersView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ModCommandLogView.xaml.cs">
-      <DependentUpon>ModCommandLogView.xaml</DependentUpon>
+    <Compile Include="Views\ModCommandLog.xaml.cs">
+      <DependentUpon>ModCommandLog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CurrencyView.xaml.cs">
       <DependentUpon>CurrencyView.xaml</DependentUpon>
@@ -260,7 +260,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ModCommandLogView.xaml">
+    <Page Include="Views\ModCommandLog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -276,11 +276,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SettingsView.xaml">
+    <Page Include="Views\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RankView.xaml">
+    <Page Include="Views\Rank.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -292,7 +292,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainWindowView.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -303,11 +303,11 @@
     <Compile Include="Views\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SettingsView.xaml.cs">
-      <DependentUpon>SettingsView.xaml</DependentUpon>
+    <Compile Include="Views\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RankView.xaml.cs">
-      <DependentUpon>RankView.xaml</DependentUpon>
+    <Compile Include="Views\Rank.xaml.cs">
+      <DependentUpon>Rank.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SongrequestView.xaml.cs">
       <DependentUpon>SongrequestView.xaml</DependentUpon>
@@ -316,8 +316,8 @@
       <DependentUpon>VotingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\LogHelper.cs" />
-    <Compile Include="Views\MainWindowView.xaml.cs">
-      <DependentUpon>MainWindowView.xaml</DependentUpon>
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Styles\CustomTabControl.xaml">
