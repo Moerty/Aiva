@@ -7,14 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Config
-{
-    public class ModCommands
-    {
+namespace Config {
+    public class ModCommands {
         public static IniData Config { get; private set; } = new IniData(new FileIniDataParser().ReadFile(".\\Configs\\modcommands.ini"));
 
-        public static void WriteConfig()
-        {
+        public static void WriteConfig() {
             new FileIniDataParser().WriteFile(".\\Configs\\modcommands.ini", Config, Encoding.UTF8);
         }
 

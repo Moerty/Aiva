@@ -6,12 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace AivaBot.Models
-{
+namespace AivaBot.Models {
     [PropertyChanged.ImplementPropertyChanged]
-    class SongrequestModel
-    {
-        public static Songrequest.Song playedSong; 
+    class SongrequestModel {
+        public static Songrequest.Song playedSong;
 
         public bool Songrequest { get; set; } = true;
         public string OnOffSongrequestText { get; set; }
@@ -19,8 +17,7 @@ namespace AivaBot.Models
         public AsyncObservableCollection<Songrequest.Song> SongList { get; set; } = new AsyncObservableCollection<Songrequest.Song>();
         public Songrequest.Player Player { get; set; }
 
-        public enum InformUser
-        {
+        public enum InformUser {
             AddedSuccessfully,
             VideoDuplicate,
             VideoNotFound,

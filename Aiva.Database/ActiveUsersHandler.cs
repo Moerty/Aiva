@@ -4,17 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Database
-{
-    public class ActiveUsersHandler
-    {
-        public static void AddUserToList(string name)
-        {
-            using (var context = new DatabaseEntities())
-            {
+namespace Database {
+    public class ActiveUsersHandler {
+        public static void AddUserToList(string name) {
+            using (var context = new DatabaseEntities()) {
                 context.ActiveUsers.Add(
-                    new ActiveUsers
-                    {
+                    new ActiveUsers {
                         Name = name,
                         Joined = DateTime.Now.ToString(),
                     });
@@ -23,15 +18,11 @@ namespace Database
             }
         }
 
-        public static void AddUserToList(List<string> list)
-        {
-            using (var context = new DatabaseEntities())
-            {
-                list.ForEach(x =>
-                {
+        public static void AddUserToList(List<string> list) {
+            using (var context = new DatabaseEntities()) {
+                list.ForEach(x => {
                     context.ActiveUsers.Add(
-                        new ActiveUsers
-                        {
+                        new ActiveUsers {
                             Name = x,
                             Joined = DateTime.Now.ToString(),
                         });
@@ -41,10 +32,8 @@ namespace Database
             }
         }
 
-        public static void RemoveUserFromList(string name)
-        {
-            using (var context = new DatabaseEntities())
-            {
+        public static void RemoveUserFromList(string name) {
+            using (var context = new DatabaseEntities()) {
                 var user = context.ActiveUsers.SingleOrDefault(x => (String.Compare(x.Name, name) == 0));
                 context.ActiveUsers.Remove(user);
 
@@ -52,23 +41,18 @@ namespace Database
             }
         }
 
-        public static DateTime GetJoinedTime(string name)
-        {
-            using (var context = new DatabaseEntities())
-            {
+        public static DateTime GetJoinedTime(string name) {
+            using (var context = new DatabaseEntities()) {
                 var user = context.ActiveUsers.SingleOrDefault(x => (String.Compare(x.Name, name) == 0));
                 return DateTime.Parse(user.Joined);
             }
         }
 
-        public static void AddTimeWatchedToDatabase(string name, DateTime Ticks)
-        {
-            using (var context = new DatabaseEntities())
-            {
+        public static void AddTimeWatchedToDatabase(string name, DateTime Ticks) {
+            using (var context = new DatabaseEntities()) {
                 var user = context.Users.SingleOrDefault(x => String.Compare(x.Name, name) == 0);
 
-                if(user != null)
-                {
+                if (user != null) {
                     var timeWatched = long.Parse(user.TimeWatched);
                     timeWatched += Ticks.Ticks;
                     user.TimeWatched = timeWatched.ToString();
@@ -78,18 +62,14 @@ namespace Database
             }
         }
 
-        public static void OnExistProgram(object sender, EventArgs e)
-        {
-            using (var context = new DatabaseEntities())
-            {
-                foreach(var entry in context.ActiveUsers.ToList())
-                {
+        public static void OnExistProgram(object sender, EventArgs e) {
+            using (var context = new DatabaseEntities()) {
+                foreach (var entry in context.ActiveUsers.ToList()) {
                     var user = context.Users.SingleOrDefault(x => String.Compare(x.Name, entry.Name, StringComparison.OrdinalIgnoreCase) == 0);
 
-                    if(user != null)
-                    {
+                    if (user != null) {
                         long parsedTimeWatched;
-                        if(long.TryParse(user.TimeWatched, out parsedTimeWatched)) {
+                        if (long.TryParse(user.TimeWatched, out parsedTimeWatched)) {
                             parsedTimeWatched += DateTime.Parse(entry.Joined).Ticks;
                         }
                         else {

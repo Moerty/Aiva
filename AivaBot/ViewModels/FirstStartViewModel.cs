@@ -25,7 +25,7 @@ namespace AivaBot.ViewModels {
         }
 
         private void StartBot(object sender, ExecutedRoutedEventArgs e) {
-            if(String.IsNullOrEmpty(Model.Channel)) {
+            if (String.IsNullOrEmpty(Model.Channel)) {
                 return;
             }
 
@@ -63,44 +63,48 @@ namespace AivaBot.ViewModels {
             Config.Currency.WriteInitialConfig();
             Config.ModCommands.WriteInitialConfig();
             Config.Songrequest.WriteInitialConfig();
-            
 
             Application.Current.MainWindow.Close();
         }
 
+        /// <summary>
+        /// Geht Validation Details
+        /// </summary>
+        /// <param name="oauth"></param>
+        /// <returns></returns>
         private TwitchLib.Models.API.Other.Validate.ValidationResponse GetTwitchDetails(string oauth) {
             var result = TwitchLib.TwitchApi.ValidationAPIRequest(oauth);
 
             return result;
         }
 
-        private string GetText() {
-            StringBuilder builder = new StringBuilder();
-
-            
-
-            return builder.ToString();
-        }
-
         private void StartRequestYoutube(object sender, ExecutedRoutedEventArgs e) {
             Model.GoogleAuth = Songrequest.GoogleCheck.Authenticate();
         }
 
+        /// <summary>
+        /// Send OAuth Request to the Browser
+        /// </summary>
         private void SendRequest() {
             Task.Run(() => Client.TwitchAuthentication.Instance.SendRequestToBrowser());
         }
 
+        /// <summary>
+        /// Start the Request to get the OAuth authentication details
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void StartRequest(object sender, ExecutedRoutedEventArgs e) {
             // Send Request
             SendRequest();
 
             var result = await Client.TwitchAuthentication.Instance.GetAuthenticationValuesAsync();
 
-            if(result != null) {
+            if (result != null) {
                 Model.OAuthToken = result.Token;
 
                 if (Model.Scopes == null) Model.Scopes = new System.Collections.ObjectModel.ObservableCollection<string>();
-                foreach(var scope in result.Scopes.Split(' ')) {
+                foreach (var scope in result.Scopes.Split(' ')) {
                     Model.Scopes.Add(scope);
                 }
 

@@ -10,11 +10,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Songrequest
-{
+namespace Songrequest {
     [PropertyChanged.ImplementPropertyChanged]
-    public class Song
-    {
+    public class Song {
         public string UserInput { get; set; }
         public string VideoID { get; set; }
         public string Username { get; set; }
@@ -27,8 +25,7 @@ namespace Songrequest
         private string ClientSecret;
         private const string youtubeURL = "https://www.youtube.com/watch?v=";
 
-        public Song(string userinput, string username, string clientID, string clientSecret)
-        {
+        public Song(string userinput, string username, string clientID, string clientSecret) {
             UserInput = userinput;
             VideoID = ExtractVideoID();
             Username = username;
@@ -38,18 +35,15 @@ namespace Songrequest
             VideoModel = GetVideoDetails();
         }
 
-        private Models.VideoModel GetVideoDetails()
-        {
+        private Models.VideoModel GetVideoDetails() {
             var request = youtubeService.Videos.List("snippet,contentDetails");
             request.Id = VideoID;
             var response = request.Execute();
 
-            if(response.Items.Count == 1)
-            {
+            if (response.Items.Count == 1) {
                 var video = response.Items[0];
 
-                var videoModel = new Models.VideoModel
-                {
+                var videoModel = new Models.VideoModel {
                     VideoID = VideoID,
                     Title = video.Snippet.Title,
                     Length = System.Xml.XmlConvert.ToTimeSpan(video.ContentDetails.Duration),
@@ -62,10 +56,8 @@ namespace Songrequest
                 return videoModel;
             }
             // Video not found
-            else
-            {
-                var videoModel = new Models.VideoModel
-                {
+            else {
+                var videoModel = new Models.VideoModel {
                     VideoStatus = Models.ReturnModel.VideoNotFound,
                 };
                 return videoModel;
@@ -73,11 +65,9 @@ namespace Songrequest
         }
 
 
-        private string ExtractVideoID()
-        {
+        private string ExtractVideoID() {
             // https://www.youtube.com/watch?v=ARfqiQRSPFc
-            if (UserInput.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
-            {
+            if (UserInput.StartsWith("https://", StringComparison.OrdinalIgnoreCase)) {
                 var query = HttpUtility.ParseQueryString(new Uri(UserInput).Query);
                 return query.AllKeys.Contains("v") ? query["v"] : new Uri(UserInput).Segments.Last();
             }
@@ -90,12 +80,10 @@ namespace Songrequest
 
 
 
-        private YouTubeService CreateYouTubeService()
-        {
+        private YouTubeService CreateYouTubeService() {
             UserCredential credential;
             credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                new ClientSecrets
-                {
+                new ClientSecrets {
                     ClientId = ClientID,
                     ClientSecret = ClientSecret
                 },
@@ -108,8 +96,7 @@ namespace Songrequest
             ).Result;
 
 
-            var youtubeService = new YouTubeService(new BaseClientService.Initializer
-            {
+            var youtubeService = new YouTubeService(new BaseClientService.Initializer {
                 HttpClientInitializer = credential,
                 ApplicationName = "AivaBot"
             });

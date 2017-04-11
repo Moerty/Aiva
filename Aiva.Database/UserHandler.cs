@@ -4,34 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Database
-{
-    public class UserHandler
-    {
-        public class AddUser
-        {
-            public static void AddUserToDatabase(TwitchLib.Models.API.User.User user)
-            {
-                if (!CheckIfUserExist(user))
-                {
+namespace Database {
+    public class UserHandler {
+        public class AddUser {
+            public static void AddUserToDatabase(TwitchLib.Models.API.User.User user) {
+                if (!CheckIfUserExist(user)) {
                     // User doesnt exists
                     AddToUsersTableAsync(user);
                     AddToCurrencyTableAsync(user);
                 }
             }
-            private static bool CheckIfUserExist(TwitchLib.Models.API.User.User user)
-            {
-                using (var context = new DatabaseEntities())
-                {
+            private static bool CheckIfUserExist(TwitchLib.Models.API.User.User user) {
+                using (var context = new DatabaseEntities()) {
                     var result = context.Users.SingleOrDefault(x => x.TwitchID == user.Id);
                     return result != null;
                 }
             }
 
-            private static async void AddToUsersTableAsync(TwitchLib.Models.API.User.User user)
-            {
-                var userDb = new Users
-                {
+            private static async void AddToUsersTableAsync(TwitchLib.Models.API.User.User user) {
+                var userDb = new Users {
                     DisplayName = user.DisplayName,
                     Name = user.Name,
                     TwitchID = Convert.ToInt64(user.Id),
@@ -42,34 +33,27 @@ namespace Database
                     IsViewing = 1
                 };
 
-                using (var context = new DatabaseEntities())
-                {
+                using (var context = new DatabaseEntities()) {
                     context.Users.Add(userDb);
                     await context.SaveChangesAsync();
                 }
             }
-            private static async void AddToCurrencyTableAsync(TwitchLib.Models.API.User.User user)
-            {
-                var currency = new Currency
-                {
+            private static async void AddToCurrencyTableAsync(TwitchLib.Models.API.User.User user) {
+                var currency = new Currency {
                     Name = user.Name,
                     Value = 0
                 };
 
-                using (var context = new DatabaseEntities())
-                {
+                using (var context = new DatabaseEntities()) {
                     context.Currency.Add(currency);
                     await context.SaveChangesAsync();
                 }
             }
         }
 
-        public class UpdateUser
-        {
-            public static async void UpdateLastSeenAsync(string name)
-            {
-                using (var context = new DatabaseEntities())
-                {
+        public class UpdateUser {
+            public static async void UpdateLastSeenAsync(string name) {
+                using (var context = new DatabaseEntities()) {
                     var user = context.Users.FirstOrDefault(u => u.Name == name);
 
                     user.LastSeen = DateTime.Now.ToString();
@@ -81,10 +65,8 @@ namespace Database
                 }
             }
 
-            public static async void SetIsViewingAsync(string name, bool value)
-            {
-                using (var context = new DatabaseEntities())
-                {
+            public static async void SetIsViewingAsync(string name, bool value) {
+                using (var context = new DatabaseEntities()) {
                     var user = context.Users.SingleOrDefault(u => u.Name == name);
 
                     if (value)
@@ -96,10 +78,8 @@ namespace Database
                 }
             }
 
-            public static void OnExistProgramm(object sender, EventArgs e)
-            {
-                using (var context = new DatabaseEntities())
-                {
+            public static void OnExistProgramm(object sender, EventArgs e) {
+                using (var context = new DatabaseEntities()) {
                     var result = context.Users.Where(u => u.IsViewing == 1).ToList();
 
                     result.ForEach(u => u.IsViewing = 0);

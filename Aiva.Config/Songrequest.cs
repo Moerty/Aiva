@@ -7,18 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Config
-{
-	public class Songrequest
-	{
-		public static IniData Config { get; private set; } = new IniData(new FileIniDataParser().ReadFile("Configs\\songrequest.ini"));
+namespace Config {
+    public class Songrequest {
+        public static IniData Config { get; private set; } = new IniData(new FileIniDataParser().ReadFile("Configs\\songrequest.ini"));
 
-		public Songrequest() { }
+        public Songrequest() { }
 
-		public static void WriteConfig()
-		{
-			new FileIniDataParser().WriteFile("Configs\\songrequest.ini", Config, Encoding.UTF8);
-		}
+        public static void WriteConfig() {
+            new FileIniDataParser().WriteFile("Configs\\songrequest.ini", Config, Encoding.UTF8);
+        }
 
         public static void WriteInitialConfig() {
             IniData Config = new FileIniDataParser().ReadFile("Configs\\songrequest.default");

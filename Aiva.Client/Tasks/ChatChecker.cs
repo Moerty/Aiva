@@ -6,17 +6,13 @@ using TwitchLib.Enums;
 using TwitchLib.Events.Client;
 using TwitchLib.Extensions.Client;
 
-namespace Client.Tasks
-{
-    public static class ChatChecker
-    {
+namespace Client.Tasks {
+    public static class ChatChecker {
         private static readonly System.Resources.ResourceManager languageConfig = Config.Language.Instance;
 
-        public static void CheckMessage(object sender, OnMessageReceivedArgs e)
-        {
+        public static void CheckMessage(object sender, OnMessageReceivedArgs e) {
             Checks check;
-            switch (e.ChatMessage.UserType)
-            {
+            switch (e.ChatMessage.UserType) {
                 case UserType.Admin:
                     check = new Checks(e, Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckAdmin"]));
                     break;
@@ -38,29 +34,25 @@ namespace Client.Tasks
             }
         }
 
-        private class Checks
-        {
+        private class Checks {
             /// <summary>
             /// </summary>
             /// <param name="e"></param>
             /// <param name="skipChecks">Skip Checks for Mods</param>
-            public Checks(OnMessageReceivedArgs e, bool skipChecks = false)
-            {
+            public Checks(OnMessageReceivedArgs e, bool skipChecks = false) {
                 if (skipChecks)
                     return;
                 SpamSchutz.addToSpamSchutz(e);
             }
 
-            public class SpamSchutz
-            {
+            public class SpamSchutz {
                 private static Dictionary<DateTime, OnMessageReceivedArgs> nachrichten;
 
                 /// <summary>
                 ///     Dictionary to store Messages and check if a User spam
                 /// </summary>
                 /// <param name="e"></param>
-                public static void addToSpamSchutz(OnMessageReceivedArgs e)
-                {
+                public static void addToSpamSchutz(OnMessageReceivedArgs e) {
                     var eingangszeit = DateTime.Now;
 
                     if (nachrichten == null)
@@ -84,8 +76,7 @@ namespace Client.Tasks
                 /// <summary>
                 ///     Delete Message when older than X
                 /// </summary>
-                private static void deleteFromList()
-                {
+                private static void deleteFromList() {
                     var result = nachrichten.Where(n => n.Key <= DateTime.Now
                                                             .Subtract(TimeSpan.Parse(Config.General.Config["SpamCheck"]["TimeToNewMessage"])))
                         .ToList();
@@ -100,16 +91,14 @@ namespace Client.Tasks
                 /// <param name="username"></param>
                 /// <param name="jetztzeit"></param>
                 /// <returns></returns>
-                private static bool checkIfSpam(string username, DateTime jetztzeit)
-                {
+                private static bool checkIfSpam(string username, DateTime jetztzeit) {
                     var result = nachrichten.Where(n => n.Value.ChatMessage.Username == username).ToList();
                     var timeoutTime = TimeSpan.Parse(Config.General.Config["SpamCheck"]["TimeoutTime"]);
                     var warningTimeout = TimeSpan.Parse(Config.General.Config["SpamCheck"]["MinutesTimeoutWarning"]);
 
                     if (result.Count == 0)
                         return false;
-                    switch (Warnings.CheckWarnings(username))
-                    {
+                    switch (Warnings.CheckWarnings(username)) {
                         case 1:
                             Client.ClientBBB.TwitchClientBBB.TimeoutUser(result[0].Value.ChatMessage.Username, timeoutTime,
                                 languageConfig.GetString("SpamCheckFirstWarningText")
@@ -135,16 +124,14 @@ namespace Client.Tasks
                 }
 
 
-                private class Warnings
-                {
+                private class Warnings {
                     private static List<Warnings> warning;
                     private int _sumWarning;
                     private readonly DateTime _time;
 
                     private readonly string _username;
 
-                    public Warnings(string username, DateTime time, int warnings)
-                    {
+                    public Warnings(string username, DateTime time, int warnings) {
                         _username = username;
                         _time = time;
                         _sumWarning = warnings;
@@ -157,8 +144,7 @@ namespace Client.Tasks
                     /// </summary>
                     /// <param name="username"></param>
                     /// <returns>Number 0 means he spams </returns>
-                    public static int CheckWarnings(string username)
-                    {
+                    public static int CheckWarnings(string username) {
                         // Create
                         if (warning == null)
                             warning = new List<Warnings>();
@@ -179,14 +165,12 @@ namespace Client.Tasks
 
                         // count or add warning
                         if (result != null)
-                            if (result._sumWarning <= 3)
-                            {
+                            if (result._sumWarning <= 3) {
                                 result._sumWarning += 1;
                                 warning.Add(result);
                                 return result._sumWarning;
                             }
-                            else
-                            {
+                            else {
                                 return 0;
                             }
                         warning.Add(new Warnings(username, DateTime.Now, 1));

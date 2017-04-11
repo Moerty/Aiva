@@ -4,16 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModCommands
-{
-    public class Currency
-    {
+namespace ModCommands {
+    public class Currency {
         private string Command;
         private List<string> Arguments;
         private CurrencyControls Action;
 
-        public Currency(string command, List<string> arguments)
-        {
+        public Currency(string command, List<string> arguments) {
             Command = command;
             Arguments = arguments;
             Action = IdentifyCommand();
@@ -22,9 +19,8 @@ namespace ModCommands
             DoModification();
         }
 
-        private CurrencyControls IdentifyCommand()
-        {
-            if(Command.Equals(Config.ModCommands.Config["Currency"]["AddCurrency"], StringComparison.OrdinalIgnoreCase))
+        private CurrencyControls IdentifyCommand() {
+            if (Command.Equals(Config.ModCommands.Config["Currency"]["AddCurrency"], StringComparison.OrdinalIgnoreCase))
                 return CurrencyControls.Add;
             if (Command.Equals(Config.ModCommands.Config["Currency"]["DeleteCurrency"], StringComparison.OrdinalIgnoreCase))
                 return CurrencyControls.Del;
@@ -34,10 +30,8 @@ namespace ModCommands
             return CurrencyControls.None;
         }
 
-        private void DoModification()
-        {
-            switch(Action)
-            {
+        private void DoModification() {
+            switch (Action) {
                 case CurrencyControls.Add:
                     AddCurrency();
                     break;
@@ -52,52 +46,41 @@ namespace ModCommands
             }
         }
 
-        private void AddCurrency()
-        {
+        private void AddCurrency() {
             int? checkValue = CheckInt(Arguments[1]);
 
-            if (Arguments.Count == 2)
-            {
-                if (checkValue.HasValue)
-                {
+            if (Arguments.Count == 2) {
+                if (checkValue.HasValue) {
                     Database.CurrencyHandler.AddCurrencyAsync(Arguments[0], checkValue.Value);
                 }
                 // Value incorrect (maybe characters)
-                else
-                {
+                else {
 
                 }
             }
         }
 
-        private void TransferCurrency()
-        {
+        private void TransferCurrency() {
             int? checkValue = CheckInt(Arguments[2]);
 
-            if(Arguments.Count == 3)
-            {
-                if(checkValue.HasValue)
-                {
+            if (Arguments.Count == 3) {
+                if (checkValue.HasValue) {
                     Database.CurrencyHandler.TransferCurrencyAsync(Arguments[0], Arguments[1], checkValue.Value);
                 }
             }
         }
 
-        private void DelCurrency()
-        {
+        private void DelCurrency() {
             int? checkValue = CheckInt(Arguments[1]);
 
-            if (Arguments.Count == 2)
-            {
-                if (checkValue.HasValue)
-                {
+            if (Arguments.Count == 2) {
+                if (checkValue.HasValue) {
                     Database.CurrencyHandler.RemoveCurrencyAsync(Arguments[0], checkValue.Value);
                 }
             }
         }
 
-        private int? CheckInt(string value)
-        {
+        private int? CheckInt(string value) {
             int result;
             if (int.TryParse(value, out result))
                 return result;
@@ -106,8 +89,7 @@ namespace ModCommands
         }
     }
 
-    public enum CurrencyControls
-    {
+    public enum CurrencyControls {
         Add,
         Trans,
         Del,

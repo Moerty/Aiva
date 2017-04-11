@@ -8,17 +8,14 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace AivaBot.ViewModels
-{
+namespace AivaBot.ViewModels {
     [PropertyChanged.ImplementPropertyChanged]
-    class AuctionViewModels
-    {
+    class AuctionViewModels {
         public ICommand StopCommand { get; set; } = new RoutedCommand();
         public ICommand StartCommand { get; set; } = new RoutedCommand();
         public Auction.AuctionHandler AuctionHandler { get; set; } = new Auction.AuctionHandler();
 
-        public AuctionViewModels(FrameworkElement control)
-        {
+        public AuctionViewModels(FrameworkElement control) {
             // Initialize
             CreateModels();
 
@@ -27,13 +24,10 @@ namespace AivaBot.ViewModels
             CommandManager.RegisterClassCommandBinding(control.GetType(), new CommandBinding(StopCommand, StopAuction));
         }
 
-        private void StartAuction(object sender, EventArgs e)
-        {
-            if(!AuctionHandler.IsStarted)
-            {
+        private void StartAuction(object sender, EventArgs e) {
+            if (!AuctionHandler.IsStarted) {
                 //AuctionHandler.IsStarted = 
-                AuctionHandler.Current = new Auction.CurrentAuction(new Auction.Models.InitModel
-                {
+                AuctionHandler.Current = new Auction.CurrentAuction(new Auction.Models.InitModel {
                     Name = AuctionName,
                     Command = Command,
                     WithTickets = exTickets,
@@ -47,17 +41,14 @@ namespace AivaBot.ViewModels
             }
         }
 
-        private void StopAuction(object sender, EventArgs e)
-        {
+        private void StopAuction(object sender, EventArgs e) {
             AuctionHandler.Current.StopRegistration();
         }
 
-        private void CreateModels()
-        {
+        private void CreateModels() {
             Model = new Models.AuctionModel();
 
-            Model.Text = new Models.Text
-            {
+            Model.Text = new Models.Text {
                 NameWatermark = Config.Language.Instance.GetString("AuctionNameWatermark"),
                 CommandWatermark = Config.Language.Instance.GetString("AuctionCommandWatermark"),
                 TicketExpanderName = Config.Language.Instance.GetString("AuctionTicketExpanderName"),

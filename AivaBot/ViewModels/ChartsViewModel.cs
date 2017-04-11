@@ -21,15 +21,12 @@ using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using LiveCharts.Configurations;
 
-namespace AivaBot.ViewModels
-{
+namespace AivaBot.ViewModels {
     [PropertyChanged.ImplementPropertyChanged]
-    class ChartsViewModel
-    {
+    class ChartsViewModel {
         public SeriesCollection LastHourSeries { get; set; }
 
-        public ChartsViewModel()
-        {
+        public ChartsViewModel() {
             LastHourSeries = new SeriesCollection
             {
                 new LineSeries
@@ -46,8 +43,7 @@ namespace AivaBot.ViewModels
 
 
     [PropertyChanged.ImplementPropertyChanged]
-    class ViewerCount
-    {
+    class ViewerCount {
         public DateTime CurrentTime { get; set; }
         public int Viewercount { get; set; }
     }

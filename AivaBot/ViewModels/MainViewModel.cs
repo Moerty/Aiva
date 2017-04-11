@@ -75,7 +75,7 @@ namespace AivaBot.ViewModels {
         }
 
         private void DashboardCommand(object sender, ExecutedRoutedEventArgs e) {
-            if(Model.Content == SettingsView) {
+            if (Model.Content == SettingsView) {
                 Config.Bankheist.WriteConfig();
                 Config.Currency.WriteConfig();
                 Config.General.WriteConfig();

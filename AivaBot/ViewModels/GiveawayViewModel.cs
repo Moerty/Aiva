@@ -10,11 +10,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace AivaBot.ViewModels
-{
+namespace AivaBot.ViewModels {
     [PropertyChanged.ImplementPropertyChanged]
-    public class GiveawayViewModel
-    {
+    public class GiveawayViewModel {
         public ICommand StartCommand { get; set; } = new RoutedCommand();
         public ICommand StopCommand { get; set; } = new RoutedCommand();
         public ICommand RollCommand { get; set; } = new RoutedCommand();
@@ -24,8 +22,7 @@ namespace AivaBot.ViewModels
         public Giveaway.Giveaway GiveawayInstance { get; set; }
         public Models.GiveawayModel Model { get; set; }
 
-        public GiveawayViewModel()
-        {
+        public GiveawayViewModel() {
             var type = new MahApps.Metro.Controls.MetroContentControl().GetType();
 
             CommandManager.RegisterClassCommandBinding(type, new CommandBinding(StartCommand, Start));
@@ -34,20 +31,18 @@ namespace AivaBot.ViewModels
 
             // Create Models
             CreateModels();
-            
+
             TimerToEnd = new DispatcherTimer(DispatcherPriority.Normal);
             TimerToEnd.Interval = TimeSpan.FromMinutes(3);
             TimerToEnd.Tick += TimerToEnd_Tick;
         }
 
-        private void TimerToEnd_Tick(object sender, EventArgs e)
-        {
+        private void TimerToEnd_Tick(object sender, EventArgs e) {
             TimerToEnd.Stop();
             Stop();
         }
 
-        private void Start(object sender, EventArgs e)
-        {
+        private void Start(object sender, EventArgs e) {
 
             if (String.IsNullOrEmpty(Model.Options.Keyword)) return;
 
@@ -67,8 +62,7 @@ namespace AivaBot.ViewModels
             TimerToEnd.Start();
         }
 
-        private void Roll(object sender, EventArgs e)
-        {
+        private void Roll(object sender, EventArgs e) {
             var raffleWinner = GiveawayInstance.UserList.GetWinner();
 
             if (Model.UncheckWinner)
@@ -76,20 +70,17 @@ namespace AivaBot.ViewModels
                     Model.Winners.Add(raffleWinner.Username);
         }
 
-        private void Stop(object sender = null, EventArgs e = null)
-        {
+        private void Stop(object sender = null, EventArgs e = null) {
             Model.IsStarted = false;
 
             GiveawayInstance.StopGiveawayRegistration();
         }
 
 
-        private void CreateModels()
-        {
+        private void CreateModels() {
             Model = new Models.GiveawayModel();
-            
-            Model.Text = new Models.GiveawayModel.TextModel
-            {
+
+            Model.Text = new Models.GiveawayModel.TextModel {
                 StatusActive = Config.Language.Instance.GetString("GiveawayStatusActive"),
                 StatusInactive = Config.Language.Instance.GetString("GiveawayStatusInactive"),
                 ButtonGiveawayRoll = Config.Language.Instance.GetString("GiveawayButtonGiveawayRoll"),

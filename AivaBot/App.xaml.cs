@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace AivaBot {
-	/// <summary>
-	/// Interaktionslogik für "App.xaml"
-	/// </summary>
-	public partial class App : Application {
+    /// <summary>
+    /// Interaktionslogik für "App.xaml"
+    /// </summary>
+    public partial class App : Application {
         private void Application_Startup(object sender, EventArgs e) {
             // Check first Start
             if (File.Exists("Configs\\general.ini")) {
@@ -54,8 +54,7 @@ namespace AivaBot {
             }
         }
 
-        private static void Main_Closed(object sender, EventArgs e)
-        {
+        private static void Main_Closed(object sender, EventArgs e) {
             // Close CefSharp
             CefSharp.Cef.Shutdown();
         }
@@ -68,10 +67,8 @@ namespace AivaBot {
         /// <param name="sender"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        private static System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
-        {
-            if (args.Name.StartsWith("CefSharp"))
-            {
+        private static System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args) {
+            if (args.Name.StartsWith("CefSharp")) {
                 var assemblyName = args.Name.Split(new[] { ',' }, 2)[0] + ".dll";
                 var archSpecificPath = System.IO.Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase,
                                                        Environment.Is64BitProcess ? "x64" : "x86",
@@ -86,10 +83,8 @@ namespace AivaBot {
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private static void InitializeCefSharp()
-        {
-            var settings = new CefSettings
-            {
+        private static void InitializeCefSharp() {
+            var settings = new CefSettings {
 
                 // Set BrowserSubProcessPath based on app bitness at runtime
                 BrowserSubprocessPath = System.IO.Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase,

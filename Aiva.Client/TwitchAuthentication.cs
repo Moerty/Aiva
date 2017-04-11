@@ -60,7 +60,7 @@ namespace Client {
             StartListener();
 
             AuthenticationModel Values = null;
-            while(listener.IsListening) {
+            while (listener.IsListening) {
                 var context = listener.GetContext();
 
                 if (context.Request.QueryString.HasKeys()) {
@@ -69,7 +69,7 @@ namespace Client {
                         string scope = HttpUtility.ParseQueryString(myUri.Query).Get("scope");
                         string access_token = HttpUtility.ParseQueryString(myUri.Query).Get(0).Replace("access_token=", "");
 
-                        if(!String.IsNullOrEmpty(scope) && !String.IsNullOrEmpty(access_token)) {
+                        if (!String.IsNullOrEmpty(scope) && !String.IsNullOrEmpty(access_token)) {
                             Values = GetModel(access_token, scope);
                         }
                     }
@@ -84,7 +84,7 @@ namespace Client {
                 output.Write(b, 0, b.Length);
                 context.Response.Close();
 
-                if(Values != null) {
+                if (Values != null) {
                     StopListener();
                     return Values;
                 }

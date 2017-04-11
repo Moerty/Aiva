@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AivaBot.Models.Charts
-{
-    
+namespace AivaBot.Models.Charts {
+
 }

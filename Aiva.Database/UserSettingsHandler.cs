@@ -15,7 +15,7 @@ namespace Database {
         public static void WriteConfig(List<UserSettings> settings) {
             using (var context = new DatabaseEntities()) {
 
-                foreach(var setting in settings) {
+                foreach (var setting in settings) {
                     var entry = context.UserSettings.SingleOrDefault(x => String.Compare(setting.Name, x.Name, true) == 0);
 
                     if (entry != null)
@@ -26,13 +26,13 @@ namespace Database {
         }
 
         public static bool GetBoolean(string name) {
-            using(var context = new DatabaseEntities()) {
+            using (var context = new DatabaseEntities()) {
                 return Convert.ToBoolean(context.UserSettings.SingleOrDefault(x => x.Name == name).Value);
             }
         }
 
         public static List<string> GetBlacklistedWords() {
-            using(var context = new DatabaseEntities()) {
+            using (var context = new DatabaseEntities()) {
                 return context.UserSettings.SingleOrDefault(x => x.Name == "BlacklistedWords").Value.Split(',').ToList();
             }
         }

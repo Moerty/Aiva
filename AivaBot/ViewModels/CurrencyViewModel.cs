@@ -4,46 +4,37 @@ using System.Windows.Media;
 using AivaBot.Bankheist.Models;
 
 namespace AivaBot.ViewModels {
-    class CurrencyViewModel
-    {
+    class CurrencyViewModel {
         public List<Database.Currency> CurrencyDatabaseList;
 
         private readonly System.Windows.Forms.Timer bankheistTimer;
 
-        public string BankheistCommand
-        {
-            get
-            {
+        public string BankheistCommand {
+            get {
                 return Config.Bankheist.Config["General"]["Command"];
             }
-            set
-            {
+            set {
                 Config.Bankheist.Config["General"]["Command"] = value;
                 Config.Bankheist.WriteConfig();
             }
         }
 
-        public bool IsBankheistEnabled
-        {
-            get
-            {
+        public bool IsBankheistEnabled {
+            get {
                 return Convert.ToBoolean(Config.Bankheist.Config["General"]["Active"]);
             }
-            set
-            {
+            set {
                 Config.Bankheist.Config["General"]["Active"] = value.ToString();
                 Config.Bankheist.WriteConfig();
             }
         }
 
-        public CurrencyViewModel()
-        {
+        public CurrencyViewModel() {
             currencyModel = new Models.CurrencyModel();
             CurrencyDatabaseList = Database.CurrencyHandler.GetCurrencyList();
             currencyModel.UserList = new Models.AsyncObservableCollection<Database.Currency>();
             currencyModel.UserList.Add(
-                new Database.Currency
-                {
+                new Database.Currency {
                     Name = "abcdefg",
                     Value = 123,
                 });
@@ -64,9 +55,8 @@ namespace AivaBot.ViewModels {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BankheistTileActiveCheck(object sender, EventArgs e)
-        {
-            switch(Bankheist.Bankheist.Status)//Extensions.Bankheist.Status)
+        private void BankheistTileActiveCheck(object sender, EventArgs e) {
+            switch (Bankheist.Bankheist.Status)//Extensions.Bankheist.Status)
             {
                 case BankheistModel.Enums.BankheistStatus.IsActive:
                     currencyModel.BankheistTileColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#CC53F324"));
@@ -74,7 +64,7 @@ namespace AivaBot.ViewModels {
                     break;
                 case BankheistModel.Enums.BankheistStatus.OnCooldown:
                     currencyModel.BankheistTileColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#CC1E570E"));
-                    currencyModel.BankheistText = Config.Language.Instance.GetString("BankheistGUITileCooldown"); 
+                    currencyModel.BankheistText = Config.Language.Instance.GetString("BankheistGUITileCooldown");
                     break;
                 case BankheistModel.Enums.BankheistStatus.Ready:
                     currencyModel.BankheistTileColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#CCF32424"));
@@ -87,21 +77,19 @@ namespace AivaBot.ViewModels {
         /// <summary>
         /// Currency Timer
         /// </summary>
-        private static void CurrencyTimer()
-        {
+        private static void CurrencyTimer() {
             var generalConfig = new Config.General();
 
-            if (Convert.ToBoolean(Config.General.Config["Currency"]["Active"]))
-            {
+            if (Convert.ToBoolean(Config.General.Config["Currency"]["Active"])) {
                 TimeSpan Interval;
-                if(TimeSpan.TryParse(Config.General.Config["Currency"]["TimerAddCurrency"], out Interval)) {
+                if (TimeSpan.TryParse(Config.General.Config["Currency"]["TimerAddCurrency"], out Interval)) {
                     var timer = new System.Windows.Threading.DispatcherTimer();
                     timer.Tick += Database.CurrencyHandler.AddCurrencyFrequentlyAsync;
                     timer.Interval = Interval;
                     timer.Start();
                 }
 
-                
+
             }
         }
         #endregion

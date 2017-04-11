@@ -16,7 +16,7 @@ namespace Config {
         }
 
         public static void WriteInitialConfig() {
-            IniData Config = new  FileIniDataParser().ReadFile("Configs\\currency.default");
+            IniData Config = new FileIniDataParser().ReadFile("Configs\\currency.default");
 
             if (File.Exists("Configs\\currency.ini")) {
                 new FileIniDataParser().WriteFile("Configs\\currency.ini", Config, Encoding.UTF8);

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 using AivaBot.Bankheist.Models;
 using static AivaBot.Bankheist.Models.BankheistModel.Enums;
 
-namespace AivaBot.Bankheist
-{
-    class BankheistHandler
-    {
+namespace AivaBot.Bankheist {
+    class BankheistHandler {
         private static Bankheist bankheist;
         private static System.Timers.Timer NewBankheist;
 
@@ -17,47 +15,38 @@ namespace AivaBot.Bankheist
         /// EntryPoint 4 New Bankheist
         /// </summary>
         /// <param name="e">Chat Command Receive Args</param>
-        public static void ProcessBankheist(TwitchLib.Events.Client.OnChatCommandReceivedArgs e)
-        {
+        public static void ProcessBankheist(TwitchLib.Events.Client.OnChatCommandReceivedArgs e) {
             // Bankheist locked?
-            if (NewBankheist == null)
-            {
+            if (NewBankheist == null) {
                 // Is Argument a valid Int?
                 int result;
-                if (int.TryParse(e.Command.ArgumentsAsString, out result))
-                {
+                if (int.TryParse(e.Command.ArgumentsAsString, out result)) {
                     // Does have the User enough Currency?
-                    if (CheckifEnoughCurrency(e.Command.ChatMessage.Username, result))
-                    {
-                        if (bankheist == null)
-                        {
+                    if (CheckifEnoughCurrency(e.Command.ChatMessage.Username, result)) {
+                        if (bankheist == null) {
                             bankheist = new Bankheist(
                                 Config.Bankheist.Config,
                                 new BankheistModel(e.Command.ChatMessage.Username, result));
                         }
                         // Or add user to list
-                        else
-                        {
+                        else {
                             var adduser = bankheist.addUserToList(e.Command.ChatMessage.Username, result);
 
                             // Bankheist closed while check winners
-                            if (bankheist.determineWinners)
-                            {
+                            if (bankheist.determineWinners) {
                                 Client.Client.ClientBBB.TwitchClientBBB.SendMessage(Config.Language.Instance.GetString("BankheistAddUserBankheistRunning"));
                                 return;
                             }
 
                             // User already exists?
-                            if (!adduser)
-                            {
+                            if (!adduser) {
                                 Client.Client.ClientBBB.TwitchClientBBB.SendMessage(Config.Language.Instance.GetString("BankheistAddUserExists"));
                                 return;
                             }
                         }
                     }
                     // return if not enough currency
-                    else
-                    {
+                    else {
                         Client.Client.ClientBBB.TwitchClientBBB.SendMessage(Config.Language.Instance.GetString("BankheistNotEnoughCurrency")
                                                                                                        .Replace("@USERNAME@", e.Command.ChatMessage.Username)
                                                                                                        .Replace("@VALUE@", result.ToString())
@@ -67,14 +56,12 @@ namespace AivaBot.Bankheist
                     }
                 }
                 // Something went wrong with the argument
-                else
-                {
+                else {
                     Client.Client.ClientBBB.TwitchClientBBB.SendMessage(Config.Language.Instance.GetString("BankheistStartErrorText"));
                 }
             }
             // When Bankheist is on cooldown
-            else
-            {
+            else {
                 Client.Client.ClientBBB.TwitchClientBBB.SendMessage(
                     Config.Language.Instance.GetString("BankheistCooldownText").Replace("@TIMELEFT@", Bankheist.timeToNewBackheist.TotalMinutes.ToString()));
 
@@ -97,8 +84,7 @@ namespace AivaBot.Bankheist
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void _bankheistActiveTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
+        private static void _bankheistActiveTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e) {
             // Stopping Bankheist & initial setup for ending
             Bankheist.Status = BankheistStatus.OnCooldown;
             bankheist.bankheistActiveTimer.Stop();
@@ -108,14 +94,12 @@ namespace AivaBot.Bankheist
 
             // Logic
             var Winners = new List<BankheistModel>();
-            foreach (var user in bankheist.bankheistUsers.ToList())
-            {
+            foreach (var user in bankheist.bankheistUsers.ToList()) {
                 var result = bankheist.ModifyUserIfWinner(user);
 
 
                 // Win
-                if (result.value > 0)
-                {
+                if (result.value > 0) {
                     Client.Client.ClientBBB.TwitchClientBBB.SendMessage(
                         Config.Language.Instance.GetString("BankheistWinning")
                                             .Replace("@USERNAME@", user.name)
@@ -125,8 +109,7 @@ namespace AivaBot.Bankheist
                     Winners.Add(result);
                 }
                 // Loose
-                else
-                {
+                else {
                     Database.CurrencyHandler.RemoveCurrencyAsync(user.name, user.value);
 
                     Client.Client.ClientBBB.TwitchClientBBB.SendMessage(
@@ -141,11 +124,9 @@ namespace AivaBot.Bankheist
 
             // Update
             List<Database.Models.CurrencyHandlerModels.CurrencyAddList> List = new List<Database.Models.CurrencyHandlerModels.CurrencyAddList>();
-            Winners.ForEach(x =>
-            {
+            Winners.ForEach(x => {
                 List.Add(
-                    new Database.Models.CurrencyHandlerModels.CurrencyAddList
-                    {
+                    new Database.Models.CurrencyHandlerModels.CurrencyAddList {
                         Name = x.name,
                         Value = x.value
                     });
@@ -164,8 +145,7 @@ namespace AivaBot.Bankheist
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void NewBankheist_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
+        private static void NewBankheist_Elapsed(object sender, System.Timers.ElapsedEventArgs e) {
             NewBankheist.Stop();
             NewBankheist = null;
             Bankheist.timeToNewBackheist = new TimeSpan();
@@ -177,10 +157,9 @@ namespace AivaBot.Bankheist
         }
 
 
-        private static bool CheckifEnoughCurrency(string name, int value)
-        {
+        private static bool CheckifEnoughCurrency(string name, int value) {
 
-            
+
             var currency = Database.CurrencyHandler.GetCurrency(name);
 
             return (currency >= value);
@@ -191,34 +170,26 @@ namespace AivaBot.Bankheist
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void BankheistUsers_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            if (e.NewStartingIndex != -1)
-            {
-                switch (bankheist.bankheistUsers.Count)
-                {
-                    case 10:
-                        {
+        private static void BankheistUsers_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) {
+            if (e.NewStartingIndex != -1) {
+                switch (bankheist.bankheistUsers.Count) {
+                    case 10: {
                             Client.Client.ClientBBB.TwitchClientBBB.SendMessage(Config.Language.Instance.GetString("BankheistBank2Text"));
                             break;
                         }
-                    case 20:
-                        {
+                    case 20: {
                             Client.Client.ClientBBB.TwitchClientBBB.SendMessage(Config.Language.Instance.GetString("BankheistBank3Text"));
                             break;
                         }
-                    case 30:
-                        {
+                    case 30: {
                             Client.Client.ClientBBB.TwitchClientBBB.SendMessage(Config.Language.Instance.GetString("BankheistBank4Text"));
                             break;
                         }
-                    case 40:
-                        {
+                    case 40: {
                             Client.Client.ClientBBB.TwitchClientBBB.SendMessage(Config.Language.Instance.GetString("BankheistBank5Text"));
                             break;
                         }
-                    default:
-                        {
+                    default: {
                             Client.Client.ClientBBB.TwitchClientBBB.SendMessage(Config.Language.Instance.GetString("BankheistAddUserText"));
                             break;
                         }

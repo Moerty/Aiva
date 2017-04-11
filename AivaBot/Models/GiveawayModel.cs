@@ -1,10 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace AivaBot.Models
-{
+namespace AivaBot.Models {
     [PropertyChanged.ImplementPropertyChanged]
-    public class GiveawayModel
-    {
+    public class GiveawayModel {
         public TextModel Text { get; set; }
         public GiveawayOptions Options { get; set; } = new GiveawayOptions();
 
@@ -18,14 +16,13 @@ namespace AivaBot.Models
             public string Keyword { get; set; }
             public string Winner { get; set; }
         }
-        
+
         public bool UncheckWinner { get; set; } = false;
         public ObservableCollection<string> Winners { get; set; }
         public bool IsStarted { get; set; } = false;
 
         [PropertyChanged.ImplementPropertyChanged]
-        public class TextModel
-        {
+        public class TextModel {
             public string CommandWatermark { get; set; }
             public string StatusInactive { get; set; }
             public string StatusActive { get; set; }

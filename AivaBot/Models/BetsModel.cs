@@ -5,15 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace AivaBot.Models
-{
-    public class BetsModel
-    {
+namespace AivaBot.Models {
+    public class BetsModel {
         public TextModel Text { get; set; }
         public List<DropDownButtonModel> DropDownMenu { get; set; } = new List<DropDownButtonModel>();
 
-        public class TextModel
-        {
+        public class TextModel {
             public string CommandWatermark { get; set; }
             public string TextBoxTextTimeForBet { get; set; }
             public string StartStopButtonText { get; set; }
@@ -28,8 +25,7 @@ namespace AivaBot.Models
             public string GridBetterHeaderName { get; set; }
         }
 
-        public class DropDownButtonModel
-        {
+        public class DropDownButtonModel {
             public string Name { get; set; }
             public ICommand Command { get; set; } = new RoutedCommand();
         }

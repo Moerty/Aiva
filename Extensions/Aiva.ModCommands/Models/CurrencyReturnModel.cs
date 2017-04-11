@@ -4,14 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModCommands.Models
-{
-    public class CurrencyReturnModel
-    {
+namespace ModCommands.Models {
+    public class CurrencyReturnModel {
         public Statis Status { get; set; }
 
-        public enum Statis
-        {
+        public enum Statis {
 
         }
     }

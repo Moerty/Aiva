@@ -7,25 +7,19 @@ using System.Windows.Input;
 
 namespace AivaBot.ViewModels {
     [PropertyChanged.ImplementPropertyChanged]
-    public class SettingsViewModel
-    {
+    public class SettingsViewModel {
         private bool _LogChat = false;
-        public bool LogChat
-        {
-            get
-            {
+        public bool LogChat {
+            get {
                 return _LogChat;
             }
-            set
-            {
-                if(_LogChat)
-                {
+            set {
+                if (_LogChat) {
                     // Ausschalten
                     Client.Client.ClientBBB.TwitchClientBBB.OnMessageReceived -= Database.ChatHandler.MessageReceived;
                     _LogChat = value;
                 }
-                else
-                {
+                else {
                     // Einschalten
                     Client.Client.ClientBBB.TwitchClientBBB.OnMessageReceived += Database.ChatHandler.MessageReceived;
                     _LogChat = value;
@@ -35,8 +29,7 @@ namespace AivaBot.ViewModels {
 
         public Models.SettingsModel Model { get; set; }
 
-        public SettingsViewModel()
-        {
+        public SettingsViewModel() {
             CreateModels();
         }
         // TODO: Tabs
@@ -80,7 +73,7 @@ namespace AivaBot.ViewModels {
             }
 
             private void AddKeyword(object sender, ExecutedRoutedEventArgs e) {
-                if(!Model.BlacklistedWords.Contains(Model.NewKeyword)) {
+                if (!Model.BlacklistedWords.Contains(Model.NewKeyword)) {
                     Model.BlacklistedWords.Add(Model.NewKeyword);
                     Model.NewKeyword = string.Empty;
                 }
@@ -105,15 +98,17 @@ namespace AivaBot.ViewModels {
                 // Update BlacklistedWords 4 
                 Client.Tasks.ChatChecker.BlacklistedWords = Model.BlacklistedWords.ToList();
 
-                if(Model.BlacklistedWordsActive) {
+                if (Model.BlacklistedWordsActive) {
                     Client.Client.ClientBBB.TwitchClientBBB.OnMessageReceived += Client.Tasks.ChatChecker.BlacklistWordsChecker;
-                } else {
+                }
+                else {
                     Client.Client.ClientBBB.TwitchClientBBB.OnMessageReceived -= Client.Tasks.ChatChecker.BlacklistWordsChecker;
                 }
 
-                if(Model.SpamCheck) {
+                if (Model.SpamCheck) {
                     Client.Client.ClientBBB.TwitchClientBBB.OnMessageReceived += Client.Tasks.ChatChecker.CheckMessage;
-                } else {
+                }
+                else {
                     Client.Client.ClientBBB.TwitchClientBBB.OnMessageReceived -= Client.Tasks.ChatChecker.CheckMessage;
                 }
             }
@@ -156,7 +151,7 @@ namespace AivaBot.ViewModels {
 
                 // Blacklisted Words
                 var BlacklistedWords = Settings.SingleOrDefault(x => x.Name == "BlacklistedWords").Value.Split(',');
-                foreach(var word in BlacklistedWords) {
+                foreach (var word in BlacklistedWords) {
                     Model.BlacklistedWords.Add(word);
                 }
             }
