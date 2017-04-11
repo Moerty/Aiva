@@ -5,7 +5,7 @@ EncryptedOAuth=
 
 [General]
 Channel=
-BotName=
+BotName=AivaBot
 Language=german
 
 ; CommandIdentifier does have only one character (ex: '!' or '#')

@@ -103,6 +103,16 @@
                 </Style>
             </Rectangle.Style>
         </Rectangle>
+        <TextBox
+            Width="162"
+            Height="23"
+            Margin="79,136,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Controls:TextBoxHelper.AutoWatermark="True"
+            Controls:TextBoxHelper.Watermark="Channel"
+            Text="{Binding Model.Channel}"
+            TextWrapping="Wrap" />
         <Button
             Width="157"
             Margin="777,432,0,0"
@@ -110,36 +120,5 @@
             VerticalAlignment="Top"
             Command="{Binding StartBotCommand}"
             Content="StartBot" />
-        <Expander
-            Width="253"
-            Height="163"
-            Margin="45,260,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Header="Advanced">
-            <Grid Background="#FFE5E5E5">
-                <TextBox
-                    Width="162"
-                    Height="23"
-                    Margin="31,-166,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Controls:TextBoxHelper.AutoWatermark="True"
-                    Controls:TextBoxHelper.Watermark="Channel"
-                    Text="{Binding Model.Channel}"
-                    TextWrapping="Wrap" />
-                <TextBox
-                    Name="tbClientID"
-                    Width="221"
-                    Height="23"
-                    Margin="10,10,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Controls:TextBoxHelper.AutoWatermark="True"
-                    Controls:TextBoxHelper.Watermark="Own ClientID"
-                    Text="{Binding Model.ClientID}"
-                    TextWrapping="Wrap" />
-            </Grid>
-        </Expander>
     </Grid>
 </Controls:MetroWindow>

@@ -13,9 +13,9 @@ namespace Songrequest {
 		{
 			var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(new ClientSecrets
 			{
-				ClientId = "235778313506-9i7s8ghgtgn9v767murqk740i7febtho.apps.googleusercontent.com",
-				ClientSecret = "ttM4CVByzNNXO8AFmqe4kvC2"
-			},
+				ClientId = "58340406586-ncdbbvr3p49gisgbjk5uu0vtfdfm5gsn.apps.googleusercontent.com",
+				ClientSecret = "S0efx9ay11SH3Mly5HJ3zwVn"
+            },
 			new[] { YouTubeService.Scope.Youtube },
 			"user",
 			CancellationToken.None,

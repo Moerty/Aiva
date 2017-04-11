@@ -197,7 +197,8 @@ namespace AivaBot.ViewModels
 
         private void stopSong(object sender, ExecutedRoutedEventArgs e)
         {
-            Player.MusicOnOff();
+            if(Player != null)
+                Player.MusicOnOff();
 
             var Song = (Songrequest.Song)(sender as Views.Songrequest).listView.SelectedItem;
             if(Song != null)

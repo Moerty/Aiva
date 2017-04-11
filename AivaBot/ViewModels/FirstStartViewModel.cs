@@ -29,6 +29,9 @@ namespace AivaBot.ViewModels {
                 return;
             }
 
+            var ValidationResult = GetTwitchDetails(Model.OAuthToken);
+            if (ValidationResult == null
+                || !ValidationResult.Token.Valid) return;
 
             IniData config = new IniData(new FileIniDataParser().ReadFile("Configs\\general.default"));
 
@@ -36,7 +39,7 @@ namespace AivaBot.ViewModels {
             config["Credentials"]["TwitchClientID"] = "10n39mbfftkcy2kg1jkzmm62yszdcg";
 
             config["General"]["Channel"] = Model.Channel.ToLower();
-            //config["General"]["BotName"] = Model.BotName;
+            config["General"]["BotName"] = ValidationResult.Token.Username;
 
             if (!File.Exists("Configs\\general.ini")) {
                 File.Create("Configs\\general.ini").Dispose();
@@ -63,6 +66,12 @@ namespace AivaBot.ViewModels {
             
 
             Application.Current.MainWindow.Close();
+        }
+
+        private TwitchLib.Models.API.Other.Validate.ValidationResponse GetTwitchDetails(string oauth) {
+            var result = TwitchLib.TwitchApi.ValidationAPIRequest(oauth);
+
+            return result;
         }
 
         private string GetText() {
