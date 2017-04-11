@@ -121,7 +121,7 @@
     <value>Eine Auktion wurde gestartet! Tippe @COMMAND@ ein um mit zu machen! Der höchstbietende gewinnt!</value>
   </data>
   <data name="AuctionAuctionStartTicket" xml:space="preserve">
-    <value>Bei der Auktion wird mit Tickets geboten! Ein Ticket kostet @TICKETCOST@!</value>
+    <value>Bei der Auktion wird mit Tickets geboten! Ein Ticket kostet @TICKETCOST@ @CURRENCYNAME@!</value>
   </data>
   <data name="AuctionButtonStartName" xml:space="preserve">
     <value>Start</value>
@@ -238,7 +238,7 @@
     <value>Wetteinsatz</value>
   </data>
   <data name="CurrencyName" xml:space="preserve">
-    <value>BlackBoxCurrency</value>
+    <value>AivaBotCurrency</value>
   </data>
   <data name="GiveawayButtonGiveawayRoll" xml:space="preserve">
     <value>Roll</value>

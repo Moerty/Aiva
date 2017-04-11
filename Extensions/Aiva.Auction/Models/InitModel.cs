@@ -12,8 +12,5 @@ namespace AivaBot.Auction.Models {
         public int Tickets { get; set; }
 
         public bool WriteStartInChat { get; set; }
-        public string StartChatMessage { get; set; }
-
-        public string StartChatMessageTicket { get; set; }
     }
 }

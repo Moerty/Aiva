@@ -77,6 +77,10 @@
       <Project>{d64e315c-dc48-45f9-aea8-1726ec0a86a9}</Project>
       <Name>Aiva.Client</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Aiva.Config\Aiva.Config.csproj">
+      <Project>{dc5b9f3f-41cc-4a43-9643-9fdd86812c6e}</Project>
+      <Name>Aiva.Config</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Aiva.Database\Aiva.Database.csproj">
       <Project>{cf7c5037-4a14-4782-8d1b-700845f9779f}</Project>
       <Name>Aiva.Database</Name>

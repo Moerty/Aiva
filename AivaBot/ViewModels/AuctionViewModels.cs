@@ -26,15 +26,12 @@ namespace AivaBot.ViewModels {
 
         private void StartAuction(object sender, EventArgs e) {
             if (!AuctionHandler.IsStarted) {
-                //AuctionHandler.IsStarted = 
                 AuctionHandler.Current = new Auction.CurrentAuction(new Auction.Models.InitModel {
                     Name = AuctionName,
                     Command = Command,
                     WithTickets = exTickets,
                     WriteStartInChat = WriteInChat,
-                    Tickets = Tickets,
-                    StartChatMessage = Config.Language.Instance.GetString("AuctionAuctionStart"),
-                    StartChatMessageTicket = Config.Language.Instance.GetString("AuctionAuctionStartTicket"),
+                    Tickets = Tickets
                 });
 
                 AuctionHandler.IsStarted = true;
@@ -43,6 +40,7 @@ namespace AivaBot.ViewModels {
 
         private void StopAuction(object sender, EventArgs e) {
             AuctionHandler.Current.StopRegistration();
+            AuctionHandler.IsStarted = false;
         }
 
         private void CreateModels() {
@@ -61,7 +59,7 @@ namespace AivaBot.ViewModels {
         public string AuctionName { get; set; }
         public string Command { get; set; }
         public bool exTickets { get; set; }
-        public int Tickets { get; set; } = 0;
+        public int Tickets { get; set; } = 1;
         public bool WriteInChat { get; set; } = true;
     }
 }

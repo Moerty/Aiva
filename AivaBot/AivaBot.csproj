@@ -182,8 +182,8 @@
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\SongrequestViewModel.cs" />
     <Compile Include="ViewModels\VotingViewModel.cs" />
-    <Compile Include="Views\AuctionView.xaml.cs">
-      <DependentUpon>AuctionView.xaml</DependentUpon>
+    <Compile Include="Views\Auction.xaml.cs">
+      <DependentUpon>Auction.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Bets.xaml.cs">
       <DependentUpon>Bets.xaml</DependentUpon>
@@ -228,7 +228,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AuctionView.xaml">
+    <Page Include="Views\Auction.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -284,7 +284,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SongrequestView.xaml">
+    <Page Include="Views\Songrequest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -309,8 +309,8 @@
     <Compile Include="Views\Rank.xaml.cs">
       <DependentUpon>Rank.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SongrequestView.xaml.cs">
-      <DependentUpon>SongrequestView.xaml</DependentUpon>
+    <Compile Include="Views\Songrequest.xaml.cs">
+      <DependentUpon>Songrequest.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Voting.xaml.cs">
       <DependentUpon>Voting.xaml</DependentUpon>
