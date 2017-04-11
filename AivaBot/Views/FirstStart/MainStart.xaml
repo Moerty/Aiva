@@ -1,0 +1,145 @@
+﻿<Controls:MetroWindow
+    x:Class="AivaBot.Views.FirstStart.MainStart"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:AivaBot.Views.FirstStart"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="AivaBot Setup"
+    Width="1000"
+    Height="500"
+    BorderThickness="1"
+    ResizeMode="NoResize"
+    TitleCharacterCasing="Normal"
+    WindowStartupLocation="CenterScreen"
+    WindowTransitionsEnabled="False"
+    mc:Ignorable="d">
+    <Controls:MetroWindow.Resources>
+        <VisualBrush
+            x:Key="CheckBrush"
+            Stretch="Fill"
+            Visual="{StaticResource appbar_checkmark_thick}" />
+        <VisualBrush
+            x:Key="UncheckBrush"
+            Stretch="Fill"
+            Visual="{StaticResource appbar_checkmark_thick_unchecked}" />
+    </Controls:MetroWindow.Resources>
+
+    <Grid>
+        <TextBox
+            Width="303"
+            Height="33"
+            Margin="263,28,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            IsReadOnly="True"
+            Text="{Binding Model.OAuthToken}"
+            TextWrapping="Wrap" />
+        <Button
+            Width="165"
+            Height="30"
+            Margin="79,31,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Command="{Binding StartRequestCommand}"
+            Content="Request Twitch Token" />
+        <ListView
+            Width="328"
+            Height="355"
+            Margin="606,68,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            ItemsSource="{Binding Model.Scopes}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="325" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button
+            Width="165"
+            Height="39"
+            Margin="79,71,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Command="{Binding StartRequestYouTubeCommand}"
+            Content="Get Youtube Auth" />
+        <Label
+            Width="176"
+            Margin="606,35,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Requested Twitch Auth Scopes" />
+        <Rectangle
+            Width="20"
+            Height="20"
+            Margin="45,90,927,359"
+            Fill="Black">
+            <Rectangle.Style>
+                <Style TargetType="Rectangle">
+                    <Setter Property="OpacityMask" Value="{StaticResource UncheckBrush}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Model.GoogleAuth}" Value="True">
+                            <Setter Property="OpacityMask" Value="{StaticResource CheckBrush}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
+        </Rectangle>
+        <Rectangle
+            Width="20"
+            Height="20"
+            Margin="45,43,927,406"
+            Fill="Black">
+            <Rectangle.Style>
+                <Style TargetType="{x:Type Rectangle}">
+                    <Setter Property="OpacityMask" Value="{StaticResource UncheckBrush}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Model.TwitchAuth}" Value="True">
+                            <Setter Property="OpacityMask" Value="{StaticResource CheckBrush}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
+        </Rectangle>
+        <Button
+            Width="157"
+            Margin="777,432,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Command="{Binding StartBotCommand}"
+            Content="StartBot" />
+        <Expander
+            Width="253"
+            Height="163"
+            Margin="45,260,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Header="Advanced">
+            <Grid Background="#FFE5E5E5">
+                <TextBox
+                    Width="162"
+                    Height="23"
+                    Margin="31,-166,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Controls:TextBoxHelper.AutoWatermark="True"
+                    Controls:TextBoxHelper.Watermark="Channel"
+                    Text="{Binding Model.Channel}"
+                    TextWrapping="Wrap" />
+                <TextBox
+                    Name="tbClientID"
+                    Width="221"
+                    Height="23"
+                    Margin="10,10,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Controls:TextBoxHelper.AutoWatermark="True"
+                    Controls:TextBoxHelper.Watermark="Own ClientID"
+                    Text="{Binding Model.ClientID}"
+                    TextWrapping="Wrap" />
+            </Grid>
+        </Expander>
+    </Grid>
+</Controls:MetroWindow>

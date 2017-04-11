@@ -1,0 +1,138 @@
+﻿<Mahapps:MetroWindow
+    x:Class="AivaBot.Views.ModCommandLogViewer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Mahapps="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:AivaBot.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="ModCommandLog"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+
+    <Mahapps:MetroWindow.Resources>
+        <Style x:Key="LogViewerStyle" TargetType="ItemsControl">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <ScrollViewer CanContentScroll="True">
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel IsItemsHost="True" />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate DataType="{x:Type local:LogEntry}">
+            <Grid IsSharedSizeScope="True">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="Index" />
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="Date" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="5,0,5,0"
+                    FontWeight="Bold"
+                    Text="{Binding DateTime}" />
+
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="0,0,2,0"
+                    FontWeight="Bold"
+                    Text="{Binding Name}" />
+
+                <TextBlock
+                    Grid.Column="2"
+                    Text="{Binding Message}"
+                    TextWrapping="Wrap" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:CollapsibleLogEntry}">
+            <Grid IsSharedSizeScope="True">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="Index" />
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="Date" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="5,0,5,0"
+                    FontWeight="Bold"
+                    Text="{Binding DateTime}" />
+
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="0,0,2,0"
+                    FontWeight="Bold"
+                    Text="{Binding Name}" />
+
+                <TextBlock
+                    Grid.Column="2"
+                    Text="{Binding Message}"
+                    TextWrapping="Wrap" />
+
+                <ToggleButton
+                    x:Name="Expander"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Content="+" />
+
+                <ItemsControl
+                    x:Name="Contents"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    ItemsSource="{Binding Contents}"
+                    Style="{StaticResource LogViewerStyle}"
+                    Visibility="Collapsed" />
+
+            </Grid>
+            <DataTemplate.Triggers>
+                <Trigger SourceName="Expander" Property="IsChecked" Value="True">
+                    <Setter TargetName="Contents" Property="Visibility" Value="Visible" />
+                    <Setter TargetName="Expander" Property="Content" Value="-" />
+                </Trigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </Mahapps:MetroWindow.Resources>
+
+    <Grid>
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top" Text="{Binding Count, StringFormat='{}{0} Items'}" />
+
+            <ItemsControl ItemsSource="{Binding}" Style="{StaticResource LogViewerStyle}">
+                <ItemsControl.Template>
+                    <ControlTemplate>
+                        <ScrollViewer CanContentScroll="True">
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel IsItemsHost="True" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </DockPanel>
+    </Grid>
+</Mahapps:MetroWindow>
