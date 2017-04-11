@@ -68,6 +68,21 @@
                 VerticalAlignment="Top"
                 Command="{Binding StopCommand}"
                 Content="Stop" />
+            <Expander
+                x:Name="expander"
+                Width="221"
+                Height="75"
+                Margin="92,82,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Header="Write in chat">
+                <Grid Background="#FFE5E5E5">
+                    <StackPanel Orientation="Vertical">
+                        <Controls:TimePicker />
+                        <Button />
+                    </StackPanel>
+                </Grid>
+            </Expander>
         </Grid>
 
         <ListView
