@@ -14,6 +14,6 @@ namespace BlackBoxBot.Models {
         public bool GoogleAuth { get; set; } = false;
         public bool TwitchAuth { get; set; } = false;
         public string Channel { get; set; }
-        public string BotName { get; set; }
+        public string ClientID { get; set; }
     }
 }

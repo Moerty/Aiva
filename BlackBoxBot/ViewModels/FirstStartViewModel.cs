@@ -25,7 +25,7 @@ namespace BlackBoxBot.ViewModels {
         }
 
         private void StartBot(object sender, ExecutedRoutedEventArgs e) {
-            if(String.IsNullOrEmpty(Model.BotName) || String.IsNullOrEmpty(Model.Channel)) {
+            if(String.IsNullOrEmpty(Model.Channel)) {
                 return;
             }
 
@@ -36,7 +36,7 @@ namespace BlackBoxBot.ViewModels {
             config["Credentials"]["TwitchClientID"] = "1vvme3nbvmh7ylljb35mb7xl3dokdv";
 
             config["General"]["Channel"] = Model.Channel.ToLower();
-            config["General"]["BotName"] = Model.BotName;
+            //config["General"]["BotName"] = Model.BotName;
 
             if (!File.Exists("Configs\\general.ini")) {
                 File.Create("Configs\\general.ini").Dispose();

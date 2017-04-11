@@ -113,15 +113,15 @@
         <Expander
             Width="253"
             Height="163"
-            Margin="79,203,0,0"
+            Margin="45,260,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Header="Bot Settings">
+            Header="Advanced">
             <Grid Background="#FFE5E5E5">
                 <TextBox
-                    Width="120"
+                    Width="162"
                     Height="23"
-                    Margin="10,10,0,0"
+                    Margin="31,-166,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Controls:TextBoxHelper.AutoWatermark="True"
@@ -129,15 +129,15 @@
                     Text="{Binding Model.Channel}"
                     TextWrapping="Wrap" />
                 <TextBox
-                    Name="tbBotName"
-                    Width="120"
+                    Name="tbClientID"
+                    Width="221"
                     Height="23"
-                    Margin="10,41,0,0"
+                    Margin="10,10,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Controls:TextBoxHelper.AutoWatermark="True"
-                    Controls:TextBoxHelper.Watermark="Bot name"
-                    Text="{Binding Model.BotName}"
+                    Controls:TextBoxHelper.Watermark="Own ClientID"
+                    Text="{Binding Model.ClientID}"
                     TextWrapping="Wrap" />
             </Grid>
         </Expander>

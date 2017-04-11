@@ -16,6 +16,9 @@ Involves you in it and announces mistake!
 - Finish Settings to GUI
 - Setup Project
 - Dashboard
+- Client ID Check
+- OAuth Check
+- Own ClientID
 
 ### Complete:
 - First Start Page for initial setup (Twitch OAuth & YouTube OAuth)
