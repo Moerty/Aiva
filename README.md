@@ -14,28 +14,31 @@ Involves you in it and announces mistake!
 * Custom command
 * Auction with currency
 * Auction with tickets
+
 More Informations: [Wiki](https://github.com/Moerty/AivaBot/wiki/Home:-Auction)
 
 ## Giveaway:
 * Custom command
 * Filter users
 * Subluck
+
 More Informations: [Wiki](https://github.com/Moerty/AivaBot/wiki/Home:-Giveaway)
 
 ## Songrequest
 * Custom command
 * Repeat information
 * Connection to YouTube
+
 More Informations: [Wiki](https://github.com/Moerty/AivaBot/wiki/Home:-Songrequest)
 
 ## Voting
 * Option 1-8
 * Pie/Bar/Doughnut - Chart
+
 More Informations: [Wiki](https://github.com/Moerty/AivaBot/wiki/Home:-Voting)
 
 ## Bets:
 **IN DEVELOPMENT**
-
 
 # Todos:
 ## Now:
