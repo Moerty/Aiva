@@ -52,6 +52,10 @@ namespace AivaBot.ViewModels {
                 TicketExpanderName = Config.Language.Instance.GetString("AuctionTicketExpanderName"),
                 ButtonStartName = Config.Language.Instance.GetString("AuctionButtonStartName"),
                 ButtonStopName = Config.Language.Instance.GetString("AuctionButtonStopName"),
+                AuctionExpanderSettingsText = Config.Language.Instance.GetString("AuctionExpanderSettingsText"),
+                AuctionWriteInChatText = Config.Language.Instance.GetString("AuctionWriteInChatText"),
+                AuctionHeaderTicketsText = Config.Language.Instance.GetString("AuctionHeaderTicketsText"),
+                AuctionHeaderUsernameText = Config.Language.Instance.GetString("AuctionHeaderUsernameText"),
             };
         }
 

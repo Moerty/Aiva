@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Giveaway;
 using System.Windows.Threading;
 using System.Windows;
 
@@ -13,7 +8,6 @@ namespace Giveaway {
         public Models.GiveawayModel Model { get; set; }
         public bool UncheckWinner { get; set; } = true;
         public int ActiveUsers { get; set; }
-
 
         public List UserList { get; set; }
 
@@ -48,5 +42,3 @@ namespace Giveaway {
         }
     }
 }
-
-

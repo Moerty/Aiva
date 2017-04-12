@@ -333,16 +333,4 @@
   <data name="BankheistCommandWatermark" xml:space="preserve">
     <value />
   </data>
-  <data name="AuctionExpanderSettingsText" xml:space="preserve">
-    <value>Einstellungen</value>
-  </data>
-  <data name="AuctionHeaderTicketsText" xml:space="preserve">
-    <value>Einsatz</value>
-  </data>
-  <data name="AuctionHeaderUsernameText" xml:space="preserve">
-    <value>Benutzername</value>
-  </data>
-  <data name="AuctionWriteInChatText" xml:space="preserve">
-    <value>Schreibe in den Chat wenn die Auktion startet</value>
-  </data>
 </root>

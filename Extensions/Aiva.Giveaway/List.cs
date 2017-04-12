@@ -56,9 +56,7 @@ namespace Giveaway {
         }
 
         private void AddUserToList(string username) {
-            //var User = await GetUserAsync(username, twitchid);
-
-            if (UserList.SingleOrDefault(x => string.Compare(x.Username, username) == 0) == null) {
+            if (UserList.SingleOrDefault(x => string.Compare(x.Username, username, true) == 0) == null) {
                 Application.Current.Dispatcher.Invoke(() => {
                     UserList.Add(
                         new Models.UsersModel {

@@ -56,6 +56,11 @@
     <Compile Include="General.cs" />
     <Compile Include="Giveaway.cs" />
     <Compile Include="Language.cs" />
+    <Compile Include="Languages\Text.en-US.Designer.cs">
+      <DependentUpon>Text.en-US.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Languages\Text.de-DE.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -69,6 +74,10 @@
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Languages\Text.en-US.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Text.en-US.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Languages\Text.de-DE.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Text.de-DE.Designer.cs</LastGenOutput>

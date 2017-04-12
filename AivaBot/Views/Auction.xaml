@@ -5,7 +5,6 @@
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:ViewModels="clr-namespace:AivaBot.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:AivaBot.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     d:DesignHeight="503"
@@ -278,11 +277,11 @@
                 Margin="316,309,21,30"
                 ExpandDirection="Up"
                 FlowDirection="RightToLeft"
-                Header="Settings">
+                Header="{Binding Model.Text.AuctionExpanderSettingsText, Mode=OneTime}">
                 <Grid>
                     <CheckBox
                         Width="200"
-                        Content=" Write in Chat&#10; when auction starts"
+                        Content="{Binding Model.Text.AuctionWriteInChatText, Mode=OneTime}"
                         IsChecked="{Binding WriteInChat}" />
                 </Grid>
             </Expander>
@@ -304,12 +303,12 @@
                     x:Name="ticketsColumn"
                     Width="SizeToHeader"
                     Binding="{Binding Tickets}"
-                    Header="Tickets" />
+                    Header="{Binding Model.Text.AuctionHeaderTicketsText, Mode=OneTime, FallbackValue=Tickets}" />
                 <DataGridTextColumn
                     x:Name="usernameColumn"
                     Width="*"
                     Binding="{Binding Username}"
-                    Header="Username" />
+                    Header="{Binding Model.Text.AuctionHeaderUsernameText, Mode=OneTime, FallbackValue=Username}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
