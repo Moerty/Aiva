@@ -9,35 +9,10 @@ namespace AivaBot.ViewModels {
 
         private readonly System.Windows.Forms.Timer bankheistTimer;
 
-        public string BankheistCommand {
-            get {
-                return Config.Bankheist.Config["General"]["Command"];
-            }
-            set {
-                Config.Bankheist.Config["General"]["Command"] = value;
-                Config.Bankheist.WriteConfig();
-            }
-        }
-
-        public bool IsBankheistEnabled {
-            get {
-                return Convert.ToBoolean(Config.Bankheist.Config["General"]["Active"]);
-            }
-            set {
-                Config.Bankheist.Config["General"]["Active"] = value.ToString();
-                Config.Bankheist.WriteConfig();
-            }
-        }
-
         public CurrencyViewModel() {
             currencyModel = new Models.CurrencyModel();
             CurrencyDatabaseList = Database.CurrencyHandler.GetCurrencyList();
             currencyModel.UserList = new Models.AsyncObservableCollection<Database.Currency>();
-            currencyModel.UserList.Add(
-                new Database.Currency {
-                    Name = "abcdefg",
-                    Value = 123,
-                });
 
             currencyModel.AddCurrencyOnOff = Boolean.Parse(Config.General.Config["Currency"]["Active"]);
 
@@ -88,8 +63,6 @@ namespace AivaBot.ViewModels {
                     timer.Interval = Interval;
                     timer.Start();
                 }
-
-
             }
         }
         #endregion

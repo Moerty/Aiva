@@ -5,9 +5,7 @@
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:Database="clr-namespace:Database;assembly=Database"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:AivaBot.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="clr-namespace:AivaBot.ViewModels"
     d:DesignHeight="503"
     d:DesignWidth="1092"
     Loaded="MetroContentControl_Loaded"
@@ -31,8 +29,8 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Controls:ButtonHelper.PreserveTextCase="True"
-            Background="{Binding currencyModel.BankheistTileColor}"
-            Content="{Binding currencyModel.BankheistText}">
+            Background="{Binding currencyModel.BankheistTileColor, FallbackValue=Red}"
+            Content="{Binding currencyModel.BankheistText, FallbackValue=Bankheist}">
             <Controls:ControlsHelper.MouseOverBorderBrush>
                 <ImageBrush TileMode="FlipX">
                     <ImageBrush.RelativeTransform>
@@ -68,39 +66,5 @@
                     Header="value" />
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox
-            x:Name="textBox"
-            Grid.Column="1"
-            Width="120"
-            Height="23"
-            Margin="406,34,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Controls:TextBoxHelper.ClearTextButton="True"
-            Controls:TextBoxHelper.Watermark="Command"
-            Text="{Binding BankheistCommand}"
-            TextWrapping="Wrap" />
-        <!--<Button x:Name="button" Grid.Column="1" HorizontalAlignment="Left" Margin="489,13,0,0" VerticalAlignment="Top" Width="54" Height="54">
-            <StackPanel Orientation="Horizontal">
-                <Rectangle Height="34" Width="34"
-                   Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
-                    <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_save}" />
-                    </Rectangle.OpacityMask>
-                </Rectangle>
-                <TextBlock Margin="4 0 0 0"
-                   VerticalAlignment="Center"
-                   Text="Viewer" />
-            </StackPanel>
-        </Button>-->
-
-        <CheckBox
-            x:Name="checkBox"
-            Grid.Column="1"
-            Margin="462,14,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="Aktiviert"
-            IsChecked="{Binding IsBankheistEnabled}" />
     </Grid>
 </Controls:MetroContentControl>
