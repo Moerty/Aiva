@@ -9,15 +9,16 @@ namespace AivaBot.ViewModels {
 
         public ICommand Start { get; set; } = new RoutedCommand();
         public ICommand Stop { get; set; } = new RoutedCommand();
-        public ICommand PayOutCommand { get; set; } = new RoutedCommand();
 
         public Models.BetsModel Model { get; set; }
         public Bets.BetsHandler BetsHandler { get; set; }
+        public string CommandName { get; set; }
+        public int WinningMultiplicator { get; set; } = 1;
 
         public BetsViewModel() {
             // Initialize
             CreateModels();
-            BetsHandler = new AivaBot.Bets.BetsHandler();
+            BetsHandler = new Bets.BetsHandler();
 
             // Command
             CommandManager.RegisterClassCommandBinding(new MahApps.Metro.Controls.MetroContentControl().GetType(), new CommandBinding(Start, StartBet));
@@ -26,49 +27,46 @@ namespace AivaBot.ViewModels {
             Formatter = val => val.ToString("P").Replace(".0", "");
         }
 
-        private bool CanPayOut(object obj) {
-            return true;
-        }
-
-        private void PayOneTeam1(object sender) {
-            if (!BetsHandler.IsStarted)
-                BetsHandler.Current.PayOut('a', WinningMultiplicator);
-        }
-
-        private void PayOneTeam2(object sender) {
-            if (!BetsHandler.IsStarted)
-                BetsHandler.Current.PayOut('b', WinningMultiplicator);
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StartBet(object sender = null, ExecutedRoutedEventArgs e = null) {
 
-            if (!BetsHandler.IsStarted) {
-                if (String.IsNullOrEmpty(CommandName)) { BetsHandler.IsStarted = !BetsHandler.IsStarted; return; }
-                BetsHandler.IsStarted = true;
-                BetsHandler.Current = new Bets.CurrentBet(MinutesToEnd, CommandName);
-            }
-            else {
-                BetsHandler.IsStarted = false;
-                BetsHandler.Current.EndRegistration();
+            if (e != null) {
+                var source = e.Source as System.Windows.Controls.Primitives.ToggleButton;
+                if (source != null) {
+                    if (source.IsChecked.HasValue) {
+                        if (source.IsChecked.Value) {
+                            if (String.IsNullOrEmpty(CommandName)) { BetsHandler.IsStarted = !BetsHandler.IsStarted; return; }
+                            BetsHandler.Current = new Bets.CurrentBet(new TimeSpan(0, MinutesToEnd, 0), CommandName);
+                        }
+                        else {
+                            BetsHandler.IsStarted = false;
+                            BetsHandler.Current.EndRegistration();
+                        }
+                    }
+                }
             }
         }
 
         private void CreateModels() {
-            Model = new AivaBot.Models.BetsModel();
-
-            Model.Text = new AivaBot.Models.BetsModel.TextModel {
-                CommandWatermark = Config.Language.Instance.GetString("BetsCommandWatermark"),
-                TextBoxTextTimeForBet = Config.Language.Instance.GetString("BetsTextBoxTextTimeForBet"),
-                StartStopButtonText = Config.Language.Instance.GetString("BetsStartStopButtonText"),
-                PayOutButtonText = Config.Language.Instance.GetString("BetsPayOutButtonText"),
-                ExpanderUsersName = Config.Language.Instance.GetString("BetsExpanderUsersName"),
-                BetOption1Text = Config.Language.Instance.GetString("BetsBetOption1Text"),
-                BetOption2Text = Config.Language.Instance.GetString("BetsBetOption2Text"),
-                CountName = Config.Language.Instance.GetString("BetsCountName"),
-                ValueName = Config.Language.Instance.GetString("BetsValueName"),
-                GridBetterHeaderName = Config.Language.Instance.GetString("BetsGridBetterHeaderName"),
-                GridBetValueHeaderName = Config.Language.Instance.GetString("BetsGridBetValueHeaderName"),
-                GridTeamHeaderName = Config.Language.Instance.GetString("BetsGridTeamHeaderName"),
+            Model = new AivaBot.Models.BetsModel() {
+                Text = new AivaBot.Models.BetsModel.TextModel {
+                    CommandWatermark = Config.Language.Instance.GetString("BetsCommandWatermark"),
+                    TextBoxTextTimeForBet = Config.Language.Instance.GetString("BetsTextBoxTextTimeForBet"),
+                    StartStopButtonText = Config.Language.Instance.GetString("BetsStartStopButtonText"),
+                    PayOutButtonText = Config.Language.Instance.GetString("BetsPayOutButtonText"),
+                    ExpanderUsersName = Config.Language.Instance.GetString("BetsExpanderUsersName"),
+                    BetOption1Text = Config.Language.Instance.GetString("BetsBetOption1Text"),
+                    BetOption2Text = Config.Language.Instance.GetString("BetsBetOption2Text"),
+                    CountName = Config.Language.Instance.GetString("BetsCountName"),
+                    ValueName = Config.Language.Instance.GetString("BetsValueName"),
+                    GridBetterHeaderName = Config.Language.Instance.GetString("BetsGridBetterHeaderName"),
+                    GridBetValueHeaderName = Config.Language.Instance.GetString("BetsGridBetValueHeaderName"),
+                    GridTeamHeaderName = Config.Language.Instance.GetString("BetsGridTeamHeaderName"),
+                }
             };
 
             // PayOut Drop down Menu
@@ -101,10 +99,38 @@ namespace AivaBot.ViewModels {
             }
         }
 
-        public string CommandName { get; set; }
-        public int WinningMultiplicator { get; set; } = 1;
+        /// <summary>
+        /// PayOut
+        /// </summary>
+        /// <returns></returns>
+        #region PayOut
+        private bool CanPayOut(object obj) {
+            return true;
+        }
+
+        /// <summary>
+        /// Payout Team1
+        /// </summary>
+        /// <param name="sender"></param>
+        private void PayOneTeam1(object sender) {
+            if (!BetsHandler.IsStarted)
+                BetsHandler.Current.PayOut('a', WinningMultiplicator);
+        }
+
+        /// <summary>
+        /// Payout Team2
+        /// </summary>
+        /// <param name="sender"></param>
+        private void PayOneTeam2(object sender) {
+            if (!BetsHandler.IsStarted)
+                BetsHandler.Current.PayOut('b', WinningMultiplicator);
+        }
+        #endregion
     }
 
+    /// <summary>
+    /// Class for DropDownButton
+    /// </summary>
     public class RelayCommand : ICommand {
         private Predicate<object> _canExecute;
         private Action<object> _execute;

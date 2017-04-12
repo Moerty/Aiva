@@ -28,7 +28,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Background="Gray">
-            <lvc:CartesianChart LegendLocation="Bottom" Series="{Binding Bets.SeriesCollection}">
+            <lvc:CartesianChart LegendLocation="Bottom" Series="{Binding BetsHandler.Current.SeriesCollection}">
                 <lvc:CartesianChart.AxisY>
                     <lvc:Axis Title="Browser" Labels="{Binding Labels}" />
                 </lvc:CartesianChart.AxisY>
@@ -40,11 +40,10 @@
                     <Style TargetType="lvc:CartesianChart">
                         <Setter Property="TextBlock.Text" Value="" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding BetsHandler.BetsHandler.IsStarted}" Value="False">
-
+                            <DataTrigger Binding="{Binding BetsHandler.IsStarted}" Value="False">
                                 <Setter Property="Visibility" Value="Hidden" />
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding BetsHandler.BetsHandler.IsStarted}" Value="True">
+                            <DataTrigger Binding="{Binding BetsHandler.Current.ShowChart}" Value="True">
                                 <Setter Property="Visibility" Value="Visible" />
                             </DataTrigger>
                         </Style.Triggers>
@@ -93,13 +92,13 @@
             Grid.Row="1"
             Margin="10,228,820,37"
             Command="{Binding Start}"
-            Content="{Binding Model.Text.StartStopButtonText}"
-            IsChecked="{Binding BetsHandler.IsStarted}" />
+            Content="{Binding Model.Text.StartStopButtonText}" />
 
         <Controls:DropDownButton
             Grid.Row="1"
             Margin="277,230,569,37"
             VerticalContentAlignment="Center"
+            Command="{Binding PayOutCommand}"
             Content="{Binding Model.Text.PayOutButtonText}"
             DisplayMemberPath="{Binding Name}"
             Icon="{DynamicResource appbar_money}"

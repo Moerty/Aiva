@@ -36,11 +36,11 @@ namespace AivaBot.ViewModels {
         }
 
         private void CreateWindowCommands() {
-            var myResourceDictionary = new ResourceDictionary();
-            myResourceDictionary.Source =
+            var myResourceDictionary = new ResourceDictionary() {
+                Source =
                 new Uri("/AivaBot;component/Resources/Icons.xaml",
-                        UriKind.RelativeOrAbsolute);
-
+                        UriKind.RelativeOrAbsolute)
+            };
             Model.WindowCommandItems = new ObservableCollection<Models.MainModel.WindowCommandModel> {
                 new Models.MainModel.WindowCommandModel {
                     Header = "Viewer",
@@ -106,7 +106,7 @@ namespace AivaBot.ViewModels {
         private void SetOnOffTimer() {
             OnoffTimer = new DispatcherTimer();
             OnoffTimer.Tick += CheckStreamOnOrOffAsync;
-            OnoffTimer.Interval = new TimeSpan(0, 0, 5);
+            OnoffTimer.Interval = new TimeSpan(0, 1, 0);
             OnoffTimer.Start();
         }
 
@@ -117,8 +117,6 @@ namespace AivaBot.ViewModels {
 		/// <param name="e"></param>
 		private async void CheckStreamOnOrOffAsync(object sender, EventArgs e) {
             var result = await TwitchApi.Streams.BroadcasterOnlineAsync(Config.General.Config["General"]["Channel"].ToLower());
-
-
             if (result) {
                 Model.StreamerOnlineText = Config.Language.Instance.GetString("StreamOn");
                 Model.IsOnline = true;

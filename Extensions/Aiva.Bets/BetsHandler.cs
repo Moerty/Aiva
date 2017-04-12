@@ -11,7 +11,7 @@ using System.Windows.Threading;
 namespace AivaBot.Bets {
     [PropertyChanged.ImplementPropertyChanged]
     public class BetsHandler {
-        public bool IsStarted { get; set; } = false;
+        public bool IsStarted { get; set; }
         public CurrentBet Current { get; set; }
 
         public void StopBet() {
@@ -29,21 +29,25 @@ namespace AivaBot.Bets {
         public ObservableValue BetterCount2 { get; set; } = new ObservableValue(00.00);
         public bool ShowChart { get; set; } = false;
 
-        private DispatcherTimer TimerToEndRegistration;
+        //private DispatcherTimer TimerToEndRegistration;
+        private System.Timers.Timer TimerToEndRegistration;
         private string Command { get; set; }
 
-        public CurrentBet(int MinutesTimer, string Command) {
+        public CurrentBet(TimeSpan TimeToEnd, string Command) {
             Users = new ObservableCollection<Models.UserModel>();
             this.Command = Command;
 
             Client.Client.ClientBBB.TwitchClientBBB.OnChatCommandReceived += TwitchClient_OnChatCommandReceived;
 
             // Timer
-            TimerToEndRegistration = new DispatcherTimer(DispatcherPriority.Normal);
-            TimerToEndRegistration.Tick += EndRegistration;
+            TimerToEndRegistration = new System.Timers.Timer();
+            TimerToEndRegistration.Elapsed += EndRegistration;
+            TimerToEndRegistration.Interval = TimeToEnd.TotalMilliseconds;
+            TimerToEndRegistration.Start();
         }
 
         public void EndRegistration(object sender = null, EventArgs e = null) {
+            TimerToEndRegistration.Stop();
             Client.Client.ClientBBB.TwitchClientBBB.OnChatCommandReceived -= TwitchClient_OnChatCommandReceived;
         }
 
@@ -60,13 +64,11 @@ namespace AivaBot.Bets {
         /// <returns></returns>
         public bool AddUser(string name, List<string> args) {
             // if (args.Count != 2) throw new Exceptions.ExceptionParametersNotValid("not 2 parameters!");
-            int Bet;
-            if (int.TryParse(args[1], out Bet) == false) return false;
+            if (int.TryParse(args[1], out int Bet) == false) return false;
 
+            Models.UserModel user = Users.SingleOrDefault(x => x.Name == name);
 
-            //Models.UsersModel user = Users.SingleOrDefault(x => x.Name == name);
-            var user = "asd";
-            if (user == null || true) {
+            if (user == null) {
                 if (args[0].Length == 1) {
                     System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
                         Users.Add(
@@ -143,20 +145,16 @@ namespace AivaBot.Bets {
             foreach (var user in Users) {
                 switch (Team) {
                     case 'a': {
-                            Users.ForEach(x => {
-                                List.Add(new Database.Models.CurrencyHandlerModels.CurrencyAddList {
-                                    Name = user.Name,
-                                    Value = user.Value + (user.Value * (multiplicator / 100)),
-                                });
+                            List.Add(new Database.Models.CurrencyHandlerModels.CurrencyAddList {
+                                Name = user.Name,
+                                Value = user.Value + (user.Value * (multiplicator / 100)),
                             });
                         }
                         break;
                     case 'b': {
-                            Users.ForEach(x => {
-                                List.Add(new Database.Models.CurrencyHandlerModels.CurrencyAddList {
-                                    Name = user.Name,
-                                    Value = user.Value + (user.Value * (multiplicator / 100)),
-                                });
+                            List.Add(new Database.Models.CurrencyHandlerModels.CurrencyAddList {
+                                Name = user.Name,
+                                Value = user.Value + (user.Value * (multiplicator / 100)),
                             });
                         }
                         break;
