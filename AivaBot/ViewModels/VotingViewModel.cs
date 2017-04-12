@@ -10,15 +10,17 @@ namespace AivaBot.ViewModels {
     [PropertyChanged.ImplementPropertyChanged]
     class VotingViewModel {
         public Models.VotingModel Model { get; set; }
-
         public ICommand StartVotingCommand { get; set; } = new RoutedCommand();
         public ICommand StopVotingCommand { get; set; } = new RoutedCommand();
-
         public SeriesCollection tChartCollection { get; set; }
         public SeriesCollection dChartCollection { get; set; }
         public SeriesCollection bChartCollection { get; set; }
         public string[] OptionNames { get; set; }
+        public Func<ChartPoint, string> PointLabel { get; set; }
 
+        /// <summary>
+        /// Create view model
+        /// </summary>
         public VotingViewModel() {
             // CreateModels
             CreateModels();
@@ -31,6 +33,9 @@ namespace AivaBot.ViewModels {
             bChartCollection = new SeriesCollection();
         }
 
+        /// <summary>
+        /// Create Models
+        /// </summary>
         private void CreateModels() {
             Model = new Models.VotingModel {
                 IsStarted = false,
@@ -40,9 +45,11 @@ namespace AivaBot.ViewModels {
             };
         }
 
-        public Func<ChartPoint, string> PointLabel { get; set; }
-
-
+        /// <summary>
+        /// Start Voting
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StartVoting(Object sender, EventArgs e) {
             if (String.IsNullOrEmpty(Model.Command)) return;
             tChartCollection = new SeriesCollection();
@@ -54,7 +61,11 @@ namespace AivaBot.ViewModels {
         }
 
 
-        List<string> JoinedUsers = new List<string>();
+        /// <summary>
+        /// Voting received
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TwitchClient_OnChatCommandReceived(object sender, TwitchLib.Events.Client.OnChatCommandReceivedArgs e) {
             if (String.Compare(e.Command.Command, Model.Command, true) == 0) {
                 if (!JoinedUsers.Exists(user => user == e.Command.ChatMessage.Username)) {
@@ -88,6 +99,7 @@ namespace AivaBot.ViewModels {
                 }
             }
         }
+        List<string> JoinedUsers = new List<string>();
 
         #region DrawCharts
         private void DrawTChart() {
@@ -283,6 +295,11 @@ namespace AivaBot.ViewModels {
 
         #endregion DrawCharts
 
+        /// <summary>
+        /// Stop voting
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StopVoting(Object sender, EventArgs e) {
             Model.IsStarted = false;
             Client.Client.ClientBBB.TwitchClientBBB.OnChatCommandReceived -= TwitchClient_OnChatCommandReceived;

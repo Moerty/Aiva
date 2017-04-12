@@ -49,11 +49,21 @@
             Controls:TextBoxHelper.Watermark="Name"
             Text="{Binding Name}" />
 
+        <TextBox
+            x:Name="tbCommand"
+            Grid.Column="1"
+            Width="200"
+            Height="39"
+            Margin="301,5,10,0"
+            VerticalAlignment="Top"
+            Controls:TextBoxHelper.ClearTextButton="True"
+            Controls:TextBoxHelper.Watermark="Command"
+            Text="{Binding Model.Command}" />
+
         <StackPanel
             Grid.Row="1"
             Width="250"
-            Height="160"
-            Margin="10,26,229,160"
+            Margin="10,26,229,108"
             Orientation="Vertical">
             <TextBox
                 x:Name="tbOption1"
@@ -367,15 +377,5 @@
                 </lvc:CartesianChart>
             </Grid>
         </Grid>
-        <TextBox
-            x:Name="tbCommand"
-            Grid.Column="1"
-            Width="200"
-            Height="39"
-            Margin="301,5,10,0"
-            VerticalAlignment="Top"
-            Controls:TextBoxHelper.ClearTextButton="True"
-            Controls:TextBoxHelper.Watermark="Command"
-            Text="{Binding Model.Command}" />
     </Grid>
 </Controls:MetroContentControl>
