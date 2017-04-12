@@ -9,27 +9,34 @@ using System.Windows.Media;
 using Songrequest;
 using System.Windows.Threading;
 using System.Windows.Controls;
+using System.Timers;
 
 namespace AivaBot.ViewModels {
+    [PropertyChanged.ImplementPropertyChanged]
     class SongrequestViewModel {
         public bool Active { get; set; }
+        public string Command { get; set; }
+        public bool RepeatInChat { get; set; } = false;
+        public TimeSpan RepeatTime { get; set; } = new TimeSpan(0, 5, 0);
 
         public ICommand StartCommand { get; set; } = new RoutedCommand();
         public ICommand StopCommand { get; set; } = new RoutedCommand();
         public ICommand PlaySong { get; set; } = new RoutedCommand();
         public ICommand StopSong { get; set; } = new RoutedCommand();
-
         public ICommand DeleteCommand { get; set; } = new RoutedCommand();
         public ICommand CopyLinkCommand { get; set; } = new RoutedCommand();
         public ICommand HonorCommand { get; set; } = new RoutedCommand();
 
-        public string Command { get; set; }
-
+        public Models.SongrequestModel Model;
         public PlaylistHandler Playlist = new Songrequest.PlaylistHandler(Properties.Settings.Default.GoogleClientID, Properties.Settings.Default.GoogleClientKey);
         public Models.AsyncObservableCollection<Songrequest.Song> SongList { get; set; } = new Models.AsyncObservableCollection<Song>();
         public Player Player { get; set; }
 
+        private Timer RepeatTimer;
+
         public SongrequestViewModel(FrameworkElement control) {
+            // CreateModels
+            CreateModels();
 
             CommandManager.RegisterClassCommandBinding(control.GetType(), new CommandBinding(StartCommand, StartSongrequest));
             CommandManager.RegisterClassCommandBinding(control.GetType(), new CommandBinding(StopCommand, StopSongrequest));
@@ -42,12 +49,39 @@ namespace AivaBot.ViewModels {
             CommandManager.RegisterClassCommandBinding(control.GetType(), new CommandBinding(StopSong, stopSong));
         }
 
+        private void CreateModels() {
+            Model = new Models.SongrequestModel {
+                Text = new Models.SongrequestModel.TextModel {
+                    SongrequestCommandWatermarkText = Config.Language.Instance.GetString("SongrequestCommandWatermarkText"),
+                    SongrequestExpanderRepeatText = Config.Language.Instance.GetString("SongrequestExpanderRepeatText"),
+                    SongrequestButtonStartText = Config.Language.Instance.GetString("SongrequestButtonStartText"),
+                    SongrequestButtonStopText = Config.Language.Instance.GetString("SongrequestButtonStopText"),
+                    SongrequestButtonStopMusicText = Config.Language.Instance.GetString("SongrequestButtonStopMusicText"),
+                }
+            };
+        }
+
         private void StartSongrequest(object sender, EventArgs e) {
             Client.Client.ClientBBB.TwitchClientBBB.OnChatCommandReceived += TwitchClient_OnChatCommandReceived;
+
+            if (RepeatInChat) {
+                if (RepeatTimer == null) {
+                    RepeatTimer = new Timer();
+                }
+                RepeatTimer.Interval = RepeatTime.TotalMilliseconds;
+                RepeatTimer.Elapsed += RepeatTimer_Elapsed;
+                RepeatTimer.Start();
+            }
+        }
+
+        private void RepeatTimer_Elapsed(object sender, ElapsedEventArgs e) {
+            Client.Client.ClientBBB.TwitchClientBBB.SendMessage(Config.Language.Instance.GetString("SongrequestRepeatText")
+                                    .Replace("@COMMAND@", Command));
         }
 
         private void StopSongrequest(object sender, EventArgs e) {
             Client.Client.ClientBBB.TwitchClientBBB.OnChatCommandReceived -= TwitchClient_OnChatCommandReceived;
+            RepeatTimer.Stop();
         }
 
         private void DeleteSong(object sender, RoutedEventArgs e) {

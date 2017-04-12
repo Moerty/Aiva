@@ -16,12 +16,22 @@ namespace AivaBot.Models {
         public Songrequest.PlaylistHandler Playlist { get; set; }
         public AsyncObservableCollection<Songrequest.Song> SongList { get; set; } = new AsyncObservableCollection<Songrequest.Song>();
         public Songrequest.Player Player { get; set; }
+        public TextModel Text { get; set; }
 
         public enum InformUser {
             AddedSuccessfully,
             VideoDuplicate,
             VideoNotFound,
             NotActivated
+        }
+
+        [PropertyChanged.ImplementPropertyChanged]
+        public class TextModel {
+            public string SongrequestCommandWatermarkText { get; set; }
+            public string SongrequestExpanderRepeatText { get; set; }
+            public string SongrequestButtonStartText { get; set; }
+            public string SongrequestButtonStopText { get; set; }
+            public string SongrequestButtonStopMusicText { get; set; }
         }
     }
 }

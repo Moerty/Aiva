@@ -345,4 +345,22 @@
   <data name="AuctionWriteInChatText" xml:space="preserve">
     <value>Schreibe in den Chat wenn die Auktion startet</value>
   </data>
+  <data name="SongrequestButtonStartText" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="SongrequestButtonStopMusicText" xml:space="preserve">
+    <value>Stoppe Music</value>
+  </data>
+  <data name="SongrequestButtonStopText" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="SongrequestCommandWatermarkText" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="SongrequestExpanderRepeatText" xml:space="preserve">
+    <value>Im Chat wiederholen</value>
+  </data>
+  <data name="SongrequestRepeatText" xml:space="preserve">
+    <value>Es sind Songwünsche offen! Schreibe @COMMAND@ in den Chat um ein Lied vorzuschlagen</value>
+  </data>
 </root>

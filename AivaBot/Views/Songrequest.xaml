@@ -3,14 +3,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-    xmlns:Custom="http://metro.mahapps.com/winfx/xaml/shared"
-    xmlns:awe="http://schemas.awesomium.com/winfx"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    xmlns:local="clr-namespace:AivaBot.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:playlist="clr-namespace:Songrequest;assembly=Songrequest"
-    xmlns:vm="clr-namespace:AivaBot.ViewModels"
     d:DesignHeight="503"
     d:DesignWidth="1092"
     mc:Ignorable="d">
@@ -41,7 +36,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Controls:TextBoxHelper.ClearTextButton="True"
-                Controls:TextBoxHelper.Watermark="Command"
+                Controls:TextBoxHelper.Watermark="{Binding Model.Text.SongrequestCommandWatermarkText, Mode=OneTime, FallbackValue=Command}"
                 FontSize="18"
                 FontWeight="Bold"
                 Text="{Binding Command}"
@@ -56,7 +51,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Command="{Binding StartCommand}"
-                Content="Start" />
+                Content="{Binding Model.Text.SongrequestButtonStartText, Mode=OneTime, FallbackValue=Start}" />
 
             <Button
                 x:Name="btnStop"
@@ -67,7 +62,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Command="{Binding StopCommand}"
-                Content="Stop" />
+                Content="{Binding Model.Text.SongrequestButtonStopText, Mode=OneTime, FallbackValue=Stop}" />
             <Expander
                 x:Name="expander"
                 Width="221"
@@ -75,12 +70,10 @@
                 Margin="92,82,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Header="Write in chat">
+                Header="{Binding Model.Text.SongrequestExpanderRepeatText, Mode=OneTime, FallbackValue=Repeat in Chat}"
+                IsExpanded="{Binding RepeatInChat}">
                 <Grid Background="#FFE5E5E5">
-                    <StackPanel Orientation="Vertical">
-                        <Controls:TimePicker />
-                        <Button />
-                    </StackPanel>
+                    <Controls:TimePicker Culture="de-DE" SelectedTime="{Binding RepeatTime}" />
                 </Grid>
             </Expander>
         </Grid>
@@ -203,6 +196,6 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Command="{Binding StopSong}"
-            Content="Stoppe Musik" />
+            Content="{Binding Model.Text.SongrequestButtonStopMusicText, Mode=OneTime, FallbackValue=Stop music}" />
     </Grid>
 </Controls:MetroContentControl>
