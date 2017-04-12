@@ -7,12 +7,38 @@ Involves you in it and announces mistake!
 <a href="https://ci.appveyor.com/project/Moerty/blackboxbot"><img src="https://ci.appveyor.com/api/projects/status/g40rcgxp6tyho0ki?svg=true" style="max-height: 300px;"></a>
 <a href="https://www.microsoft.com/net"><img src="https://img.shields.io/badge/.NET%20Framework-4.5-orange.svg" style="max-height: 300px;"></a>
 <img src="https://img.shields.io/badge/Platform-.NET-lightgrey.svg" style="max-height: 300px;" alt="Platform: iOS">
-
 </p>
 
+# Functions:
+### Auction:
+* Custom command
+* Auction with currency
+* Auction with tickets
+More Informations: [Wiki](https://github.com/Moerty/AivaBot/wiki/Home:-Auction)
 
-## Todos:
-### Now:
+## Giveaway:
+* Custom command
+* Filter users
+* Subluck
+More Informations: [Wiki](https://github.com/Moerty/AivaBot/wiki/Home:-Giveaway)
+
+## Songrequest
+* Custom command
+* Repeat information
+* Connection to YouTube
+More Informations: [Wiki](https://github.com/Moerty/AivaBot/wiki/Home:-Songrequest)
+
+## Voting
+* Option 1-8
+* Pie/Bar/Doughnut - Chart
+More Informations: [Wiki](https://github.com/Moerty/AivaBot/wiki/Home:-Voting)
+
+## Bets:
+**IN DEVELOPMENT**
+
+
+# Todos:
+## Now:
 - Finish Settings to GUI
 - Setup Project
 - Dashboard
@@ -20,7 +46,7 @@ Involves you in it and announces mistake!
 - OAuth Check
 - Own ClientID
 
-### Complete:
+## Complete:
 - First Start Page for initial setup (Twitch OAuth & YouTube OAuth)
 * **Settings**:
 	* Blacklist word
@@ -29,7 +55,7 @@ Involves you in it and announces mistake!
 	* General settings
 	* Currency settings
 
-### LATER:
+## LATER:
 - Raid System
 - Link Restriction
 - Caps Restriction
@@ -43,7 +69,7 @@ Involves you in it and announces mistake!
 
 
 
-## Dependencies
+# Dependencies
 
 * CefSharp ([Github](https://github.com/cefsharp/CefSharp))
 * Google.Api ([Google](https://developers.google.com/api-client-library/dotnet/))
@@ -55,6 +81,6 @@ Involves you in it and announces mistake!
 * SQLite ([SQLite](https://system.data.sqlite.org/index.html/doc/trunk/www/index.wiki))
 * TwichLib ([Github](https://github.com/swiftyspiffy/TwitchLib))
 
-## License
+# License
 
 This project is available under the MIT license. See the LICENSE file for more info.
