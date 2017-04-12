@@ -27,7 +27,7 @@
             Margin="2,5,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Command="{Binding StartVoting}"
+            Command="{Binding StartVotingCommand}"
             Content="Start" />
         <Button
             x:Name="btnStop"
@@ -36,7 +36,7 @@
             Margin="157,5,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Command="{Binding StopVoting}"
+            Command="{Binding StopVotingCommand}"
             Content="Stop" />
         <TextBox
             x:Name="tbName"
@@ -49,199 +49,197 @@
             Controls:TextBoxHelper.Watermark="Name"
             Text="{Binding Name}" />
 
-        <TextBox
-            x:Name="tbOption1"
+        <StackPanel
             Grid.Row="1"
-            Height="20"
-            Margin="2,16,182,0"
-            VerticalAlignment="Top"
-            Controls:TextBoxHelper.Watermark="Option1"
-            Text="{Binding Option1}">
-            <TextBox.Style>
-                <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">
-                    <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="True" />
+            Width="250"
+            Height="160"
+            Margin="10,26,229,160"
+            Orientation="Vertical">
+            <TextBox
+                x:Name="tbOption1"
+                Grid.Row="1"
+                Height="20"
+                VerticalAlignment="Top"
+                Controls:TextBoxHelper.Watermark="Option1"
+                Text="{Binding Model.Option1}">
+                <TextBox.Style>
+                    <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">
+                        <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="True" />
 
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsStarted}" Value="true">
-                            <Setter Property="TextBox.IsReadOnly" Value="True" />
-                            <Setter Property="TextBox.IsReadOnlyCaretVisible" Value="True" />
-                        </DataTrigger>
-                        <Trigger Property="Controls:TextBoxHelper.HasText" Value="False">
-                            <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="False" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBox.Style>
-        </TextBox>
-        <TextBox
-            x:Name="tbOption2"
-            Grid.Row="1"
-            Height="20"
-            Margin="2,41,182,0"
-            VerticalAlignment="Top"
-            Controls:TextBoxHelper.Watermark="Option2"
-            Text="{Binding Option2}">
-            <TextBox.Style>
-                <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">
-                    <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="true">
+                                <Setter Property="TextBox.IsReadOnly" Value="True" />
+                                <Setter Property="TextBox.IsReadOnlyCaretVisible" Value="True" />
+                            </DataTrigger>
+                            <Trigger Property="Controls:TextBoxHelper.HasText" Value="False">
+                                <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="False" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <TextBox
+                x:Name="tbOption2"
+                Grid.Row="1"
+                Height="20"
+                VerticalAlignment="Top"
+                Controls:TextBoxHelper.Watermark="Option2"
+                Text="{Binding Model.Option2}">
+                <TextBox.Style>
+                    <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">
+                        <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="True" />
 
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsStarted}" Value="true">
-                            <Setter Property="TextBox.IsReadOnly" Value="True" />
-                            <Setter Property="TextBox.IsReadOnlyCaretVisible" Value="True" />
-                        </DataTrigger>
-                        <Trigger Property="Controls:TextBoxHelper.HasText" Value="False">
-                            <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="False" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBox.Style>
-        </TextBox>
-        <TextBox
-            x:Name="tbOption3"
-            Grid.Row="1"
-            Height="20"
-            Margin="0,66,184,0"
-            VerticalAlignment="Top"
-            Controls:TextBoxHelper.Watermark="Option3"
-            Text="{Binding Option3}">
-            <TextBox.Style>
-                <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">
-                    <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="true">
+                                <Setter Property="TextBox.IsReadOnly" Value="True" />
+                                <Setter Property="TextBox.IsReadOnlyCaretVisible" Value="True" />
+                            </DataTrigger>
+                            <Trigger Property="Controls:TextBoxHelper.HasText" Value="False">
+                                <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="False" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <TextBox
+                x:Name="tbOption3"
+                Grid.Row="1"
+                Height="20"
+                VerticalAlignment="Top"
+                Controls:TextBoxHelper.Watermark="Option3"
+                Text="{Binding Model.Option3}">
+                <TextBox.Style>
+                    <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">
+                        <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="True" />
 
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsStarted}" Value="true">
-                            <Setter Property="TextBox.IsReadOnly" Value="True" />
-                            <Setter Property="TextBox.IsReadOnlyCaretVisible" Value="True" />
-                        </DataTrigger>
-                        <Trigger Property="Controls:TextBoxHelper.HasText" Value="False">
-                            <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="False" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBox.Style>
-        </TextBox>
-        <TextBox
-            x:Name="tbOption4"
-            Grid.Row="1"
-            Height="20"
-            Margin="0,91,184,0"
-            VerticalAlignment="Top"
-            Controls:TextBoxHelper.Watermark="Option4"
-            Text="{Binding Option4}">
-            <TextBox.Style>
-                <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">
-                    <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="true">
+                                <Setter Property="TextBox.IsReadOnly" Value="True" />
+                                <Setter Property="TextBox.IsReadOnlyCaretVisible" Value="True" />
+                            </DataTrigger>
+                            <Trigger Property="Controls:TextBoxHelper.HasText" Value="False">
+                                <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="False" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <TextBox
+                x:Name="tbOption4"
+                Grid.Row="1"
+                Height="20"
+                VerticalAlignment="Top"
+                Controls:TextBoxHelper.Watermark="Option4"
+                Text="{Binding Model.Option4}">
+                <TextBox.Style>
+                    <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">
+                        <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="True" />
 
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsStarted}" Value="true">
-                            <Setter Property="TextBox.IsReadOnly" Value="True" />
-                            <Setter Property="TextBox.IsReadOnlyCaretVisible" Value="True" />
-                        </DataTrigger>
-                        <Trigger Property="Controls:TextBoxHelper.HasText" Value="False">
-                            <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="False" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBox.Style>
-        </TextBox>
-        <TextBox
-            x:Name="tbOption5"
-            Grid.Row="1"
-            Height="20"
-            Margin="0,116,184,0"
-            VerticalAlignment="Top"
-            Controls:TextBoxHelper.Watermark="Option5"
-            Text="{Binding Option5}">
-            <TextBox.Style>
-                <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">
-                    <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="true">
+                                <Setter Property="TextBox.IsReadOnly" Value="True" />
+                                <Setter Property="TextBox.IsReadOnlyCaretVisible" Value="True" />
+                            </DataTrigger>
+                            <Trigger Property="Controls:TextBoxHelper.HasText" Value="False">
+                                <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="False" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <TextBox
+                x:Name="tbOption5"
+                Grid.Row="1"
+                Height="20"
+                VerticalAlignment="Top"
+                Controls:TextBoxHelper.Watermark="Option5"
+                Text="{Binding Model.Option5}">
+                <TextBox.Style>
+                    <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">
+                        <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="True" />
 
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsStarted}" Value="true">
-                            <Setter Property="TextBox.IsReadOnly" Value="True" />
-                            <Setter Property="TextBox.IsReadOnlyCaretVisible" Value="True" />
-                        </DataTrigger>
-                        <Trigger Property="Controls:TextBoxHelper.HasText" Value="False">
-                            <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="False" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBox.Style>
-        </TextBox>
-        <TextBox
-            x:Name="tbOption6"
-            Grid.Row="1"
-            Height="20"
-            Margin="0,141,184,0"
-            VerticalAlignment="Top"
-            Controls:TextBoxHelper.Watermark="Option6"
-            Text="{Binding Option6}">
-            <TextBox.Style>
-                <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">
-                    <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="true">
+                                <Setter Property="TextBox.IsReadOnly" Value="True" />
+                                <Setter Property="TextBox.IsReadOnlyCaretVisible" Value="True" />
+                            </DataTrigger>
+                            <Trigger Property="Controls:TextBoxHelper.HasText" Value="False">
+                                <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="False" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <TextBox
+                x:Name="tbOption6"
+                Grid.Row="1"
+                Height="20"
+                VerticalAlignment="Top"
+                Controls:TextBoxHelper.Watermark="Option6"
+                Text="{Binding Model.Option6}">
+                <TextBox.Style>
+                    <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">
+                        <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="True" />
 
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsStarted}" Value="true">
-                            <Setter Property="TextBox.IsReadOnly" Value="True" />
-                            <Setter Property="TextBox.IsReadOnlyCaretVisible" Value="True" />
-                        </DataTrigger>
-                        <Trigger Property="Controls:TextBoxHelper.HasText" Value="False">
-                            <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="False" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBox.Style>
-        </TextBox>
-        <TextBox
-            x:Name="tbOption7"
-            Grid.Row="1"
-            Height="20"
-            Margin="0,166,184,0"
-            VerticalAlignment="Top"
-            Controls:TextBoxHelper.Watermark="Option7"
-            Text="{Binding Option7}">
-            <TextBox.Style>
-                <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">
-                    <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="true">
+                                <Setter Property="TextBox.IsReadOnly" Value="True" />
+                                <Setter Property="TextBox.IsReadOnlyCaretVisible" Value="True" />
+                            </DataTrigger>
+                            <Trigger Property="Controls:TextBoxHelper.HasText" Value="False">
+                                <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="False" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <TextBox
+                x:Name="tbOption7"
+                Grid.Row="1"
+                Height="20"
+                VerticalAlignment="Top"
+                Controls:TextBoxHelper.Watermark="Option7"
+                Text="{Binding Model.Option7}">
+                <TextBox.Style>
+                    <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">
+                        <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="True" />
 
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsStarted}" Value="true">
-                            <Setter Property="TextBox.IsReadOnly" Value="True" />
-                            <Setter Property="TextBox.IsReadOnlyCaretVisible" Value="True" />
-                        </DataTrigger>
-                        <Trigger Property="Controls:TextBoxHelper.HasText" Value="False">
-                            <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="False" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBox.Style>
-        </TextBox>
-        <TextBox
-            x:Name="tbOption8"
-            Grid.Row="1"
-            Height="20"
-            Margin="0,191,184,0"
-            VerticalAlignment="Top"
-            Controls:TextBoxHelper.Watermark="Option8"
-            Text="{Binding Option8}">
-            <TextBox.Style>
-                <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">
-                    <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="true">
+                                <Setter Property="TextBox.IsReadOnly" Value="True" />
+                                <Setter Property="TextBox.IsReadOnlyCaretVisible" Value="True" />
+                            </DataTrigger>
+                            <Trigger Property="Controls:TextBoxHelper.HasText" Value="False">
+                                <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="False" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <TextBox
+                x:Name="tbOption8"
+                Grid.Row="1"
+                Height="20"
+                VerticalAlignment="Top"
+                Controls:TextBoxHelper.Watermark="Option8"
+                Text="{Binding Model.Option8}">
+                <TextBox.Style>
+                    <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">
+                        <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="True" />
 
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsStarted}" Value="true">
-                            <Setter Property="TextBox.IsReadOnly" Value="True" />
-                            <Setter Property="TextBox.IsReadOnlyCaretVisible" Value="True" />
-                        </DataTrigger>
-                        <Trigger Property="Controls:TextBoxHelper.HasText" Value="False">
-                            <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="False" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBox.Style>
-        </TextBox>
-
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Model.IsStarted}" Value="true">
+                                <Setter Property="TextBox.IsReadOnly" Value="True" />
+                                <Setter Property="TextBox.IsReadOnlyCaretVisible" Value="True" />
+                            </DataTrigger>
+                            <Trigger Property="Controls:TextBoxHelper.HasText" Value="False">
+                                <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="False" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+        </StackPanel>
         <RadioButton
             x:Name="rbTorten"
             Grid.Row="1"
@@ -251,7 +249,7 @@
             VerticalAlignment="Top"
             Content="torten"
             GroupName="Chart"
-            IsChecked="{Binding ChartPie}" />
+            IsChecked="{Binding Model.ChartPie}" />
         <RadioButton
             x:Name="rbBalken"
             Grid.Row="1"
@@ -261,7 +259,7 @@
             VerticalAlignment="Top"
             Content="balken"
             GroupName="Chart"
-            IsChecked="{Binding ChartBasic}" />
+            IsChecked="{Binding Model.ChartBasic}" />
         <RadioButton
             x:Name="rbBla"
             Grid.Row="1"
@@ -271,10 +269,10 @@
             VerticalAlignment="Top"
             Content="Donut"
             GroupName="Chart"
-            IsChecked="{Binding ChartDonut}" />
+            IsChecked="{Binding Model.ChartDonut}" />
 
         <Grid Grid.Row="2" Grid.Column="2">
-            <Grid Margin="0,32,0,0" Visibility="{Binding ChartPie}">
+            <Grid Margin="0,32,0,0" Visibility="{Binding Model.ChartPie}">
                 <lvc:PieChart
                     x:Name="Torten"
                     Width="300"
@@ -284,10 +282,10 @@
                     <lvc:PieChart.Style>
                         <Style TargetType="lvc:PieChart">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding ChartPie}" Value="True">
+                                <DataTrigger Binding="{Binding Model.ChartPie}" Value="True">
                                     <Setter Property="Visibility" Value="Visible" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding ChartPie}" Value="False">
+                                <DataTrigger Binding="{Binding Model.ChartPie}" Value="False">
                                     <Setter Property="Visibility" Value="Hidden" />
                                 </DataTrigger>
                             </Style.Triggers>
@@ -296,7 +294,7 @@
                 </lvc:PieChart>
             </Grid>
 
-            <Grid Margin="0,32,0,0" Visibility="{Binding ChartDonut}">
+            <Grid Margin="0,32,0,0" Visibility="{Binding Model.ChartDonut}">
                 <lvc:PieChart
                     x:Name="Donut"
                     Width="300"
@@ -308,10 +306,10 @@
                         <Style TargetType="lvc:PieChart">
                             <Setter Property="Visibility" Value="Hidden" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding ChartDonut}" Value="True">
+                                <DataTrigger Binding="{Binding Model.ChartDonut}" Value="True">
                                     <Setter Property="Visibility" Value="Visible" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding ChartDonut}" Value="False">
+                                <DataTrigger Binding="{Binding Model.ChartDonut}" Value="False">
                                     <Setter Property="Visibility" Value="Hidden" />
                                 </DataTrigger>
                             </Style.Triggers>
@@ -326,7 +324,7 @@
                 </lvc:PieChart>
             </Grid>
 
-            <Grid Margin="0,32,0,0" Visibility="{Binding ChartBasic}">
+            <Grid Margin="0,32,0,0" Visibility="{Binding Model.ChartBasic}">
 
                 <lvc:CartesianChart
                     Width="300"
@@ -357,10 +355,10 @@
                         <Style TargetType="lvc:CartesianChart">
                             <Setter Property="Visibility" Value="Hidden" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding ChartBasic}" Value="True">
+                                <DataTrigger Binding="{Binding Model.ChartBasic}" Value="True">
                                     <Setter Property="Visibility" Value="Visible" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding ChartBasic}" Value="False">
+                                <DataTrigger Binding="{Binding Model.ChartBasic}" Value="False">
                                     <Setter Property="Visibility" Value="Hidden" />
                                 </DataTrigger>
                             </Style.Triggers>
@@ -378,6 +376,6 @@
             VerticalAlignment="Top"
             Controls:TextBoxHelper.ClearTextButton="True"
             Controls:TextBoxHelper.Watermark="Command"
-            Text="{Binding Command}" />
+            Text="{Binding Model.Command}" />
     </Grid>
 </Controls:MetroContentControl>

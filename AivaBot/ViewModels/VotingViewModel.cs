@@ -9,35 +9,10 @@ using static AivaBot.ViewModels.Extension;
 namespace AivaBot.ViewModels {
     [PropertyChanged.ImplementPropertyChanged]
     class VotingViewModel {
-        public bool IsStarted { get; set; } = false;
-        public bool ChartPie { get; set; } = true;
-        public bool ChartBasic { get; set; } = false;
-        public bool ChartDonut { get; set; } = false;
+        public Models.VotingModel Model { get; set; }
 
-        public string Command { get; set; }
-        public string Option1 { get; set; }
-        public string Option2 { get; set; }
-        public string Option3 { get; set; }
-        public string Option4 { get; set; }
-        public string Option5 { get; set; }
-        public string Option6 { get; set; }
-        public string Option7 { get; set; }
-        public string Option8 { get; set; }
-
-        public ObservableValue CountOption1 { get; set; } = new ObservableValue(0);
-        public ObservableValue CountOption2 { get; set; } = new ObservableValue(0);
-        public ObservableValue CountOption3 { get; set; } = new ObservableValue(0);
-        public ObservableValue CountOption4 { get; set; } = new ObservableValue(0);
-        public ObservableValue CountOption5 { get; set; } = new ObservableValue(0);
-        public ObservableValue CountOption6 { get; set; } = new ObservableValue(0);
-        public ObservableValue CountOption7 { get; set; } = new ObservableValue(0);
-        public ObservableValue CountOption8 { get; set; } = new ObservableValue(0);
-
-        public string Name { get; set; }
-
-
-        public ICommand StartVoting { get; set; } = new RoutedCommand();
-        public ICommand StopVoting { get; set; } = new RoutedCommand();
+        public ICommand StartVotingCommand { get; set; } = new RoutedCommand();
+        public ICommand StopVotingCommand { get; set; } = new RoutedCommand();
 
         public SeriesCollection tChartCollection { get; set; }
         public SeriesCollection dChartCollection { get; set; }
@@ -45,58 +20,70 @@ namespace AivaBot.ViewModels {
         public string[] OptionNames { get; set; }
 
         public VotingViewModel() {
-            CommandManager.RegisterClassCommandBinding(new MahApps.Metro.Controls.MetroContentControl().GetType(), new CommandBinding(StartVoting, startVoting));
-            CommandManager.RegisterClassCommandBinding(new MahApps.Metro.Controls.MetroContentControl().GetType(), new CommandBinding(StopVoting, stopVoting));
+            // CreateModels
+            CreateModels();
+
+            CommandManager.RegisterClassCommandBinding(new MahApps.Metro.Controls.MetroContentControl().GetType(), new CommandBinding(StartVotingCommand, StartVoting));
+            CommandManager.RegisterClassCommandBinding(new MahApps.Metro.Controls.MetroContentControl().GetType(), new CommandBinding(StopVotingCommand, StopVoting));
 
             tChartCollection = new SeriesCollection();
             dChartCollection = new SeriesCollection();
             bChartCollection = new SeriesCollection();
         }
 
+        private void CreateModels() {
+            Model = new Models.VotingModel {
+                IsStarted = false,
+                ChartPie = true,
+                ChartBasic = false,
+                ChartDonut = false,
+            };
+        }
+
         public Func<ChartPoint, string> PointLabel { get; set; }
 
 
-        private void startVoting(Object sender, EventArgs e) {
-            if (String.IsNullOrEmpty(Command)) return;
+        private void StartVoting(Object sender, EventArgs e) {
+            if (String.IsNullOrEmpty(Model.Command)) return;
             tChartCollection = new SeriesCollection();
             DrawTChart();
             DrawDChart();
             DrawBChart();
-            IsStarted = true;
+            Model.IsStarted = true;
             Client.Client.ClientBBB.TwitchClientBBB.OnChatCommandReceived += TwitchClient_OnChatCommandReceived;
         }
 
 
         List<string> JoinedUsers = new List<string>();
         private void TwitchClient_OnChatCommandReceived(object sender, TwitchLib.Events.Client.OnChatCommandReceivedArgs e) {
-            if (e.Command.Command == Command) {
-                if (JoinedUsers.Exists(user => user == e.Command.ChatMessage.Username)) {
+            if (String.Compare(e.Command.Command, Model.Command, true) == 0) {
+                if (!JoinedUsers.Exists(user => user == e.Command.ChatMessage.Username)) {
                     JoinedUsers.Add(e.Command.ChatMessage.Username);
 
                     new Switch<string>(e.Command.ArgumentsAsString)
-                        .Case(s => s == Option1, s => {
-                            CountOption1.Value++;
+                        .Case(s => String.Compare(s, Model.Option1, true) == 0, s => {
+                            Model.CountOption1.Value++;
                         })
-                       .Case(s => s == Option2, s => {
-                           CountOption2.Value++;
+                       .Case(s => String.Compare(s, Model.Option2, true) == 0, s => {
+                           Model.CountOption2.Value++;
                        })
-                       .Case(s => s == Option3, s => {
-                           CountOption3.Value++;
+                       .Case(s => String.Compare(s, Model.Option3, true) == 0, s => {
+                           Model.CountOption3.Value++;
                        })
-                       .Case(s => s == Option4, s => {
-                           CountOption4.Value++;
+                       .Case(s => String.Compare(s, Model.Option4, true) == 0, s => {
+                           Model.CountOption4.Value++;
                        })
-                       .Case(s => s == Option5, s => {
-                           CountOption5.Value++;
+                       .Case(s => String.Compare(s, Model.Option5, true) == 0, s => {
+                           Model.CountOption5.Value++;
                        })
-                       .Case(s => s == Option6, s => {
-                           CountOption6.Value++;
+                       .Case(s => String.Compare(s, Model.Option6, true) == 0, s => {
+                           Model.CountOption6.Value++;
                        })
-                       .Case(s => s == Option7, s => {
-                           CountOption7.Value++;
+                       .Case(s => String.Compare(s, Model.Option7, true) == 0, s => {
+                           Model.CountOption7.Value++;
                        })
-                       .Case(s => s == Option8, s => {
-                           CountOption8.Value++;
+                       .Case(s => String.Compare(s, Model.Option8, true) == 0, s => {
+                           Model.CountOption8.Value++;
                        });
                 }
             }
@@ -107,74 +94,74 @@ namespace AivaBot.ViewModels {
             if (tChartCollection == null)
                 tChartCollection = new SeriesCollection();
 
-            if (!String.IsNullOrEmpty(Option1)) {
+            if (!String.IsNullOrEmpty(Model.Option1)) {
                 tChartCollection.Add(
                     new PieSeries {
-                        Title = Option1,
-                        Values = new ChartValues<ObservableValue> { CountOption1 },
+                        Title = Model.Option1,
+                        Values = new ChartValues<ObservableValue> { Model.CountOption1 },
                         DataLabels = true
                     });
             }
 
-            if (!String.IsNullOrEmpty(Option2)) {
+            if (!String.IsNullOrEmpty(Model.Option2)) {
                 tChartCollection.Add(
                     new PieSeries {
-                        Title = Option2,
-                        Values = new ChartValues<ObservableValue> { CountOption2 },
+                        Title = Model.Option2,
+                        Values = new ChartValues<ObservableValue> { Model.CountOption2 },
                         DataLabels = true
                     });
             }
 
-            if (!String.IsNullOrEmpty(Option3)) {
+            if (!String.IsNullOrEmpty(Model.Option3)) {
                 tChartCollection.Add(
                     new PieSeries {
-                        Title = Option3,
-                        Values = new ChartValues<ObservableValue> { CountOption3 },
+                        Title = Model.Option3,
+                        Values = new ChartValues<ObservableValue> { Model.CountOption3 },
                         DataLabels = true
                     });
             }
 
-            if (!String.IsNullOrEmpty(Option4)) {
+            if (!String.IsNullOrEmpty(Model.Option4)) {
                 tChartCollection.Add(
                     new PieSeries {
-                        Title = Option4,
-                        Values = new ChartValues<ObservableValue> { CountOption4 },
+                        Title = Model.Option4,
+                        Values = new ChartValues<ObservableValue> { Model.CountOption4 },
                         DataLabels = true
                     });
             }
 
-            if (!String.IsNullOrEmpty(Option5)) {
+            if (!String.IsNullOrEmpty(Model.Option5)) {
                 tChartCollection.Add(
                     new PieSeries {
-                        Title = Option5,
-                        Values = new ChartValues<ObservableValue> { CountOption5 },
+                        Title = Model.Option5,
+                        Values = new ChartValues<ObservableValue> { Model.CountOption5 },
                         DataLabels = true
                     });
             }
 
-            if (!String.IsNullOrEmpty(Option6)) {
+            if (!String.IsNullOrEmpty(Model.Option6)) {
                 tChartCollection.Add(
                     new PieSeries {
-                        Title = Option6,
-                        Values = new ChartValues<ObservableValue> { CountOption6 },
+                        Title = Model.Option6,
+                        Values = new ChartValues<ObservableValue> { Model.CountOption6 },
                         DataLabels = true
                     });
             }
 
-            if (!String.IsNullOrEmpty(Option7)) {
+            if (!String.IsNullOrEmpty(Model.Option7)) {
                 tChartCollection.Add(
                     new PieSeries {
-                        Title = Option7,
-                        Values = new ChartValues<ObservableValue> { CountOption7 },
+                        Title = Model.Option7,
+                        Values = new ChartValues<ObservableValue> { Model.CountOption7 },
                         DataLabels = true
                     });
             }
 
-            if (!String.IsNullOrEmpty(Option8)) {
+            if (!String.IsNullOrEmpty(Model.Option8)) {
                 tChartCollection.Add(
                     new PieSeries {
-                        Title = Option8,
-                        Values = new ChartValues<ObservableValue> { CountOption8 },
+                        Title = Model.Option8,
+                        Values = new ChartValues<ObservableValue> { Model.CountOption8 },
                         DataLabels = true
                     });
             }
@@ -184,74 +171,74 @@ namespace AivaBot.ViewModels {
             if (dChartCollection == null)
                 dChartCollection = new SeriesCollection();
 
-            if (!String.IsNullOrEmpty(Option1)) {
+            if (!String.IsNullOrEmpty(Model.Option1)) {
                 dChartCollection.Add(
                     new PieSeries {
-                        Title = Option1,
-                        Values = new ChartValues<ObservableValue> { CountOption1 },
+                        Title = Model.Option1,
+                        Values = new ChartValues<ObservableValue> { Model.CountOption1 },
                         DataLabels = true
                     });
             }
 
-            if (!String.IsNullOrEmpty(Option2)) {
+            if (!String.IsNullOrEmpty(Model.Option2)) {
                 dChartCollection.Add(
                     new PieSeries {
-                        Title = Option2,
-                        Values = new ChartValues<ObservableValue> { CountOption2 },
+                        Title = Model.Option2,
+                        Values = new ChartValues<ObservableValue> { Model.CountOption2 },
                         DataLabels = true
                     });
             }
 
-            if (!String.IsNullOrEmpty(Option3)) {
+            if (!String.IsNullOrEmpty(Model.Option3)) {
                 dChartCollection.Add(
                     new PieSeries {
-                        Title = Option3,
-                        Values = new ChartValues<ObservableValue> { CountOption3 },
+                        Title = Model.Option3,
+                        Values = new ChartValues<ObservableValue> { Model.CountOption3 },
                         DataLabels = true
                     });
             }
 
-            if (!String.IsNullOrEmpty(Option4)) {
+            if (!String.IsNullOrEmpty(Model.Option4)) {
                 dChartCollection.Add(
                     new PieSeries {
-                        Title = Option4,
-                        Values = new ChartValues<ObservableValue> { CountOption4 },
+                        Title = Model.Option4,
+                        Values = new ChartValues<ObservableValue> { Model.CountOption4 },
                         DataLabels = true
                     });
             }
 
-            if (!String.IsNullOrEmpty(Option5)) {
+            if (!String.IsNullOrEmpty(Model.Option5)) {
                 dChartCollection.Add(
                     new PieSeries {
-                        Title = Option5,
-                        Values = new ChartValues<ObservableValue> { CountOption5 },
+                        Title = Model.Option5,
+                        Values = new ChartValues<ObservableValue> { Model.CountOption5 },
                         DataLabels = true
                     });
             }
 
-            if (!String.IsNullOrEmpty(Option6)) {
+            if (!String.IsNullOrEmpty(Model.Option6)) {
                 dChartCollection.Add(
                     new PieSeries {
-                        Title = Option6,
-                        Values = new ChartValues<ObservableValue> { CountOption6 },
+                        Title = Model.Option6,
+                        Values = new ChartValues<ObservableValue> { Model.CountOption6 },
                         DataLabels = true
                     });
             }
 
-            if (!String.IsNullOrEmpty(Option7)) {
+            if (!String.IsNullOrEmpty(Model.Option7)) {
                 dChartCollection.Add(
                     new PieSeries {
-                        Title = Option7,
-                        Values = new ChartValues<ObservableValue> { CountOption7 },
+                        Title = Model.Option7,
+                        Values = new ChartValues<ObservableValue> { Model.CountOption7 },
                         DataLabels = true
                     });
             }
 
-            if (!String.IsNullOrEmpty(Option8)) {
+            if (!String.IsNullOrEmpty(Model.Option8)) {
                 dChartCollection.Add(
                     new PieSeries {
-                        Title = Option8,
-                        Values = new ChartValues<ObservableValue> { CountOption8 },
+                        Title = Model.Option8,
+                        Values = new ChartValues<ObservableValue> { Model.CountOption8 },
                         DataLabels = true
                     });
             }
@@ -265,14 +252,14 @@ namespace AivaBot.ViewModels {
                 new ColumnSeries {
                     Values = new ChartValues<ObservableValue>
                     {
-                        CountOption1,
-                        CountOption2,
-                        CountOption3,
-                        CountOption4,
-                        CountOption5,
-                        CountOption6,
-                        CountOption7,
-                        CountOption8,
+                        Model.CountOption1,
+                        Model.CountOption2,
+                        Model.CountOption3,
+                        Model.CountOption4,
+                        Model.CountOption5,
+                        Model.CountOption6,
+                        Model.CountOption7,
+                        Model.CountOption8,
                     },
                     DataLabels = true,
                     //LabelPoint = point => point.ToString()
@@ -280,14 +267,14 @@ namespace AivaBot.ViewModels {
 
             OptionNames = new[]
             {
-                Option1,
-                Option2 != null ? Option2 : null,
-                Option3 != null ? Option3 : null,
-                Option4 != null ? Option4 : null,
-                Option5 != null ? Option5 : null,
-                Option6 != null ? Option6 : null,
-                Option7 != null ? Option7 : null,
-                Option8 != null ? Option8 : null,
+                Model.Option1,
+                Model.Option2 != null ? Model.Option2 : null,
+                Model.Option3 != null ? Model.Option3 : null,
+                Model.Option4 != null ? Model.Option4 : null,
+                Model.Option5 != null ? Model.Option5 : null,
+                Model.Option6 != null ? Model.Option6 : null,
+                Model.Option7 != null ? Model.Option7 : null,
+                Model.Option8 != null ? Model.Option8 : null,
             };
             Formatter = value => value + " votes";
         }
@@ -296,21 +283,21 @@ namespace AivaBot.ViewModels {
 
         #endregion DrawCharts
 
-        private void stopVoting(Object sender, EventArgs e) {
-            IsStarted = false;
+        private void StopVoting(Object sender, EventArgs e) {
+            Model.IsStarted = false;
             Client.Client.ClientBBB.TwitchClientBBB.OnChatCommandReceived -= TwitchClient_OnChatCommandReceived;
             tChartCollection = null;
             dChartCollection = null;
             bChartCollection = null;
 
-            CountOption1.Value = 0;
-            CountOption2.Value = 0;
-            CountOption3.Value = 0;
-            CountOption4.Value = 0;
-            CountOption5.Value = 0;
-            CountOption6.Value = 0;
-            CountOption7.Value = 0;
-            CountOption8.Value = 0;
+            Model.CountOption1.Value = 0;
+            Model.CountOption2.Value = 0;
+            Model.CountOption3.Value = 0;
+            Model.CountOption4.Value = 0;
+            Model.CountOption5.Value = 0;
+            Model.CountOption6.Value = 0;
+            Model.CountOption7.Value = 0;
+            Model.CountOption8.Value = 0;
         }
     }
 

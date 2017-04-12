@@ -172,6 +172,7 @@
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\SettingsModel.cs" />
     <Compile Include="Models\SongrequestModel.cs" />
+    <Compile Include="Models\VotingModel.cs" />
     <Compile Include="ViewModels\AuctionViewModels.cs" />
     <Compile Include="ViewModels\BetsViewModel.cs" />
     <Compile Include="ViewModels\ChartsViewModel.cs" />
