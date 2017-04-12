@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media;
 using Songrequest;
-using System.Windows.Threading;
 using System.Windows.Controls;
 using System.Timers;
 
@@ -21,19 +16,21 @@ namespace AivaBot.ViewModels {
 
         public ICommand StartCommand { get; set; } = new RoutedCommand();
         public ICommand StopCommand { get; set; } = new RoutedCommand();
-        public ICommand PlaySong { get; set; } = new RoutedCommand();
-        public ICommand StopSong { get; set; } = new RoutedCommand();
+        public ICommand PlaySongCommand { get; set; } = new RoutedCommand();
+        public ICommand StopSongCommand { get; set; } = new RoutedCommand();
         public ICommand DeleteCommand { get; set; } = new RoutedCommand();
         public ICommand CopyLinkCommand { get; set; } = new RoutedCommand();
         public ICommand HonorCommand { get; set; } = new RoutedCommand();
 
         public Models.SongrequestModel Model;
-        public PlaylistHandler Playlist = new Songrequest.PlaylistHandler(Properties.Settings.Default.GoogleClientID, Properties.Settings.Default.GoogleClientKey);
         public Models.AsyncObservableCollection<Songrequest.Song> SongList { get; set; } = new Models.AsyncObservableCollection<Song>();
         public Player Player { get; set; }
-
         private Timer RepeatTimer;
 
+        /// <summary>
+        /// Create ViewModel
+        /// </summary>
+        /// <param name="control"></param>
         public SongrequestViewModel(FrameworkElement control) {
             // CreateModels
             CreateModels();
@@ -45,10 +42,13 @@ namespace AivaBot.ViewModels {
             CommandManager.RegisterClassCommandBinding(control.GetType(), new CommandBinding(CopyLinkCommand, ToClipboard));
             CommandManager.RegisterClassCommandBinding(control.GetType(), new CommandBinding(HonorCommand, StopSongrequest));
 
-            CommandManager.RegisterClassCommandBinding(control.GetType(), new CommandBinding(PlaySong, playSong));
-            CommandManager.RegisterClassCommandBinding(control.GetType(), new CommandBinding(StopSong, stopSong));
+            CommandManager.RegisterClassCommandBinding(control.GetType(), new CommandBinding(PlaySongCommand, PlaySong));
+            CommandManager.RegisterClassCommandBinding(control.GetType(), new CommandBinding(StopSongCommand, StopSong));
         }
 
+        /// <summary>
+        /// Create Models
+        /// </summary>
         private void CreateModels() {
             Model = new Models.SongrequestModel {
                 Text = new Models.SongrequestModel.TextModel {
@@ -61,6 +61,11 @@ namespace AivaBot.ViewModels {
             };
         }
 
+        /// <summary>
+        /// Start Songrequest & timer if activated
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StartSongrequest(object sender, EventArgs e) {
             Client.Client.ClientBBB.TwitchClientBBB.OnChatCommandReceived += TwitchClient_OnChatCommandReceived;
 
@@ -70,32 +75,58 @@ namespace AivaBot.ViewModels {
                 }
                 RepeatTimer.Interval = RepeatTime.TotalMilliseconds;
                 RepeatTimer.Elapsed += RepeatTimer_Elapsed;
+                RepeatTimer.AutoReset = true;
                 RepeatTimer.Start();
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RepeatTimer_Elapsed(object sender, ElapsedEventArgs e) {
             Client.Client.ClientBBB.TwitchClientBBB.SendMessage(Config.Language.Instance.GetString("SongrequestRepeatText")
                                     .Replace("@COMMAND@", Command));
         }
 
+        /// <summary>
+        /// Stop the songrequest
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StopSongrequest(object sender, EventArgs e) {
             Client.Client.ClientBBB.TwitchClientBBB.OnChatCommandReceived -= TwitchClient_OnChatCommandReceived;
             RepeatTimer.Stop();
         }
 
+        /// <summary>
+        /// Delete Song from list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteSong(object sender, RoutedEventArgs e) {
             var song = (e.OriginalSource as ListViewItem).DataContext as Songrequest.Song;
 
             SongList.Remove(song);
         }
 
+        /// <summary>
+        /// Copy song to Clipboard
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ToClipboard(object sender, RoutedEventArgs e) {
             var song = (e.OriginalSource as ListViewItem).DataContext as Songrequest.Song;
 
             System.Windows.Forms.Clipboard.SetDataObject(song.VideoID, true);
         }
 
+        /// <summary>
+        /// Honor requester with 100 currency
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Honor(object sender, RoutedEventArgs e) {
             var song = (e.OriginalSource as ListViewItem).DataContext as Songrequest.Song;
 
@@ -104,6 +135,11 @@ namespace AivaBot.ViewModels {
 
         }
 
+        /// <summary>
+        /// Add song when command received
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TwitchClient_OnChatCommandReceived(object sender, TwitchLib.Events.Client.OnChatCommandReceivedArgs e) {
             // Add Song
             if (String.Compare(e.Command.Command, Command, StringComparison.OrdinalIgnoreCase) == 0) {
@@ -176,7 +212,12 @@ namespace AivaBot.ViewModels {
             }
         }
 
-        private void playSong(object sender, ExecutedRoutedEventArgs e) {
+        /// <summary>
+        /// Play clicked song
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PlaySong(object sender, ExecutedRoutedEventArgs e) {
             var Song = (Songrequest.Song)(sender as Views.Songrequest).listView.SelectedItem;
             if (Player == null) Player = new Player(true);
 
@@ -208,7 +249,12 @@ namespace AivaBot.ViewModels {
             }
         }
 
-        private void stopSong(object sender, ExecutedRoutedEventArgs e) {
+        /// <summary>
+        /// Stop song
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StopSong(object sender, ExecutedRoutedEventArgs e) {
             if (Player != null)
                 Player.MusicOnOff();
 
