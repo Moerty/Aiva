@@ -1,5 +1,4 @@
-﻿using RestSharp;
-using Google.Apis.Auth.OAuth2;
+﻿using Google.Apis.Auth.OAuth2;
 using Google.Apis.YouTube.v3;
 using System.Threading;
 using Google.Apis.Util.Store;

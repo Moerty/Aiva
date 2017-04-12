@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AivaBot.Auction.Models {
+﻿namespace AivaBot.Auction.Models {
     public class InitModel {
         public string Name { get; set; }
         public string Command { get; set; }

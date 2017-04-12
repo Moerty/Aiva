@@ -1,12 +1,7 @@
 ﻿using CefSharp;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace AivaBot {
@@ -43,7 +38,7 @@ namespace AivaBot {
             var main = new Views.MainWindow();
             main.Closing += Main_Closed;
             main.Closed += Database.ActiveUsersHandler.OnExistProgram;
-            main.Closed += Database.UserHandler.UpdateUser.OnExistProgramm; // Set IsViewing to false
+            main.Closed += Database.UserHandler.UpdateUser.OnExistProgramm;
 
             main.Show();
         }

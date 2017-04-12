@@ -1,15 +1,5 @@
-﻿using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System;
 using System.Windows.Input;
-using System.Windows.Threading;
 
 namespace AivaBot.ViewModels {
     [PropertyChanged.ImplementPropertyChanged]
@@ -21,7 +11,7 @@ namespace AivaBot.ViewModels {
         public ICommand Stop { get; set; } = new RoutedCommand();
         public ICommand PayOutCommand { get; set; } = new RoutedCommand();
 
-        public AivaBot.Models.BetsModel Model { get; set; }
+        public Models.BetsModel Model { get; set; }
         public Bets.BetsHandler BetsHandler { get; set; }
 
         public BetsViewModel() {

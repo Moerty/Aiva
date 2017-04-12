@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AivaBot.Models {
+﻿namespace AivaBot.Models {
     [PropertyChanged.ImplementPropertyChanged]
     class HomeModel {
         public string Header { get; set; }

@@ -4,11 +4,8 @@ using Google.Apis.Util.Store;
 using Google.Apis.YouTube.v3;
 using RestSharp.Extensions.MonoHttp;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Songrequest {
     [PropertyChanged.ImplementPropertyChanged]

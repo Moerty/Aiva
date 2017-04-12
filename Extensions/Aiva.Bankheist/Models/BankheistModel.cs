@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AivaBot.Bankheist.Models {
+﻿namespace AivaBot.Bankheist.Models {
     public class BankheistModel {
         public string name;
         public int value;

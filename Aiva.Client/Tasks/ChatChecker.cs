@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Config;
 using TwitchLib.Enums;
 using TwitchLib.Events.Client;
 using TwitchLib.Extensions.Client;
