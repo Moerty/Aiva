@@ -363,4 +363,25 @@
   <data name="SongrequestRepeatText" xml:space="preserve">
     <value>Es sind Songwünsche offen! Schreibe @COMMAND@ in den Chat um ein Lied vorzuschlagen</value>
   </data>
+  <data name="VotingBarChartNameText" xml:space="preserve">
+    <value>Balkendiagramm</value>
+  </data>
+  <data name="VotingButtonStartText" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="VotingButtonStopText" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="VotingCommandWatermarkText" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="VotingDoughnutChartNameText" xml:space="preserve">
+    <value>Donutdiagramm</value>
+  </data>
+  <data name="VotingNameWatermarkText" xml:space="preserve">
+    <value>Name des Voting</value>
+  </data>
+  <data name="VotingPieChatNameText" xml:space="preserve">
+    <value>Tortendiagramm</value>
+  </data>
 </root>

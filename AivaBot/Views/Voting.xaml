@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:AivaBot.Views"
     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="400"
@@ -28,7 +27,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Command="{Binding StartVotingCommand}"
-            Content="Start" />
+            Content="{Binding Model.Text.VotingButtonStartText, Mode=OneTime, FallbackValue=Start}" />
         <Button
             x:Name="btnStop"
             Width="150"
@@ -37,7 +36,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Command="{Binding StopVotingCommand}"
-            Content="Stop" />
+            Content="{Binding Model.Text.VotingButtonStopText, Mode=OneTime, FallbackValue=Stop}" />
         <TextBox
             x:Name="tbName"
             Grid.Column="1"
@@ -46,7 +45,7 @@
             Margin="10,6,301,0"
             VerticalAlignment="Top"
             Controls:TextBoxHelper.ClearTextButton="True"
-            Controls:TextBoxHelper.Watermark="Name"
+            Controls:TextBoxHelper.Watermark="{Binding Model.Text.VotingNameWatermarkText, Mode=OneTime, FallbackValue=Name}"
             Text="{Binding Name}" />
 
         <TextBox
@@ -57,7 +56,7 @@
             Margin="301,5,10,0"
             VerticalAlignment="Top"
             Controls:TextBoxHelper.ClearTextButton="True"
-            Controls:TextBoxHelper.Watermark="Command"
+            Controls:TextBoxHelper.Watermark="{Binding Model.Text.VotingCommandWatermarkText, Mode=OneTime, FallbackValue=Command}"
             Text="{Binding Model.Command}" />
 
         <StackPanel
@@ -254,10 +253,10 @@
             x:Name="rbTorten"
             Grid.Row="1"
             Grid.Column="1"
-            Margin="123,4,0,0"
+            Margin="58,4,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Content="torten"
+            Content="{Binding Model.Text.VotingPieChatNameText, Mode=OneTime, FallbackValue=Pie Chart}"
             GroupName="Chart"
             IsChecked="{Binding Model.ChartPie}" />
         <RadioButton
@@ -267,17 +266,17 @@
             Margin="198,4,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Content="balken"
+            Content="{Binding Model.Text.VotingBarChartNameText, Mode=OneTime, FallbackValue=Bar Chart}"
             GroupName="Chart"
             IsChecked="{Binding Model.ChartBasic}" />
         <RadioButton
             x:Name="rbBla"
             Grid.Row="1"
             Grid.Column="1"
-            Margin="283,4,0,0"
+            Margin="335,4,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Content="Donut"
+            Content="{Binding Model.Text.VotingDoughnutChartNameText, Mode=OneTime, FallbackValue=Doughnut Chart}"
             GroupName="Chart"
             IsChecked="{Binding Model.ChartDonut}" />
 

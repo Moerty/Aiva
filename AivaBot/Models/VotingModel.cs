@@ -39,7 +39,13 @@ namespace AivaBot.Models {
 
         [PropertyChanged.ImplementPropertyChanged]
         public class TextModel {
-
+            public string VotingButtonStartText { get; set; }
+            public string VotingButtonStopText { get; set; }
+            public string VotingNameWatermarkText { get; set; }
+            public string VotingCommandWatermarkText { get; set; }
+            public string VotingPieChatNameText { get; set; }
+            public string VotingBarChartNameText { get; set; }
+            public string VotingDoughnutChartNameText { get; set; }
         }
     }
 }

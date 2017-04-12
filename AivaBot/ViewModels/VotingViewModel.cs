@@ -42,6 +42,16 @@ namespace AivaBot.ViewModels {
                 ChartPie = true,
                 ChartBasic = false,
                 ChartDonut = false,
+
+                Text = new Models.VotingModel.TextModel {
+                    VotingButtonStartText = Config.Language.Instance.GetString("VotingButtonStartText"),
+                    VotingButtonStopText = Config.Language.Instance.GetString("VotingButtonStopText"),
+                    VotingNameWatermarkText = Config.Language.Instance.GetString("VotingNameWatermarkText"),
+                    VotingCommandWatermarkText = Config.Language.Instance.GetString("VotingCommandWatermarkText"),
+                    VotingPieChatNameText = Config.Language.Instance.GetString("VotingPieChatNameText"),
+                    VotingBarChartNameText = Config.Language.Instance.GetString("VotingBarChartNameText"),
+                    VotingDoughnutChartNameText = Config.Language.Instance.GetString("VotingDoughnutChartNameText"),
+                }
             };
         }
 
