@@ -40,11 +40,11 @@
                     <Style TargetType="lvc:CartesianChart">
                         <Setter Property="TextBlock.Text" Value="" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding BetsHandler.IsStarted}" Value="False">
+                            <DataTrigger Binding="{Binding BetsHandler.BetsHandler.IsStarted}" Value="False">
 
                                 <Setter Property="Visibility" Value="Hidden" />
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding BetsHandler.IsStarted}" Value="True">
+                            <DataTrigger Binding="{Binding BetsHandler.BetsHandler.IsStarted}" Value="True">
                                 <Setter Property="Visibility" Value="Visible" />
                             </DataTrigger>
                         </Style.Triggers>
@@ -65,7 +65,7 @@
                     <Style TargetType="Controls:NumericUpDown">
                         <Setter Property="IsReadOnly" Value="False" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsStarted}" Value="True">
+                            <DataTrigger Binding="{Binding BetsHandler.IsStarted}" Value="True">
                                 <Setter Property="IsReadOnly" Value="True" />
                             </DataTrigger>
                         </Style.Triggers>
@@ -94,7 +94,7 @@
             Margin="10,228,820,37"
             Command="{Binding Start}"
             Content="{Binding Model.Text.StartStopButtonText}"
-            IsChecked="{Binding IsStarted}" />
+            IsChecked="{Binding BetsHandler.IsStarted}" />
 
         <Controls:DropDownButton
             Grid.Row="1"
@@ -160,7 +160,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Start / Stop"
-            IsChecked="{Binding IsStarted}"
+            IsChecked="{Binding BetsHandler.IsStarted}"
             IsEnabled="True" />
 
         <Slider
