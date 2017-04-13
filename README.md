@@ -3,7 +3,7 @@ Here it concerns everything around a *learning* project.
 Involves you in it and announces mistake!
 
 <p align="center">
-<a href="https://ci.appveyor.com/project/Moerty/blackboxbot"><img src="https://ci.appveyor.com/api/projects/status/g40rcgxp6tyho0ki?svg=true" style="max-height: 300px;"></a>
+<a href="https://ci.appveyor.com/project/Moerty/aivabot"><img src="https://ci.appveyor.com/api/projects/status/yo7s5bqxth25u624?svg=true" style="max-height: 300px;"></a>
 <a href="https://www.microsoft.com/net"><img src="https://img.shields.io/badge/.NET%20Framework-4.5-orange.svg" style="max-height: 300px;"></a>
 <img src="https://img.shields.io/badge/Platform-.NET-lightgrey.svg" style="max-height: 300px;" alt="Platform: iOS">
 </p>
