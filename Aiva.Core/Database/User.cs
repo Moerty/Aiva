@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Aiva.Core.Storage;
 
 namespace Aiva.Core.Database {
     public class UserHandler {

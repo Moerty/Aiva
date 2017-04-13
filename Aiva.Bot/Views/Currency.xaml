@@ -1,0 +1,70 @@
+﻿<Controls:MetroContentControl
+    x:Class="Aiva.Bot.Views.Currency"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:Database="clr-namespace:Aiva.Core.Storage;assembly=Aiva.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="503"
+    d:DesignWidth="1092"
+    Loaded="MetroContentControl_Loaded"
+    mc:Ignorable="d">
+    <Controls:MetroContentControl.Resources>
+        <CollectionViewSource x:Key="currencyViewSource" d:DesignSource="{d:DesignInstance {x:Type Database:Currency}, CreateList=True}" />
+    </Controls:MetroContentControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="77*" />
+            <ColumnDefinition Width="79*" />
+        </Grid.ColumnDefinitions>
+
+        <Controls:Tile
+            x:Name="tBankheist"
+            Grid.Column="1"
+            Width="533"
+            Height="58"
+            Margin="10,10,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Controls:ButtonHelper.PreserveTextCase="True"
+            Background="{Binding currencyModel.BankheistTileColor, FallbackValue=Red}"
+            Content="{Binding currencyModel.BankheistText, FallbackValue=Bankheist}">
+            <Controls:ControlsHelper.MouseOverBorderBrush>
+                <ImageBrush TileMode="FlipX">
+                    <ImageBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterX="0.5" CenterY="0.5" />
+                            <SkewTransform CenterX="0.5" CenterY="0.5" />
+                            <RotateTransform CenterX="0.5" CenterY="0.5" />
+                            <TranslateTransform X="2" Y="6" />
+                        </TransformGroup>
+                    </ImageBrush.RelativeTransform>
+                </ImageBrush>
+            </Controls:ControlsHelper.MouseOverBorderBrush>
+        </Controls:Tile>
+        <DataGrid
+            x:Name="currencyDataGrid"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            GridLinesVisibility="Horizontal"
+            HeadersVisibility="Column"
+            IsSynchronizedWithCurrentItem="True"
+            ItemsSource="{Binding Source={StaticResource currencyViewSource}}"
+            RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    x:Name="nameColumn"
+                    Width="100*"
+                    Binding="{Binding Name}"
+                    Header="name" />
+                <DataGridTextColumn
+                    x:Name="valueColumn"
+                    Width="100"
+                    Binding="{Binding Value}"
+                    Header="value" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Controls:MetroContentControl>

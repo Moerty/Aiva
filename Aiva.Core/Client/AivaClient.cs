@@ -4,7 +4,7 @@ using System;
 using TwitchLib.Models.Client;
 
 namespace Aiva.Core.Client {
-    class AivaClient {
+    public class AivaClient {
 
         private static AivaClient _Client;
         public static AivaClient Client {
@@ -18,18 +18,18 @@ namespace Aiva.Core.Client {
 
 
         public TwitchClient AivaTwitchClient;
-        string Username;
+        public string Username;
         string ClientID;
         string OAuthKey;
-        string Channel;
+        public string Channel;
 
         public AivaClient() {
 
             // Get config related informations
-            Username = Config.General.Config[nameof(General)]["BotName"];
-            OAuthKey = Config.General.Config["Credentials"]["TwitchOAuth"];
-            Channel = Config.General.Config[nameof(General)]["Channel"].ToLower();
-            ClientID = Config.General.Config["Credentials"]["TwitchClientID"];
+            Username = Config.GeneralConfig.Config["General"]["BotName"];
+            OAuthKey = Config.GeneralConfig.Config["Credentials"]["TwitchOAuth"];
+            Channel = Config.GeneralConfig.Config["General"]["Channel"].ToLower();
+            ClientID = Config.GeneralConfig.Config["Credentials"]["TwitchClientID"];
 
             // Setup TwitchClient
             SetUpTwitchClient();
@@ -54,7 +54,7 @@ namespace Aiva.Core.Client {
             AivaTwitchClient = new TwitchClient(
                 TwitchCredentials,
                 Channel,
-                Convert.ToChar(Config.General.Config[nameof(General)]["CommandIdentifier"]),
+                Convert.ToChar(Config.GeneralConfig.Config["General"]["CommandIdentifier"]),
                 '@',
                 true, // Loggin
                 true); // ReListen when error occurs

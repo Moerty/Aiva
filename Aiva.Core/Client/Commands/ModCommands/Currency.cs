@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Aiva.Core.Commands.ModCommands {
     public class Currency {
-        private string Command;
-        private List<string> Arguments;
-        private CurrencyControls Action;
+        private readonly string Command;
+        private readonly List<string> Arguments;
+        private readonly CurrencyControls Action;
 
         public Currency(string command, List<string> arguments) {
             Command = command;
@@ -17,11 +17,11 @@ namespace Aiva.Core.Commands.ModCommands {
         }
 
         private CurrencyControls IdentifyCommand() {
-            if (Command.Equals(Config.ModCommands.Config["Currency"]["AddCurrency"], StringComparison.OrdinalIgnoreCase))
+            if (Command.Equals(Config.ModCommandsConfig.Config["Currency"]["AddCurrency"], StringComparison.OrdinalIgnoreCase))
                 return CurrencyControls.Add;
-            if (Command.Equals(Config.ModCommands.Config["Currency"]["DeleteCurrency"], StringComparison.OrdinalIgnoreCase))
+            if (Command.Equals(Config.ModCommandsConfig.Config["Currency"]["DeleteCurrency"], StringComparison.OrdinalIgnoreCase))
                 return CurrencyControls.Del;
-            if (Command.Equals(Config.ModCommands.Config["Currency"]["TransferCurrency"], StringComparison.OrdinalIgnoreCase))
+            if (Command.Equals(Config.ModCommandsConfig.Config["Currency"]["TransferCurrency"], StringComparison.OrdinalIgnoreCase))
                 return CurrencyControls.Trans;
 
             return CurrencyControls.None;
@@ -44,21 +44,17 @@ namespace Aiva.Core.Commands.ModCommands {
         }
 
         private void AddCurrency() {
-            int? checkValue = CheckInt(Arguments[1]);
+            var checkValue = CheckInt(Arguments[1]);
 
             if (Arguments.Count == 2) {
                 if (checkValue.HasValue) {
                     Database.CurrencyHandler.AddCurrencyAsync(Arguments[0], checkValue.Value);
                 }
-                // Value incorrect (maybe characters)
-                else {
-
-                }
             }
         }
 
         private void TransferCurrency() {
-            int? checkValue = CheckInt(Arguments[2]);
+            var checkValue = CheckInt(Arguments[2]);
 
             if (Arguments.Count == 3) {
                 if (checkValue.HasValue) {
@@ -68,7 +64,7 @@ namespace Aiva.Core.Commands.ModCommands {
         }
 
         private void DelCurrency() {
-            int? checkValue = CheckInt(Arguments[1]);
+            var checkValue = CheckInt(Arguments[1]);
 
             if (Arguments.Count == 2) {
                 if (checkValue.HasValue) {
@@ -78,11 +74,7 @@ namespace Aiva.Core.Commands.ModCommands {
         }
 
         private int? CheckInt(string value) {
-            int result;
-            if (int.TryParse(value, out result))
-                return result;
-            else
-                return null;
+            return int.TryParse(value, out int result) ? result : (int?)null;
         }
     }
 

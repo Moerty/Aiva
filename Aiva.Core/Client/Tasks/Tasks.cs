@@ -34,7 +34,7 @@ namespace Aiva.Core.Client.Tasks {
 
         private static void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e) {
             // Check Currency
-            if (String.Compare(e.Command.Command, Config.Currency.Config["General"]["UserCommandCheckCurrency"], true) == 0)
+            if (String.Compare(e.Command.Command, Config.CurrencyConfig.Config["General"]["UserCommandCheckCurrency"], true) == 0)
                 Commands.Currency.WriteCurrencyForUser(e.Command.ChatMessage.Username);
 
             // ModCommand
@@ -73,29 +73,29 @@ namespace Aiva.Core.Client.Tasks {
             return blockedUser;
         }
 
-        public static async Task<List<TwitchLib.Models.API.Block.Block>> loadListAsync() {
+        public static async Task<List<TwitchLib.Models.API.Block.Block>> LoadListAsync() {
             return await _getBansAsync();
         }
 
         private async static Task<List<TwitchLib.Models.API.Block.Block>> _getBansAsync() {
-            var result = await TwitchLib.TwitchApi.Blocks.GetBlockedListAsync(Config.General.Config["General"]["BotName"]);
+            var result = await TwitchLib.TwitchApi.Blocks.GetBlockedListAsync(Config.GeneralConfig.Config["General"]["BotName"]);
 
             return result;
         }
 
         public async static void BannUserAsync(string name) {
             await TwitchLib.TwitchApi.Blocks.BlockUserAsync(
-                Config.General.Config["General"]["BotName"],
+                Config.GeneralConfig.Config["General"]["BotName"],
                 name,
-                Config.General.Config["Credentials"]["TwitchOAuth"]
+                Config.GeneralConfig.Config["Credentials"]["TwitchOAuth"]
                 );
         }
 
         public static void UnbanUser(string name) {
             TwitchLib.TwitchApi.Blocks.UnblockUserAsync(
-                Config.General.Config["General"]["BotName"],
+                Config.GeneralConfig.Config["General"]["BotName"],
                 name,
-                Config.General.Config["Credentials"]["TwitchOAuth"]);
+                Config.GeneralConfig.Config["Credentials"]["TwitchOAuth"]);
         }
 
         public static async Task<TwitchLib.Models.API.User.User> GetUserAsync(string name) => await TwitchLib.TwitchApi.Users.GetUserAsync(name);

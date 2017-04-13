@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Aiva.Core.Storage;
 
 namespace Aiva.Core.Database {
     public class ActiveUsersHandler {
@@ -66,8 +67,7 @@ namespace Aiva.Core.Database {
                     var user = context.Users.SingleOrDefault(x => String.Compare(x.Name, entry.Name, StringComparison.OrdinalIgnoreCase) == 0);
 
                     if (user != null) {
-                        long parsedTimeWatched;
-                        if (long.TryParse(user.TimeWatched, out parsedTimeWatched)) {
+                        if (long.TryParse(user.TimeWatched, out long parsedTimeWatched)) {
                             parsedTimeWatched += DateTime.Parse(entry.Joined).Ticks;
                         } else {
                             user.TimeWatched = "1";

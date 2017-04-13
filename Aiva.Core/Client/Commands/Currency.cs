@@ -7,7 +7,7 @@
         internal static void WriteCurrencyForUser(string username) {
             var currency = Database.CurrencyHandler.GetCurrency(username);
 
-            var message = $"@{username}: {currency} " + Config.Language.Instance.GetString("CurrencyName");
+            var message = $"@{username}: {currency} " + Config.LanguageConfig.Instance.GetString("CurrencyName");
 
             AivaClient.Client.AivaTwitchClient.SendMessage(message);
         }

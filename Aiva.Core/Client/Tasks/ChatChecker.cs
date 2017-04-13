@@ -7,28 +7,28 @@ using TwitchLib.Extensions.Client;
 
 namespace Aiva.Core.Client.Tasks {
     public static class ChatChecker {
-        private static readonly System.Resources.ResourceManager languageConfig = Config.Language.Instance;
+        private static readonly System.Resources.ResourceManager languageConfig = Config.LanguageConfig.Instance;
 
         public static void CheckMessage(object sender, OnMessageReceivedArgs e) {
             Checks check;
             switch (e.ChatMessage.UserType) {
                 case UserType.Admin:
-                    check = new Checks(e, Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckAdmin"]));
+                    check = new Checks(e, Convert.ToBoolean(Config.GeneralConfig.Config["SpamCheck"]["SkipMessageCheckAdmin"]));
                     break;
                 case UserType.Broadcaster:
-                    check = new Checks(e, Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckBroadcaster"]));
+                    check = new Checks(e, Convert.ToBoolean(Config.GeneralConfig.Config["SpamCheck"]["SkipMessageCheckBroadcaster"]));
                     break;
                 case UserType.GlobalModerator:
-                    check = new Checks(e, Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckGlobalMod"]));
+                    check = new Checks(e, Convert.ToBoolean(Config.GeneralConfig.Config["SpamCheck"]["SkipMessageCheckGlobalMod"]));
                     break;
                 case UserType.Moderator:
-                    check = new Checks(e, Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckMod"]));
+                    check = new Checks(e, Convert.ToBoolean(Config.GeneralConfig.Config["SpamCheck"]["SkipMessageCheckMod"]));
                     break;
                 case UserType.Staff:
-                    check = new Checks(e, Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckStaff"]));
+                    check = new Checks(e, Convert.ToBoolean(Config.GeneralConfig.Config["SpamCheck"]["SkipMessageCheckStaff"]));
                     break;
                 case UserType.Viewer:
-                    check = new Checks(e, Convert.ToBoolean(Config.General.Config["SpamCheck"]["SkipMessageCheckViewer"]));
+                    check = new Checks(e, Convert.ToBoolean(Config.GeneralConfig.Config["SpamCheck"]["SkipMessageCheckViewer"]));
                     break;
             }
         }
@@ -77,7 +77,7 @@ namespace Aiva.Core.Client.Tasks {
                 /// </summary>
                 private static void deleteFromList() {
                     var result = nachrichten.Where(n => n.Key <= DateTime.Now
-                                                            .Subtract(TimeSpan.Parse(Config.General.Config["SpamCheck"]["TimeToNewMessage"])))
+                                                            .Subtract(TimeSpan.Parse(Config.GeneralConfig.Config["SpamCheck"]["TimeToNewMessage"])))
                         .ToList();
 
                     foreach (var items in result)
@@ -92,8 +92,8 @@ namespace Aiva.Core.Client.Tasks {
                 /// <returns></returns>
                 private static bool checkIfSpam(string username, DateTime jetztzeit) {
                     var result = nachrichten.Where(n => n.Value.ChatMessage.Username == username).ToList();
-                    var timeoutTime = TimeSpan.Parse(Config.General.Config["SpamCheck"]["TimeoutTime"]);
-                    var warningTimeout = TimeSpan.Parse(Config.General.Config["SpamCheck"]["MinutesTimeoutWarning"]);
+                    var timeoutTime = TimeSpan.Parse(Config.GeneralConfig.Config["SpamCheck"]["TimeoutTime"]);
+                    var warningTimeout = TimeSpan.Parse(Config.GeneralConfig.Config["SpamCheck"]["MinutesTimeoutWarning"]);
 
                     if (result.Count == 0)
                         return false;
@@ -152,7 +152,7 @@ namespace Aiva.Core.Client.Tasks {
 
                         var deleteWarnings = warning.Where(d => d._time <= DateTime.Now
                                                                     .Subtract(
-                                                                        TimeSpan.Parse(Config.General.Config["SpamCheck"]["TimeActiveWarning"])))
+                                                                        TimeSpan.Parse(Config.GeneralConfig.Config["SpamCheck"]["TimeActiveWarning"])))
                             .ToList();
 
                         foreach (var del in deleteWarnings)

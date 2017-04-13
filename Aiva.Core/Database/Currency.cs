@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Aiva.Core.Config;
+using Aiva.Core.Storage;
 
 namespace Aiva.Core.Database {
     public class CurrencyHandler {
@@ -12,7 +13,7 @@ namespace Aiva.Core.Database {
                 foreach (var user in updatedUsers) {
                     var currencyItem = context.Currency.SingleOrDefault(c => c.Name == user.Name);
 
-                    var currencyToAdd = Convert.ToInt64(General.Config["Currency"]["CurrencyToAdd"]);
+                    var currencyToAdd = Convert.ToInt64(GeneralConfig.Config["Currency"]["CurrencyToAdd"]);
                     currencyItem.Value += currencyToAdd;
 
                     await context.SaveChangesAsync();
@@ -82,7 +83,7 @@ namespace Aiva.Core.Database {
             }
         }
 
-        public static List<Currency> GetCurrencyList() {
+        public static List<Storage.Currency> GetCurrencyList() {
             using (var context = new StorageEntities()) {
                 return context.Currency.ToList();
             }

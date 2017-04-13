@@ -4,14 +4,14 @@ using System.Linq;
 
 namespace Aiva.Core.Database {
     public class UserSettingsHandler {
-        public static List<UserSettings> GetConfig() {
-            using (var context = new StorageEntities()) {
+        public static List<Storage.UserSettings> GetConfig() {
+            using (var context = new Storage.StorageEntities()) {
                 return context.UserSettings.ToList();
             }
         }
 
-        public static void WriteConfig(List<UserSettings> settings) {
-            using (var context = new StorageEntities()) {
+        public static void WriteConfig(List<Storage.UserSettings> settings) {
+            using (var context = new Storage.StorageEntities()) {
 
                 foreach (var setting in settings) {
                     var entry = context.UserSettings.SingleOrDefault(x => String.Compare(setting.Name, x.Name, true) == 0);
@@ -24,13 +24,13 @@ namespace Aiva.Core.Database {
         }
 
         public static bool GetBoolean(string name) {
-            using (var context = new StorageEntities()) {
+            using (var context = new Storage.StorageEntities()) {
                 return Convert.ToBoolean(context.UserSettings.SingleOrDefault(x => x.Name == name).Value);
             }
         }
 
         public static List<string> GetBlacklistedWords() {
-            using (var context = new StorageEntities()) {
+            using (var context = new Storage.StorageEntities()) {
                 return context.UserSettings.SingleOrDefault(x => x.Name == "BlacklistedWords").Value.Split(',').ToList();
             }
         }

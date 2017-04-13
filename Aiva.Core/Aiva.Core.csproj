@@ -61,6 +61,7 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -75,10 +76,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActiveUsers.cs">
+    <Compile Include="Client\TwitchAuthentication.cs" />
+    <Compile Include="Storage\ActiveUsers.cs">
       <DependentUpon>Storage.tt</DependentUpon>
     </Compile>
-    <Compile Include="Chat.cs">
+    <Compile Include="Storage\Chat.cs">
       <DependentUpon>Storage.tt</DependentUpon>
     </Compile>
     <Compile Include="Client\AivaClient.cs" />
@@ -87,12 +89,12 @@
     <Compile Include="Client\Tasks\ChatChecker.cs" />
     <Compile Include="Client\Tasks\Tasks.cs" />
     <Compile Include="Client\Tasks\TimeWatched.cs" />
-    <Compile Include="Config\Bankheist.cs" />
-    <Compile Include="Config\Currency.cs" />
-    <Compile Include="Config\General.cs" />
-    <Compile Include="Config\Language.cs" />
-    <Compile Include="Config\Languages\Text.de-DE.Designer.cs">
-      <DependentUpon>Text.de-DE.resx</DependentUpon>
+    <Compile Include="Config\BankheistConfig.cs" />
+    <Compile Include="Config\CurrencyConfig.cs" />
+    <Compile Include="Config\GeneralConfig.cs" />
+    <Compile Include="Config\LanguageConfig.cs" />
+    <Compile Include="Config\Languages\Text2.de-DE.Designer.cs">
+      <DependentUpon>Text2.de-DE.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -101,9 +103,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Config\ModCommands.cs" />
-    <Compile Include="Config\Songrequest.cs" />
-    <Compile Include="Currency.cs">
+    <Compile Include="Config\ModCommandsConfig.cs" />
+    <Compile Include="Config\SongrequestConfig.cs" />
+    <Compile Include="Storage\Currency.cs">
       <DependentUpon>Storage.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\ActiveUsers.cs" />
@@ -111,41 +113,41 @@
     <Compile Include="Database\Currency.cs" />
     <Compile Include="Database\User.cs" />
     <Compile Include="Database\UserSettings.cs" />
-    <Compile Include="ModCommandLog.cs">
+    <Compile Include="Storage\ModCommandLog.cs">
       <DependentUpon>Storage.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Database\CurrencyHandlerModels.cs" />
     <Compile Include="Models\ModCommands\CurrencyReturnModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Storage.Context.cs">
+    <Compile Include="Storage\Storage.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Storage.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Storage.cs">
+    <Compile Include="Storage\Storage.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Storage.tt</DependentUpon>
     </Compile>
-    <Compile Include="Storage.Designer.cs">
+    <Compile Include="Storage\Storage.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Storage.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Users.cs">
+    <Compile Include="Storage\Users.cs">
       <DependentUpon>Storage.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserSettings.cs">
+    <Compile Include="Storage\UserSettings.cs">
       <DependentUpon>Storage.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Storage.Context.tt">
+    <Content Include="Storage\Storage.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Storage.edmx</DependentUpon>
       <LastGenOutput>Storage.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Storage.tt">
+    <Content Include="Storage\Storage.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Storage.edmx</DependentUpon>
       <LastGenOutput>Storage.cs</LastGenOutput>
@@ -172,18 +174,19 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-    <EntityDeploy Include="Storage.edmx">
+    <EntityDeploy Include="Storage\Storage.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Storage.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Storage.edmx.diagram">
+    <None Include="Storage\Storage.edmx.diagram">
       <DependentUpon>Storage.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Config\Languages\Text.de-DE.resx">
+    <EmbeddedResource Include="Config\Languages\Text.de-DE.resx" />
+    <EmbeddedResource Include="Config\Languages\Text2.de-DE.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Text.de-DE.Designer.cs</LastGenOutput>
+      <LastGenOutput>Text2.de-DE.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Config\Languages\Text.en-US.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
