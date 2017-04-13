@@ -34,6 +34,7 @@ namespace Client.Tasks {
         private static void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e) {
             // Check Currency
             if (String.Compare(e.Command.Command, Config.Currency.Config["General"]["UserCommandCheckCurrency"], true) == 0)
+
                 Commands.Currency.WriteCurrencyForUser(e.Command.ChatMessage.Username);
 
             // ModCommand

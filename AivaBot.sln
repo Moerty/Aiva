@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AivaBot", "AivaBot\AivaBot.csproj", "{482DA762-7054-4CDD-9007-19FBE67AD455}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aiva.Bot", "AivaBot\Aiva.Bot.csproj", "{482DA762-7054-4CDD-9007-19FBE67AD455}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aiva.Songrequest", "Extensions\Aiva.Songrequest\Aiva.Songrequest.csproj", "{4A16A1BE-39FC-4FDA-AE18-FF647364AC83}"
 EndProject
@@ -26,6 +26,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{0CBECBAA-9E25-4A83-89EF-CEBB05AD2AD1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{91D4DF8C-110E-4232-9823-43CD9877F60B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aiva.Core", "Aiva.Core\Aiva.Core.csproj", "{CD69F660-7C7E-40C6-843B-A7AE1D301D2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aiva.Extensions", "Aiva.Extensions\Aiva.Extensions.csproj", "{55B8322B-FAF4-4F5B-8925-7A6791B38E1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -157,12 +161,35 @@ Global
 		{ADA0BEBB-A1EC-41A1-925B-7397B41A8CB2}.Release|x64.Build.0 = Release|Any CPU
 		{ADA0BEBB-A1EC-41A1-925B-7397B41A8CB2}.Release|x86.ActiveCfg = Release|Any CPU
 		{ADA0BEBB-A1EC-41A1-925B-7397B41A8CB2}.Release|x86.Build.0 = Release|Any CPU
+		{CD69F660-7C7E-40C6-843B-A7AE1D301D2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD69F660-7C7E-40C6-843B-A7AE1D301D2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD69F660-7C7E-40C6-843B-A7AE1D301D2C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CD69F660-7C7E-40C6-843B-A7AE1D301D2C}.Debug|x64.Build.0 = Debug|Any CPU
+		{CD69F660-7C7E-40C6-843B-A7AE1D301D2C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CD69F660-7C7E-40C6-843B-A7AE1D301D2C}.Debug|x86.Build.0 = Debug|Any CPU
+		{CD69F660-7C7E-40C6-843B-A7AE1D301D2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD69F660-7C7E-40C6-843B-A7AE1D301D2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD69F660-7C7E-40C6-843B-A7AE1D301D2C}.Release|x64.ActiveCfg = Release|Any CPU
+		{CD69F660-7C7E-40C6-843B-A7AE1D301D2C}.Release|x64.Build.0 = Release|Any CPU
+		{CD69F660-7C7E-40C6-843B-A7AE1D301D2C}.Release|x86.ActiveCfg = Release|Any CPU
+		{CD69F660-7C7E-40C6-843B-A7AE1D301D2C}.Release|x86.Build.0 = Release|Any CPU
+		{55B8322B-FAF4-4F5B-8925-7A6791B38E1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55B8322B-FAF4-4F5B-8925-7A6791B38E1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55B8322B-FAF4-4F5B-8925-7A6791B38E1B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{55B8322B-FAF4-4F5B-8925-7A6791B38E1B}.Debug|x64.Build.0 = Debug|Any CPU
+		{55B8322B-FAF4-4F5B-8925-7A6791B38E1B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{55B8322B-FAF4-4F5B-8925-7A6791B38E1B}.Debug|x86.Build.0 = Debug|Any CPU
+		{55B8322B-FAF4-4F5B-8925-7A6791B38E1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55B8322B-FAF4-4F5B-8925-7A6791B38E1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55B8322B-FAF4-4F5B-8925-7A6791B38E1B}.Release|x64.ActiveCfg = Release|Any CPU
+		{55B8322B-FAF4-4F5B-8925-7A6791B38E1B}.Release|x64.Build.0 = Release|Any CPU
+		{55B8322B-FAF4-4F5B-8925-7A6791B38E1B}.Release|x86.ActiveCfg = Release|Any CPU
+		{55B8322B-FAF4-4F5B-8925-7A6791B38E1B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{482DA762-7054-4CDD-9007-19FBE67AD455} = {0CBECBAA-9E25-4A83-89EF-CEBB05AD2AD1}
 		{4A16A1BE-39FC-4FDA-AE18-FF647364AC83} = {91D4DF8C-110E-4232-9823-43CD9877F60B}
 		{6E0E1240-D322-4183-8BDB-182CA6B8469F} = {91D4DF8C-110E-4232-9823-43CD9877F60B}
 		{DC5B9F3F-41CC-4A43-9643-9FDD86812C6E} = {0CBECBAA-9E25-4A83-89EF-CEBB05AD2AD1}
