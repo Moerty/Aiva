@@ -10,29 +10,28 @@ Involves you in it and announces mistake!
 
 # Functions:
 ### Auction:
-* Custom command
-* Auction with currency
-* Auction with tickets
+* Custom Commands.
+* Auction with Currency or Tickets.
 
 More Informations: [Wiki](https://github.com/Moerty/AivaBot/wiki/Home:-Auction)
 
 ## Giveaway:
-* Custom command
-* Filter users
-* Subluck
+* Custom Commands.
+* Userfilter.
+* Sub-Luck Option.
 
 More Informations: [Wiki](https://github.com/Moerty/AivaBot/wiki/Home:-Giveaway)
 
 ## Songrequest
-* Custom command
-* Repeat information
-* Connection to YouTube
+* Custom Commands.
+* Repeat Information.
+* YouTube connected.
 
 More Informations: [Wiki](https://github.com/Moerty/AivaBot/wiki/Home:-Songrequest)
 
 ## Voting
-* Option 1-8
-* Pie/Bar/Doughnut - Chart
+* Up to 8 nameable Options to vote for.
+* Pie/Bar/Doughnut - Chart.
 
 More Informations: [Wiki](https://github.com/Moerty/AivaBot/wiki/Home:-Voting)
 
@@ -41,21 +40,21 @@ More Informations: [Wiki](https://github.com/Moerty/AivaBot/wiki/Home:-Voting)
 
 # Todos:
 ## Now:
-- Finish Settings to GUI
-- Setup Project
-- Dashboard
-- Client ID Check
-- OAuth Check
-- Own ClientID
+- Finish Settings to GUI.
+- Setup Project.
+- Dashboard.
+- Client ID Check.
+- OAuth Check.
+- Own ClientID.
 
 ## Complete:
 - First Start Page for initial setup (Twitch OAuth & YouTube OAuth)
 * **Settings**:
-	* Blacklist word
-	* Spam check
-	* Bankheist
-	* General settings
-	* Currency settings
+	* Blacklisted words.
+	* Spam check.
+	* Bankheist.
+	* General settings.
+	* Currency settings.
 
 ## LATER:
 - Raid System
