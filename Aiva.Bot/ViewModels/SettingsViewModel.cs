@@ -12,7 +12,7 @@ using System.Windows.Input;
 namespace Aiva.Bot.ViewModels {
     [PropertyChanged.ImplementPropertyChanged]
     public class SettingsViewModel {
-        private bool _LogChat = false;
+        private bool _LogChat;
         public bool LogChat {
             get {
                 return _LogChat;
@@ -99,7 +99,7 @@ namespace Aiva.Bot.ViewModels {
                     },
                 });
 
-                // Update BlacklistedWords 4 
+                // Update BlacklistedWords 4
                 Core.Client.Tasks.ChatChecker.BlacklistedWords = Model.BlacklistedWords.ToList();
 
                 if (Model.BlacklistedWordsActive) {
@@ -116,7 +116,7 @@ namespace Aiva.Bot.ViewModels {
             }
 
             string GetKeywordsFormattet() {
-                StringBuilder sBuilder = new StringBuilder();
+                var sBuilder = new StringBuilder();
                 foreach (var keyword in Model.BlacklistedWords) {
                     sBuilder.Append(keyword);
                     sBuilder.Append(',');
@@ -169,9 +169,9 @@ namespace Aiva.Bot.ViewModels {
             public GeneralTabViewModel() {
 
                 string encryptedOAuthKey;
-                byte[] data = Encoding.UTF8.GetBytes(GeneralConfig.Config["Credentials"]["TwitchOAuth"]);
+                var data = Encoding.UTF8.GetBytes(GeneralConfig.Config["Credentials"]["TwitchOAuth"]);
                 using (SHA512 shaM = new SHA512Managed()) {
-                    byte[] result = shaM.ComputeHash(data);
+                    var result = shaM.ComputeHash(data);
                     encryptedOAuthKey = Convert.ToBase64String(result);
                 }
 

@@ -19,7 +19,7 @@ namespace Aiva.Bot.ViewModels {
 
         public FirstStartViewModel() {
             var type = new MahApps.Metro.Controls.MetroContentControl().GetType();
-            CommandManager.RegisterClassCommandBinding(type, new CommandBinding(StartRequestCommand, StartRequest));
+            CommandManager.RegisterClassCommandBinding(type, new CommandBinding(StartRequestCommand, StartRequestAsync));
             CommandManager.RegisterClassCommandBinding(type, new CommandBinding(StartRequestYouTubeCommand, StartRequestYoutube));
             CommandManager.RegisterClassCommandBinding(type, new CommandBinding(StartBotCommand, StartBot));
         }
@@ -33,7 +33,7 @@ namespace Aiva.Bot.ViewModels {
             if (ValidationResult == null
                 || !ValidationResult.Token.Valid) return;
 
-            IniData config = new IniData(new FileIniDataParser().ReadFile("ConfigFiles\\general.default"));
+            var config = new IniData(new FileIniDataParser().ReadFile("ConfigFiles\\general.default"));
 
             config["Credentials"]["TwitchOAuth"] = Model.OAuthToken;
             config["Credentials"]["TwitchClientID"] = "10n39mbfftkcy2kg1jkzmm62yszdcg";
@@ -94,7 +94,7 @@ namespace Aiva.Bot.ViewModels {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void StartRequest(object sender, ExecutedRoutedEventArgs e) {
+        private async void StartRequestAsync(object sender, ExecutedRoutedEventArgs e) {
             // Send Request
             SendRequest();
 

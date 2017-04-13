@@ -30,15 +30,14 @@ namespace Aiva.Bot.ViewModels {
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void StartBet(object sender = null, ExecutedRoutedEventArgs e = null) {
 
             if (e != null) {
-                var source = e.Source as System.Windows.Controls.Primitives.ToggleButton;
-                if (source != null) {
+                if (e.Source is System.Windows.Controls.Primitives.ToggleButton source) {
                     if (source.IsChecked.HasValue) {
                         if (source.IsChecked.Value) {
                             if (String.IsNullOrEmpty(CommandName)) { BetsHandler.IsStarted = !BetsHandler.IsStarted; return; }
@@ -53,7 +52,7 @@ namespace Aiva.Bot.ViewModels {
         }
 
         private void CreateModels() {
-            Model = new Aiva.Bot.Models.BetsModel() {
+            Model = new Aiva.Bot.Models.BetsModel {
                 Text = new Aiva.Bot.Models.BetsModel.TextModel {
                     CommandWatermark = LanguageConfig.Instance.GetString("BetsCommandWatermark"),
                     TextBoxTextTimeForBet = LanguageConfig.Instance.GetString("BetsTextBoxTextTimeForBet"),
@@ -100,13 +99,9 @@ namespace Aiva.Bot.ViewModels {
             }
         }
 
-        /// <summary>
-        /// PayOut
-        /// </summary>
-        /// <returns></returns>
         #region PayOut
         private bool CanPayOut(object obj) {
-            return true;
+            return !BetsHandler.IsStarted;
         }
 
         /// <summary>
@@ -133,8 +128,8 @@ namespace Aiva.Bot.ViewModels {
     /// Class for DropDownButton
     /// </summary>
     public class RelayCommand : ICommand {
-        private Predicate<object> _canExecute;
-        private Action<object> _execute;
+        private readonly Predicate<object> _canExecute;
+        private readonly Action<object> _execute;
 
         public RelayCommand(Predicate<object> canExecute, Action<object> execute) {
             this._canExecute = canExecute;

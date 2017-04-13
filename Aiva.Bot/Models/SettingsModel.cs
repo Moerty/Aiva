@@ -33,110 +33,110 @@ namespace Aiva.Bot.Models {
             //SpamCheck
             public bool SkipMessageCheckAdmin {
                 get {
-                    return Convert.ToBoolean(GeneralConfig.Config["SpamCheck"]["SkipMessageCheckAdmin"]);
+                    return Convert.ToBoolean(GeneralConfig.Config[nameof(SpamCheck)][nameof(SkipMessageCheckAdmin)]);
                 }
                 set {
-                    GeneralConfig.Config["SpamCheck"]["SkipMessageCheckAdmin"] = value.ToString();
+                    GeneralConfig.Config[nameof(SpamCheck)][nameof(SkipMessageCheckAdmin)] = value.ToString();
                     GeneralConfig.WriteConfig();
                 }
             }
 
             public bool SkipMessageCheckBroadcaster {
                 get {
-                    return Convert.ToBoolean(GeneralConfig.Config["SpamCheck"]["SkipMessageCheckBroadcaster"]);
+                    return Convert.ToBoolean(GeneralConfig.Config[nameof(SpamCheck)][nameof(SkipMessageCheckBroadcaster)]);
                 }
                 set {
-                    GeneralConfig.Config["SpamCheck"]["SkipMessageCheckBroadcaster"] = value.ToString();
+                    GeneralConfig.Config[nameof(SpamCheck)][nameof(SkipMessageCheckBroadcaster)] = value.ToString();
                     GeneralConfig.WriteConfig();
                 }
             }
 
             public bool SkipMessageCheckGlobalMod {
                 get {
-                    return Convert.ToBoolean(GeneralConfig.Config["SpamCheck"]["SkipMessageCheckGlobalMod"]);
+                    return Convert.ToBoolean(GeneralConfig.Config[nameof(SpamCheck)][nameof(SkipMessageCheckGlobalMod)]);
                 }
                 set {
-                    GeneralConfig.Config["SpamCheck"]["SkipMessageCheckGlobalMod"] = value.ToString();
+                    GeneralConfig.Config[nameof(SpamCheck)][nameof(SkipMessageCheckGlobalMod)] = value.ToString();
                     GeneralConfig.WriteConfig();
                 }
             }
 
             public bool SkipMessageCheckMod {
                 get {
-                    return Convert.ToBoolean(GeneralConfig.Config["SpamCheck"]["SkipMessageCheckMod"]);
+                    return Convert.ToBoolean(GeneralConfig.Config[nameof(SpamCheck)][nameof(SkipMessageCheckMod)]);
                 }
                 set {
-                    GeneralConfig.Config["SpamCheck"]["SkipMessageCheckMod"] = value.ToString();
+                    GeneralConfig.Config[nameof(SpamCheck)][nameof(SkipMessageCheckMod)] = value.ToString();
                     GeneralConfig.WriteConfig();
                 }
             }
 
             public bool SkipMessageCheckStaff {
                 get {
-                    return Convert.ToBoolean(GeneralConfig.Config["SpamCheck"]["SkipMessageCheckStaff"]);
+                    return Convert.ToBoolean(GeneralConfig.Config[nameof(SpamCheck)][nameof(SkipMessageCheckStaff)]);
                 }
                 set {
-                    GeneralConfig.Config["SpamCheck"]["SkipMessageCheckStaff"] = value.ToString();
+                    GeneralConfig.Config[nameof(SpamCheck)][nameof(SkipMessageCheckStaff)] = value.ToString();
                     GeneralConfig.WriteConfig();
                 }
             }
 
             public bool SkipMessageCheckViewer {
                 get {
-                    return Convert.ToBoolean(GeneralConfig.Config["SpamCheck"]["SkipMessageCheckViewer"]);
+                    return Convert.ToBoolean(GeneralConfig.Config[nameof(SpamCheck)][nameof(SkipMessageCheckViewer)]);
                 }
                 set {
-                    GeneralConfig.Config["SpamCheck"]["SkipMessageCheckViewer"] = value.ToString();
+                    GeneralConfig.Config[nameof(SpamCheck)][nameof(SkipMessageCheckViewer)] = value.ToString();
                     GeneralConfig.WriteConfig();
                 }
             }
 
             public TimeSpan TimeToNewMessage {
                 get {
-                    return TimeSpan.Parse(GeneralConfig.Config["SpamCheck"]["TimeToNewMessage"]);
+                    return TimeSpan.Parse(GeneralConfig.Config[nameof(SpamCheck)][nameof(TimeToNewMessage)]);
                 }
                 set {
-                    GeneralConfig.Config["SpamCheck"]["TimeToNewMessage"] = value.ToString();
+                    GeneralConfig.Config[nameof(SpamCheck)][nameof(TimeToNewMessage)] = value.ToString();
                     GeneralConfig.WriteConfig();
                 }
             }
 
             public TimeSpan MinutesTimeoutWarning {
                 get {
-                    return TimeSpan.Parse(GeneralConfig.Config["SpamCheck"]["MinutesTimeoutWarning"]);
+                    return TimeSpan.Parse(GeneralConfig.Config[nameof(SpamCheck)][nameof(MinutesTimeoutWarning)]);
                 }
                 set {
-                    GeneralConfig.Config["SpamCheck"]["MinutesTimeoutWarning"] = value.ToString();
+                    GeneralConfig.Config[nameof(SpamCheck)][nameof(MinutesTimeoutWarning)] = value.ToString();
                     GeneralConfig.WriteConfig();
                 }
             }
 
             public TimeSpan TimeoutTime {
                 get {
-                    return TimeSpan.Parse(GeneralConfig.Config["SpamCheck"]["TimeoutTime"]);
+                    return TimeSpan.Parse(GeneralConfig.Config[nameof(SpamCheck)][nameof(TimeoutTime)]);
                 }
                 set {
-                    GeneralConfig.Config["SpamCheck"]["TimeoutTime"] = value.ToString();
+                    GeneralConfig.Config[nameof(SpamCheck)][nameof(TimeoutTime)] = value.ToString();
                     GeneralConfig.WriteConfig();
                 }
             }
 
             public TimeSpan WarningTimeoutTime {
                 get {
-                    return TimeSpan.Parse(GeneralConfig.Config["SpamCheck"]["WarningTimeoutTime"]);
+                    return TimeSpan.Parse(GeneralConfig.Config[nameof(SpamCheck)][nameof(WarningTimeoutTime)]);
                 }
                 set {
-                    GeneralConfig.Config["SpamCheck"]["WarningTimeoutTime"] = value.ToString();
+                    GeneralConfig.Config[nameof(SpamCheck)][nameof(WarningTimeoutTime)] = value.ToString();
                     GeneralConfig.WriteConfig();
                 }
             }
 
             public TimeSpan TimeActiveWarning {
                 get {
-                    return TimeSpan.Parse(GeneralConfig.Config["SpamCheck"]["TimeActiveWarning"]);
+                    return TimeSpan.Parse(GeneralConfig.Config[nameof(SpamCheck)][nameof(TimeActiveWarning)]);
                 }
                 set {
-                    GeneralConfig.Config["SpamCheck"]["TimeActiveWarning"] = value.ToString();
+                    GeneralConfig.Config[nameof(SpamCheck)][nameof(TimeActiveWarning)] = value.ToString();
                     GeneralConfig.WriteConfig();
                 }
             }
@@ -172,9 +172,9 @@ namespace Aiva.Bot.Models {
                 }
                 set {
                     GeneralConfig.Config["Credentials"]["TwitchOAuth"] = value;
-                    byte[] data = Encoding.UTF8.GetBytes(GeneralConfig.Config["Credentials"]["TwitchOAuth"]);
+                    var data = Encoding.UTF8.GetBytes(GeneralConfig.Config["Credentials"]["TwitchOAuth"]);
                     using (SHA512 shaM = new SHA512Managed()) {
-                        byte[] result = shaM.ComputeHash(data);
+                        var result = shaM.ComputeHash(data);
                         _TwitchOAuthDecrypt = Convert.ToBase64String(result);
                     }
                     GeneralConfig.WriteConfig();
@@ -183,60 +183,60 @@ namespace Aiva.Bot.Models {
 
             public string TwitchClientID {
                 get {
-                    return GeneralConfig.Config["Credentials"]["TwitchClientID"];
+                    return GeneralConfig.Config["Credentials"][nameof(TwitchClientID)];
                 }
                 set {
-                    GeneralConfig.Config["Credentials"]["TwitchClientID"] = value;
+                    GeneralConfig.Config["Credentials"][nameof(TwitchClientID)] = value;
                     GeneralConfig.WriteConfig();
                 }
             }
 
             public string Channel {
                 get {
-                    return GeneralConfig.Config["General"]["Channel"];
+                    return GeneralConfig.Config["General"][nameof(Channel)];
                 }
                 set {
-                    GeneralConfig.Config["General"]["Channel"] = value;
+                    GeneralConfig.Config["General"][nameof(Channel)] = value;
                     GeneralConfig.WriteConfig();
                 }
             }
 
             public string BotName {
                 get {
-                    return GeneralConfig.Config["General"]["BotName"];
+                    return GeneralConfig.Config["General"][nameof(BotName)];
                 }
                 set {
-                    GeneralConfig.Config["General"]["BotName"] = value;
+                    GeneralConfig.Config["General"][nameof(BotName)] = value;
                     GeneralConfig.WriteConfig();
                 }
             }
 
             public string Language {
                 get {
-                    return GeneralConfig.Config["General"]["Language"];
+                    return GeneralConfig.Config["General"][nameof(Language)];
                 }
                 set {
-                    GeneralConfig.Config["General"]["Language"] = value;
+                    GeneralConfig.Config["General"][nameof(Language)] = value;
                     GeneralConfig.WriteConfig();
                 }
             }
 
             public char CommandIdentifier {
                 get {
-                    return Convert.ToChar(GeneralConfig.Config["General"]["CommandIdentifier"]);
+                    return Convert.ToChar(GeneralConfig.Config["General"][nameof(CommandIdentifier)]);
                 }
                 set {
-                    GeneralConfig.Config["General"]["CommandIdentifier"] = value.ToString();
+                    GeneralConfig.Config["General"][nameof(CommandIdentifier)] = value.ToString();
                     GeneralConfig.WriteConfig();
                 }
             }
 
             public int LogLevel {
                 get {
-                    return Convert.ToInt32(GeneralConfig.Config["General"]["LogLevel"]);
+                    return Convert.ToInt32(GeneralConfig.Config["General"][nameof(LogLevel)]);
                 }
                 set {
-                    GeneralConfig.Config["General"]["LogLevel"] = value.ToString();
+                    GeneralConfig.Config["General"][nameof(LogLevel)] = value.ToString();
                     GeneralConfig.WriteConfig();
                 }
             }
@@ -244,30 +244,30 @@ namespace Aiva.Bot.Models {
             // Currency
             public bool Active {
                 get {
-                    return Convert.ToBoolean(GeneralConfig.Config["Currency"]["Active"]);
+                    return Convert.ToBoolean(GeneralConfig.Config["Currency"][nameof(Active)]);
                 }
                 set {
-                    GeneralConfig.Config["Currency"]["Active"] = value.ToString();
+                    GeneralConfig.Config["Currency"][nameof(Active)] = value.ToString();
                     GeneralConfig.WriteConfig();
                 }
             }
 
             public int CurrencyToAdd {
                 get {
-                    return Convert.ToInt32(GeneralConfig.Config["Currency"]["CurrencyToAdd"]);
+                    return Convert.ToInt32(GeneralConfig.Config["Currency"][nameof(CurrencyToAdd)]);
                 }
                 set {
-                    GeneralConfig.Config["Currency"]["CurrencyToAdd"] = value.ToString();
+                    GeneralConfig.Config["Currency"][nameof(CurrencyToAdd)] = value.ToString();
                     GeneralConfig.WriteConfig();
                 }
             }
 
             public TimeSpan TimerAddCurrency {
                 get {
-                    return TimeSpan.Parse(GeneralConfig.Config["Currency"]["TimerAddCurrency"]);
+                    return TimeSpan.Parse(GeneralConfig.Config["Currency"][nameof(TimerAddCurrency)]);
                 }
                 set {
-                    GeneralConfig.Config["Currency"]["TimerAddCurrency"] = value.Ticks.ToString();
+                    GeneralConfig.Config["Currency"][nameof(TimerAddCurrency)] = value.Ticks.ToString();
                     GeneralConfig.WriteConfig();
                 }
             }

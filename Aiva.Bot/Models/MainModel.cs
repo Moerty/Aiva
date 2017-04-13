@@ -27,7 +27,7 @@ namespace Aiva.Bot.Models {
     }
 
     public class AsyncObservableCollection<T> : ObservableCollection<T> {
-        private SynchronizationContext _synchronizationContext = SynchronizationContext.Current;
+        private readonly SynchronizationContext _synchronizationContext = SynchronizationContext.Current;
 
         public AsyncObservableCollection() {
         }
@@ -40,8 +40,7 @@ namespace Aiva.Bot.Models {
             if (SynchronizationContext.Current == _synchronizationContext) {
                 // Execute the CollectionChanged event on the current thread
                 RaiseCollectionChanged(e);
-            }
-            else {
+            } else {
                 // Raises the CollectionChanged event on the creator thread
                 _synchronizationContext.Send(RaiseCollectionChanged, e);
             }
@@ -56,8 +55,7 @@ namespace Aiva.Bot.Models {
             if (SynchronizationContext.Current == _synchronizationContext) {
                 // Execute the PropertyChanged event on the current thread
                 RaisePropertyChanged(e);
-            }
-            else {
+            } else {
                 // Raises the PropertyChanged event on the creator thread
                 _synchronizationContext.Send(RaisePropertyChanged, e);
             }

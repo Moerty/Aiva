@@ -14,11 +14,11 @@ namespace Aiva.Bot.ViewModels {
         private readonly System.Windows.Forms.Timer bankheistTimer;
 
         public CurrencyViewModel() {
-            currencyModel = new Models.CurrencyModel();
+            CurrencyModel = new Models.CurrencyModel();
             CurrencyDatabaseList = CurrencyHandler.GetCurrencyList();
-            currencyModel.UserList = new Models.AsyncObservableCollection<Currency>();
+            CurrencyModel.UserList = new Models.AsyncObservableCollection<Currency>();
 
-            currencyModel.AddCurrencyOnOff = Boolean.Parse(GeneralConfig.Config["Currency"]["Active"]);
+            CurrencyModel.AddCurrencyOnOff = Boolean.Parse(GeneralConfig.Config[nameof(Currency)]["Active"]);
 
             bankheistTimer = new System.Windows.Forms.Timer();
             bankheistTimer.Tick += BankheistTileActiveCheck;
@@ -38,16 +38,16 @@ namespace Aiva.Bot.ViewModels {
             switch (Aiva.Extensions.Bankheist.Bankheist.Status)//Extensions.Bankheist.Status)
             {
                 case BankheistModel.Enums.BankheistStatus.IsActive:
-                    currencyModel.BankheistTileColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#CC53F324"));
-                    currencyModel.BankheistText = LanguageConfig.Instance.GetString("BankheistGUITileRunning");
+                    CurrencyModel.BankheistTileColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#CC53F324"));
+                    CurrencyModel.BankheistText = LanguageConfig.Instance.GetString("BankheistGUITileRunning");
                     break;
                 case BankheistModel.Enums.BankheistStatus.OnCooldown:
-                    currencyModel.BankheistTileColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#CC1E570E"));
-                    currencyModel.BankheistText = LanguageConfig.Instance.GetString("BankheistGUITileCooldown");
+                    CurrencyModel.BankheistTileColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#CC1E570E"));
+                    CurrencyModel.BankheistText = LanguageConfig.Instance.GetString("BankheistGUITileCooldown");
                     break;
                 case BankheistModel.Enums.BankheistStatus.Ready:
-                    currencyModel.BankheistTileColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#CCF32424"));
-                    currencyModel.BankheistText = LanguageConfig.Instance.GetString("BankheistGUITileOffline");
+                    CurrencyModel.BankheistTileColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#CCF32424"));
+                    CurrencyModel.BankheistText = LanguageConfig.Instance.GetString("BankheistGUITileOffline");
                     break;
             }
         }
@@ -57,11 +57,8 @@ namespace Aiva.Bot.ViewModels {
         /// Currency Timer
         /// </summary>
         private static void CurrencyTimer() {
-            //var generalConfig = new Config.General();
-
-            if (Convert.ToBoolean(GeneralConfig.Config["Currency"]["Active"])) {
-                TimeSpan Interval;
-                if (TimeSpan.TryParse(GeneralConfig.Config["Currency"]["TimerAddCurrency"], out Interval)) {
+            if (Convert.ToBoolean(GeneralConfig.Config[nameof(Currency)]["Active"])) {
+                if (TimeSpan.TryParse(GeneralConfig.Config[nameof(Currency)]["TimerAddCurrency"], out TimeSpan Interval)) {
                     var timer = new System.Windows.Threading.DispatcherTimer();
                     timer.Tick += CurrencyHandler.AddCurrencyFrequentlyAsync;
                     timer.Interval = Interval;
@@ -70,6 +67,6 @@ namespace Aiva.Bot.ViewModels {
             }
         }
         #endregion
-        public Models.CurrencyModel currencyModel { get; set; }
+        public Models.CurrencyModel CurrencyModel { get; set; }
     }
 }

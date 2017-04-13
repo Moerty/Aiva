@@ -26,7 +26,7 @@ namespace Aiva.Bot.ViewModels {
                 AuctionHandler.Current = new CurrentAuction(new InitModel {
                     Name = AuctionName,
                     Command = Command,
-                    WithTickets = exTickets,
+                    WithTickets = ExTickets,
                     WriteStartInChat = WriteInChat,
                     Tickets = Tickets
                 });
@@ -59,7 +59,7 @@ namespace Aiva.Bot.ViewModels {
         public Models.AuctionModel Model { get; set; }
         public string AuctionName { get; set; }
         public string Command { get; set; }
-        public bool exTickets { get; set; }
+        public bool ExTickets { get; set; }
         public int Tickets { get; set; } = 1;
         public bool WriteInChat { get; set; } = true;
     }

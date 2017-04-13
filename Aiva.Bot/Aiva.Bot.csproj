@@ -165,7 +165,6 @@
     </ApplicationDefinition>
     <Compile Include="Models\AuctionModel.cs" />
     <Compile Include="Models\BetsModel.cs" />
-    <Compile Include="Models\Charts\ViewerCount.cs" />
     <Compile Include="Models\CurrencyModel.cs" />
     <Compile Include="Models\FirstStartModel.cs" />
     <Compile Include="Models\GiveawayModel.cs" />
@@ -366,9 +365,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Resources\Database.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

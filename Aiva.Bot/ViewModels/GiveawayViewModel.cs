@@ -75,7 +75,7 @@ namespace Aiva.Bot.ViewModels {
 
 
         private void CreateModels() {
-            Model = new Models.GiveawayModel() {
+            Model = new Models.GiveawayModel {
                 Text = new Models.GiveawayModel.TextModel {
                     StatusActive = LanguageConfig.Instance.GetString("GiveawayStatusActive"),
                     StatusInactive = LanguageConfig.Instance.GetString("GiveawayStatusInactive"),

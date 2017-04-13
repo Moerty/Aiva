@@ -29,8 +29,8 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Controls:ButtonHelper.PreserveTextCase="True"
-            Background="{Binding currencyModel.BankheistTileColor, FallbackValue=Red}"
-            Content="{Binding currencyModel.BankheistText, FallbackValue=Bankheist}">
+            Background="{Binding CurrencyModel.BankheistTileColor, FallbackValue=Red}"
+            Content="{Binding CurrencyModel.BankheistText, FallbackValue=Bankheist}">
             <Controls:ControlsHelper.MouseOverBorderBrush>
                 <ImageBrush TileMode="FlipX">
                     <ImageBrush.RelativeTransform>

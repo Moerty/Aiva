@@ -67,7 +67,7 @@
                                             <Style TargetType="{x:Type Rectangle}">
                                                 <Setter Property="Fill" Value="{StaticResource IconChecked}" />
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding exTickets}" Value="True">
+                                                    <DataTrigger Binding="{Binding ExTickets}" Value="True">
                                                         <Setter Property="Fill" Value="{StaticResource IconUnchecked}" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
@@ -205,7 +205,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Header="{Binding Model.Text.TicketExpanderName, Mode=OneTime}"
-                IsExpanded="{Binding exTickets}"
+                IsExpanded="{Binding ExTickets}"
                 OverridesDefaultStyle="True"
                 Template="{StaticResource SimpleExpanderTemp}">
                 <Expander.Style>

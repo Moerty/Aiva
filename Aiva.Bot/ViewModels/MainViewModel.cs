@@ -14,9 +14,9 @@ namespace Aiva.Bot.ViewModels {
         public Models.MainModel Model { get; set; }
 
         // Models
-        private Views.Settings SettingsView;
-        private Views.Dashboard DashboardView;
-        private Views.Home HomeView;
+        private readonly Views.Settings SettingsView;
+        private readonly Views.Dashboard DashboardView;
+        private readonly Views.Home HomeView;
 
         private DispatcherTimer OnoffTimer;
 
@@ -37,7 +37,7 @@ namespace Aiva.Bot.ViewModels {
         }
 
         private void CreateWindowCommands() {
-            var myResourceDictionary = new ResourceDictionary() {
+            var myResourceDictionary = new ResourceDictionary {
                 Source =
                 new Uri("/AivaBot;component/Resources/Icons.xaml",
                         UriKind.RelativeOrAbsolute)
