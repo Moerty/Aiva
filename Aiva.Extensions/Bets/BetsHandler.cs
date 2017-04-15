@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using LiveCharts.Wpf;
 using Aiva.Extensions.Models.Bets;
 using Aiva.Core.Client;
+using System.Text;
+using Aiva.Core.Config;
 
 namespace AivaBot.Bets {
     [PropertyChanged.ImplementPropertyChanged]
@@ -64,7 +66,7 @@ namespace AivaBot.Bets {
         /// <returns></returns>
         public bool AddUser(string name, List<string> args) {
             // if (args.Count != 2) throw new Exceptions.ExceptionParametersNotValid("not 2 parameters!");
-            if (!int.TryParse(args[1], out int Bet)) return false;
+            if (args.Count != 2 || !int.TryParse(args[1], out int Bet)) return false;
 
             var user = Users.SingleOrDefault(x => x.Name == name);
 
@@ -159,13 +161,31 @@ namespace AivaBot.Bets {
                         }
                         break;
                     default: {
-                            Console.WriteLine("ERROR");
+                            Console.WriteLine("Not team a or team b in bankheist; ", + user.Team);
                         }
                         break;
                 }
             }
 
             Aiva.Core.Database.CurrencyHandler.UpdateCurrencyListAsync(List);
+
+            WriteInChat(List);
+        }
+
+        /// <summary>
+        /// Write winners in Chat
+        /// </summary>
+        /// <param name="userList"></param>
+        private void WriteInChat(List<Aiva.Core.Models.Database.CurrencyHandlerModels.CurrencyAddList> userList) {
+            var stringBuilder = new StringBuilder();
+
+            stringBuilder.Append($"{LanguageConfig.Instance.GetString("BetsChatWinnersWord")}: ");
+            foreach (var user in userList) {
+                stringBuilder.Append($"@{user.Name}-> {user.Value};  ");
+            }
+
+            // single user result
+            AivaClient.Client.AivaTwitchClient.SendMessage(stringBuilder.ToString());
         }
     }
 

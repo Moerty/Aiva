@@ -384,4 +384,7 @@
   <data name="VotingPieChatNameText" xml:space="preserve">
     <value>Tortendiagramm</value>
   </data>
+  <data name="BetsChatWinnersWord" xml:space="preserve">
+    <value>Gewinner</value>
+  </data>
 </root>

@@ -93,11 +93,6 @@
     <Compile Include="Config\CurrencyConfig.cs" />
     <Compile Include="Config\GeneralConfig.cs" />
     <Compile Include="Config\LanguageConfig.cs" />
-    <Compile Include="Config\Languages\Text2.de-DE.Designer.cs">
-      <DependentUpon>Text2.de-DE.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Config\Languages\Text.en-US.Designer.cs">
       <DependentUpon>Text.en-US.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -184,10 +179,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Config\Languages\Text.de-DE.resx" />
-    <EmbeddedResource Include="Config\Languages\Text2.de-DE.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Text2.de-DE.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Config\Languages\Text.en-US.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Text.en-US.Designer.cs</LastGenOutput>

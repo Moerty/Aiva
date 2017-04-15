@@ -331,6 +331,6 @@
     <value>Speichern</value>
   </data>
   <data name="BankheistCommandWatermark" xml:space="preserve">
-    <value />
+    <value>Bankheist Command</value>
   </data>
 </root>
