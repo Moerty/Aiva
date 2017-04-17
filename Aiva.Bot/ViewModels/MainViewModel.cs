@@ -39,7 +39,7 @@ namespace Aiva.Bot.ViewModels {
         private void CreateWindowCommands() {
             var myResourceDictionary = new ResourceDictionary {
                 Source =
-                new Uri("/AivaBot;component/Resources/Icons.xaml",
+                new Uri("/AivaBot;component/Styles/Icons.xaml",
                         UriKind.RelativeOrAbsolute)
             };
             Model.WindowCommandItems = new ObservableCollection<Models.MainModel.WindowCommandModel> {
