@@ -1,5 +1,4 @@
 ﻿using TwitchLib;
-using Aiva.Core.Config;
 using System;
 using TwitchLib.Models.Client;
 

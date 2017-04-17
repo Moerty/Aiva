@@ -161,7 +161,7 @@ namespace AivaBot.Bets {
                         }
                         break;
                     default: {
-                            Console.WriteLine("Not team a or team b in bankheist; ", + user.Team);
+                            Console.WriteLine("Not team a or team b in bankheist; ", +user.Team);
                         }
                         break;
                 }

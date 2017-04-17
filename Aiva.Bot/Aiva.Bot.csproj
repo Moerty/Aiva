@@ -224,10 +224,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Resource>
-    <Page Include="Styles\Giveaway.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Auction.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
