@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
@@ -65,6 +66,7 @@ namespace Aiva.Bot.ViewModels {
 
             public ICommand SaveCommand { get; set; } = new RoutedCommand();
             public ICommand AddBlacklistKeyword { get; set; } = new RoutedCommand();
+            public ICommand RemoveBlacklistWordFromList { get; set; } = new RoutedCommand();
 
             public ChatTabViewModel() {
                 // Create Models
@@ -74,8 +76,34 @@ namespace Aiva.Bot.ViewModels {
                 var type = new MahApps.Metro.Controls.MetroContentControl().GetType();
                 CommandManager.RegisterClassCommandBinding(type, new CommandBinding(SaveCommand, Save));
                 CommandManager.RegisterClassCommandBinding(type, new CommandBinding(AddBlacklistKeyword, AddKeyword));
+                CommandManager.RegisterClassCommandBinding(type, new CommandBinding(RemoveBlacklistWordFromList, RemoveWordByKeypress));
             }
 
+            /// <summary>
+            /// Remove Keyword from Blacklist via keypress
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
+            private void RemoveWordByKeypress(object sender, ExecutedRoutedEventArgs e) {
+                var selectedItems = (e.Source as ListView).SelectedItems;
+                if (selectedItems != null) {
+                    List<string> words = new List<string>();
+
+                    foreach (var item in selectedItems) {
+                        words.Add(item.ToString());
+                    }
+
+                    foreach (var item in words) {
+                        Model.BlacklistedWords.Remove(item);
+                    }
+                }
+            }
+
+            /// <summary>
+            /// Add a word
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
             private void AddKeyword(object sender, ExecutedRoutedEventArgs e) {
                 if (!Model.BlacklistedWords.Contains(Model.NewKeyword)) {
                     Model.BlacklistedWords.Add(Model.NewKeyword);
@@ -83,6 +111,11 @@ namespace Aiva.Bot.ViewModels {
                 }
             }
 
+            /// <summary>
+            /// Save
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
             private void Save(object sender, ExecutedRoutedEventArgs e) {
                 UserSettingsHandler.WriteConfig(new List<UserSettings> {
                     new UserSettings {
@@ -113,16 +146,17 @@ namespace Aiva.Bot.ViewModels {
                 } else {
                     AivaClient.Client.AivaTwitchClient.OnMessageReceived -= Core.Client.Tasks.ChatChecker.CheckMessage;
                 }
-            }
 
-            string GetKeywordsFormattet() {
-                var sBuilder = new StringBuilder();
-                foreach (var keyword in Model.BlacklistedWords) {
-                    sBuilder.Append(keyword);
-                    sBuilder.Append(',');
+                string GetKeywordsFormattet()
+                {
+                    var sBuilder = new StringBuilder();
+                    foreach (var keyword in Model.BlacklistedWords) {
+                        sBuilder.Append(keyword);
+                        sBuilder.Append(',');
+                    }
+
+                    return sBuilder.ToString();
                 }
-
-                return sBuilder.ToString();
             }
 
             private void CreateModels() {
