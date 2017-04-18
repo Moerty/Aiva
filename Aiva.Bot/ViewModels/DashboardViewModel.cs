@@ -62,7 +62,13 @@ namespace Aiva.Bot.ViewModels {
                     DashboardExpanderStatisticNameText = LanguageConfig.Instance.GetString("DashboardExpanderStatisticNameText"),
                     DashboardExpanderFollowerCreatedAtColumn = LanguageConfig.Instance.GetString("DashboardExpanderFollowerCreatedAtColumn"),
                     DashboardExpanderFollowerNameColumn = LanguageConfig.Instance.GetString("DashboardExpanderFollowerNameColumn"),
-                    DashboardExpanderFollowerNotificationColumn = LanguageConfig.Instance.GetString("DashboardExpanderFollowerNotificationColumn")
+                    DashboardExpanderFollowerNotificationColumn = LanguageConfig.Instance.GetString("DashboardExpanderFollowerNotificationColumn"),
+                    DashboardButtonGameText = LanguageConfig.Instance.GetString("DashboardButtonGameText"),
+                    DashboardButtonTitleText = LanguageConfig.Instance.GetString("DashboardButtonTitleText"),
+                    DashboardLabelCommercialText = LanguageConfig.Instance.GetString("DashboardLabelCommercialText"),
+                    DashboardLabelGameText = LanguageConfig.Instance.GetString("DashboardLabelGameText"),
+                    DashboardLabelTitleText = LanguageConfig.Instance.GetString("DashboardLabelTitleText"),
+
                 }
             };
         }

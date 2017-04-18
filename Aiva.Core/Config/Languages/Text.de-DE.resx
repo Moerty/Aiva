@@ -387,6 +387,12 @@
   <data name="BetsChatWinnersWord" xml:space="preserve">
     <value>Gewinner</value>
   </data>
+  <data name="DashboardButtonGameText" xml:space="preserve">
+    <value>Spiel ändern</value>
+  </data>
+  <data name="DashboardButtonTitleText" xml:space="preserve">
+    <value>Titel ändern</value>
+  </data>
   <data name="DashboardExpanderFollowerCreatedAtColumn" xml:space="preserve">
     <value>Erstellt am</value>
   </data>
@@ -401,5 +407,14 @@
   </data>
   <data name="DashboardExpanderStatisticNameText" xml:space="preserve">
     <value>Statistik</value>
+  </data>
+  <data name="DashboardLabelCommercialText" xml:space="preserve">
+    <value>Werbung schalten</value>
+  </data>
+  <data name="DashboardLabelGameText" xml:space="preserve">
+    <value>Spiel</value>
+  </data>
+  <data name="DashboardLabelTitleText" xml:space="preserve">
+    <value>Title</value>
   </data>
 </root>

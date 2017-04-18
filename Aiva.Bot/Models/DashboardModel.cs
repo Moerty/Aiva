@@ -17,6 +17,11 @@ namespace Aiva.Bot.Models {
             public string DashboardExpanderFollowerNameColumn { get; set; }
             public string DashboardExpanderFollowerCreatedAtColumn { get; set; }
             public string DashboardExpanderFollowerNotificationColumn { get; set; }
+            public string DashboardLabelTitleText { get; set; }
+            public string DashboardLabelGameText { get; set; }
+            public string DashboardLabelCommercialText { get; set; }
+            public string DashboardButtonTitleText { get; set; }
+            public string DashboardButtonGameText { get; set; }
         }
     }
 }

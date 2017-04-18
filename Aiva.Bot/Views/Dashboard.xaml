@@ -35,7 +35,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Command="{Binding ChangeTitleCommand}"
-            Content="Titel ändern" />
+            Content="{Binding Model.Text.DashboardButtonTitleText, Mode=OneTime, FallbackValue=Change Title}" />
         <Button
             x:Name="btnGameChange"
             Width="91"
@@ -43,25 +43,25 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Command="{Binding ChangeGameCommand}"
-            Content="Spiel ändern" />
+            Content="{Binding Model.Text.DashboardButtonGameText, Mode=OneTime, FallbackValue=Change Game}" />
         <Label
             x:Name="label"
-            Margin="45,12,0,0"
+            Margin="18,14,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Content="Titel" />
+            Content="{Binding Model.Text.DashboardLabelTitleText, Mode=OneTime, FallbackValue=Title}" />
         <Label
             x:Name="label_Copy"
-            Margin="45,42,0,0"
+            Margin="17,42,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Content="Spiel" />
+            Content="{Binding Model.Text.DashboardLabelGameText, Mode=OneTime, FallbackValue=Game}" />
         <Label
             x:Name="label2"
-            Margin="18,81,0,0"
+            Margin="10,83,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Content="Werbung" />
+            Content="{Binding Model.Text.DashboardLabelCommercialText, Mode=OneTime, FallbackValue=Commercial}" />
         <ComboBox
             x:Name="cbCommercial"
             Width="180"
