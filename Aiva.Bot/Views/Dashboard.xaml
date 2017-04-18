@@ -35,7 +35,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Command="{Binding ChangeTitleCommand}"
-            Content="{Binding Model.Text.DashboardButtonTitleText, Mode=OneTime, FallbackValue=Change Title}" />
+            Content="{Binding Model.Text.DashboardButtonTitleText, FallbackValue=Change Title}" />
         <Button
             x:Name="btnGameChange"
             Width="91"
@@ -43,25 +43,25 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Command="{Binding ChangeGameCommand}"
-            Content="{Binding Model.Text.DashboardButtonGameText, Mode=OneTime, FallbackValue=Change Game}" />
+            Content="{Binding Model.Text.DashboardButtonGameText, FallbackValue=Change Game}" />
         <Label
             x:Name="label"
             Margin="18,14,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Content="{Binding Model.Text.DashboardLabelTitleText, Mode=OneTime, FallbackValue=Title}" />
+            Content="{Binding Model.Text.DashboardLabelTitleText, FallbackValue=Title}" />
         <Label
             x:Name="label_Copy"
             Margin="17,42,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Content="{Binding Model.Text.DashboardLabelGameText, Mode=OneTime, FallbackValue=Game}" />
+            Content="{Binding Model.Text.DashboardLabelGameText, FallbackValue=Game}" />
         <Label
             x:Name="label2"
             Margin="10,83,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Content="{Binding Model.Text.DashboardLabelCommercialText, Mode=OneTime, FallbackValue=Commercial}" />
+            Content="{Binding Model.Text.DashboardLabelCommercialText, FallbackValue=Commercial}" />
         <ComboBox
             x:Name="cbCommercial"
             Width="180"
@@ -84,7 +84,7 @@
             Margin="715,0,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Header="{Binding Model.Text.DashboardExpanderFollowerNameText, Mode=OneTime, FallbackValue=Followers}">
+            Header="{Binding Model.Text.DashboardExpanderFollowerNameText, FallbackValue=Followers}">
             <Grid Background="#FFE5E5E5">
                 <ListView ItemsSource="{Binding Model.Followers}">
                     <ListView.View>
@@ -92,15 +92,15 @@
                             <GridViewColumn
                                 Width="Auto"
                                 DisplayMemberBinding="{Binding Name}"
-                                Header="{Binding Model.Text.DashboardExpanderFollowerNameColumn, Mode=OneTime, FallbackValue=Name}" />
+                                Header="{Binding Model.Text.DashboardExpanderFollowerNameColumn, FallbackValue=Name}" />
                             <GridViewColumn
                                 Width="Auto"
                                 DisplayMemberBinding="{Binding CreatedAt}"
-                                Header="{Binding Model.Text.DashboardExpanderFollowerCreatedAtColumn, Mode=OneTime, FallbackValue=Created At}" />
+                                Header="{Binding Model.Text.DashboardExpanderFollowerCreatedAtColumn, FallbackValue=Created At}" />
                             <GridViewColumn
                                 Width="Auto"
                                 DisplayMemberBinding="{Binding Notifications}"
-                                Header="{Binding Model.Text.DashboardExpanderFollowerNotificationColumn, Mode=OneTime, FallbackValue=Notification active}" />
+                                Header="{Binding Model.Text.DashboardExpanderFollowerNotificationColumn, FallbackValue=Notification active}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -113,8 +113,13 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             ExpandDirection="Up"
-            Header="{Binding Model.Text.DashboardExpanderStatisticNameText, Mode=OneTime, FallbackValue=Statistics}">
-            <Grid Background="#FFE5E5E5" />
+            Header="{Binding Model.Text.DashboardExpanderStatisticNameText, FallbackValue=Statistics}">
+            <Grid Background="#FFE5E5E5">
+                <StackPanel Orientation="Vertical">
+                    <Label Content="{Binding Model.Text.DashboardLabelTotalViewsText, FallbackValue='Total Views'}" />
+                    <TextBlock Text="{Binding Model.TotalViews, FallbackValue=0}" />
+                </StackPanel>
+            </Grid>
         </Expander>
         <!--<CefSharp:ChromiumWebBrowser
             Width="452"

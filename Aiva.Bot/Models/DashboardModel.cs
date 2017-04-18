@@ -9,6 +9,7 @@ namespace Aiva.Bot.Models {
         public ObservableCollection<string> Games { get; set; }
         public string SelectedGame { get; set; }
         public string StreamTitle { get; set; }
+        public int TotalViews { get; set; }
 
         [PropertyChanged.ImplementPropertyChanged]
         public class TextModel {
@@ -22,6 +23,7 @@ namespace Aiva.Bot.Models {
             public string DashboardLabelCommercialText { get; set; }
             public string DashboardButtonTitleText { get; set; }
             public string DashboardButtonGameText { get; set; }
+            public string DashboardLabelTotalViewsText { get; set; }
         }
     }
 }

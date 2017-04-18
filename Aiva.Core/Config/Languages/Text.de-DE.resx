@@ -417,4 +417,7 @@
   <data name="DashboardLabelTitleText" xml:space="preserve">
     <value>Title</value>
   </data>
+  <data name="DashboardLabelTotalViewsText" xml:space="preserve">
+    <value>Alle Aufrufe</value>
+  </data>
 </root>

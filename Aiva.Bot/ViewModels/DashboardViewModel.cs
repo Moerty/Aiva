@@ -57,6 +57,7 @@ namespace Aiva.Bot.ViewModels {
                 Games = await GetTwitchGames(),
                 SelectedGame = channelInfo.Item2,
                 StreamTitle = channelInfo.Item1,
+                TotalViews = channelInfo.Item3,
                 Text = new Models.DashboardModel.TextModel {
                     DashboardExpanderFollowerNameText = LanguageConfig.Instance.GetString("DashboardExpanderFollowerNameText"),
                     DashboardExpanderStatisticNameText = LanguageConfig.Instance.GetString("DashboardExpanderStatisticNameText"),
@@ -68,7 +69,7 @@ namespace Aiva.Bot.ViewModels {
                     DashboardLabelCommercialText = LanguageConfig.Instance.GetString("DashboardLabelCommercialText"),
                     DashboardLabelGameText = LanguageConfig.Instance.GetString("DashboardLabelGameText"),
                     DashboardLabelTitleText = LanguageConfig.Instance.GetString("DashboardLabelTitleText"),
-
+                    DashboardLabelTotalViewsText = LanguageConfig.Instance.GetString("DashboardLabelTotalViewsText"),
                 }
             };
         }
@@ -77,20 +78,17 @@ namespace Aiva.Bot.ViewModels {
         /// Get Channelname and Game
         /// </summary>
         /// <returns>Channel ; Game</returns>
-        async Task<Tuple<string, string>> GetChannelDetails() {
+        async Task<Tuple<string, string, int>> GetChannelDetails() {
             var channel = await TwitchLib.TwitchApi.Channels.GetChannelAsync(Core.Client.AivaClient.Client.Channel);
 
-            return new Tuple<string, string>(channel.Status, channel.Game);
+            return new Tuple<string, string, int>(channel.Status, channel.Game, channel.Views);
         }
 
         /// <summary>
         /// Get Twitch Games
         /// </summary>
         /// <returns></returns>
-        private async Task<ObservableCollection<string>> GetTwitchGames() {
-            return new ObservableCollection<string>(
-                await Extensions.Dashboard.Games.GetTwitchGamesAsync());
-        }
+        private async Task<ObservableCollection<string>> GetTwitchGames() => new ObservableCollection<string>(await Extensions.Dashboard.Games.GetTwitchGamesAsync());
     }
 }
 
