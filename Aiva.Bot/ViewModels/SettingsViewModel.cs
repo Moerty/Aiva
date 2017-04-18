@@ -167,6 +167,7 @@ namespace Aiva.Bot.ViewModels {
                     BlacklistedWordsActive = Convert.ToBoolean(Settings.Find(setting => String.Compare(setting.Name, "BlackListedWordsActive") == 0).Value),
                     SpamCheck = Convert.ToBoolean(Settings.Find(setting => String.Compare(setting.Name, "Spamcheck") == 0).Value),
                     AllowViewerToPostLinks = Convert.ToBoolean(GeneralConfig.Config["SpamCheck"]["AllowViewerToPostLinks"]),
+                    CapsRestriction = Convert.ToBoolean(GeneralConfig.Config["SpamCheck"]["CapsRestriction"]),
 
                     // SpamCheck Settings
                     SkipMessageCheckAdmin = Convert.ToBoolean(GeneralConfig.Config["SpamCheck"]["SkipMessageCheckAdmin"]),

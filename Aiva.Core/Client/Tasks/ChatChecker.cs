@@ -192,12 +192,40 @@ namespace Aiva.Core.Client.Tasks {
         }
         public static List<string> BlacklistedWords { get; set; } = Database.UserSettingsHandler.GetBlacklistedWords();
 
-
+        /// <summary>
+        /// Link checker for Viewers
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public static void LinkChecker(object sender, OnMessageReceivedArgs e) {
-            bool isUri = Uri.IsWellFormedUriString(e.ChatMessage.Message, UriKind.RelativeOrAbsolute);
+            if (e.ChatMessage.UserType == UserType.Viewer) {
+                bool isUri = Uri.IsWellFormedUriString(e.ChatMessage.Message, UriKind.RelativeOrAbsolute);
 
-            if (isUri) {
-                AivaClient.Client.AivaTwitchClient.TimeoutUser(e.ChatMessage.Username, new TimeSpan(0, 5, 0), "URL restriction");
+                if (isUri) {
+                    AivaClient.Client.AivaTwitchClient.TimeoutUser(e.ChatMessage.Username, new TimeSpan(0, 5, 0), "URL restriction");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Caps checker for Viewers
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void CapsChecker(object sender, OnMessageReceivedArgs e) {
+            if (e.ChatMessage.UserType == UserType.Viewer) {
+                if (IsAllUpper(e.ChatMessage.Message)) {
+                    AivaClient.Client.AivaTwitchClient.TimeoutUser(e.ChatMessage.Username, new TimeSpan(0, 5, 0), "DONT WRITE IN CAPS!");
+                }
+            }
+
+            bool IsAllUpper(string input)
+            {
+                for (int i = 0; i < input.Length; i++) {
+                    if (Char.IsLetter(input[i]) && !Char.IsUpper(input[i]))
+                        return false;
+                }
+                return true;
             }
         }
     }

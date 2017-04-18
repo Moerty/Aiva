@@ -11,7 +11,7 @@ using Aiva.Core.Client;
 using System.Text;
 using Aiva.Core.Config;
 
-namespace AivaBot.Bets {
+namespace Aiva.Extensions.Bets {
     [PropertyChanged.ImplementPropertyChanged]
     public class BetsHandler {
         public bool IsStarted { get; set; }

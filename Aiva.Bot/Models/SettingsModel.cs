@@ -30,6 +30,15 @@ namespace Aiva.Bot.Models {
             public bool BlacklistedWordsActive { get; set; }
             public bool SpamCheck { get; set; }
             public bool AllowViewerToPostLinks { get; set; }
+            public bool CapsRestriction {
+                get {
+                    return Convert.ToBoolean(GeneralConfig.Config[nameof(SpamCheck)][nameof(CapsRestriction)]);
+                }
+                set {
+                    GeneralConfig.Config[nameof(SpamCheck)][nameof(CapsRestriction)] = value.ToString();
+                    GeneralConfig.WriteConfig();
+                }
+            }
 
             //SpamCheck
             public bool SkipMessageCheckAdmin {

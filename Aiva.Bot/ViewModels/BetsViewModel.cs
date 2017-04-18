@@ -1,5 +1,5 @@
 ﻿using Aiva.Core.Config;
-using AivaBot.Bets;
+using Aiva.Extensions.Bets;
 using System;
 using System.Windows.Input;
 

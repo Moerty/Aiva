@@ -43,6 +43,7 @@ TimeActiveWarning=00:30:00
 
 
 AllowViewerToPostLinks=true
+CapsRestriction=true
 
 [Currency]
 ; Active Currency? (True; False)

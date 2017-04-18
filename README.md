@@ -42,28 +42,8 @@ More Informations: [Wiki](https://github.com/Moerty/AivaBot/wiki/Home:-Voting)
 
 More Informations: [Wiki](https://github.com/Moerty/AivaBot/wiki/Home:-Bets)
 
-# Todos:
-## Now:
-- Finish Settings to GUI.
-- Setup Project.
-- Dashboard.
-- Client ID Check.
-- OAuth Check.
-- Own ClientID.
-
-## Complete:
-- First Start Page for initial setup (Twitch OAuth & YouTube OAuth)
-* **Settings**:
-	* Blacklisted words.
-	* Spam check.
-	* Bankheist.
-	* General settings.
-	* Currency settings.
-
 ## LATER:
 - Raid System
-- Link Restriction
-- Caps Restriction
 - Custom Command 
 - Donation Alerts Thank and reward viewers for donating via StreamTip, TipeeeStream or StreamLabs.
 - Keyword Replies Automatically reply to a keyword or phrase in chat.
