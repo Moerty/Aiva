@@ -35,7 +35,7 @@ namespace Aiva.Bot.ViewModels {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BankheistTileActiveCheck(object sender, EventArgs e) {
-            switch (Aiva.Extensions.Bankheist.Bankheist.Status)//Extensions.Bankheist.Status)
+            switch (Bankheist.Status)//Extensions.Bankheist.Status)
             {
                 case BankheistModel.Enums.BankheistStatus.IsActive:
                     CurrencyModel.BankheistTileColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#CC53F324"));
