@@ -99,6 +99,7 @@
     <Compile Include="Bankheist\Bankheist.cs" />
     <Compile Include="Bankheist\BankheistHandler.cs" />
     <Compile Include="Bets\BetsHandler.cs" />
+    <Compile Include="Dashboard\Followers.cs" />
     <Compile Include="Giveaway\Giveaway.cs" />
     <Compile Include="Giveaway\List.cs" />
     <Compile Include="ModCommands\Currency.cs" />
@@ -106,6 +107,8 @@
     <Compile Include="Models\Auction\InitModel.cs" />
     <Compile Include="Models\Bankheist\BankheistModel.cs" />
     <Compile Include="Models\Bets\UserModel.cs" />
+    <Compile Include="Models\Dashboard\Followers.cs" />
+    <Compile Include="Dashboard\Games.cs" />
     <Compile Include="Models\Giveaway\GiveawayModel.cs" />
     <Compile Include="Models\Giveaway\UsersModel.cs" />
     <Compile Include="Models\ModCommands\CurrencyReturnModel.cs" />

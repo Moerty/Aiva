@@ -387,4 +387,19 @@
   <data name="BetsChatWinnersWord" xml:space="preserve">
     <value>Gewinner</value>
   </data>
+  <data name="DashboardExpanderFollowerCreatedAtColumn" xml:space="preserve">
+    <value>Erstellt am</value>
+  </data>
+  <data name="DashboardExpanderFollowerNameColumn" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="DashboardExpanderFollowerNameText" xml:space="preserve">
+    <value>Followers</value>
+  </data>
+  <data name="DashboardExpanderFollowerNotificationColumn" xml:space="preserve">
+    <value>Benachrichtigung</value>
+  </data>
+  <data name="DashboardExpanderStatisticNameText" xml:space="preserve">
+    <value>Statistik</value>
+  </data>
 </root>

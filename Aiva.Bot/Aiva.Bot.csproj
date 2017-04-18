@@ -10,7 +10,7 @@
     <ProjectGuid>{482DA762-7054-4CDD-9007-19FBE67AD455}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AivaBot</RootNamespace>
+    <RootNamespace>Aiva.Bot</RootNamespace>
     <AssemblyName>AivaBot</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -166,6 +166,7 @@
     <Compile Include="Models\AuctionModel.cs" />
     <Compile Include="Models\BetsModel.cs" />
     <Compile Include="Models\CurrencyModel.cs" />
+    <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Models\FirstStartModel.cs" />
     <Compile Include="Models\GiveawayModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="ViewModels\BetsViewModel.cs" />
     <Compile Include="ViewModels\ChartsViewModel.cs" />
     <Compile Include="ViewModels\CurrencyViewModel.cs" />
+    <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\FirstStartViewModel.cs" />
     <Compile Include="ViewModels\GiveawayViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />

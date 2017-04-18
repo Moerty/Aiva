@@ -18,22 +18,23 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Controls:TextBoxHelper.ClearTextButton="True"
-            KeyDown="tbStreamtitel_KeyDown"
-            Text=""
+            Text="{Binding Model.StreamTitle}"
             TextWrapping="Wrap" />
         <ComboBox
             x:Name="cbGames"
             Width="290"
             Margin="82,42,0,0"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top" />
+            VerticalAlignment="Top"
+            ItemsSource="{Binding Model.Games}"
+            SelectedValue="{Binding Model.SelectedGame}" />
         <Button
             x:Name="btnTitleChange"
             Width="91"
             Margin="377,11,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Click="btnTitleChange_ClickAsync"
+            Command="{Binding ChangeTitleCommand}"
             Content="Titel ändern" />
         <Button
             x:Name="btnGameChange"
@@ -41,7 +42,7 @@
             Margin="377,42,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Click="btnGameChange_ClickAsync"
+            Command="{Binding ChangeGameCommand}"
             Content="Spiel ändern" />
         <Label
             x:Name="label"
@@ -56,58 +57,71 @@
             VerticalAlignment="Top"
             Content="Spiel" />
         <Label
-            x:Name="label1"
-            Margin="107,216,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="Nachricht senden" />
-        <TextBox
-            x:Name="tbMessageToSend"
-            Width="361"
-            Height="23"
-            Margin="107,184,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            KeyDown="tbMessageToSend_KeyDown"
-            Text=""
-            TextWrapping="Wrap" />
-        <Button
-            x:Name="btnSendMessage"
-            Width="107"
-            Margin="361,215,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Click="btnSendMessage_Click"
-            Content="Sende Nachricht" />
-        <Label
             x:Name="label2"
-            Margin="224,87,0,0"
+            Margin="18,81,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Werbung" />
         <ComboBox
             x:Name="cbCommercial"
             Width="180"
-            Margin="288,89,0,0"
+            Margin="82,83,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top" />
         <Button
             x:Name="btnCommercial"
             Width="180"
-            Margin="288,128,0,0"
+            Margin="82,122,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Click="btnCommercial_ClickAsync"
             Content="Werbung schalten"
             ToolTip="not shown"
             ToolTipOpening="btnCommercial_ToolTipOpening" />
-        <!--<WebBrowser HorizontalAlignment="Left" Height="483" Margin="605,10,0,0" VerticalAlignment="Top" Width="452" Source="http://www.twitch.tv/aeffchaen/chat"/> -->
-        <CefSharp:ChromiumWebBrowser
+        <Expander
+            Width="367"
+            Height="275"
+            Margin="715,0,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Header="{Binding Model.Text.DashboardExpanderFollowerNameText, Mode=OneTime, FallbackValue=Followers}">
+            <Grid Background="#FFE5E5E5">
+                <ListView ItemsSource="{Binding Model.Followers}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn
+                                Width="Auto"
+                                DisplayMemberBinding="{Binding Name}"
+                                Header="{Binding Model.Text.DashboardExpanderFollowerNameColumn, Mode=OneTime, FallbackValue=Name}" />
+                            <GridViewColumn
+                                Width="Auto"
+                                DisplayMemberBinding="{Binding CreatedAt}"
+                                Header="{Binding Model.Text.DashboardExpanderFollowerCreatedAtColumn, Mode=OneTime, FallbackValue=Created At}" />
+                            <GridViewColumn
+                                Width="Auto"
+                                DisplayMemberBinding="{Binding Notifications}"
+                                Header="{Binding Model.Text.DashboardExpanderFollowerNotificationColumn, Mode=OneTime, FallbackValue=Notification active}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </Expander>
+        <Expander
+            Width="377"
+            Height="261"
+            Margin="715,242,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            ExpandDirection="Up"
+            Header="{Binding Model.Text.DashboardExpanderStatisticNameText, Mode=OneTime, FallbackValue=Statistics}">
+            <Grid Background="#FFE5E5E5" />
+        </Expander>
+        <!--<CefSharp:ChromiumWebBrowser
             Width="452"
             Height="483"
             Margin="605,10,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Address="http://www.twitch.tv/aeffchaen/chat" />
+            Address="http://www.twitch.tv/aeffchaen/chat" />-->
     </Grid>
 </Controls:MetroContentControl>

@@ -87,7 +87,7 @@ namespace Aiva.Bot.ViewModels {
             private void RemoveWordByKeypress(object sender, ExecutedRoutedEventArgs e) {
                 var selectedItems = (e.Source as ListView).SelectedItems;
                 if (selectedItems != null) {
-                    List<string> words = new List<string>();
+                    var words = new List<string>();
 
                     foreach (var item in selectedItems) {
                         words.Add(item.ToString());
