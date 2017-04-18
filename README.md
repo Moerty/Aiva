@@ -36,7 +36,11 @@ More Informations: [Wiki](https://github.com/Moerty/AivaBot/wiki/Home:-Songreque
 More Informations: [Wiki](https://github.com/Moerty/AivaBot/wiki/Home:-Voting)
 
 ## Bets:
-**IN DEVELOPMENT**
+* Custom Command.
+* Custom Betslength.
+* Barchart.
+
+More Informations: [Wiki](https://github.com/Moerty/AivaBot/wiki/Home:-Bets)
 
 # Todos:
 ## Now:
