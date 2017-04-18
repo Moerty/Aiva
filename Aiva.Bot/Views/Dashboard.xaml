@@ -116,8 +116,14 @@
             Header="{Binding Model.Text.DashboardExpanderStatisticNameText, FallbackValue=Statistics}">
             <Grid Background="#FFE5E5E5">
                 <StackPanel Orientation="Vertical">
-                    <Label Content="{Binding Model.Text.DashboardLabelTotalViewsText, FallbackValue='Total Views'}" />
-                    <TextBlock Text="{Binding Model.TotalViews, FallbackValue=0}" />
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding Model.Text.DashboardLabelTotalViewsText, FallbackValue='Total Views'}" />
+                        <TextBlock Text="{Binding Model.TotalViews, FallbackValue=0}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding Model.Text.DashboardLabelViewersCountText, FallbackValue='Viewers'}" />
+                        <TextBlock Text="{Binding Model.Viewers, FallbackValue=0}"/>
+                    </StackPanel>
                 </StackPanel>
             </Grid>
         </Expander>

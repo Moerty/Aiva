@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Aiva.Core.Config;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using System.Windows.Threading;
 
 namespace Aiva.Bot.ViewModels {
     [PropertyChanged.ImplementPropertyChanged]
@@ -13,12 +14,36 @@ namespace Aiva.Bot.ViewModels {
         public ICommand ChangeGameCommand { get; set; } = new RoutedCommand();
 
 
+        private DispatcherTimer ViewersTimer;
+
         public DashboardViewModel() {
             //Create Models
             CreateModels();
 
             // Commands
             SetCommands();
+
+            // Set Timers
+            SetTimers();
+        }
+
+        private void SetTimers() {
+            // Viewers
+            ViewersTimer = new DispatcherTimer(DispatcherPriority.Background) {
+                Interval = new TimeSpan(0, 1, 0)
+            };
+            ViewersTimer.Tick += ViewersTimer_Tick;
+            ViewersTimer.Start();
+        }
+
+        private void ViewersTimer_Tick(object sender, EventArgs e) {
+            var streamOnline = TwitchLib.TwitchApi.Streams.StreamIsLive(Core.Client.AivaClient.Client.Channel);
+
+            if (streamOnline) {
+                Model.Viewers = TwitchLib.TwitchApi.Streams.GetStream(Core.Client.AivaClient.Client.Channel).Viewers;
+            }
+
+            ViewersTimer.Start();
         }
 
         private void SetCommands() {
@@ -58,6 +83,7 @@ namespace Aiva.Bot.ViewModels {
                 SelectedGame = channelInfo.Item2,
                 StreamTitle = channelInfo.Item1,
                 TotalViews = channelInfo.Item3,
+                Viewers = 0,
                 Text = new Models.DashboardModel.TextModel {
                     DashboardExpanderFollowerNameText = LanguageConfig.Instance.GetString("DashboardExpanderFollowerNameText"),
                     DashboardExpanderStatisticNameText = LanguageConfig.Instance.GetString("DashboardExpanderStatisticNameText"),
@@ -70,6 +96,7 @@ namespace Aiva.Bot.ViewModels {
                     DashboardLabelGameText = LanguageConfig.Instance.GetString("DashboardLabelGameText"),
                     DashboardLabelTitleText = LanguageConfig.Instance.GetString("DashboardLabelTitleText"),
                     DashboardLabelTotalViewsText = LanguageConfig.Instance.GetString("DashboardLabelTotalViewsText"),
+                    DashboardLabelViewersCountText = LanguageConfig.Instance.GetString("DashboardLabelViewersCountText"),
                 }
             };
         }

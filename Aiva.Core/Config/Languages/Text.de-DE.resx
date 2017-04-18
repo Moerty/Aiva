@@ -420,4 +420,7 @@
   <data name="DashboardLabelTotalViewsText" xml:space="preserve">
     <value>Alle Aufrufe</value>
   </data>
+  <data name="DashboardLabelViewersCountText" xml:space="preserve">
+    <value>Zuschauer</value>
+  </data>
 </root>
