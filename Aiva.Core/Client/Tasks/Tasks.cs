@@ -63,7 +63,7 @@ namespace Aiva.Core.Client.Tasks {
 
         private static void Client_OnUserJoined(object sender, OnUserJoinedArgs e) {
             Database.UserHandler.AddUser.AddUserToDatabase(
-                    TwitchApi.Users.GetUserAsync(e.Username).Result);
+                    TwitchApi.Users.GetUser(e.Username));
 
             Database.UserHandler.UpdateUser.SetIsViewingAsync(e.Username, true);
         }
@@ -101,13 +101,5 @@ namespace Aiva.Core.Client.Tasks {
         }
 
         public static async Task<TwitchLib.Models.API.User.User> GetUserAsync(string name) => await TwitchLib.TwitchApi.Users.GetUserAsync(name);
-
-        /*private static void TwitchClient_OnUserBanned(object sender, OnUserBannedArgs e)
-        {
-            App.Current.Dispatcher.Invoke((Action)delegate
-            {
-                Controls.Flyout.ucBans.bannedUsers.Add(e.Username);
-            });
-        }*/
     }
 }

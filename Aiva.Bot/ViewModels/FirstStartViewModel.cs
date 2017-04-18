@@ -64,6 +64,7 @@ namespace Aiva.Bot.ViewModels {
             ModCommandsConfig.WriteInitialConfig();
             SongrequestConfig.WriteInitialConfig();
 
+            Application.Current.MainWindow.Visibility = Visibility.Hidden;
             Application.Current.MainWindow.Close();
         }
 

@@ -6,7 +6,7 @@
     xmlns:ModelType="clr-namespace:Aiva.Bot.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Aiva.Bot"
+    Title="AivaBot"
     Width="1100"
     Height="600"
     MinWidth="600"
@@ -22,6 +22,10 @@
     <Controls:MetroWindow.WindowTitleBrush>
         <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}" />
     </Controls:MetroWindow.WindowTitleBrush>
+
+    <!--<Controls:MetroWindow.LeftWindowCommands>
+        <Controls:WindowCommands Name="LeftWindowCommands" ItemsSource="{Binding Model.WindowCommandItems.LeftWindowCommandItems}"
+    </Controls:MetroWindow.LeftWindowCommands>-->
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands Name="WindowCommand" ItemsSource="{Binding Model.WindowCommandItems}">

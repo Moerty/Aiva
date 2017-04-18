@@ -97,8 +97,10 @@ namespace Aiva.Extensions.Auction {
                         }
                         // with currency
                     } else {
-                        CurrencyHandler.RemoveCurrencyAsync(e.Command.ChatMessage.Username, UserInput);
-                        AddUserToList(e.Command.ChatMessage.Username, UserInput);
+                        if (AmountUser >= UserInput) {
+                            CurrencyHandler.RemoveCurrencyAsync(e.Command.ChatMessage.Username, UserInput);
+                            AddUserToList(e.Command.ChatMessage.Username, UserInput);
+                        }
                     }
                 }
             }
