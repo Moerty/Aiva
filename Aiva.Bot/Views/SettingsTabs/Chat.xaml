@@ -53,8 +53,7 @@
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListView.InputBindings>
-                <KeyBinding Command="{Binding RemoveBlacklistWordFromList}"
-                            Key="Delete" />
+                <KeyBinding Key="Delete" Command="{Binding RemoveBlacklistWordFromList}" />
             </ListView.InputBindings>
         </ListView>
         <TextBox
@@ -139,7 +138,7 @@
             VerticalAlignment="Top"
             Content="Skip spam check for Streamer"
             IsChecked="{Binding Model.SkipMessageCheckBroadcaster}" />
-        <StackPanel Margin="30,413,229,23">
+        <StackPanel Margin="30,426,229,10">
             <Label
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
@@ -192,5 +191,11 @@
                 Culture="de-DE"
                 SelectedTime="{Binding Model.TimeActiveWarning}" />
         </StackPanel>
+        <CheckBox
+            Margin="13,403,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Viewer able to post Links"
+            IsChecked="{Binding Model.AllowViewerToPostLinks}" />
     </Grid>
 </Controls:MetroContentControl>

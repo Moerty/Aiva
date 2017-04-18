@@ -41,6 +41,9 @@ TimeoutTime=00:10:00
 WarningTimeoutTime=00:30:00
 TimeActiveWarning=00:30:00
 
+
+AllowViewerToPostLinks=true
+
 [Currency]
 ; Active Currency? (True; False)
 Active=True

@@ -192,36 +192,13 @@ namespace Aiva.Core.Client.Tasks {
         }
         public static List<string> BlacklistedWords { get; set; } = Database.UserSettingsHandler.GetBlacklistedWords();
 
-        /*public class Commands
-		{
-            private CommandChecker commandChecker;
-            public ReturnModel.returnModel CommandType;
-            private OnChatCommandReceivedArgs args;
 
-            public Commands(OnChatCommandReceivedArgs e)
-			{
-                commandChecker = new CommandChecker(Settings.Default.Language);
-                CommandType = commandChecker.CheckCommand(e.Command.Command);
-                args = e;
-			}
+        public static void LinkChecker(object sender, OnMessageReceivedArgs e) {
+            bool isUri = Uri.IsWellFormedUriString(e.ChatMessage.Message, UriKind.RelativeOrAbsolute);
 
-			public void StartCommand()
-			{
-				switch (CommandType)
-				{
-					case ReturnModel.returnModel.Bankheist:
-						BankheistHandler.ProcessBankheist(args);
-						break;
-					case ReturnModel.returnModel.Giveaway:
-
-						var giveaway = new GiveawayHandler(args);
-						giveaway.AddUser();
-						break;
-					default:
-
-						break;
-				}
-			}
-		} */
+            if (isUri) {
+                AivaClient.Client.AivaTwitchClient.TimeoutUser(e.ChatMessage.Username, new TimeSpan(0, 5, 0), "URL restriction");
+            }
+        }
     }
 }

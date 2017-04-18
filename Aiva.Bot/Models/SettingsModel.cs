@@ -29,6 +29,7 @@ namespace Aiva.Bot.Models {
 
             public bool BlacklistedWordsActive { get; set; }
             public bool SpamCheck { get; set; }
+            public bool AllowViewerToPostLinks { get; set; }
 
             //SpamCheck
             public bool SkipMessageCheckAdmin {

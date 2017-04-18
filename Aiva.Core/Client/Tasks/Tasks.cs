@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TwitchLib;
 using TwitchLib.Events.Client;
-using Aiva.Core.Commands;
 
 namespace Aiva.Core.Client.Tasks {
     public class Tasks {
-        public static TwitchLib.TwitchClient GetEvents(TwitchLib.TwitchClient Client) {
+        public static TwitchClient GetEvents(TwitchLib.TwitchClient Client) {
             //case "OnUserJoined":
             Client.OnUserJoined += Client_OnUserJoined;
             Client.OnUserJoined += TimeWatched.AddUser;
@@ -28,6 +27,9 @@ namespace Aiva.Core.Client.Tasks {
 
             if (Database.UserSettingsHandler.GetBoolean("Spamcheck"))
                 Client.OnMessageReceived += ChatChecker.CheckMessage;
+
+            if (!Convert.ToBoolean(Config.GeneralConfig.Config["SpamCheck"]["AllowViewerToPostLinks"]))
+                Client.OnMessageReceived += ChatChecker.LinkChecker;
 
             return Client;
         }
