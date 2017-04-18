@@ -62,9 +62,13 @@ namespace Aiva.Bot.ViewModels {
         private void Roll(object sender, EventArgs e) {
             var raffleWinner = GiveawayInstance.UserList.GetWinner();
 
-            if (Model.UncheckWinner)
+            if (Model.UncheckWinner) {
                 if (Model.Winners.SingleOrDefault(x => String.Compare(raffleWinner.Username, x, StringComparison.OrdinalIgnoreCase) == 0) == null)
                     Model.Winners.Add(raffleWinner.Username);
+            } else {
+                Model.Winners.Add(raffleWinner.Username);
+            }
+
         }
 
         private void Stop(object sender = null, EventArgs e = null) {
