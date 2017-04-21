@@ -122,7 +122,11 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="{Binding Model.Text.DashboardLabelViewersCountText, FallbackValue='Viewers'}" />
-                        <TextBlock Text="{Binding Model.Viewers, FallbackValue=0}"/>
+                        <TextBlock Text="{Binding Model.Viewers, FallbackValue=0}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding Model.Text.DashboardLabelLastFollowerText, FallbackValue='Last Follower'}" />
+                        <TextBlock Text="{Binding Model.LastFollower}" />
                     </StackPanel>
                 </StackPanel>
             </Grid>

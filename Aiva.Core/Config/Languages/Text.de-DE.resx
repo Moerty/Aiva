@@ -423,4 +423,7 @@
   <data name="DashboardLabelViewersCountText" xml:space="preserve">
     <value>Zuschauer</value>
   </data>
+  <data name="DashboardLabelLastFollowerText" xml:space="preserve">
+    <value>Letzter Follower</value>
+  </data>
 </root>

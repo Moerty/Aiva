@@ -84,6 +84,7 @@ namespace Aiva.Bot.ViewModels {
                 StreamTitle = channelInfo.Item1,
                 TotalViews = channelInfo.Item3,
                 Viewers = 0,
+                LastFollower = await GetLastFollower(),
                 Text = new Models.DashboardModel.TextModel {
                     DashboardExpanderFollowerNameText = LanguageConfig.Instance.GetString("DashboardExpanderFollowerNameText"),
                     DashboardExpanderStatisticNameText = LanguageConfig.Instance.GetString("DashboardExpanderStatisticNameText"),
@@ -97,8 +98,20 @@ namespace Aiva.Bot.ViewModels {
                     DashboardLabelTitleText = LanguageConfig.Instance.GetString("DashboardLabelTitleText"),
                     DashboardLabelTotalViewsText = LanguageConfig.Instance.GetString("DashboardLabelTotalViewsText"),
                     DashboardLabelViewersCountText = LanguageConfig.Instance.GetString("DashboardLabelViewersCountText"),
+                    DashboardLabelLastFollowerText = LanguageConfig.Instance.GetString("DashboardLabelLastFollowerText"),
                 }
             };
+        }
+
+        private async Task<string> GetLastFollower() {
+            var follower = await TwitchLib.TwitchApi.Follows.GetFollowersAsync(
+                Core.Client.AivaClient.Client.Channel,
+                1,
+                null,
+                TwitchLib.Enums.SortDirection.Descending);
+
+
+            return follower.Followers[0].User.Name;
         }
 
         /// <summary>
