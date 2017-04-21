@@ -83,7 +83,7 @@ namespace Aiva.Bot.ViewModels {
                 SelectedGame = channelInfo.Item2,
                 StreamTitle = channelInfo.Item1,
                 TotalViews = channelInfo.Item3,
-                Viewers = 0,
+                Viewers = await GetActiveViewers(),
                 LastFollower = await GetLastFollower(),
                 Text = new Models.DashboardModel.TextModel {
                     DashboardExpanderFollowerNameText = LanguageConfig.Instance.GetString("DashboardExpanderFollowerNameText"),
@@ -103,13 +103,18 @@ namespace Aiva.Bot.ViewModels {
             };
         }
 
+        private async Task<int> GetActiveViewers() {
+            var viewers = await TwitchLib.TwitchApi.Streams.GetStreamAsync(Core.Client.AivaClient.Client.Channel);
+
+            return viewers.Viewers;
+        }
+
         private async Task<string> GetLastFollower() {
             var follower = await TwitchLib.TwitchApi.Follows.GetFollowersAsync(
                 Core.Client.AivaClient.Client.Channel,
                 1,
                 null,
                 TwitchLib.Enums.SortDirection.Descending);
-
 
             return follower.Followers[0].User.Name;
         }

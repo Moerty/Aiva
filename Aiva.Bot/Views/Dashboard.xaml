@@ -121,7 +121,7 @@
                         <TextBlock Text="{Binding Model.TotalViews, FallbackValue=0}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="{Binding Model.Text.DashboardLabelViewersCountText, FallbackValue='Viewers'}" />
+                        <Label Content="{Binding Model.Text.DashboardLabelViewersCountText, FallbackValue='Active Viewers'}" />
                         <TextBlock Text="{Binding Model.Viewers, FallbackValue=0}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
