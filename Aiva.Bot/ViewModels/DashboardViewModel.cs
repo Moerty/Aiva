@@ -73,7 +73,7 @@ namespace Aiva.Bot.ViewModels {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private async void ChangeGame(object sender, ExecutedRoutedEventArgs e) {
-            await TwitchLib.TwitchApi.Streams.UpdateStreamGameAsync(Model.SelectedGame, Core.Client.AivaClient.Client.Channel);
+            Extensions.Dashboard.Games.ChangeGame(Model.SelectedGame);
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Aiva.Bot.ViewModels {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private async void ChangeTitle(object sender, ExecutedRoutedEventArgs e) {
-            await TwitchLib.TwitchApi.Streams.UpdateStreamTitleAsync(Model.StreamTitle, Core.Client.AivaClient.Client.Channel);
+            Extensions.Dashboard.Stream.ChangeTitle(Model.StreamTitle);
         }
 
         /// <summary>
@@ -117,42 +117,37 @@ namespace Aiva.Bot.ViewModels {
             };
         }
 
+        /// <summary>
+        /// Get active Viewers
+        /// </summary>
+        /// <returns></returns>
         private async Task<int> GetActiveViewers() {
-            var isStreaming = TwitchLib.TwitchApi.Streams.BroadcasterOnline(Core.Client.AivaClient.Client.Channel);
-            if (isStreaming) {
-                var viewers = await TwitchLib.TwitchApi.Streams.GetStreamAsync(Core.Client.AivaClient.Client.Channel);
-
-                return viewers.Viewers;
-            } else {
-                return 0;
-            }
+            return await Extensions.Dashboard.Stream.GetActiveViewers();
         }
 
+        /// <summary>
+        /// Get last Follower
+        /// </summary>
+        /// <returns></returns>
         private async Task<string> GetLastFollower() {
-            var follower = await TwitchLib.TwitchApi.Follows.GetFollowersAsync(
-                Core.Client.AivaClient.Client.Channel,
-                1,
-                null,
-                TwitchLib.Enums.SortDirection.Descending);
-
-            return follower.Followers[0].User.Name;
+            return await Extensions.Dashboard.Stream.GetLastFollower();
         }
 
         /// <summary>
         /// Get Channelname and Game
         /// </summary>
         /// <returns>Channel ; Game</returns>
-        async Task<Tuple<string, string, int>> GetChannelDetails() {
-            var channel = await TwitchLib.TwitchApi.Channels.GetChannelAsync(Core.Client.AivaClient.Client.Channel);
-
-            return new Tuple<string, string, int>(channel.Status, channel.Game, channel.Views);
+        private async Task<Tuple<string, string, int>> GetChannelDetails() {
+            return await Extensions.Dashboard.Stream.GetChannelDetails();
         }
 
         /// <summary>
         /// Get Twitch Games
         /// </summary>
         /// <returns></returns>
-        private async Task<ObservableCollection<string>> GetTwitchGames() => new ObservableCollection<string>(await Extensions.Dashboard.Games.GetTwitchGamesAsync());
+        private async Task<ObservableCollection<string>> GetTwitchGames() {
+            return new ObservableCollection<string>(await Extensions.Dashboard.Games.GetTwitchGamesAsync());
+        }
     }
 }
 

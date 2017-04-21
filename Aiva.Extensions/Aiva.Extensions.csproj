@@ -100,6 +100,7 @@
     <Compile Include="Bankheist\BankheistHandler.cs" />
     <Compile Include="Bets\BetsHandler.cs" />
     <Compile Include="Dashboard\Followers.cs" />
+    <Compile Include="Dashboard\Stream.cs" />
     <Compile Include="Giveaway\Giveaway.cs" />
     <Compile Include="Giveaway\List.cs" />
     <Compile Include="ModCommands\Currency.cs" />

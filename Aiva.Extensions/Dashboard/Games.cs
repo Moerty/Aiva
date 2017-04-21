@@ -28,5 +28,13 @@ namespace Aiva.Extensions.Dashboard {
         public async static Task<List<string>> GetTwitchGamesAsync() {
             return await Task.Run(() => GetTwitchGames());
         }
+
+        /// <summary>
+        /// Change the Game
+        /// </summary>
+        /// <param name="game">Game Title</param>
+        public static async void ChangeGame(string game) {
+            await TwitchLib.TwitchApi.Streams.UpdateStreamGameAsync(game, Core.Client.AivaClient.Client.Channel);
+        }
     }
 }
