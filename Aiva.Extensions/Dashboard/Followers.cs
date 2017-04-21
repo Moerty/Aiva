@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Aiva.Extensions.Dashboard {
     public class Followers {
+        /// <summary>
+        /// Get Followers
+        /// </summary>
+        /// <returns></returns>
         public static List<Models.Dashboard.Followers> GetFollowers() {
             var follows = new List<Models.Dashboard.Followers>();
 
@@ -17,13 +21,12 @@ namespace Aiva.Extensions.Dashboard {
                 bool pagingActive = true;
 
                 for (int i = 0; pagingActive; i++) {
-                    //if (ApiResponse.Count > 1)
-                        if (ApiResponse[i].TotalFollowerCount > i * 100) {
-                            ApiResponse.Add(TwitchLib.TwitchApi.Follows.GetFollowers(Aiva.Core.Client.AivaClient.Client.Channel, 100, ApiResponse[i].Cursor));
-                        } else {
-                            pagingActive = false;
-                            break;
-                        }
+                    if (ApiResponse[i].TotalFollowerCount > i * 100) {
+                        ApiResponse.Add(TwitchLib.TwitchApi.Follows.GetFollowers(Aiva.Core.Client.AivaClient.Client.Channel, 100, ApiResponse[i].Cursor));
+                    } else {
+                        pagingActive = false;
+                        break;
+                    }
                 }
 
                 // Add to return List
@@ -42,6 +45,10 @@ namespace Aiva.Extensions.Dashboard {
             return follows;
         }
 
+        /// <summary>
+        /// Get Followers Async
+        /// </summary>
+        /// <returns></returns>
         public async static Task<List<Models.Dashboard.Followers>> GetFollowersAsync() {
             return await Task.Run(() => GetFollowers());
         }
