@@ -14,7 +14,7 @@ namespace Aiva.Bot.ViewModels {
         public ICommand ChangeGameCommand { get; set; } = new RoutedCommand();
 
 
-        private DispatcherTimer ViewersTimer;
+        private DispatcherTimer RefreshData;
 
         public DashboardViewModel() {
             //Create Models
@@ -29,21 +29,35 @@ namespace Aiva.Bot.ViewModels {
 
         private void SetTimers() {
             // Viewers
-            ViewersTimer = new DispatcherTimer(DispatcherPriority.Background) {
+            RefreshData = new DispatcherTimer(DispatcherPriority.Background) {
                 Interval = new TimeSpan(0, 1, 0)
             };
-            ViewersTimer.Tick += ViewersTimer_Tick;
-            ViewersTimer.Start();
+            RefreshData.Tick += ViewersTimer_Tick;
+            RefreshData.Start();
         }
 
-        private void ViewersTimer_Tick(object sender, EventArgs e) {
+        private async void ViewersTimer_Tick(object sender, EventArgs e) {
             var streamOnline = TwitchLib.TwitchApi.Streams.StreamIsLive(Core.Client.AivaClient.Client.Channel);
-
             if (streamOnline) {
                 Model.Viewers = TwitchLib.TwitchApi.Streams.GetStream(Core.Client.AivaClient.Client.Channel).Viewers;
             }
 
-            ViewersTimer.Start();
+            // Followers
+            Model.Followers = new ObservableCollection<Extensions.Models.Dashboard.Followers>(await Extensions.Dashboard.Followers.GetFollowersAsync());
+
+            // SelectedGame | StreamTitle | TotalViews
+            var channelInfo = await GetChannelDetails();
+            Model.SelectedGame = channelInfo.Item2;
+            Model.StreamTitle = channelInfo.Item1;
+            Model.TotalViews = channelInfo.Item3;
+
+            // Viewers
+            Model.Viewers = await GetActiveViewers();
+
+            // Last Follower
+            Model.LastFollower = await GetLastFollower();
+
+            RefreshData.Start();
         }
 
         private void SetCommands() {
