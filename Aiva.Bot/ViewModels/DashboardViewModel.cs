@@ -118,9 +118,14 @@ namespace Aiva.Bot.ViewModels {
         }
 
         private async Task<int> GetActiveViewers() {
-            var viewers = await TwitchLib.TwitchApi.Streams.GetStreamAsync(Core.Client.AivaClient.Client.Channel);
+            var isStreaming = TwitchLib.TwitchApi.Streams.BroadcasterOnline(Core.Client.AivaClient.Client.Channel);
+            if (isStreaming) {
+                var viewers = await TwitchLib.TwitchApi.Streams.GetStreamAsync(Core.Client.AivaClient.Client.Channel);
 
-            return viewers.Viewers;
+                return viewers.Viewers;
+            } else {
+                return 0;
+            }
         }
 
         private async Task<string> GetLastFollower() {
