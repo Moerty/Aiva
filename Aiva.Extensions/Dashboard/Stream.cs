@@ -53,5 +53,38 @@ namespace Aiva.Extensions.Dashboard {
 
             return new Tuple<string, string, int>(channel.Status, channel.Game, channel.Views);
         }
+
+        public static void ShowCommercial(int lenth) {
+            var isOnline = TwitchLib.TwitchApi.Streams.BroadcasterOnline(Core.Client.AivaClient.Client.Channel);
+
+            if (isOnline) {
+                switch (lenth) {
+                    case 30:
+                        TwitchLib.TwitchApi.Streams.RunCommercialAsync(TwitchLib.Enums.CommercialLength.Seconds30,
+                            Core.Client.AivaClient.Client.Channel);
+                        break;
+                    case 60:
+                        TwitchLib.TwitchApi.Streams.RunCommercialAsync(TwitchLib.Enums.CommercialLength.Seconds60,
+                            Core.Client.AivaClient.Client.Channel);
+                        break;
+                    case 90:
+                        TwitchLib.TwitchApi.Streams.RunCommercialAsync(TwitchLib.Enums.CommercialLength.Seconds90,
+                            Core.Client.AivaClient.Client.Channel);
+                        break;
+                    case 120:
+                        TwitchLib.TwitchApi.Streams.RunCommercialAsync(TwitchLib.Enums.CommercialLength.Seconds120,
+                            Core.Client.AivaClient.Client.Channel);
+                        break;
+                    case 150:
+                        TwitchLib.TwitchApi.Streams.RunCommercialAsync(TwitchLib.Enums.CommercialLength.Seconds150,
+                            Core.Client.AivaClient.Client.Channel);
+                        break;
+                    case 180:
+                        TwitchLib.TwitchApi.Streams.RunCommercialAsync(TwitchLib.Enums.CommercialLength.Seconds180,
+                            Core.Client.AivaClient.Client.Channel);
+                        break;
+                }
+            }
+        }
     }
 }

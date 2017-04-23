@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Aiva.Bot.Models {
     [PropertyChanged.ImplementPropertyChanged]
@@ -12,6 +13,8 @@ namespace Aiva.Bot.Models {
         public int TotalViews { get; set; }
         public int Viewers { get; set; }
         public string LastFollower { get; set; }
+        public List<int> CommercialLengthList { get; set; }
+        public int CommercialLength { get; set; }
 
         [PropertyChanged.ImplementPropertyChanged]
         public class TextModel {
@@ -28,6 +31,7 @@ namespace Aiva.Bot.Models {
             public string DashboardLabelTotalViewsText { get; set; }
             public string DashboardLabelViewersCountText { get; set; }
             public string DashboardLabelLastFollowerText { get; set; }
+            public string DashboardButtonCommercialText { get; set; }
         }
     }
 }

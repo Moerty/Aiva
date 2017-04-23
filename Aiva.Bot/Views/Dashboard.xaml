@@ -57,28 +57,29 @@
                     Content="{Binding Model.Text.DashboardButtonGameText, FallbackValue=Change Game}" />
             </StackPanel>
         </StackPanel>
-        <Label
-            x:Name="label2"
-            Margin="44,383,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="{Binding Model.Text.DashboardLabelCommercialText, FallbackValue=Commercial}" />
-        <ComboBox
-            x:Name="cbCommercial"
-            Width="180"
-            Margin="116,383,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top" />
-        <Button
-            x:Name="btnCommercial"
-            Width="180"
-            Margin="116,422,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Click="btnCommercial_ClickAsync"
-            Content="Werbung schalten"
-            ToolTip="not shown"
-            ToolTipOpening="btnCommercial_ToolTipOpening" />
+
+        <StackPanel
+            Name="Commercial"
+            Width="300"
+            Height="100"
+            Margin="10,107,782,296"
+            Orientation="Vertical">
+            <Label x:Name="CommercialLabelText" Content="{Binding Model.Text.DashboardLabelCommercialText, FallbackValue=Commercial}" />
+            <Controls:SplitButton
+                Width="290"
+                Height="23"
+                ItemsSource="{Binding Model.CommercialLengthList}"
+                SelectedIndex="2"
+                SelectedValue="{Binding Model.CommercialLength}" />
+            <Button
+                x:Name="ShowCommercialButton"
+                Width="128"
+                Height="23"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"
+                Command="{Binding ChangeGameCommand}"
+                Content="{Binding Model.Text.DashboardButtonCommercialText, FallbackValue='Show Commercial'}" />
+        </StackPanel>
         <Expander
             Width="367"
             Height="275"

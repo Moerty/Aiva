@@ -27,6 +27,20 @@
         <Controls:WindowCommands Name="LeftWindowCommands" ItemsSource="{Binding Model.WindowCommandItems.LeftWindowCommandItems}"
     </Controls:MetroWindow.LeftWindowCommands>-->
 
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout
+                Width="200"
+                Header="Flyout"
+                Position="Right">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Currency: " />
+                    <TextBox />
+                </StackPanel>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands Name="WindowCommand" ItemsSource="{Binding Model.WindowCommandItems}">
             <Controls:WindowCommands.ItemTemplate>

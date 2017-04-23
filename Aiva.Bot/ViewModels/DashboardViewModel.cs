@@ -12,6 +12,7 @@ namespace Aiva.Bot.ViewModels {
 
         public ICommand ChangeTitleCommand { get; set; } = new RoutedCommand();
         public ICommand ChangeGameCommand { get; set; } = new RoutedCommand();
+        public ICommand ShowCommercialCommand { get; set; } = new RoutedCommand();
 
 
         private DispatcherTimer RefreshData;
@@ -27,6 +28,9 @@ namespace Aiva.Bot.ViewModels {
             SetTimers();
         }
 
+        /// <summary>
+        /// Set Timer
+        /// </summary>
         private void SetTimers() {
             // Viewers
             RefreshData = new DispatcherTimer(DispatcherPriority.Background) {
@@ -36,6 +40,11 @@ namespace Aiva.Bot.ViewModels {
             RefreshData.Start();
         }
 
+        /// <summary>
+        /// Timer tick to check Static values
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ViewersTimer_Tick(object sender, EventArgs e) {
             var streamOnline = TwitchLib.TwitchApi.Streams.StreamIsLive(Core.Client.AivaClient.Client.Channel);
             if (streamOnline) {
@@ -60,11 +69,24 @@ namespace Aiva.Bot.ViewModels {
             RefreshData.Start();
         }
 
+        /// <summary>
+        /// Set Commands
+        /// </summary>
         private void SetCommands() {
             var type = new MahApps.Metro.Controls.MetroContentControl().GetType();
 
             CommandManager.RegisterClassCommandBinding(type, new CommandBinding(ChangeTitleCommand, ChangeTitle));
             CommandManager.RegisterClassCommandBinding(type, new CommandBinding(ChangeGameCommand, ChangeGame));
+            CommandManager.RegisterClassCommandBinding(type, new CommandBinding(ShowCommercialCommand, ShowCommercial));
+        }
+
+        /// <summary>
+        /// Show Commercial
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ShowCommercial(object sender, ExecutedRoutedEventArgs e) {
+            Extensions.Dashboard.Stream.ShowCommercial(Model.CommercialLength);
         }
 
         /// <summary>
@@ -99,6 +121,11 @@ namespace Aiva.Bot.ViewModels {
                 TotalViews = channelInfo.Item3,
                 Viewers = await GetActiveViewers(),
                 LastFollower = await GetLastFollower(),
+
+                CommercialLengthList = new System.Collections.Generic.List<int> {
+                    30,60,90,120,150,180
+                },
+
                 Text = new Models.DashboardModel.TextModel {
                     DashboardExpanderFollowerNameText = LanguageConfig.Instance.GetString("DashboardExpanderFollowerNameText"),
                     DashboardExpanderStatisticNameText = LanguageConfig.Instance.GetString("DashboardExpanderStatisticNameText"),
@@ -113,6 +140,7 @@ namespace Aiva.Bot.ViewModels {
                     DashboardLabelTotalViewsText = LanguageConfig.Instance.GetString("DashboardLabelTotalViewsText"),
                     DashboardLabelViewersCountText = LanguageConfig.Instance.GetString("DashboardLabelViewersCountText"),
                     DashboardLabelLastFollowerText = LanguageConfig.Instance.GetString("DashboardLabelLastFollowerText"),
+                    DashboardButtonCommercialText = LanguageConfig.Instance.GetString("DashboardButtonCommercialText"),
                 }
             };
         }

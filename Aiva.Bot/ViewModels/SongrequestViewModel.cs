@@ -44,7 +44,7 @@ namespace Aiva.Bot.ViewModels {
 
             CommandManager.RegisterClassCommandBinding(control.GetType(), new CommandBinding(DeleteCommand, DeleteSong));
             CommandManager.RegisterClassCommandBinding(control.GetType(), new CommandBinding(CopyLinkCommand, ToClipboard));
-            CommandManager.RegisterClassCommandBinding(control.GetType(), new CommandBinding(HonorCommand, StopSongrequest));
+            CommandManager.RegisterClassCommandBinding(control.GetType(), new CommandBinding(HonorCommand, Honor));
 
             CommandManager.RegisterClassCommandBinding(control.GetType(), new CommandBinding(PlaySongCommand, PlaySong));
             CommandManager.RegisterClassCommandBinding(control.GetType(), new CommandBinding(StopSongCommand, StopSong));
@@ -136,7 +136,6 @@ namespace Aiva.Bot.ViewModels {
 
             CurrencyHandler.AddCurrencyAsync(song.Username, 100);
             AivaClient.Client.AivaTwitchClient.SendMessage(song.Username + LanguageConfig.Instance.GetString("SongrequestHonorText"));
-
         }
 
         /// <summary>

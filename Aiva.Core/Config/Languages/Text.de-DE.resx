@@ -426,4 +426,7 @@
   <data name="DashboardLabelLastFollowerText" xml:space="preserve">
     <value>Letzter Follower</value>
   </data>
+  <data name="DashboardButtonCommercialText" xml:space="preserve">
+    <value>Zeige Werbung</value>
+  </data>
 </root>
