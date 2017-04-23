@@ -14,7 +14,6 @@ namespace Aiva.Bot.ViewModels {
         public ICommand ChangeGameCommand { get; set; } = new RoutedCommand();
         public ICommand ShowCommercialCommand { get; set; } = new RoutedCommand();
 
-
         private DispatcherTimer RefreshData;
 
         public DashboardViewModel() {
@@ -28,6 +27,7 @@ namespace Aiva.Bot.ViewModels {
             SetTimers();
         }
 
+#region timers
         /// <summary>
         /// Set Timer
         /// </summary>
@@ -69,6 +69,9 @@ namespace Aiva.Bot.ViewModels {
             RefreshData.Start();
         }
 
+        #endregion timers
+
+#region commands
         /// <summary>
         /// Set Commands
         /// </summary>
@@ -106,6 +109,10 @@ namespace Aiva.Bot.ViewModels {
         private async void ChangeTitle(object sender, ExecutedRoutedEventArgs e) {
             Extensions.Dashboard.Stream.ChangeTitle(Model.StreamTitle);
         }
+
+        #endregion commands
+
+#region models
 
         /// <summary>
         /// Create Models
@@ -176,6 +183,8 @@ namespace Aiva.Bot.ViewModels {
         private async Task<ObservableCollection<string>> GetTwitchGames() {
             return new ObservableCollection<string>(await Extensions.Dashboard.Games.GetTwitchGamesAsync());
         }
+
+#endregion models
     }
 }
 
