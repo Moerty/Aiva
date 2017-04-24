@@ -6,6 +6,12 @@ using Aiva.Core.Storage;
 
 namespace Aiva.Core.Database {
     public class CurrencyHandler {
+
+        /// <summary>
+        /// Add currency frequently
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public static async void AddCurrencyFrequentlyAsync(object sender, EventArgs e) {
             using (var context = new StorageEntities()) {
                 var updatedUsers = context.Users.Where(u => u.IsViewing == 1).ToList();
@@ -15,22 +21,31 @@ namespace Aiva.Core.Database {
 
                     var currencyToAdd = Convert.ToInt64(GeneralConfig.Config["Currency"]["CurrencyToAdd"]);
                     currencyItem.Value += currencyToAdd;
-
-                    await context.SaveChangesAsync();
                 }
+
+                await context.SaveChangesAsync();
             }
         }
 
+        /// <summary>
+        /// Get Currency from User
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public static Int64 GetCurrency(string name) {
             Int64 currency;
             using (var context = new StorageEntities()) {
-                var user = context.Currency.SingleOrDefault(u => String.Compare(u.Name, name, StringComparison.OrdinalIgnoreCase) == 0 /*u.name == name*/);
+                var user = context.Currency.SingleOrDefault(u => String.Compare(u.Name, name, StringComparison.OrdinalIgnoreCase) == 0);
                 currency = user.Value;
             }
 
             return currency;
         }
 
+        /// <summary>
+        /// Update Currency from List
+        /// </summary>
+        /// <param name="list"></param>
         public static async void UpdateCurrencyListAsync(List<Models.Database.CurrencyHandlerModels.CurrencyAddList> list) {
             using (var context = new StorageEntities()) {
                 foreach (var user in list) {
@@ -42,6 +57,11 @@ namespace Aiva.Core.Database {
             }
         }
 
+        /// <summary>
+        /// Remove Currency from User
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         public static async void RemoveCurrencyAsync(string name, int value) {
             using (var context = new StorageEntities()) {
                 var entry = context.Currency.SingleOrDefault(c => c.Name == name);
@@ -55,6 +75,11 @@ namespace Aiva.Core.Database {
             }
         }
 
+        /// <summary>
+        /// Add Currency to User
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         public static async void AddCurrencyAsync(string name, int value) {
             using (var context = new StorageEntities()) {
                 var entry = context.Currency.SingleOrDefault(c => c.Name == name);
@@ -67,6 +92,12 @@ namespace Aiva.Core.Database {
             }
         }
 
+        /// <summary>
+        /// Transfer Currency
+        /// </summary>
+        /// <param name="giver"></param>
+        /// <param name="taker"></param>
+        /// <param name="value"></param>
         public static async void TransferCurrencyAsync(string giver, string taker, int value) {
             using (var context = new StorageEntities()) {
                 var giverEntry = context.Currency.SingleOrDefault(g => g.Name == giver);
@@ -83,6 +114,10 @@ namespace Aiva.Core.Database {
             }
         }
 
+        /// <summary>
+        /// Get Currency List
+        /// </summary>
+        /// <returns></returns>
         public static List<Storage.Currency> GetCurrencyList() {
             using (var context = new StorageEntities()) {
                 return context.Currency.ToList();

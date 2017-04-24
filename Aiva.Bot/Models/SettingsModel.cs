@@ -279,6 +279,13 @@ namespace Aiva.Bot.Models {
                 set {
                     GeneralConfig.Config["Currency"][nameof(Active)] = value.ToString();
                     GeneralConfig.WriteConfig();
+
+                    // Start Stop AddCurrency
+                    if (value) {
+                        Core.Client.Tasks.Tasks.Currency.StartTimer();
+                    } else {
+                        Core.Client.Tasks.Tasks.Currency.StopStimer();
+                    }
                 }
             }
 
@@ -294,11 +301,14 @@ namespace Aiva.Bot.Models {
 
             public TimeSpan TimerAddCurrency {
                 get {
-                    return TimeSpan.Parse(GeneralConfig.Config["Currency"][nameof(TimerAddCurrency)]);
+                    var value = GeneralConfig.Config["Currency"][nameof(TimerAddCurrency)];
+                    return TimeSpan.Parse(value);
                 }
                 set {
-                    GeneralConfig.Config["Currency"][nameof(TimerAddCurrency)] = value.Ticks.ToString();
+                    GeneralConfig.Config["Currency"][nameof(TimerAddCurrency)] = value.ToString();
                     GeneralConfig.WriteConfig();
+
+                    Core.Client.Tasks.Tasks.Currency.SetTimerInterval(value);
                 }
             }
         }

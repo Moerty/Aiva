@@ -24,9 +24,6 @@ namespace Aiva.Bot.ViewModels {
             bankheistTimer.Tick += BankheistTileActiveCheck;
             bankheistTimer.Interval = (int)TimeSpan.FromSeconds(1).TotalMilliseconds;
             bankheistTimer.Start();
-
-            // AddCurrency
-            CurrencyTimer();
         }
 
         /// <summary>
@@ -52,21 +49,6 @@ namespace Aiva.Bot.ViewModels {
             }
         }
 
-        #region AddCurrency
-        /// <summary>
-        /// Currency Timer
-        /// </summary>
-        private static void CurrencyTimer() {
-            if (Convert.ToBoolean(GeneralConfig.Config[nameof(Currency)]["Active"])) {
-                if (TimeSpan.TryParse(GeneralConfig.Config[nameof(Currency)]["TimerAddCurrency"], out TimeSpan Interval)) {
-                    var timer = new System.Windows.Threading.DispatcherTimer();
-                    timer.Tick += CurrencyHandler.AddCurrencyFrequentlyAsync;
-                    timer.Interval = Interval;
-                    timer.Start();
-                }
-            }
-        }
-        #endregion
         public Models.CurrencyModel CurrencyModel { get; set; }
     }
 }

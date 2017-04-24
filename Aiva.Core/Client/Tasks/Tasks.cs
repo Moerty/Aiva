@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using TwitchLib;
 using TwitchLib.Events.Client;
 using Aiva.Core.Client.Tasks.Functions;
+using Aiva.Core.Config;
+using Aiva.Core.Database;
 
 namespace Aiva.Core.Client.Tasks {
     public class Tasks {
@@ -27,6 +29,9 @@ namespace Aiva.Core.Client.Tasks {
 
             // OnNewSubscriber
             Client.OnNewSubscriber += Client_OnNewSubscriber;
+
+            // Currency Timer
+            Currency.SetTimer();
 
             return Client;
         }
@@ -119,6 +124,10 @@ namespace Aiva.Core.Client.Tasks {
 
             }
 
+            /// <summary>
+            /// Caps checker active / inactive
+            /// </summary>
+            /// <param name="SetActive"></param>
             public static void SetCapsChecker(bool SetActive) {
                 if (SetActive) {
                     if (!IsCapsCheckActive) {
@@ -128,6 +137,55 @@ namespace Aiva.Core.Client.Tasks {
                 } else {
                     AivaClient.Client.AivaTwitchClient.OnMessageReceived -= ChatChecker.CapsChecker;
                     IsCapsCheckActive = false;
+                }
+            }
+        }
+
+        public static class Currency {
+            public static System.Timers.Timer Timer { get; private set; }
+
+            /// <summary>
+            /// Inital Setup Timer
+            /// </summary>
+            public static void SetTimer() {
+                if (Convert.ToBoolean(GeneralConfig.Config[nameof(Currency)]["Active"])) {
+                    if (TimeSpan.TryParse(GeneralConfig.Config[nameof(Currency)]["TimerAddCurrency"], out TimeSpan Interval)) {
+                        Timer = new System.Timers.Timer();
+                        Timer.Elapsed += CurrencyHandler.AddCurrencyFrequentlyAsync;
+                        Timer.Interval = Interval.TotalMilliseconds;
+                        Timer.AutoReset = true;
+                        Timer.Start();
+                    }
+                }
+            }
+
+            /// <summary>
+            /// Set new Interval to Timer
+            /// </summary>
+            /// <param name="interval"></param>
+            public static void SetTimerInterval(TimeSpan interval) {
+                Timer.Stop();
+
+                Timer.Interval = interval.TotalMilliseconds;
+
+                Timer.Start();
+            }
+
+            /// <summary>
+            /// Stop the Timer
+            /// </summary>
+            public static void StopStimer() {
+                if (Timer.Enabled) {
+                    Timer.Stop();
+                }
+            }
+
+            /// <summary>
+            /// Start the Timer
+            /// </summary>
+            public static void StartTimer() {
+                if (!Timer.Enabled) {
+                    Timer.Start();
                 }
             }
         }
