@@ -20,6 +20,14 @@ namespace Aiva.Core.Database {
             }
 
             private static async void AddToUsersTableAsync(TwitchLib.Models.API.User.User user) {
+                // fix id bug
+                long nextId = -1;
+                using (var context = new StorageEntities()) {
+                    if (context.Users.Any()) {
+                        nextId = context.Users.Max(x => x.ID);
+                    }
+                }
+                
                 var userDb = new Users {
                     DisplayName = user.DisplayName,
                     Name = user.Name,
@@ -28,7 +36,8 @@ namespace Aiva.Core.Database {
                     CreatedAt = user.CreatedAt.ToString(),
                     LastSeen = DateTime.Now.ToString(),
                     Rank = 0,
-                    IsViewing = 1
+                    IsViewing = 1,
+                    ID = nextId == -1 ? 0 : nextId +1,
                 };
 
                 using (var context = new StorageEntities()) {
