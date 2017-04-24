@@ -10,25 +10,20 @@ using System.Text;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Aiva.Bot.ViewModels
-{
+namespace Aiva.Bot.ViewModels {
     [PropertyChanged.ImplementPropertyChanged]
-    public class SettingsViewModel
-    {
+    public class SettingsViewModel {
         private bool _LogChat;
         public bool LogChat {
             get {
                 return _LogChat;
             }
             set {
-                if (_LogChat)
-                {
+                if (_LogChat) {
                     // Ausschalten
                     AivaClient.Client.AivaTwitchClient.OnMessageReceived -= ChatHandler.MessageReceivedAsync;
                     _LogChat = value;
-                }
-                else
-                {
+                } else {
                     // Einschalten
                     AivaClient.Client.AivaTwitchClient.OnMessageReceived += ChatHandler.MessageReceivedAsync;
                     _LogChat = value;
@@ -38,15 +33,12 @@ namespace Aiva.Bot.ViewModels
 
         public Models.SettingsModel Model { get; set; }
 
-        public SettingsViewModel()
-        {
+        public SettingsViewModel() {
             CreateModels();
         }
         // TODO: Tabs
-        private void CreateModels()
-        {
-            Model = new Models.SettingsModel
-            {
+        private void CreateModels() {
+            Model = new Models.SettingsModel {
                 SettingsTabs = new System.Collections.ObjectModel.ObservableCollection<Models.SettingsModel.SettingsTabItem> {
                 new Models.SettingsModel.SettingsTabItem {
                     Header = "General",
@@ -74,16 +66,14 @@ namespace Aiva.Bot.ViewModels
         }
 
         [PropertyChanged.ImplementPropertyChanged]
-        public class ChatTabViewModel
-        {
+        public class ChatTabViewModel {
             public Models.SettingsModel.ChatTabModel Model { get; set; }
 
             public ICommand SaveCommand { get; set; } = new RoutedCommand();
             public ICommand AddBlacklistKeyword { get; set; } = new RoutedCommand();
             public ICommand RemoveBlacklistWordFromList { get; set; } = new RoutedCommand();
 
-            public ChatTabViewModel()
-            {
+            public ChatTabViewModel() {
                 // Create Models
                 CreateModels();
 
@@ -99,20 +89,16 @@ namespace Aiva.Bot.ViewModels
             /// </summary>
             /// <param name="sender"></param>
             /// <param name="e"></param>
-            private void RemoveWordByKeypress(object sender, ExecutedRoutedEventArgs e)
-            {
+            private void RemoveWordByKeypress(object sender, ExecutedRoutedEventArgs e) {
                 var selectedItems = (e.Source as ListView).SelectedItems;
-                if (selectedItems != null)
-                {
+                if (selectedItems != null) {
                     var words = new List<string>();
 
-                    foreach (var item in selectedItems)
-                    {
+                    foreach (var item in selectedItems) {
                         words.Add(item.ToString());
                     }
 
-                    foreach (var item in words)
-                    {
+                    foreach (var item in words) {
                         Model.BlacklistedWords.Remove(item);
                     }
                 }
@@ -123,10 +109,8 @@ namespace Aiva.Bot.ViewModels
             /// </summary>
             /// <param name="sender"></param>
             /// <param name="e"></param>
-            private void AddKeyword(object sender, ExecutedRoutedEventArgs e)
-            {
-                if (!Model.BlacklistedWords.Contains(Model.NewKeyword))
-                {
+            private void AddKeyword(object sender, ExecutedRoutedEventArgs e) {
+                if (!Model.BlacklistedWords.Contains(Model.NewKeyword)) {
                     Model.BlacklistedWords.Add(Model.NewKeyword);
                     Model.NewKeyword = string.Empty;
                 }
@@ -137,8 +121,7 @@ namespace Aiva.Bot.ViewModels
             /// </summary>
             /// <param name="sender"></param>
             /// <param name="e"></param>
-            private void Save(object sender, ExecutedRoutedEventArgs e)
-            {
+            private void Save(object sender, ExecutedRoutedEventArgs e) {
                 UserSettingsHandler.WriteConfig(new List<UserSettings> {
                     new UserSettings {
                         Name = "BlacklistedWords",
@@ -157,29 +140,22 @@ namespace Aiva.Bot.ViewModels
                 // Update BlacklistedWords 4
                 Core.Client.Tasks.ChatChecker.BlacklistedWords = Model.BlacklistedWords.ToList();
 
-                if (Model.BlacklistedWordsActive)
-                {
+                if (Model.BlacklistedWordsActive) {
                     AivaClient.Client.AivaTwitchClient.OnMessageReceived += Core.Client.Tasks.ChatChecker.BlacklistWordsChecker;
-                }
-                else
-                {
+                } else {
                     AivaClient.Client.AivaTwitchClient.OnMessageReceived -= Core.Client.Tasks.ChatChecker.BlacklistWordsChecker;
                 }
 
-                if (Model.SpamCheck)
-                {
+                if (Model.SpamCheck) {
                     AivaClient.Client.AivaTwitchClient.OnMessageReceived += Core.Client.Tasks.ChatChecker.CheckMessage;
-                }
-                else
-                {
+                } else {
                     AivaClient.Client.AivaTwitchClient.OnMessageReceived -= Core.Client.Tasks.ChatChecker.CheckMessage;
                 }
 
                 string GetKeywordsFormattet()
                 {
                     var sBuilder = new StringBuilder();
-                    foreach (var keyword in Model.BlacklistedWords)
-                    {
+                    foreach (var keyword in Model.BlacklistedWords) {
                         sBuilder.Append(keyword);
                         sBuilder.Append(',');
                     }
@@ -188,12 +164,10 @@ namespace Aiva.Bot.ViewModels
                 }
             }
 
-            private void CreateModels()
-            {
+            private void CreateModels() {
                 var Settings = UserSettingsHandler.GetConfig();
 
-                Model = new Models.SettingsModel.ChatTabModel
-                {
+                Model = new Models.SettingsModel.ChatTabModel {
                     BlacklistedWords = new System.Collections.ObjectModel.ObservableCollection<string>(),
                     BlacklistedWordsActive = Convert.ToBoolean(Settings.Find(setting => String.Compare(setting.Name, "BlackListedWordsActive") == 0).Value),
                     SpamCheck = Convert.ToBoolean(Settings.Find(setting => String.Compare(setting.Name, "Spamcheck") == 0).Value),
@@ -213,16 +187,14 @@ namespace Aiva.Bot.ViewModels
                     WarningTimeoutTime = TimeSpan.Parse(GeneralConfig.Config["SpamCheck"]["WarningTimeoutTime"]),
                     TimeActiveWarning = TimeSpan.Parse(GeneralConfig.Config["SpamCheck"]["TimeActiveWarning"]),
 
-                    Text = new Models.SettingsModel.ChatTabModel.TextModel
-                    {
+                    Text = new Models.SettingsModel.ChatTabModel.TextModel {
                         ButtonSaveText = LanguageConfig.Instance.GetString("SettingsSaveButtonText"),
                     }
                 };
 
                 // Blacklisted Words
                 var BlacklistedWords = Settings.SingleOrDefault(x => x.Name == "BlacklistedWords").Value.Split(',');
-                foreach (var word in BlacklistedWords)
-                {
+                foreach (var word in BlacklistedWords) {
                     Model.BlacklistedWords.Add(word);
                 }
             }
@@ -232,23 +204,19 @@ namespace Aiva.Bot.ViewModels
         /// Viewmodel from Settings General Tab
         /// </summary>
         [PropertyChanged.ImplementPropertyChanged]
-        public class GeneralTabViewModel
-        {
+        public class GeneralTabViewModel {
             public Models.SettingsModel.GeneralTabModel Model { get; set; }
 
-            public GeneralTabViewModel()
-            {
+            public GeneralTabViewModel() {
 
                 string encryptedOAuthKey;
                 var data = Encoding.UTF8.GetBytes(GeneralConfig.Config["Credentials"]["TwitchOAuth"]);
-                using (SHA512 shaM = new SHA512Managed())
-                {
+                using (SHA512 shaM = new SHA512Managed()) {
                     var result = shaM.ComputeHash(data);
                     encryptedOAuthKey = Convert.ToBase64String(result);
                 }
 
-                Model = new Models.SettingsModel.GeneralTabModel
-                {
+                Model = new Models.SettingsModel.GeneralTabModel {
                     TwitchOAuthKeyEncrypt = encryptedOAuthKey,
                     TwitchOAuthDecrypt = GeneralConfig.Config["Credentials"]["TwitchOAuth"],
                     Channel = GeneralConfig.Config["General"]["Channel"],
@@ -267,21 +235,16 @@ namespace Aiva.Bot.ViewModels
         /// Viewmodel from Settings Games Tab
         /// </summary>
         [PropertyChanged.ImplementPropertyChanged]
-        public class GamesTabViewModel
-        {
+        public class GamesTabViewModel {
             public Models.SettingsModel.GamesTabModel Model { get; set; }
 
-            public GamesTabViewModel()
-            {
+            public GamesTabViewModel() {
                 CreateModel();
             }
 
-            private void CreateModel()
-            {
-                Model = new Models.SettingsModel.GamesTabModel
-                {
-                    Bankheist = new Models.SettingsModel.GamesTabModel.BankheistModel
-                    {
+            private void CreateModel() {
+                Model = new Models.SettingsModel.GamesTabModel {
+                    Bankheist = new Models.SettingsModel.GamesTabModel.BankheistModel {
                         BankheistActive = Convert.ToBoolean(BankheistConfig.Config["General"]["Active"]),
                         BankheistCommand = BankheistConfig.Config["General"]["Command"],
                         BankheistDuration = TimeSpan.Parse(BankheistConfig.Config["General"]["BankheistTime"]),
@@ -320,28 +283,23 @@ namespace Aiva.Bot.ViewModels
         /// Interactions ViewModel
         /// </summary>
         [PropertyChanged.ImplementPropertyChanged]
-        public class InteractionsViewModel
-        {
+        public class InteractionsViewModel {
             public Models.SettingsModel.InteractionModel Model { get; set; }
 
             public ICommand SaveCommand { get; set; } = new RoutedCommand();
 
-            public InteractionsViewModel()
-            {
+            public InteractionsViewModel() {
                 CreateModels();
             }
 
-            private void CreateModels()
-            {
-                Model = new Models.SettingsModel.InteractionModel
-                {
+            private void CreateModels() {
+                Model = new Models.SettingsModel.InteractionModel {
                     WriteInChatNormalSub = Convert.ToBoolean(GeneralConfig.Config["Interactions"]["WriteInChatNormalSub"]),
                     WriteInChatPrimeSub = Convert.ToBoolean(GeneralConfig.Config["Interactions"]["WriteInChatPrimeSub"]),
                     InteractionChatMessageNormalSub = LanguageConfig.Instance.GetString("InteractionChatMessageNormalSub"),
                     InteractionChatMessagePrimeSub = LanguageConfig.Instance.GetString("InteractionChatMessagePrimeSub"),
 
-                    Text = new Models.SettingsModel.InteractionModel.TextModel
-                    {
+                    Text = new Models.SettingsModel.InteractionModel.TextModel {
                         InteractionsCheckboxSubNormalText = LanguageConfig.Instance.GetString("InteractionsCheckboxSubNormalText"),
                         InteractionsCheckBoxSubPrimeText = LanguageConfig.Instance.GetString("InteractionsCheckBoxSubPrimeText"),
                         InteractionTextboxSubNormalWatermarkText = LanguageConfig.Instance.GetString("InteractionTextboxSubNormalWatermarkText"),
