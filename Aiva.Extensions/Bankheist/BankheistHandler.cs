@@ -7,15 +7,24 @@ using Aiva.Core.Config;
 using Aiva.Core.Database;
 
 namespace Aiva.Extensions.Bankheist {
-    class BankheistHandler {
+    public class BankheistHandler {
         private static Bankheist bankheist;
         private static System.Timers.Timer NewBankheist;
+
+        /// <summary>
+        /// Setup for Bankheist
+        /// </summary>
+        public static void RegisterBankheist() {
+            AivaClient.Client.AivaTwitchClient.OnChatCommandReceived += ProcessBankheist;
+        }
 
         /// <summary>
         /// EntryPoint 4 New Bankheist
         /// </summary>
         /// <param name="e">Chat Command Receive Args</param>
-        public static void ProcessBankheist(TwitchLib.Events.Client.OnChatCommandReceivedArgs e) {
+        /// <param name="sender">todo: describe sender parameter on ProcessBankheist</param>
+        public static void ProcessBankheist(object sender, TwitchLib.Events.Client.OnChatCommandReceivedArgs e) {
+            if (String.Compare(e.Command.Command, BankheistConfig.Config["General"]["Command"], true) != 0) return;
             // Bankheist locked?
             if (NewBankheist == null) {
                 // Is Argument a valid Int?
@@ -54,8 +63,8 @@ namespace Aiva.Extensions.Bankheist {
                         return;
                     }
                 }
-// Something went wrong with the argument
-else {
+                // Something went wrong with the argument
+                else {
                     AivaClient.Client.AivaTwitchClient.SendMessage(LanguageConfig.Instance.GetString("BankheistStartErrorText"));
                 }
             }
@@ -155,10 +164,13 @@ else {
             Bankheist.Status = BankheistModel.Enums.BankheistStatus.Ready;
         }
 
-
+        /// <summary>
+        /// Check if User has enough Currency
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         private static bool CheckifEnoughCurrency(string name, int value) {
-
-
             var currency = CurrencyHandler.GetCurrency(name);
 
             return (currency >= value);

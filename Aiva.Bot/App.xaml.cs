@@ -26,6 +26,7 @@ namespace Aiva.Bot {
         private static void SetUpDependencys() {
             // Set Twitch Client
             AivaClient.Client.AivaTwitchClient.SendMessage("Aiva started");
+            Extensions.Bankheist.BankheistHandler.RegisterBankheist(); // Register Bankheist
 
             // CefSharp x64 or x86
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
