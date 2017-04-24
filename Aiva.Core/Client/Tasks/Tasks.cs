@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TwitchLib;
 using TwitchLib.Events.Client;
+using Aiva.Core.Client.Tasks.Functions;
 
 namespace Aiva.Core.Client.Tasks {
     public class Tasks {
@@ -22,19 +23,113 @@ namespace Aiva.Core.Client.Tasks {
             Client.OnExistingUsersDetected += Client_OnExistingUsersDetected;
 
             // case "OnMessageReceive
-            if (Database.UserSettingsHandler.GetBoolean("BlackListedWordsActive"))
-                Client.OnMessageReceived += ChatChecker.BlacklistWordsChecker;
-
-            if (Database.UserSettingsHandler.GetBoolean("Spamcheck"))
-                Client.OnMessageReceived += ChatChecker.CheckMessage;
-
-            if (!Convert.ToBoolean(Config.GeneralConfig.Config["SpamCheck"]["AllowViewerToPostLinks"]))
-                Client.OnMessageReceived += ChatChecker.LinkChecker;
+            Client = OnMessageReceived.OnMessageReceive(Client);
 
             // OnNewSubscriber
             Client.OnNewSubscriber += Client_OnNewSubscriber;
 
             return Client;
+        }
+
+        /// <summary>
+        ///  On Message Received Events
+        /// </summary>
+        public static class OnMessageReceived {
+            public static bool IsBlacklistedWordsActive { get; set; }
+            public static bool IsSpamCheckActive { get; set; }
+            public static bool IsAllowViewerToPostLinksActive { get; set; }
+            public static bool IsCapsCheckActive { get; set; }
+
+            /// <summary>
+            /// Initial Events
+            /// </summary>
+            /// <param name="Client"></param>
+            /// <returns></returns>
+            public static TwitchClient OnMessageReceive(TwitchClient Client) {
+                if (Database.UserSettingsHandler.GetBoolean("BlackListedWordsActive")) {
+                    Client.OnMessageReceived += ChatChecker.BlacklistWordsChecker;
+                    IsBlacklistedWordsActive = true;
+                }
+
+
+                if (Database.UserSettingsHandler.GetBoolean("Spamcheck")) {
+                    Client.OnMessageReceived += ChatChecker.CheckMessage;
+                    IsSpamCheckActive = true;
+                }
+
+                if (!Convert.ToBoolean(Config.GeneralConfig.Config["SpamCheck"]["AllowViewerToPostLinks"])) {
+                    Client.OnMessageReceived += ChatChecker.LinkChecker;
+                    IsAllowViewerToPostLinksActive = true;
+                }
+
+                if (Convert.ToBoolean(Config.GeneralConfig.Config["SpamCheck"]["CapsRestriction"])) {
+                    Client.OnMessageReceived += ChatChecker.CapsChecker;
+                    IsCapsCheckActive = true;
+                }
+
+                return Client;
+            }
+
+            /// <summary>
+            /// Blacklisted Words active / inactive
+            /// </summary>
+            /// <param name="SetActive"></param>
+            public static void SetBlacklistedWords(bool SetActive) {
+                if (SetActive) {
+                    if (!IsBlacklistedWordsActive) {
+                        AivaClient.Client.AivaTwitchClient.OnMessageReceived += ChatChecker.BlacklistWordsChecker;
+                        IsBlacklistedWordsActive = true;
+                    }
+                } else {
+                    AivaClient.Client.AivaTwitchClient.OnMessageReceived -= ChatChecker.BlacklistWordsChecker;
+                    IsBlacklistedWordsActive = false;
+                }
+            }
+
+            /// <summary>
+            /// Set SpamCheck active / inactive
+            /// </summary>
+            /// <param name="SetActive"></param>
+            public static void SetSpamCheck(bool SetActive) {
+                if (SetActive) {
+                    if (!IsSpamCheckActive) {
+                        AivaClient.Client.AivaTwitchClient.OnMessageReceived += ChatChecker.CheckMessage;
+                        IsSpamCheckActive = true;
+                    }
+                } else {
+                    AivaClient.Client.AivaTwitchClient.OnMessageReceived += ChatChecker.CheckMessage;
+                    IsSpamCheckActive = false;
+                }
+            }
+
+            /// <summary>
+            /// Set Allow Viewers to post Links active / inactive
+            /// </summary>
+            /// <param name="SetActive"></param>
+            public static void SetAllowViewerToPostLinks(bool SetActive) {
+                if (SetActive) {
+                    if (!IsAllowViewerToPostLinksActive) {
+                        AivaClient.Client.AivaTwitchClient.OnMessageReceived += ChatChecker.LinkChecker;
+                        IsAllowViewerToPostLinksActive = true;
+                    }
+                } else {
+                    AivaClient.Client.AivaTwitchClient.OnMessageReceived -= ChatChecker.LinkChecker;
+                    IsAllowViewerToPostLinksActive = false;
+                }
+
+            }
+
+            public static void SetCapsChecker(bool SetActive) {
+                if (SetActive) {
+                    if (!IsCapsCheckActive) {
+                        AivaClient.Client.AivaTwitchClient.OnMessageReceived += ChatChecker.CapsChecker;
+                        IsCapsCheckActive = true;
+                    }
+                } else {
+                    AivaClient.Client.AivaTwitchClient.OnMessageReceived -= ChatChecker.CapsChecker;
+                    IsCapsCheckActive = false;
+                }
+            }
         }
 
         /// <summary>

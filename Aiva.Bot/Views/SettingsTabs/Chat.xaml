@@ -21,28 +21,6 @@
             VerticalAlignment="Top"
             Content="Aktiviert"
             IsChecked="{Binding Model.BlacklistedWordsActive}" />
-        <Button
-            Width="167"
-            Height="41"
-            Margin="292,459,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Command="{Binding SaveCommand}">
-            <StackPanel Orientation="Horizontal">
-                <Rectangle
-                    Width="20"
-                    Height="20"
-                    Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
-                    <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_save}" />
-                    </Rectangle.OpacityMask>
-                </Rectangle>
-                <TextBlock
-                    Margin="4,0,0,0"
-                    VerticalAlignment="Center"
-                    Text="{Binding Model.Text.ButtonSaveText}" />
-            </StackPanel>
-        </Button>
         <ListView
             Width="436"
             Height="110"

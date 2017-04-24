@@ -86,9 +86,9 @@
     <Compile Include="Client\AivaClient.cs" />
     <Compile Include="Client\Commands\Currency.cs" />
     <Compile Include="Client\Commands\ModCommands\Currency.cs" />
-    <Compile Include="Client\Tasks\ChatChecker.cs" />
+    <Compile Include="Client\Tasks\Functions\ChatChecker.cs" />
     <Compile Include="Client\Tasks\Tasks.cs" />
-    <Compile Include="Client\Tasks\TimeWatched.cs" />
+    <Compile Include="Client\Tasks\Functions\TimeWatched.cs" />
     <Compile Include="Config\BankheistConfig.cs" />
     <Compile Include="Config\CurrencyConfig.cs" />
     <Compile Include="Config\GeneralConfig.cs" />

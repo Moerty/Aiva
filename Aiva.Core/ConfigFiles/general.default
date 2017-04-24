@@ -41,7 +41,8 @@ TimeoutTime=00:10:00
 WarningTimeoutTime=00:30:00
 TimeActiveWarning=00:30:00
 
-
+SpamCheck=true
+BlacklistedWordsActive=true
 AllowViewerToPostLinks=true
 CapsRestriction=true
 

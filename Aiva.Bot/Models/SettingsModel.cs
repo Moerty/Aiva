@@ -20,16 +20,62 @@ namespace Aiva.Bot.Models {
             public MahApps.Metro.Controls.MetroContentControl Content { get; set; }
         }
 
+        /// <summary>
+        /// Chat Tab Model
+        /// </summary>
         [PropertyChanged.ImplementPropertyChanged]
         public class ChatTabModel {
-            public TextModel Text { get; set; }
             public string NewKeyword { get; set; }
-
             public ObservableCollection<string> BlacklistedWords { get; set; }
 
-            public bool BlacklistedWordsActive { get; set; }
-            public bool SpamCheck { get; set; }
-            public bool AllowViewerToPostLinks { get; set; }
+            /// <summary>
+            /// Blacklisted Words
+            /// </summary>
+            public bool BlacklistedWordsActive {
+                get {
+                    return Convert.ToBoolean(GeneralConfig.Config[nameof(SpamCheck)][nameof(BlacklistedWordsActive)]);
+                }
+                set {
+                    GeneralConfig.Config[nameof(SpamCheck)][nameof(BlacklistedWordsActive)] = value.ToString();
+                    GeneralConfig.WriteConfig();
+
+                    Core.Client.Tasks.Tasks.OnMessageReceived.SetBlacklistedWords(value);
+                }
+            }
+
+            /// <summary>
+            /// Spamer check
+            /// </summary>
+            public bool SpamCheck {
+                get {
+                    return Convert.ToBoolean(GeneralConfig.Config[nameof(SpamCheck)][nameof(SpamCheck)]);
+                }
+                set {
+                    GeneralConfig.Config[nameof(SpamCheck)][nameof(SpamCheck)] = value.ToString();
+                    GeneralConfig.WriteConfig();
+
+                    Core.Client.Tasks.Tasks.OnMessageReceived.SetSpamCheck(value);
+                }
+            }
+
+            /// <summary>
+            /// Link checker
+            /// </summary>
+            public bool AllowViewerToPostLinks {
+                get {
+                    return Convert.ToBoolean(GeneralConfig.Config[nameof(SpamCheck)][nameof(AllowViewerToPostLinks)]);
+                }
+                set {
+                    GeneralConfig.Config[nameof(SpamCheck)][nameof(AllowViewerToPostLinks)] = value.ToString();
+                    GeneralConfig.WriteConfig();
+
+                    Core.Client.Tasks.Tasks.OnMessageReceived.SetAllowViewerToPostLinks(value);
+                }
+            }
+
+            /// <summary>
+            /// Caps Restriction
+            /// </summary>
             public bool CapsRestriction {
                 get {
                     return Convert.ToBoolean(GeneralConfig.Config[nameof(SpamCheck)][nameof(CapsRestriction)]);
@@ -37,9 +83,11 @@ namespace Aiva.Bot.Models {
                 set {
                     GeneralConfig.Config[nameof(SpamCheck)][nameof(CapsRestriction)] = value.ToString();
                     GeneralConfig.WriteConfig();
+
+                    Core.Client.Tasks.Tasks.OnMessageReceived.SetCapsChecker(value);
                 }
             }
-
+            #region SkipMessageSpamCheck
             //SpamCheck
             public bool SkipMessageCheckAdmin {
                 get {
@@ -100,7 +148,9 @@ namespace Aiva.Bot.Models {
                     GeneralConfig.WriteConfig();
                 }
             }
+            #endregion SkipMessageSpamCheck
 
+            #region times
             public TimeSpan TimeToNewMessage {
                 get {
                     return TimeSpan.Parse(GeneralConfig.Config[nameof(SpamCheck)][nameof(TimeToNewMessage)]);
@@ -150,46 +200,11 @@ namespace Aiva.Bot.Models {
                     GeneralConfig.WriteConfig();
                 }
             }
-
-            [PropertyChanged.ImplementPropertyChanged]
-            public class TextModel {
-                public string ButtonSaveText { get; set; }
-            }
+            #endregion times
         }
 
         [PropertyChanged.ImplementPropertyChanged]
         public class GeneralTabModel {
-
-            public bool ShowTwitchOAuthKey { get; set; } = false;
-
-            private string _TwitchOAuthKeyEncrypt = "";
-            public string TwitchOAuthKeyEncrypt {
-                get {
-                    return _TwitchOAuthKeyEncrypt;
-                }
-                set {
-                    GeneralConfig.Config["Credentials"]["EncryptedOAuth"] = value;
-                    _TwitchOAuthKeyEncrypt = value;
-                    GeneralConfig.WriteConfig();
-                }
-            }
-
-
-            private string _TwitchOAuthDecrypt = "";
-            public string TwitchOAuthDecrypt {
-                get {
-                    return _TwitchOAuthDecrypt;
-                }
-                set {
-                    GeneralConfig.Config["Credentials"]["TwitchOAuth"] = value;
-                    var data = Encoding.UTF8.GetBytes(GeneralConfig.Config["Credentials"]["TwitchOAuth"]);
-                    using (SHA512 shaM = new SHA512Managed()) {
-                        var result = shaM.ComputeHash(data);
-                        _TwitchOAuthDecrypt = Convert.ToBase64String(result);
-                    }
-                    GeneralConfig.WriteConfig();
-                }
-            }
 
             public string TwitchClientID {
                 get {
@@ -236,8 +251,13 @@ namespace Aiva.Bot.Models {
                     return Convert.ToChar(GeneralConfig.Config["General"][nameof(CommandIdentifier)]);
                 }
                 set {
+                    // Remove
+                    Core.Client.AivaClient.Client.AivaTwitchClient.RemoveChatCommandIdentifier(Convert.ToChar(GeneralConfig.Config["General"][nameof(CommandIdentifier)]));
+
                     GeneralConfig.Config["General"][nameof(CommandIdentifier)] = value.ToString();
                     GeneralConfig.WriteConfig();
+
+                    Core.Client.AivaClient.Client.AivaTwitchClient.AddChatCommandIdentifier(value);
                 }
             }
 

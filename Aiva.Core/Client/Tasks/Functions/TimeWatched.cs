@@ -1,4 +1,4 @@
-﻿namespace Aiva.Core.Client.Tasks {
+﻿namespace Aiva.Core.Client.Tasks.Functions {
     class TimeWatched {
         /// <summary>
         /// Add User when joins channel

@@ -138,18 +138,18 @@ namespace Aiva.Bot.ViewModels {
                 });
 
                 // Update BlacklistedWords 4
-                Core.Client.Tasks.ChatChecker.BlacklistedWords = Model.BlacklistedWords.ToList();
+                Core.Client.Tasks.Functions.ChatChecker.BlacklistedWords = Model.BlacklistedWords.ToList();
 
                 if (Model.BlacklistedWordsActive) {
-                    AivaClient.Client.AivaTwitchClient.OnMessageReceived += Core.Client.Tasks.ChatChecker.BlacklistWordsChecker;
+                    AivaClient.Client.AivaTwitchClient.OnMessageReceived += Core.Client.Tasks.Functions.ChatChecker.BlacklistWordsChecker;
                 } else {
-                    AivaClient.Client.AivaTwitchClient.OnMessageReceived -= Core.Client.Tasks.ChatChecker.BlacklistWordsChecker;
+                    AivaClient.Client.AivaTwitchClient.OnMessageReceived -= Core.Client.Tasks.Functions.ChatChecker.BlacklistWordsChecker;
                 }
 
                 if (Model.SpamCheck) {
-                    AivaClient.Client.AivaTwitchClient.OnMessageReceived += Core.Client.Tasks.ChatChecker.CheckMessage;
+                    AivaClient.Client.AivaTwitchClient.OnMessageReceived += Core.Client.Tasks.Functions.ChatChecker.CheckMessage;
                 } else {
-                    AivaClient.Client.AivaTwitchClient.OnMessageReceived -= Core.Client.Tasks.ChatChecker.CheckMessage;
+                    AivaClient.Client.AivaTwitchClient.OnMessageReceived -= Core.Client.Tasks.Functions.ChatChecker.CheckMessage;
                 }
 
                 string GetKeywordsFormattet()
@@ -186,10 +186,6 @@ namespace Aiva.Bot.ViewModels {
                     TimeoutTime = TimeSpan.Parse(GeneralConfig.Config["SpamCheck"]["TimeoutTime"]),
                     WarningTimeoutTime = TimeSpan.Parse(GeneralConfig.Config["SpamCheck"]["WarningTimeoutTime"]),
                     TimeActiveWarning = TimeSpan.Parse(GeneralConfig.Config["SpamCheck"]["TimeActiveWarning"]),
-
-                    Text = new Models.SettingsModel.ChatTabModel.TextModel {
-                        ButtonSaveText = LanguageConfig.Instance.GetString("SettingsSaveButtonText"),
-                    }
                 };
 
                 // Blacklisted Words
@@ -217,8 +213,6 @@ namespace Aiva.Bot.ViewModels {
                 }
 
                 Model = new Models.SettingsModel.GeneralTabModel {
-                    TwitchOAuthKeyEncrypt = encryptedOAuthKey,
-                    TwitchOAuthDecrypt = GeneralConfig.Config["Credentials"]["TwitchOAuth"],
                     Channel = GeneralConfig.Config["General"]["Channel"],
                     BotName = GeneralConfig.Config["General"]["BotName"],
                     Language = GeneralConfig.Config["General"]["Language"],

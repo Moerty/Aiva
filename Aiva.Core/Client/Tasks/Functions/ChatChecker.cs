@@ -5,7 +5,7 @@ using TwitchLib.Enums;
 using TwitchLib.Events.Client;
 using TwitchLib.Extensions.Client;
 
-namespace Aiva.Core.Client.Tasks {
+namespace Aiva.Core.Client.Tasks.Functions {
     public static class ChatChecker {
         private static readonly System.Resources.ResourceManager languageConfig = Config.LanguageConfig.Instance;
 

@@ -300,9 +300,6 @@
   <data name="GiveawayUncheckWinner" xml:space="preserve">
     <value>Kein Doppelsieg</value>
   </data>
-  <data name="SettingsSaveButtonText" xml:space="preserve">
-    <value>Speichern</value>
-  </data>
   <data name="SongrequestButtonStartText" xml:space="preserve">
     <value>Start</value>
   </data>
