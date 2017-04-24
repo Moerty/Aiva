@@ -205,6 +205,9 @@
     <Compile Include="Views\SettingsTabs\General.xaml.cs">
       <DependentUpon>General.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SettingsTabs\Interactions.xaml.cs">
+      <DependentUpon>Interactions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Users.xaml.cs">
       <DependentUpon>Users.xaml</DependentUpon>
     </Compile>
@@ -251,6 +254,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingsTabs\General.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsTabs\Interactions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

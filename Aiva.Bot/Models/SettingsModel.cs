@@ -5,23 +5,27 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Input;
 
-namespace Aiva.Bot.Models {
+namespace Aiva.Bot.Models
+{
     [PropertyChanged.ImplementPropertyChanged]
-    public class SettingsModel {
+    public class SettingsModel
+    {
 
 
         public ObservableCollection<SettingsTabItem> SettingsTabs { get; set; }
         public ChatTabModel ChatTab { get; set; }
 
         [PropertyChanged.ImplementPropertyChanged]
-        public class SettingsTabItem {
+        public class SettingsTabItem
+        {
             public string Header { get; set; }
             public ICommand Command { get; set; } = new RoutedCommand();
             public MahApps.Metro.Controls.MetroContentControl Content { get; set; }
         }
 
         [PropertyChanged.ImplementPropertyChanged]
-        public class ChatTabModel {
+        public class ChatTabModel
+        {
             public TextModel Text { get; set; }
             public string NewKeyword { get; set; }
 
@@ -152,13 +156,15 @@ namespace Aiva.Bot.Models {
             }
 
             [PropertyChanged.ImplementPropertyChanged]
-            public class TextModel {
+            public class TextModel
+            {
                 public string ButtonSaveText { get; set; }
             }
         }
 
         [PropertyChanged.ImplementPropertyChanged]
-        public class GeneralTabModel {
+        public class GeneralTabModel
+        {
 
             public bool ShowTwitchOAuthKey { get; set; } = false;
 
@@ -183,7 +189,8 @@ namespace Aiva.Bot.Models {
                 set {
                     GeneralConfig.Config["Credentials"]["TwitchOAuth"] = value;
                     var data = Encoding.UTF8.GetBytes(GeneralConfig.Config["Credentials"]["TwitchOAuth"]);
-                    using (SHA512 shaM = new SHA512Managed()) {
+                    using (SHA512 shaM = new SHA512Managed())
+                    {
                         var result = shaM.ComputeHash(data);
                         _TwitchOAuthDecrypt = Convert.ToBase64String(result);
                     }
@@ -285,11 +292,13 @@ namespace Aiva.Bot.Models {
 
 
         [PropertyChanged.ImplementPropertyChanged]
-        public class GamesTabModel {
+        public class GamesTabModel
+        {
             public BankheistModel Bankheist { get; set; }
 
             [PropertyChanged.ImplementPropertyChanged]
-            public class BankheistModel {
+            public class BankheistModel
+            {
                 // General
                 public bool BankheistActive {
                     get {
@@ -483,6 +492,29 @@ namespace Aiva.Bot.Models {
                         BankheistConfig.WriteConfig();
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Interaction Model
+        /// </summary>
+        [PropertyChanged.ImplementPropertyChanged]
+        public class InteractionModel
+        {
+            public TextModel Text { get; set; }
+
+            public bool WriteInChatNormalSub { get; set; }
+            public bool WriteInChatPrimeSub { get; set; }
+            public string InteractionChatMessageNormalSub { get; set; }
+            public string InteractionChatMessagePrimeSub { get; set; }
+
+            [PropertyChanged.ImplementPropertyChanged]
+            public class TextModel
+            {
+                public string InteractionsCheckboxSubNormalText { get; set; }
+                public string InteractionsCheckBoxSubPrimeText { get; set; }
+                public string InteractionTextboxSubNormalWatermarkText { get; set; }
+                public string InteractionTextboxSubPrimeWatermarkText { get; set; }
             }
         }
     }

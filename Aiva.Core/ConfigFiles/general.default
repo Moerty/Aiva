@@ -54,3 +54,7 @@ CurrencyToAdd=10
 
 ; hh:mm:ss
 TimerAddCurrency=00:05:00
+
+[Interactions]
+WriteInChatNormalSub=true
+WriteInChatPrimeSub=true

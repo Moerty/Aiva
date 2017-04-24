@@ -429,4 +429,22 @@
   <data name="DashboardButtonCommercialText" xml:space="preserve">
     <value>Zeige Werbung</value>
   </data>
+  <data name="InteractionChatMessageNormalSub" xml:space="preserve">
+    <value>Danke @@USERNAME@ für dein Abo!</value>
+  </data>
+  <data name="InteractionChatMessagePrimeSub" xml:space="preserve">
+    <value>Danke @@USERNAME@ für dein Abo über Prime!</value>
+  </data>
+  <data name="InteractionsCheckboxSubNormalText" xml:space="preserve">
+    <value>Schreibe in den Chat bei neuen Abonnent</value>
+  </data>
+  <data name="InteractionsCheckBoxSubPrimeText" xml:space="preserve">
+    <value>Schreibe in den Chat bei neuen Abonnent über Prime</value>
+  </data>
+  <data name="InteractionTextboxSubNormalWatermarkText" xml:space="preserve">
+    <value>Text....</value>
+  </data>
+  <data name="InteractionTextboxSubPrimeWatermarkText" xml:space="preserve">
+    <value>Text....</value>
+  </data>
 </root>

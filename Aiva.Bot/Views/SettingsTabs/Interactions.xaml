@@ -1,0 +1,34 @@
+﻿<Controls:MetroContentControl
+    x:Class="Aiva.Bot.Views.SettingsTabs.Interactions"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Aiva.Bot.Views.SettingsTabs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="459.233"
+    Height="500"
+    mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical">
+                <CheckBox Content="{Binding Model.Text.InteractionsCheckboxSubNormalText, FallbackValue='Write in Chat for new Subscription'}" IsChecked="{Binding Model.WriteInChatNormalSub}" />
+                <TextBox Controls:TextBoxHelper.Watermark="{Binding Model.Text.InteractionTextboxSubNormalWatermarkText, FallbackValue='Text...'}" Text="{Binding Model.InteractionChatMessageNormalSub}" />
+                <Separator />
+            </StackPanel>
+            <StackPanel Margin="0,5,0,0" Orientation="Vertical">
+                <CheckBox Content="{Binding Model.Text.InteractionsCheckBoxSubPrimeText, FallbackValue='Write in Chat for new Prime Subscription'}" IsChecked="{Binding Model.WriteInChatPrimeSub}" />
+                <TextBox Controls:TextBoxHelper.Watermark="{Binding Model.Text.InteractionTextboxSubPrimeWatermarkText, FallbackValue='Text...'}" Text="{Binding Model.InteractionChatMessagePrimeSub}" />
+                <Separator />
+            </StackPanel>
+        </StackPanel>
+        <Button
+            Width="70"
+            Height="20"
+            Margin="0,0,10,10"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Content="Save" />
+    </Grid>
+</Controls:MetroContentControl>
