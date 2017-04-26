@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="StorageModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\F\cloud\Rewrite\Aiva\Aiva.Core\ConfigFiles\Database.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ActiveUsers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" Nullable="false" />
+          <Property Name="JoinedTime" Type="datetime" />
+        </EntityType>
+        <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6002: Für Tabelle/Sicht 'main.BlacklistedWords' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.-->
+        <EntityType Name="BlacklistedWords">
+          <Key>
+            <PropertyRef Name="Word" />
+          </Key>
+          <Property Name="Word" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Chat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" Nullable="false" />
+          <Property Name="ChatMessage" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" Nullable="false" />
+          <Property Name="Value" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TimeWatched">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" Nullable="false" />
+          <Property Name="TimeWatched" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Id" Type="integer" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Type" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Bio" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="CreatedAt" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="TimeSinceCreated" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="UpdatedAt" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="TimeSinceUpdated" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Logo" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <Association Name="FK_ActiveUsers_0_0">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="ActiveUsers" Type="Self.ActiveUsers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActiveUsers">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chat_0_0">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Chat" Type="Self.Chat" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Chat">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Currency_0_0">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Currency" Type="Self.Currency" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Currency">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TimeWatched_0_0">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="TimeWatched" Type="Self.TimeWatched" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TimeWatched">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StorageModelStoreContainer">
+          <EntitySet Name="ActiveUsers" EntityType="Self.ActiveUsers" store:Type="Tables" />
+          <EntitySet Name="Chat" EntityType="Self.Chat" store:Type="Tables" />
+          <EntitySet Name="Currency" EntityType="Self.Currency" store:Type="Tables" />
+          <EntitySet Name="TimeWatched" EntityType="Self.TimeWatched" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" />
+          <EntitySet Name="BlacklistedWords" EntityType="Self.BlacklistedWords" store:Type="Tables">
+            <DefiningQuery>SELECT 
+[BlacklistedWords].[Word] AS [Word]
+FROM [BlacklistedWords] AS [BlacklistedWords]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_ActiveUsers_0_0" Association="Self.FK_ActiveUsers_0_0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ActiveUsers" EntitySet="ActiveUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chat_0_0" Association="Self.FK_Chat_0_0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Chat" EntitySet="Chat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Currency_0_0" Association="Self.FK_Currency_0_0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Currency" EntitySet="Currency" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TimeWatched_0_0" Association="Self.FK_TimeWatched_0_0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TimeWatched" EntitySet="TimeWatched" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StorageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="StorageEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="StorageModel.Users" />
+          <EntitySet Name="Currency" EntityType="StorageModel.Currency" />
+          <AssociationSet Name="FK_Currency_0_0" Association="StorageModel.FK_Currency_0_0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Currency" EntitySet="Currency" />
+          </AssociationSet>
+          <EntitySet Name="BlacklistedWords" EntityType="StorageModel.BlacklistedWords" />
+          <EntitySet Name="ActiveUsers" EntityType="StorageModel.ActiveUsers" />
+          <AssociationSet Name="FK_ActiveUsers_0_0" Association="StorageModel.FK_ActiveUsers_0_0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ActiveUsers" EntitySet="ActiveUsers" />
+          </AssociationSet>
+          <EntitySet Name="TimeWatched" EntityType="StorageModel.TimeWatched" />
+          <AssociationSet Name="FK_TimeWatched_0_0" Association="StorageModel.FK_TimeWatched_0_0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TimeWatched" EntitySet="TimeWatched" />
+          </AssociationSet>
+          <EntitySet Name="Chat" EntityType="StorageModel.Chat" />
+          <AssociationSet Name="FK_Chat_0_0" Association="StorageModel.FK_Chat_0_0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Chat" EntitySet="Chat" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="DisplayName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Bio" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="TimeSinceCreated" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedAt" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="TimeSinceUpdated" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Logo" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Currency" Relationship="StorageModel.FK_Currency_0_0" FromRole="Users" ToRole="Currency" />
+          <NavigationProperty Name="ActiveUsers" Relationship="StorageModel.FK_ActiveUsers_0_0" FromRole="Users" ToRole="ActiveUsers" />
+          <NavigationProperty Name="TimeWatched" Relationship="StorageModel.FK_TimeWatched_0_0" FromRole="Users" ToRole="TimeWatched" />
+          <NavigationProperty Name="Chat" Relationship="StorageModel.FK_Chat_0_0" FromRole="Users" ToRole="Chat" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="Value" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="StorageModel.FK_Currency_0_0" FromRole="Currency" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_Currency_0_0">
+          <End Type="StorageModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="StorageModel.Currency" Role="Currency" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Currency">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BlacklistedWords">
+          <Key>
+            <PropertyRef Name="Word" />
+          </Key>
+          <Property Name="Word" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ActiveUsers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="JoinedTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="StorageModel.FK_ActiveUsers_0_0" FromRole="ActiveUsers" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_ActiveUsers_0_0">
+          <End Type="StorageModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="StorageModel.ActiveUsers" Role="ActiveUsers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActiveUsers">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TimeWatched">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="TimeWatched1" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="StorageModel.FK_TimeWatched_0_0" FromRole="TimeWatched" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_TimeWatched_0_0">
+          <End Type="StorageModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="StorageModel.TimeWatched" Role="TimeWatched" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TimeWatched">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Chat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ChatMessage" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="StorageModel.FK_Chat_0_0" FromRole="Chat" ToRole="Users" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Chat_0_0">
+          <End Type="StorageModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="StorageModel.Chat" Role="Chat" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Chat">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StorageModelStoreContainer" CdmEntityContainer="StorageEntities">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="StorageModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="TimeSinceUpdated" ColumnName="TimeSinceUpdated" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="TimeSinceCreated" ColumnName="TimeSinceCreated" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Bio" ColumnName="Bio" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Currency">
+            <EntityTypeMapping TypeName="StorageModel.Currency">
+              <MappingFragment StoreEntitySet="Currency">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BlacklistedWords">
+            <EntityTypeMapping TypeName="StorageModel.BlacklistedWords">
+              <MappingFragment StoreEntitySet="BlacklistedWords">
+                <ScalarProperty Name="Word" ColumnName="Word" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActiveUsers">
+            <EntityTypeMapping TypeName="StorageModel.ActiveUsers">
+              <MappingFragment StoreEntitySet="ActiveUsers">
+                <ScalarProperty Name="JoinedTime" ColumnName="JoinedTime" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeWatched">
+            <EntityTypeMapping TypeName="StorageModel.TimeWatched">
+              <MappingFragment StoreEntitySet="TimeWatched">
+                <ScalarProperty Name="TimeWatched1" ColumnName="TimeWatched" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chat">
+            <EntityTypeMapping TypeName="StorageModel.Chat">
+              <MappingFragment StoreEntitySet="Chat">
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="ChatMessage" ColumnName="ChatMessage" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

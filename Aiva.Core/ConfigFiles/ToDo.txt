@@ -1,0 +1,5 @@
+﻿Client:
+- New User:
+-- Add user to database
+-- Update existing user
+- 
