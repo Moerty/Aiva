@@ -1,4 +1,5 @@
-﻿using CefSharp.OffScreen;
+﻿using CefSharp;
+using CefSharp.OffScreen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +11,31 @@ namespace Aiva.Testproject {
         static Aiva.Extensions.Songrequest.Player p;
 
         static void Main(string[] args) {
-            CefSharp.Cef.Initialize();
-            ChromiumWebBrowser b = new ChromiumWebBrowser();
-            while (!CefSharp.Cef.IsInitialized) {
-                Console.WriteLine($"{DateTime.Now.TimeOfDay.ToString()} : Waiting....");
-            }
-            p = new Aiva.Extensions.Songrequest.Player();
+
+            // Make sure you set performDependencyCheck false
+            Cef.Initialize();
+
+            Core.AivaClient.Instance.AivaTwitchClient.SendMessage("Aiva started.");
+            TwitchLib.TwitchApi.ValidationAPIRequest("pcwfd4rhcevonwdjw6kdh1g5f8bz1g");
+            TwitchLib.TwitchApi.ValidClientId("10n39mbfftkcy2kg1jkzmm62yszdcg");
+
+            // https://www.youtube.com/watch?v=KbNXnxwMOqU
+            p = new Extensions.Songrequest.Player();
+
+            p.Browser.BrowserInitialized += Browser_BrowserInitialized;
+            p.ChangeSong(new Extensions.Songrequest.Song("5_SLU1ByyKg", "aeffchaen") {
+                VideoID = "5_SLU1ByyKg",
+            }, true);
 
 
-            Aiva.Extensions.Songrequest.Song s = new Extensions.Songrequest.Song("https://www.youtube.com/watch?v=T5UsrAxid74", "aeffchaen");
-            //p.SetVideoID("62Mr0elsf0s");
-
-            p.ChangeSong(s, true);
 
             Console.ReadKey();
+        }
+
+        private static void Browser_BrowserInitialized(object sender, EventArgs e) {
+            p.ChangeSong(new Extensions.Songrequest.Song("KbNXnxwMOqU", "aeffchaen") {
+                VideoID = "KbNXnxwMOqU",
+            }, true);
         }
     }
 }

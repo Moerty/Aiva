@@ -1,0 +1,68 @@
+﻿<controls:MetroWindow
+    x:Class="Aiva.Bot.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Aiva.Bot"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:Aiva.Bot.ViewModels"
+    xmlns:views="clr-namespace:Aiva.Bot.Views"
+    Title="Aiva"
+    Width="900"
+    Height="500"
+    d:DataContext="{d:DesignInstance d:Type=viewModel:MainWindow}"
+    ResizeMode="CanResizeWithGrip"
+    mc:Ignorable="d">
+
+    <controls:MetroWindow.Flyouts>
+        <controls:FlyoutsControl ItemsSource="{Binding Model.Flyouts}">
+            <!--<controls:FlyoutsControl.ItemTemplate>
+                <DataTemplate>
+                    <ContentControl cal:View.Model="{Binding}" />
+                </DataTemplate>
+            </controls:FlyoutsControl.ItemTemplate>-->
+            <controls:FlyoutsControl.ItemContainerStyle>
+                <Style BasedOn="{StaticResource {x:Type controls:Flyout}}" TargetType="{x:Type controls:Flyout}">
+                    <Setter Property="Header" Value="{Binding Header}" />
+                    <Setter Property="IsOpen" Value="{Binding IsOpen}" />
+                    <Setter Property="Content" Value="suifghseuihfguisehfuieswh" />
+                    <Setter Property="Position" Value="{Binding Position}" />
+                </Style>
+            </controls:FlyoutsControl.ItemContainerStyle>
+        </controls:FlyoutsControl>
+    </controls:MetroWindow.Flyouts>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="700*" />
+        </Grid.ColumnDefinitions>
+
+        <controls:MetroTabControl
+            Name="MainTabControl"
+            Grid.ColumnSpan="2"
+            ItemsSource="{Binding Model.TabItems}"
+            SelectedItem="{Binding SelectedTab}"
+            Style="{StaticResource TabControlStyle}"
+            TabStripPlacement="Left">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock
+                        Grid.Column="0"
+                        Width="150"
+                        Text="{Binding Header}" />
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <controls:MetroContentControl
+                        Grid.Column="1"
+                        Width="720"
+                        Height="470"
+                        Content="{Binding Content}" />
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </controls:MetroTabControl>
+    </Grid>
+</controls:MetroWindow>

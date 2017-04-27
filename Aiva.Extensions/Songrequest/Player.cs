@@ -4,9 +4,18 @@ using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using Google.Apis.YouTube.v3;
-using System.Collections.Generic;
 using System.Threading;
-
+using System.Collections.ObjectModel;
+/*
+ * - Setting who can request songs
+    - max song duration
+    - max quene size
+    
+    - cost sttings
+    
+    - add playlist
+    - add video
+ * */
 namespace Aiva.Extensions.Songrequest {
     public class Player {
 
@@ -29,7 +38,8 @@ namespace Aiva.Extensions.Songrequest {
 
         public bool IsInit { get; private set; }
         public bool IsMusicPlaying { get; private set; }
-        public List<Song> SongList { get; set; }
+        public bool Autoplay { get; set; }
+        public ObservableCollection<Song> SongList { get; set; }
 
         const string youtube = "https://www.youtube.com/embed/";
 
@@ -37,7 +47,7 @@ namespace Aiva.Extensions.Songrequest {
             Browser = new ChromiumWebBrowser();
             YouTubeConnector = CreateYouTubeService();
             Browser.BrowserInitialized += BrowserInitialized;
-            SongList = new List<Song>();
+            SongList = new ObservableCollection<Song>();
         }
 
         /// <summary>
@@ -52,14 +62,14 @@ namespace Aiva.Extensions.Songrequest {
         /// <summary>
         /// Change Song
         /// </summary>
-        /// <param name="videoID"></param>
         /// <param name="autoplay"></param>
+        /// <param name="song">todo: describe song parameter on ChangeSong</param>
         public void ChangeSong(Song song, bool autoplay = false) {
             string url = youtube + song.VideoID + (autoplay ? "?autoplay=1" : "");
 
             Browser.Load(url);
-            
-            if(autoplay) {
+
+            if (autoplay) {
                 IsMusicPlaying = true;
             }
         }

@@ -1,0 +1,25 @@
+﻿<controls:MetroContentControl
+    x:Class="Aiva.Bot.Views.Songrequest"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Aiva.Bot.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mvvm="clr-namespace:Aiva.Bot.ViewModels"
+    Width="720"
+    Height="470"
+    d:DataContext="{d:DesignInstance d:Type=mvvm:Songrequest}"
+    mc:Ignorable="d">
+    <!--
+        - Setting who can request songs
+        - max song duration
+        - max quene size
+        
+        - cost sttings
+        
+        - add playlist
+        - add video
+    -->
+    <Grid />
+</controls:MetroContentControl>

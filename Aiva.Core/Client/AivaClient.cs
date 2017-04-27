@@ -28,19 +28,47 @@ namespace Aiva.Core {
         public TwitchClient AivaTwitchClient;
         public string Username;
         public string Channel;
+        public long TwitchID;
 
         private string ClientID;
         private string OAuthKey;
 
         public AivaClient() {
             // Get config related informations
-            Username = Config.Config.Instance["General"]["BotName"];
+            Username = Config.Config.Instance["General"]["BotName"];      //Switch to OAuth Validation
             OAuthKey = Config.Config.Instance["Credentials"]["TwitchOAuth"];
             Channel = Config.Config.Instance["General"]["Channel"].ToLower();
             ClientID = Config.Config.Instance["Credentials"]["TwitchClientID"];
 
+            // Valid Twitch Credentials
+            //DoValidation();
+
             // setup TwitchApi
             SetupTwitch();
+        }
+
+        /// <summary>
+        /// Validation for Twitch ClientID & OAuthKey
+        /// </summary>
+        private void DoValidation() {
+            //if (!TwitchApi.ValidClientId(ClientID, true))
+            //    throw new Exception("Twitch ClientID is not valid!");
+            // Bug!!! Reported!
+
+            var oAuthResult = TwitchApi.ValidationAPIRequest(OAuthKey);
+
+            if(oAuthResult != null) {
+                if(oAuthResult.Token.Valid) {
+                    TwitchID = Convert.ToInt64(oAuthResult.Token.UserId);
+                    Username = oAuthResult.Token.Username;
+                }
+                else {
+                    throw new Exception("OAuth Token is not valid!");
+                }
+            }
+            else {
+                throw new Exception("Cant validate Twitch OAuth Key");
+            }
         }
 
         /// <summary>
@@ -65,6 +93,8 @@ namespace Aiva.Core {
 
             AivaTwitchClient.OnConnected += OnConnected;
             AivaTwitchClient.OnJoinedChannel += OnJoinedChannel;
+
+            TwitchID = Convert.ToInt64(TwitchApi.ValidationAPIRequest().Token.UserId);
 
             AivaTwitchClient.Connect();
         }

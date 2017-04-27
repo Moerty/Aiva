@@ -114,7 +114,7 @@ namespace Aiva.Core.Database {
                         var user = context.Users.SingleOrDefault(u => u.Id == twitchID.Id.Value);
 
                         if (user != null) {
-                            var duration = DateTime.Now.Subtract(user.ActiveUsers.JoinedTime);
+                            var duration = DateTime.Now.Subtract(user.ActiveUsers.JoinedTime.Value);
 
                             user.TimeWatched.TimeWatched1 += duration.Ticks;
 

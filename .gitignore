@@ -276,3 +276,6 @@ __pycache__/
 
 # Configs
 Configs/*.ini
+
+config.ini
+cred.txt

@@ -13,7 +13,7 @@ namespace Aiva.Core.Database {
             using (var context = new Storage.StorageEntities()) {
                 if (Int64.TryParse(e.ChatMessage.UserId, out long twitchID)) {
                     context.Chat.Add(new Storage.Chat {
-                        ID = twitchID,
+                        TwitchID = twitchID,
                         ChatMessage = e.ChatMessage.Message,
                         Timestamp = DateTime.Now,
                     });

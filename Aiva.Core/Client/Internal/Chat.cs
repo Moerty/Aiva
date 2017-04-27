@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TwitchLib.Events.Client;
 
 namespace Aiva.Core.Client.Internal {
@@ -18,13 +14,13 @@ namespace Aiva.Core.Client.Internal {
                 if (Convert.ToBoolean(Config.Config.Instance["Interactions"]["WriteInChatNormalSub"])) {
                     AivaClient.Instance.AivaTwitchClient.SendMessage(
                         Config.Text.Instance.GetString("InteractionChatMessageNormalSub")
-                        .Replace("@USERNAME@", e.Subscriber.Name));
+                        .Replace("@USERNAME@", e.Subscriber.DisplayName));
                 }
             } else {
                 if (Convert.ToBoolean(Config.Config.Instance["Interactions"]["WriteInChatPrimeSub"])) {
                     AivaClient.Instance.AivaTwitchClient.SendMessage(
                         Config.Text.Instance.GetString("InteractionChatMessagePrimeSub")
-                        .Replace("@USERNAME@", e.Subscriber.Name));
+                        .Replace("@USERNAME@", e.Subscriber.DisplayName));
                 }
             }
         }
