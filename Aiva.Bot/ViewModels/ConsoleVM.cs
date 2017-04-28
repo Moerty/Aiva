@@ -19,6 +19,8 @@ namespace Aiva.Bot.ViewModels {
         public ICommand UnmuteCommand { get; set; } = new RoutedCommand();
         public ICommand ModCommand { get; set; } = new RoutedCommand();
         public ICommand UnmodCommand { get; set; } = new RoutedCommand();
+        public ICommand CopyMessageCommand { get; set; } = new RoutedCommand();
+        public ICommand CopyTwitchUsernameCommand { get; set; } = new RoutedCommand();
 
         public ConsoleVM() {
             Model = new Models.Console();

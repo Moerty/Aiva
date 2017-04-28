@@ -10,6 +10,7 @@ namespace Aiva.Extensions.Chat {
     /*
      * Can show Messages for GUI
      * Store Messages in Database
+     * Write Messages from GUI
      */
     [PropertyChanged.ImplementPropertyChanged]
     public class Chat {
@@ -47,7 +48,7 @@ namespace Aiva.Extensions.Chat {
         }
 
         /// <summary>
-        /// Check if a joined 
+        /// Check if a joined
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

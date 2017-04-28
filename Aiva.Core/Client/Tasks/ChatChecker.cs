@@ -35,7 +35,7 @@ namespace Aiva.Core.Client.Tasks {
         /// <param name="e"></param>
         public static void LinkChecker(object sender, OnMessageReceivedArgs e) {
             if (e.ChatMessage.UserType == UserType.Viewer) {
-                bool isUri = Uri.IsWellFormedUriString(e.ChatMessage.Message, UriKind.RelativeOrAbsolute);
+                var isUri = Uri.IsWellFormedUriString(e.ChatMessage.Message, UriKind.RelativeOrAbsolute);
 
                 if (isUri) {
                     AivaClient.Instance.AivaTwitchClient.TimeoutUser(e.ChatMessage.Username, new TimeSpan(0, 5, 0), Text.Instance.GetString("LinkTimeoutText"));

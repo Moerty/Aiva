@@ -5,7 +5,6 @@
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="clr-namespace:Aiva.Bot.Internal"
-    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvm="clr-namespace:Aiva.Bot.ViewModels"
     Width="720"
@@ -42,6 +41,12 @@
                         </TextBlock>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
+                <ItemsControl.ContextMenu>
+                    <ContextMenu Name="MessagesContextMenu">
+                        <MenuItem Header="TODO: Copy Message" />
+                        <MenuItem Header="TODO: Copy Twitch Username" />
+                    </ContextMenu>
+                </ItemsControl.ContextMenu>
             </ItemsControl>
         </ScrollViewer>
 
