@@ -11,5 +11,13 @@ namespace Aiva.Bot {
     /// Interaktionslogik für "App.xaml"
     /// </summary>
     public partial class App : Application {
+        private void StartApp(object sender, EventArgs e) {
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+        }
+
+        private void ExitApp(object sender, EventArgs e) {
+            Environment.Exit(0);
+        }
     }
 }
