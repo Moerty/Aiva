@@ -57,16 +57,14 @@ namespace Aiva.Core {
 
             var oAuthResult = TwitchApi.ValidationAPIRequest(OAuthKey);
 
-            if(oAuthResult != null) {
-                if(oAuthResult.Token.Valid) {
+            if (oAuthResult != null) {
+                if (oAuthResult.Token.Valid) {
                     TwitchID = Convert.ToInt64(oAuthResult.Token.UserId);
                     Username = oAuthResult.Token.Username;
-                }
-                else {
+                } else {
                     throw new Exception("OAuth Token is not valid!");
                 }
-            }
-            else {
+            } else {
                 throw new Exception("Cant validate Twitch OAuth Key");
             }
         }
@@ -106,6 +104,13 @@ namespace Aiva.Core {
         /// <param name="e"></param>
         private void OnJoinedChannel(object sender, TwitchLib.Events.Client.OnJoinedChannelArgs e) {
             AivaClient.Instance.AivaTwitchClient.SendMessage(Config.Text.Instance.GetString("AivaStartedText"));
+        }
+
+        /// <summary>
+        /// Disconnect from Twitch
+        /// </summary>
+        public void Disconnect() {
+            AivaClient.Instance.AivaTwitchClient.Disconnect();
         }
 
         /// <summary>

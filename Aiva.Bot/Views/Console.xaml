@@ -45,7 +45,10 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <ListView Grid.Column="1" ItemsSource="{Binding ChatHandler.Viewers}">
+        <ListView
+            Grid.Column="1"
+            ItemsSource="{Binding ChatHandler.Viewers}"
+            SelectedItem="{Binding ChatHandler.SelectedViewer}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
@@ -62,7 +65,7 @@
                                     <Style TargetType="Rectangle">
                                         <Setter Property="Visibility" Value="Hidden" />
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=IsMod}" Value="True">
+                                            <DataTrigger Binding="{Binding Path=IsMod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="True">
                                                 <Setter Property="Visibility" Value="Visible" />
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -97,6 +100,14 @@
                     </WrapPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.ContextMenu>
+                <ContextMenu Name="ViewerContextMenu">
+                    <MenuItem Command="{Binding MuteCommand}" Header="Mute Viewer" />
+                    <MenuItem Command="{Binding UnmuteCommand}" Header="Unmute Viewer" />
+                    <MenuItem Command="{Binding ModCommand}" Header="Mod Viewer" />
+                    <MenuItem Command="{Binding UnmodCommand}" Header="Unmod Viewer" />
+                </ContextMenu>
+            </ListView.ContextMenu>
         </ListView>
         <TextBox
             Name="tbMessage"

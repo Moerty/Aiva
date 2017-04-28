@@ -1,5 +1,5 @@
-﻿using CefSharp;
-using CefSharp.OffScreen;
+﻿//using CefSharp;
+//using CefSharp.OffScreen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,24 +8,29 @@ using System.Threading.Tasks;
 
 namespace Aiva.Testproject {
     class Program {
-        static Aiva.Extensions.Songrequest.Player p;
+        //static Aiva.Extensions.Songrequest.Player p;
 
         static void Main(string[] args) {
 
             // Make sure you set performDependencyCheck false
-            Cef.Initialize();
+            //Cef.Initialize();
 
             Core.AivaClient.Instance.AivaTwitchClient.SendMessage("Aiva started.");
-            TwitchLib.TwitchApi.ValidationAPIRequest("pcwfd4rhcevonwdjw6kdh1g5f8bz1g");
-            TwitchLib.TwitchApi.ValidClientId("10n39mbfftkcy2kg1jkzmm62yszdcg");
+            //TwitchLib.TwitchApi.ValidationAPIRequest("pcwfd4rhcevonwdjw6kdh1g5f8bz1g");
+            //TwitchLib.TwitchApi.ValidClientId("10n39mbfftkcy2kg1jkzmm62yszdcg");
 
-            // https://www.youtube.com/watch?v=KbNXnxwMOqU
-            p = new Extensions.Songrequest.Player();
+            //TwitchLib.TwitchApi.SetAccessToken("5to3wi9u0bkxl6r1w9bhjpcq8r1dut");
 
-            p.Browser.BrowserInitialized += Browser_BrowserInitialized;
-            p.ChangeSong(new Extensions.Songrequest.Song("5_SLU1ByyKg", "aeffchaen") {
-                VideoID = "5_SLU1ByyKg",
-            }, true);
+
+            //var xy = TwitchLib.TwitchApi.Channels.GetChannelsObject(Core.AivaClient.Instance.TwitchID.ToString());
+
+            //// https://www.youtube.com/watch?v=KbNXnxwMOqU
+            //p = new Extensions.Songrequest.Player();
+
+            //p.Browser.BrowserInitialized += Browser_BrowserInitialized;
+            //p.ChangeSong(new Extensions.Songrequest.Song("5_SLU1ByyKg", "aeffchaen") {
+            //    VideoID = "5_SLU1ByyKg",
+            //}, true);
 
 
 
@@ -33,9 +38,9 @@ namespace Aiva.Testproject {
         }
 
         private static void Browser_BrowserInitialized(object sender, EventArgs e) {
-            p.ChangeSong(new Extensions.Songrequest.Song("KbNXnxwMOqU", "aeffchaen") {
-                VideoID = "KbNXnxwMOqU",
-            }, true);
+            //p.ChangeSong(new Extensions.Songrequest.Song("KbNXnxwMOqU", "aeffchaen") {
+            //    VideoID = "KbNXnxwMOqU",
+            //}, true);
         }
     }
 }

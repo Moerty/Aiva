@@ -14,6 +14,12 @@ namespace Aiva.Bot.ViewModels {
 
         public ICommand SendMessageCommand { get; set; } = new RoutedCommand();
 
+        // ContextMenu Commands
+        public ICommand MuteCommand { get; set; } = new RoutedCommand();
+        public ICommand UnmuteCommand { get; set; } = new RoutedCommand();
+        public ICommand ModCommand { get; set; } = new RoutedCommand();
+        public ICommand UnmodCommand { get; set; } = new RoutedCommand();
+
         public ConsoleVM() {
             Model = new Models.Console();
             ChatHandler = new Extensions.Chat.Chat();
@@ -21,7 +27,31 @@ namespace Aiva.Bot.ViewModels {
 
             var type = new MahApps.Metro.Controls.MetroContentControl().GetType();
             SendMessageCommand = new Internal.RelayCommand(u => SendMessage(), s => Model.CanSendMessage);
+            UnmuteCommand = new Internal.RelayCommand(um => UnmuteUser(), um => true);
+            MuteCommand = new Internal.RelayCommand(um => MuteUser(), um => true);
+            ModCommand = new Internal.RelayCommand(um => ModUser(), um => true);
+            UnmodCommand = new Internal.RelayCommand(um => UnmodUser(), um => true);
         }
+
+        /// <summary>
+        /// Unmod User
+        /// </summary>
+        private void UnmodUser() => Core.Client.Internal.Stream.UnmodUser(ChatHandler.SelectedViewer.Name);
+
+        /// <summary>
+        /// Mod User
+        /// </summary>
+        private void ModUser() => Core.Client.Internal.Stream.ModUser(ChatHandler.SelectedViewer.Name);
+
+        /// <summary>
+        /// Mute Viewer
+        /// </summary>
+        private void MuteUser() => Core.Client.Internal.Chat.MuteUser(ChatHandler.SelectedViewer.Name);
+
+        /// <summary>
+        /// Unmute Viewer
+        /// </summary>
+        private void UnmuteUser() => Core.Client.Internal.Chat.UnmuteUser(ChatHandler.SelectedViewer.Name);
 
         /// <summary>
         /// Send the Message

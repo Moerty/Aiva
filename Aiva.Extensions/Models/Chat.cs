@@ -18,10 +18,12 @@ namespace Aiva.Extensions.Models {
             public DateTime TimeStamp { get; set; }
         }
 
+        [PropertyChanged.ImplementPropertyChanged]
         public class Viewers {
             public bool IsMod { get; set; }
             public bool IsSub { get; set; }
             public string Name { get; set; }
+            public long TwitchID { get; set; }
         }
     }
 }

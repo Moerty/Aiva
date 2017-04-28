@@ -1,5 +1,6 @@
 ﻿using System;
 using TwitchLib.Events.Client;
+using TwitchLib.Extensions.Client;
 
 namespace Aiva.Core.Client.Internal {
     public class Chat {
@@ -23,6 +24,22 @@ namespace Aiva.Core.Client.Internal {
                         .Replace("@USERNAME@", e.Subscriber.DisplayName));
                 }
             }
+        }
+
+        /// <summary>
+        /// Unmute a User
+        /// </summary>
+        /// <param name="username"></param>
+        public static void UnmuteUser(string username) {
+            AivaClient.Instance.AivaTwitchClient.UnbanUser(username);
+        }
+
+        /// <summary>
+        /// Mute a Viewer for 5 Minutes
+        /// </summary>
+        /// <param name="username"></param>
+        public static void MuteUser(string username) {
+            AivaClient.Instance.AivaTwitchClient.TimeoutUser(username, new TimeSpan(0, 5, 0), "Muted through Streamer!");
         }
     }
 }
