@@ -18,15 +18,15 @@ namespace Aiva.Bot.ViewModels {
                 _IsEnabled = value;
 
                 if(value) {
-                    Handler.EnableSongrequest(Command);
+                    //Handler.EnableSongrequest(Command);
                 }
                 else {
-                    Handler.DisableSongrequest();
+                    //Handler.DisableSongrequest();
                 }
             }
         }
 
-        Extensions.Songrequest.SongrequestHandler Handler { get; set; }
+        //Extensions.Songrequest.SongrequestHandler Handler { get; set; }
 
         public Songrequest() {
             

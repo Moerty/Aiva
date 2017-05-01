@@ -4,30 +4,88 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:internal="clr-namespace:Aiva.Bot.Internal"
     xmlns:local="clr-namespace:Aiva.Bot"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Aiva.Bot.Models"
     xmlns:viewModel="clr-namespace:Aiva.Bot.ViewModels"
     xmlns:views="clr-namespace:Aiva.Bot.Views"
     Title="Aiva"
     Width="900"
     Height="500"
+    MinWidth="900"
+    MinHeight="500"
     d:DataContext="{d:DesignInstance d:Type=viewModel:MainWindow}"
     ResizeMode="CanResizeWithGrip"
     mc:Ignorable="d">
 
-    <controls:MetroWindow.Flyouts>
-        <controls:FlyoutsControl ItemsSource="{Binding Model.Flyouts}">
-            <!--<controls:FlyoutsControl.ItemTemplate>
-                <DataTemplate>
-                    <ContentControl cal:View.Model="{Binding}" />
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands Name="RightWindowCommand" ItemsSource="{Binding SelectedTab.WindowCommands.RightWindowCommands}">
+            <controls:WindowCommands.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:MainWindow}">
+                    <Button Command="{Binding Command}">
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle
+                                Width="20"
+                                Height="20"
+                                Fill="Black">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{Binding Icon}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <TextBlock
+                                Margin="4,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="{Binding Header}" />
+                        </StackPanel>
+                    </Button>
                 </DataTemplate>
-            </controls:FlyoutsControl.ItemTemplate>-->
+            </controls:WindowCommands.ItemTemplate>
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+
+    <controls:MetroWindow.LeftWindowCommands>
+        <controls:WindowCommands Name="LeftWindowCommand" ItemsSource="{Binding SelectedTab.WindowCommands.LeftWindowCommands}">
+            <controls:WindowCommands.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:MainWindow}">
+                    <Button Command="{Binding Command}">
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle
+                                Width="20"
+                                Height="20"
+                                Fill="Black">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{Binding Icon}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <TextBlock
+                                Margin="4,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="{Binding Header}" />
+                        </StackPanel>
+                    </Button>
+                </DataTemplate>
+            </controls:WindowCommands.ItemTemplate>
+        </controls:WindowCommands>
+    </controls:MetroWindow.LeftWindowCommands>
+
+    <controls:MetroWindow.Flyouts>
+        <controls:FlyoutsControl ItemsSource="{Binding SelectedTab.Flyouts}">
+            <controls:FlyoutsControl.Template>
+                <ControlTemplate>
+                    <Grid>
+                        <ItemsPresenter />
+                    </Grid>
+                </ControlTemplate>
+            </controls:FlyoutsControl.Template>
             <controls:FlyoutsControl.ItemContainerStyle>
                 <Style BasedOn="{StaticResource {x:Type controls:Flyout}}" TargetType="{x:Type controls:Flyout}">
                     <Setter Property="Header" Value="{Binding Header}" />
-                    <Setter Property="IsOpen" Value="{Binding IsOpen}" />
-                    <Setter Property="Content" Value="suifghseuihfguisehfuieswh" />
                     <Setter Property="Position" Value="{Binding Position}" />
+                    <Setter Property="IsModal" Value="{Binding IsModal}" />
+                    <Setter Property="Content" Value="{Binding Content}" />
+                    <Setter Property="IsOpen" Value="{Binding IsOpen}" />
+                    <Setter Property="Theme" Value="Accent" />
                 </Style>
             </controls:FlyoutsControl.ItemContainerStyle>
         </controls:FlyoutsControl>

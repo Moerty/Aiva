@@ -21,6 +21,7 @@ namespace Aiva.Bot.ViewModels {
         public ICommand UnmodCommand { get; set; } = new RoutedCommand();
         public ICommand CopyMessageCommand { get; set; } = new RoutedCommand();
         public ICommand CopyTwitchUsernameCommand { get; set; } = new RoutedCommand();
+        public ICommand ShowUserInfo { get; set; } = new RoutedCommand();
 
         public ConsoleVM() {
             Model = new Models.Console();
@@ -33,6 +34,12 @@ namespace Aiva.Bot.ViewModels {
             MuteCommand = new Internal.RelayCommand(um => MuteUser(), um => true);
             ModCommand = new Internal.RelayCommand(um => ModUser(), um => true);
             UnmodCommand = new Internal.RelayCommand(um => UnmodUser(), um => true);
+            ShowUserInfo = new Internal.RelayCommand(u => ShowUserinfo(), u => true);
+        }
+
+        private void ShowUserinfo()
+        {
+            MainWindow.Instance.SelectedTab.Flyouts[0].IsOpen = true;
         }
 
         /// <summary>

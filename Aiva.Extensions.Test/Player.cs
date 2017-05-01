@@ -7,9 +7,9 @@ namespace Aiva.Extensions.Test {
         [TestMethod]
         public void TestPlayer() {
 
-            var p = new Aiva.Extensions.Songrequest.Player();
+            //var p = new Aiva.Extensions.Songrequest.Player();
 
-            p.Browser.BrowserInitialized += Browser_BrowserInitialized;
+            //p.Browser.BrowserInitialized += Browser_BrowserInitialized;
         }
 
         private void Browser_BrowserInitialized(object sender, EventArgs e) {

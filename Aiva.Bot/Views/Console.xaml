@@ -111,6 +111,7 @@
                     <MenuItem Command="{Binding UnmuteCommand}" Header="Unmute Viewer" />
                     <MenuItem Command="{Binding ModCommand}" Header="Mod Viewer" />
                     <MenuItem Command="{Binding UnmodCommand}" Header="Unmod Viewer" />
+                    <MenuItem Command="{Binding ShowUserInfo}" Header="User Information" />
                 </ContextMenu>
             </ListView.ContextMenu>
         </ListView>
