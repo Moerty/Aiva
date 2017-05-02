@@ -6,6 +6,7 @@
         public HonorSongrequester(string username = null) {
             InitializeComponent();
             if (username == null) return;
+            this.DataContext = new ViewModels.Flyouts.HonorSongrequester();
         }
     }
 }

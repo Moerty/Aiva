@@ -9,5 +9,14 @@
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
-    <Grid />
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel VerticalAlignment="Top" Orientation="Vertical">
+                <TextBlock Text="Add currency to Viewer" />
+                <controls:NumericUpDown Value="{Binding CurrencyToAdd}" />
+            </StackPanel>
+            <Separator />
+            <CheckBox Content="Write added Value in Chat" IsChecked="{Binding WriteInChat}" />
+        </StackPanel>
+    </Grid>
 </controls:MetroContentControl>
