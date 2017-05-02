@@ -10,8 +10,11 @@
     d:DesignWidth="300"
     mc:Ignorable="d">
     <Grid>
-        <StackPanel Orientation="Horizontal">
-            <StackPanel VerticalAlignment="Top" Orientation="Vertical">
+        <StackPanel Orientation="Vertical">
+            <StackPanel
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Orientation="Vertical">
                 <TextBlock Text="Add currency to Viewer" />
                 <controls:NumericUpDown Value="{Binding CurrencyToAdd}" />
             </StackPanel>

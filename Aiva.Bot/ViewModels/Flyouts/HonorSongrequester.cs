@@ -10,16 +10,24 @@ namespace Aiva.Bot.ViewModels.Flyouts {
 
         public ICommand HonorRequesterCommand { get; set; }
 
-        public HonorSongrequester(long twitchID = null) {
-            if (twitchID != null) {
-                this.TwitchID = twitchID;
+        public HonorSongrequester(long? twitchID = null, string username) {
+            if (twitchID.HasValue) {
+                this.TwitchID = twitchID.Value;
 
-                HonorRequesterCommand = new Internal.RelayCommand(h => HonorRequester(), h => Username != null);
+                HonorRequesterCommand = new Internal.RelayCommand(h => HonorRequester(), h => twitchID.HasValue);
             }
         }
 
         private void HonorRequester() {
-            Core.Database.Currency.Add.
+            Core.Database.Currency.Add.AddCurrencyToUser(TwitchID, CurrencyToAdd);
+
+            if (WriteInChat)
+                SendMessageInChat();
+        }
+
+        private void SendMessageInChat() {
+            Core.Client.Internal.Chat.SendMessage(
+                $"@");
         }
     }
 }

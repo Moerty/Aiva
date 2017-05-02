@@ -118,6 +118,7 @@
     <Compile Include="Internal\TextBoxEnterKeyUpdateBehavior.cs" />
     <Compile Include="Models\Console.cs" />
     <Compile Include="Models\MainWindow.cs" />
+    <Compile Include="ViewModels\Flyouts\HonorSongrequester.cs" />
     <Compile Include="ViewModels\Flyouts\UsersInfoVM.cs" />
     <Compile Include="ViewModels\Users.cs" />
     <Compile Include="ViewModels\ConsoleVM.cs" />
