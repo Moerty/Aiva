@@ -55,6 +55,7 @@
     <Compile Include="Client\Internal\Chat.cs" />
     <Compile Include="Client\Internal\Commands.cs" />
     <Compile Include="Client\Internal\Stream.cs" />
+    <Compile Include="Client\Internal\Users.cs" />
     <Compile Include="Client\Tasks\ChatChecker.cs" />
     <Compile Include="Client\Tasks\Tasks.cs" />
     <Compile Include="ConfigFiles\AivaText.Designer.cs">

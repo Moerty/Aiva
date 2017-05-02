@@ -1,18 +1,27 @@
-﻿using System;
+﻿using Google.Apis.Auth.OAuth2;
+using Google.Apis.Services;
+using Google.Apis.Util.Store;
+using Google.Apis.YouTube.v3;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Aiva.Testproject {
     class Program {
         //static Aiva.Extensions.Songrequest.Player p;
+        public static YouTubeService YouTubeConnector { get; private set; }
+
 
         static void Main(string[] args) {
 
             // Make sure you set performDependencyCheck false
             //Cef.Initialize();
-
+            YouTubeConnector = CreateYouTubeService();
+            Extensions.Songrequest.Playlist p = new Extensions.Songrequest.Playlist("RDMpZFVM800f8");
+            p.GetYoutubeDetails();
             Core.AivaClient.Instance.AivaTwitchClient.SendMessage("Aiva started.");
             //TwitchLib.TwitchApi.ValidationAPIRequest("pcwfd4rhcevonwdjw6kdh1g5f8bz1g");
             //TwitchLib.TwitchApi.ValidClientId("10n39mbfftkcy2kg1jkzmm62yszdcg");
@@ -35,10 +44,37 @@ namespace Aiva.Testproject {
             Console.ReadKey();
         }
 
-        private static void Browser_BrowserInitialized(object sender, EventArgs e) {
-            //p.ChangeSong(new Extensions.Songrequest.Song("KbNXnxwMOqU", "aeffchaen") {
-            //    VideoID = "KbNXnxwMOqU",
-            //}, true);
+        
+
+
+        /// <summary>
+        /// Create the YouTube Service
+        /// </summary>
+        /// <returns></returns>
+        public static YouTubeService CreateYouTubeService()
+        {
+            UserCredential credential;
+            credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                new ClientSecrets {
+                    ClientId = Core.Config.Config.Instance["Credentials"]["GoogleClientID"],
+                    ClientSecret = Core.Config.Config.Instance["Credentials"]["GoogleClientSecret"],
+                },
+                // This OAuth 2.0 access scope allows for full read/write access to the
+                // authenticated user's account.
+                new[] { YouTubeService.Scope.Youtube },
+                "user",
+                CancellationToken.None,
+                new FileDataStore("Aiva")
+            ).Result;
+
+
+            var youtubeService = new YouTubeService(new BaseClientService.Initializer {
+                HttpClientInitializer = credential,
+                ApplicationName = "Aiva"
+            });
+
+            return youtubeService;
         }
+
     }
 }

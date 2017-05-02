@@ -18,11 +18,16 @@ namespace Aiva.Bot.Views.Flyouts
     /// <summary>
     /// Interaktionslogik für UserInfo.xaml
     /// </summary>
+    /// 
+    [PropertyChanged.ImplementPropertyChanged]
     public partial class UserInfo : MahApps.Metro.Controls.MetroContentControl
     {
-        public UserInfo()
+        public new object DataContext { get; set; }
+
+        public UserInfo(string name)
         {
             InitializeComponent();
+            this.DataContext = new ViewModels.Flyouts.UsersInfoVM(name);
         }
     }
 }

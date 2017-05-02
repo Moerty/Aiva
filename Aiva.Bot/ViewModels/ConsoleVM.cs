@@ -39,6 +39,7 @@ namespace Aiva.Bot.ViewModels {
 
         private void ShowUserinfo()
         {
+            MainWindow.Instance.SelectedTab.Flyouts[0].DataContext = new ViewModels.Flyouts.UsersInfoVM(ChatHandler.SelectedViewer.Name);
             MainWindow.Instance.SelectedTab.Flyouts[0].IsOpen = true;
         }
 

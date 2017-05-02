@@ -6,34 +6,37 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Aiva.Bot.Views.Flyouts"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:Aiva.Bot.ViewModels.Flyouts"
     Width="300"
     d:DesignHeight="300"
     mc:Ignorable="d">
     <Grid>
-        <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Name: " />
+        <StackPanel Width="300">
+            <StackPanel Width="300" Orientation="Horizontal">
+                <TextBlock Margin="0,0,0,0" Text="Name: " />
                 <TextBox
                     Width="200"
+                    Margin="62,0,0,0"
                     HorizontalAlignment="Right"
                     IsReadOnly="True"
-                    Text="{Binding Name}" />
+                    Text="{Binding Username}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Id: " />
                 <TextBox
                     Width="200"
+                    Margin="84,0,0,0"
                     HorizontalAlignment="Right"
                     IsReadOnly="True"
-                    Text="{Binding Id}" />
+                    Text="{Binding ID}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Currency: " />
+                <TextBlock HorizontalAlignment="Left" Text="Currency: " />
                 <TextBox
                     Width="200"
-                    HorizontalAlignment="Right"
+                    Margin="47,0,0,0"
                     IsReadOnly="True"
-                    Text="{Binding Name}" />
+                    Text="{Binding Currency}" />
             </StackPanel>
         </StackPanel>
     </Grid>

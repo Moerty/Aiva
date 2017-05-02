@@ -25,9 +25,18 @@ namespace Aiva.Bot.ViewModels {
         public Models.MainWindow Model { get; set; }
         public Models.MainWindow.TabItemsModel SelectedTab { get; set; }
 
-        public MainWindow() {
+        public MainWindow()
+        {
 
-            var myResourceDictionary = new ResourceDictionary {
+            
+            InitViewModel();
+
+            Instance = this;
+        }
+
+        private void InitViewModel()
+        {
+            var Icons = new ResourceDictionary {
                 Source =
                 new Uri("/AivaBot;component/Styles/Icons.xaml",
                         UriKind.RelativeOrAbsolute)
@@ -41,28 +50,25 @@ namespace Aiva.Bot.ViewModels {
                         Flyouts = new System.Collections.ObjectModel.ObservableCollection<Flyout> {
                             new Flyout {
                                 Header = "UserDetails",
-                                Content = new Views.Flyouts.UserInfo(),
+                                Content = new Views.Flyouts.UserInfo(null),
                             }
                         },
                         WindowCommands = new Models.MainWindow.TabItemsModel.WindowCommandsModel {
-                            LeftWindowCommands = new System.Collections.ObjectModel.ObservableCollection<Models.MainWindow.TabItemsModel.WindowCommandsModel.WindowCommandModel> {
+                            RightWindowCommands = new System.Collections.ObjectModel.ObservableCollection<Models.MainWindow.TabItemsModel.WindowCommandsModel.WindowCommandModel> {
                                 new Models.MainWindow.TabItemsModel.WindowCommandsModel.WindowCommandModel {
                                     Header = "Users",
                                     Command = new RelayCommand(c => OpenUsers(), c => true),
-                                    Icon = myResourceDictionary["users"] as Canvas
+                                    Icon = Icons["users"] as Canvas
                                 }
                             }
                         }
                     },
                     new Models.MainWindow.TabItemsModel {
-                        Header = "Test1",
-                        Content = new MahApps.Metro.Controls.MetroContentControl(),
+                        Header = "Songrequest",
+                        Content = new Views.Songrequest(),
                     }
                 }
             };
-
-
-            Instance = this;
         }
 
         private void OpenUsers()

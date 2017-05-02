@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:Aiva.Bot.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvm="clr-namespace:Aiva.Bot.ViewModels"
@@ -21,5 +22,151 @@
         - add playlist
         - add video
     -->
-    <Grid />
+    <Grid>
+        <Expander
+            Width="237"
+            Height="189"
+            Margin="473,281,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Header="Expander">
+            <Grid Background="#FFE5E5E5" />
+        </Expander>
+        <Expander
+            Width="195"
+            Height="120"
+            Margin="10,10,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Header="Add"
+            IsExpanded="True">
+            <Grid Background="#FFE5E5E5">
+                <StackPanel Orientation="Vertical">
+                    <TextBox
+                        Width="165"
+                        Height="25"
+                        controls:TextBoxHelper.AutoWatermark="True"
+                        controls:TextBoxHelper.Watermark="Song url"
+                        Text="{Binding AddYoutubeUrl}" />
+                    <TextBox
+                        Width="165"
+                        Height="25"
+                        controls:TextBoxHelper.AutoWatermark="True"
+                        controls:TextBoxHelper.Watermark="Playlist"
+                        Text="{Binding AddPlaylistUrl}" />
+                    <Button Command="{Binding AddCommand}" Content="Add" />
+                </StackPanel>
+
+                <ListView
+                    x:Name="listView"
+                    Width="246"
+                    Height="183"
+                    Margin="443,-29,-506,-74"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    ItemsSource="{Binding Handler.Player.SongList}"
+                    ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding PlaySong}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False">
+                            <GridViewColumn Width="30">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate x:Name="dtIcon">
+                                        <Grid>
+                                            <Rectangle
+                                                x:Name="PlayPause"
+                                                Width="16"
+                                                Height="16"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                Visibility="Visible">
+                                                <Rectangle.Style>
+                                                    <Style TargetType="Rectangle">
+                                                        <Setter Property="Fill" Value="{StaticResource IconPlay}" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsPlaying}" Value="True">
+                                                                <Setter Property="Fill" Value="{StaticResource IconPause}" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Rectangle.Style>
+                                            </Rectangle>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="Auto">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding VideoModel.Title}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem
+                                x:Name="MenuItemDelete"
+                                Command="{Binding DeleteCommand}"
+                                Header="Delete">
+                                <MenuItem.Icon>
+                                    <Rectangle
+                                        Width="16"
+                                        Height="16"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Visibility="Visible">
+                                        <Rectangle.Fill>
+                                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_delete}" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem
+                                x:Name="MenuItemCopy"
+                                Command="{Binding CopyLinkCommand}"
+                                Header="CopyLink">
+                                <MenuItem.Icon>
+                                    <Rectangle
+                                        Width="16"
+                                        Height="16"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Visibility="Visible">
+                                        <Rectangle.Fill>
+                                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_page_copy}" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem
+                                x:Name="MenuItemHonor"
+                                Command="{Binding HonorCommand}"
+                                Header="Honor Requester">
+                                <MenuItem.Icon>
+                                    <Rectangle
+                                        Width="16"
+                                        Height="16"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Visibility="Visible">
+                                        <Rectangle.Fill>
+                                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_crown}" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                </ListView>
+            </Grid>
+        </Expander>
+    </Grid>
 </controls:MetroContentControl>
