@@ -39,24 +39,26 @@ namespace Aiva.Extensions.Songrequest {
         }
 
         public Player Player { get; private set; }
-        public bool Autoplay { get; set; }
+        public bool Autoplay { get; set; } = true;
         public string Command { get; set; }
         public TwitchLib.Enums.UserType UserType { get; set; }
 
-        public void EnableSongrequest() {
+        public SongrequestHandler() {
             CefSharp.Cef.Initialize();
+        }
+
+        public void EnableSongrequest() {
             Player = new Player();
             Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived += OnSongrequestCommandReceived;
         }
 
         public void DisableSongrequest() {
-            Player = null;
+            Player.StartStopMusic();
             Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived -= OnSongrequestCommandReceived;
-            CefSharp.Cef.Shutdown();
         }
 
         private void OnSongrequestCommandReceived(object sender, OnChatCommandReceivedArgs e) {
-            if (String.Compare(e.Command.Command, Command, true) == 0) {
+            if (String.Compare(e.Command.Command, Command, true) == 0 || String.Compare(e.Command.Command, Command.TrimStart('!'), true) == 0) {
                 AddSong(e.Command.ArgumentsAsString, e.Command.ChatMessage.Username, Convert.ToInt64(e.Command.ChatMessage.UserId));
             }
         }
@@ -72,7 +74,13 @@ namespace Aiva.Extensions.Songrequest {
         }
 
         public void AddPlaylist(string addPlaylistUrl, string username, long twitchID) {
-            throw new NotImplementedException();
+            var SongList = new Playlist(addPlaylistUrl).GetSongListFromPlaylist();
+
+            foreach (var song in SongList) {
+                Application.Current.Dispatcher.Invoke(() => {
+                    Player.SongList.Add(song);
+                });
+            }
         }
 
         public void StartSong(Song song) {

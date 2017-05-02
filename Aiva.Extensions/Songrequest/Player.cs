@@ -39,7 +39,7 @@ namespace Aiva.Extensions.Songrequest {
 
         public bool IsInit { get; private set; }
         public bool IsMusicPlaying { get; private set; }
-        public bool Autoplay { get; set; }
+        public bool Autoplay { get; set; } = true;
         public ObservableCollection<Song> SongList { get; set; }
         public Song SelectedSong { get; set; }
 

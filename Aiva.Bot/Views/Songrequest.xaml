@@ -95,7 +95,10 @@
                 OffLabel="Inactive"
                 OnLabel="Active"
                 UnCheckedCommand="{Binding SetSongrequestInactiveCommand}" />
-            <CheckBox Content="Autoplay" IsChecked="{Binding Handler.Autoplay}" HorizontalAlignment="Right"/>
+            <CheckBox
+                HorizontalAlignment="Right"
+                Content="Autoplay"
+                IsChecked="{Binding Handler.Autoplay}" />
         </StackPanel>
         <ListView
             x:Name="listView"
@@ -189,7 +192,7 @@
                     </MenuItem>
                     <MenuItem
                         x:Name="MenuItemHonor"
-                        Command="{Binding HonorCommand}"
+                        Command="{Binding HonorRequesterCommand}"
                         Header="Honor Requester">
                         <MenuItem.Icon>
                             <Rectangle
