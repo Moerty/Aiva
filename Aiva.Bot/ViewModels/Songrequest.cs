@@ -1,4 +1,6 @@
-﻿using MahApps.Metro.Controls;
+﻿using Aiva.Core;
+using Aiva.Extensions.Songrequest;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,46 +11,50 @@ using System.Windows.Input;
 namespace Aiva.Bot.ViewModels {
     [PropertyChanged.ImplementPropertyChanged]
     public class Songrequest {
-        
-
-        private bool _IsEnabled;
-        public bool IsEnabled {
-            get {
-                return _IsEnabled;
-            }
-            set {
-                _IsEnabled = value;
-
-                if(value) {
-                    //Handler.EnableSongrequest(Command);
-                }
-                else {
-                    //Handler.DisableSongrequest();
-                }
-            }
-        }
 
         public ICommand AddCommand { get; set; }
+        public ICommand PlaySongCommand { get; set; }
+        public ICommand SetSongrequestInactiveCommand { get; set; }
 
-        
-        public string Command { get; set; }
+
         public string AddYoutubeUrl { get; set; }
         public string AddPlaylistUrl { get; set; }
 
-        Extensions.Songrequest.SongrequestHandler Handler { get; set; }
+        public SongrequestHandler Handler { get; set; }
 
 
         public Songrequest() {
-
+            Handler = new SongrequestHandler();
 
 
             var type = new MetroContentControl().GetType();
             AddCommand = new Internal.RelayCommand(add => AddSongToPlaylist(), add => !String.IsNullOrEmpty(AddYoutubeUrl) || !String.IsNullOrEmpty(AddPlaylistUrl));
+            //SetSongrequestActiveCommand = new Internal.RelayCommand(active => SetRequestActive(), active => true);
+            //SetSongrequestActiveCommand = new Internal.RelayCommand(inactive => SetRequestInactive(), inactive => true);
+            PlaySongCommand = new Internal.RelayCommand(p => PlaySong(), p => Handler.Player.SongList.Any());
         }
 
-        private void AddSongToPlaylist()
-        {
-            if(!String.IsNullOrEmpty(AddYoutubeUrl)) {
+        /// <summary>
+        /// Disable Songrequest
+        /// </summary>
+        private void SetRequestInactive() => Handler.DisableSongrequest();
+
+        /// <summary>
+        /// Enable Songrequest
+        /// </summary>
+        private void SetRequestActive() {
+            if (!String.IsNullOrEmpty(Handler.Command))
+                Handler.EnableSongrequest();
+            else {
+                Handler.IsEnabled = false;
+            }
+        }
+
+        /// <summary>
+        /// Add Song to Playlist
+        /// </summary>
+        private void AddSongToPlaylist() {
+            if (!String.IsNullOrEmpty(AddYoutubeUrl)) {
                 Handler.AddSong(AddYoutubeUrl, Core.AivaClient.Instance.Username, Core.AivaClient.Instance.TwitchID);
             } else {
                 Handler.AddPlaylist(AddPlaylistUrl, Core.AivaClient.Instance.Username, Core.AivaClient.Instance.TwitchID);
@@ -60,10 +66,10 @@ namespace Aiva.Bot.ViewModels {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PlaySong(object sender, ExecutedRoutedEventArgs e)
-        {
-            var Song = (Extensions.Songrequest.Song)(sender as Views.Songrequest).listView.SelectedItem;
-            
+        private void PlaySong() {
+            //var Song = (Extensions.Songrequest.Song)(sender as Views.Songrequest).listView.SelectedItem;
+            var Song = Handler.Player.SelectedSong;
+
 
             // Handle DoubleClick cause Pause
             var currentSong = Handler.Player.SongList.SingleOrDefault(x => x.IsPlaying);
@@ -71,25 +77,25 @@ namespace Aiva.Bot.ViewModels {
                 if (Song.VideoID == currentSong.VideoID) {
                     currentSong.IsPlaying = false;
                     Handler.Player.StartStopMusic();
-                    Models.SongrequestModel.playedSong = null;
+
+
                     return;
                 }
             }
 
             if (Song != null) {
-                if (Player.IsInit) {
-                    Player.ChangeSong(Song.VideoID);
 
-                    // Inform User
-                    AivaClient.Client.AivaTwitchClient.SendMessage(LanguageConfig.Instance.GetString("SongrequestSongPlayed")
-                                                        .Replace("@USERNAME@", Song.Username)
-                                                        .Replace("@TITLE@", Song.VideoModel.Title));
+                //Player.ChangeSong(Song.VideoID);
+                Player.Instance.ChangeSong(Song, Handler.Autoplay);
 
-                    SongList.ToList().ForEach(x => x.IsPlaying = false);
+                // Inform User
+                Handler.SendStartSongMessage($"Start Song \"{Song.Title}\". Gewünscht von @{Song.Requester}. Link: {Song.Url}");
 
-                    Song.IsPlaying = true;
-                    Models.SongrequestModel.playedSong = Song;
-                }
+                //SongList.ToList().ForEach(x => x.IsPlaying = false);
+                Handler.Player.SongList.ToList().ForEach(x => x.IsPlaying = false);
+
+                Song.IsPlaying = true;
+
             }
         }
     }

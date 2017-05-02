@@ -12,6 +12,12 @@
     Height="470"
     d:DataContext="{d:DesignInstance d:Type=mvvm:Songrequest}"
     mc:Ignorable="d">
+
+    <controls:MetroContentControl.Resources>
+        <VisualBrush x:Key="play" Visual="{StaticResource appbar_control_play}" />
+
+        <VisualBrush x:Key="pause" Visual="{StaticResource appbar_control_pause}" />
+    </controls:MetroContentControl.Resources>
     <!--
         - Setting who can request songs
         - max song duration
@@ -56,117 +62,150 @@
                         Text="{Binding AddPlaylistUrl}" />
                     <Button Command="{Binding AddCommand}" Content="Add" />
                 </StackPanel>
-
-                <ListView
-                    x:Name="listView"
-                    Width="246"
-                    Height="183"
-                    Margin="443,-29,-506,-74"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    ItemsSource="{Binding Handler.Player.SongList}"
-                    ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDoubleClick">
-                            <i:InvokeCommandAction Command="{Binding PlaySong}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <ListView.View>
-                        <GridView AllowsColumnReorder="False">
-                            <GridViewColumn Width="30">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate x:Name="dtIcon">
-                                        <Grid>
-                                            <Rectangle
-                                                x:Name="PlayPause"
-                                                Width="16"
-                                                Height="16"
-                                                HorizontalAlignment="Stretch"
-                                                VerticalAlignment="Stretch"
-                                                Visibility="Visible">
-                                                <Rectangle.Style>
-                                                    <Style TargetType="Rectangle">
-                                                        <Setter Property="Fill" Value="{StaticResource IconPlay}" />
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding IsPlaying}" Value="True">
-                                                                <Setter Property="Fill" Value="{StaticResource IconPause}" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Rectangle.Style>
-                                            </Rectangle>
-                                        </Grid>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Width="Auto">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <TextBlock Text="{Binding VideoModel.Title}" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                    <ListView.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem
-                                x:Name="MenuItemDelete"
-                                Command="{Binding DeleteCommand}"
-                                Header="Delete">
-                                <MenuItem.Icon>
-                                    <Rectangle
-                                        Width="16"
-                                        Height="16"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Visibility="Visible">
-                                        <Rectangle.Fill>
-                                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_delete}" />
-                                        </Rectangle.Fill>
-                                    </Rectangle>
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <MenuItem
-                                x:Name="MenuItemCopy"
-                                Command="{Binding CopyLinkCommand}"
-                                Header="CopyLink">
-                                <MenuItem.Icon>
-                                    <Rectangle
-                                        Width="16"
-                                        Height="16"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Visibility="Visible">
-                                        <Rectangle.Fill>
-                                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_page_copy}" />
-                                        </Rectangle.Fill>
-                                    </Rectangle>
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <MenuItem
-                                x:Name="MenuItemHonor"
-                                Command="{Binding HonorCommand}"
-                                Header="Honor Requester">
-                                <MenuItem.Icon>
-                                    <Rectangle
-                                        Width="16"
-                                        Height="16"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Visibility="Visible">
-                                        <Rectangle.Fill>
-                                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_crown}" />
-                                        </Rectangle.Fill>
-                                    </Rectangle>
-                                </MenuItem.Icon>
-                            </MenuItem>
-                        </ContextMenu>
-                    </ListView.ContextMenu>
-                </ListView>
             </Grid>
         </Expander>
+        <StackPanel
+            Width="200"
+            Height="100"
+            Margin="231,14,289,356"
+            Orientation="Vertical">
+            <TextBox
+                Name="tbCommand"
+                Width="200"
+                controls:TextBoxHelper.AutoWatermark="True"
+                controls:TextBoxHelper.Watermark="Command..."
+                Text="{Binding Handler.Command}">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Handler.IsEnabled}" Value="True">
+                                <Setter Property="IsReadOnly" Value="True" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Handler.IsEnabled}" Value="False">
+                                <Setter Property="IsReadOnly" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <controls:ToggleSwitch
+                CheckedCommand="{Binding SetSongrequestActiveCommand}"
+                Header="Viewer Songrequests"
+                IsChecked="{Binding Handler.IsEnabled}"
+                OffLabel="Inactive"
+                OnLabel="Active"
+                UnCheckedCommand="{Binding SetSongrequestInactiveCommand}" />
+            <CheckBox Content="Autoplay" IsChecked="{Binding Handler.Autoplay}" HorizontalAlignment="Right"/>
+        </StackPanel>
+        <ListView
+            x:Name="listView"
+            Width="246"
+            Height="183"
+            Margin="464,10,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            ItemsSource="{Binding Handler.Player.SongList}"
+            ScrollViewer.VerticalScrollBarVisibility="Disabled"
+            SelectedItem="{Binding Handler.Player.SelectedSong}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding PlaySongCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <ListView.View>
+                <GridView AllowsColumnReorder="False">
+                    <GridViewColumn Width="30">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate x:Name="dtIcon">
+                                <Grid>
+                                    <Rectangle
+                                        x:Name="PlayPause"
+                                        Width="16"
+                                        Height="16"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Visibility="Visible">
+                                        <Rectangle.Style>
+                                            <Style TargetType="Rectangle">
+                                                <Setter Property="Fill" Value="{StaticResource play}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsPlaying}" Value="True">
+                                                        <Setter Property="Fill" Value="{StaticResource pause}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Rectangle.Style>
+                                    </Rectangle>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Title}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        x:Name="MenuItemDelete"
+                        Command="{Binding DeleteCommand}"
+                        Header="Delete">
+                        <MenuItem.Icon>
+                            <Rectangle
+                                Width="16"
+                                Height="16"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Visibility="Visible">
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_delete}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        x:Name="MenuItemCopy"
+                        Command="{Binding CopyLinkCommand}"
+                        Header="CopyLink">
+                        <MenuItem.Icon>
+                            <Rectangle
+                                Width="16"
+                                Height="16"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Visibility="Visible">
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_page_copy}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        x:Name="MenuItemHonor"
+                        Command="{Binding HonorCommand}"
+                        Header="Honor Requester">
+                        <MenuItem.Icon>
+                            <Rectangle
+                                Width="16"
+                                Height="16"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Visibility="Visible">
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_crown}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
     </Grid>
 </controls:MetroContentControl>

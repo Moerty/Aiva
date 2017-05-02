@@ -5,10 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Aiva.Extensions.Songrequest
-{
-    public class Song
-    {
+namespace Aiva.Extensions.Songrequest {
+    [PropertyChanged.ImplementPropertyChanged]
+    public class Song {
 
         public string Title { get; set; }
         public TimeSpan Duration { get; set; }
@@ -19,8 +18,7 @@ namespace Aiva.Extensions.Songrequest
         public string Url { get; set; }
         public long TwitchID { get; set; }
 
-        public Song(string UserInput, string Username)
-        {
+        public Song(string UserInput, string Username) {
             this.UserInput = UserInput;
             Requester = Username;
             VideoID = ExtractVideoID();
@@ -32,8 +30,7 @@ namespace Aiva.Extensions.Songrequest
         /// <summary>
         /// Get Videodetails from YouTube
         /// </summary>
-        private void GetVideoDetails()
-        {
+        private void GetVideoDetails() {
             var request = Player.Instance.YouTubeConnector.Videos.List("snippet,contentDetails");
             request.Id = VideoID;
             var response = request.Execute();
@@ -50,8 +47,7 @@ namespace Aiva.Extensions.Songrequest
         /// Extract the VideoID
         /// </summary>
         /// <returns></returns>
-        private string ExtractVideoID()
-        {
+        private string ExtractVideoID() {
             // https://www.youtube.com/watch?v=ARfqiQRSPFc
             if (UserInput.StartsWith("https://", StringComparison.OrdinalIgnoreCase)) {
                 var query = HttpUtility.ParseQueryString(new Uri(UserInput).Query);

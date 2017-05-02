@@ -16,10 +16,9 @@ using System.Collections.ObjectModel;
     - add playlist
     - add video
  * */
-namespace Aiva.Extensions.Songrequest
-{
-    public class Player
-    {
+namespace Aiva.Extensions.Songrequest {
+    [PropertyChanged.ImplementPropertyChanged]
+    public class Player {
 
         private static Player _Player;
         public static Player Instance {
@@ -42,14 +41,15 @@ namespace Aiva.Extensions.Songrequest
         public bool IsMusicPlaying { get; private set; }
         public bool Autoplay { get; set; }
         public ObservableCollection<Song> SongList { get; set; }
+        public Song SelectedSong { get; set; }
 
         const string youtube = "https://www.youtube.com/embed/";
 
-        public Player()
-        {
+        public Player() {
             Browser = new ChromiumWebBrowser();
             YouTubeConnector = CreateYouTubeService();
             Browser.BrowserInitialized += BrowserInitialized;
+            //Cef.Initialize();
             SongList = new ObservableCollection<Song>();
         }
 
@@ -58,8 +58,7 @@ namespace Aiva.Extensions.Songrequest
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BrowserInitialized(object sender, System.EventArgs e)
-        {
+        private void BrowserInitialized(object sender, System.EventArgs e) {
             IsInit = true;
         }
 
@@ -68,8 +67,7 @@ namespace Aiva.Extensions.Songrequest
         /// </summary>
         /// <param name="autoplay"></param>
         /// <param name="song">todo: describe song parameter on ChangeSong</param>
-        public void ChangeSong(Song song, bool autoplay = false)
-        {
+        public void ChangeSong(Song song, bool autoplay = false) {
             string url = youtube + song.VideoID + (autoplay ? "?autoplay=1" : "");
 
             Browser.Load(url);
@@ -82,8 +80,7 @@ namespace Aiva.Extensions.Songrequest
         /// <summary>
         /// Start/Stop the Player
         /// </summary>
-        public void StartStopMusic()
-        {
+        public void StartStopMusic() {
             if (IsMusicPlaying) {
                 Browser.GetBrowser().GetHost().SendMouseClickEvent(0, 0, MouseButtonType.Left, false, 1, CefEventFlags.None);
                 Thread.Sleep(100);
@@ -95,8 +92,7 @@ namespace Aiva.Extensions.Songrequest
         /// <summary>
         /// Reset the Player to default;
         /// </summary>
-        public void ResetPlayer()
-        {
+        public void ResetPlayer() {
             Browser = new ChromiumWebBrowser();
         }
 
@@ -105,8 +101,7 @@ namespace Aiva.Extensions.Songrequest
         /// Create the YouTube Service
         /// </summary>
         /// <returns></returns>
-        public static YouTubeService CreateYouTubeService()
-        {
+        public static YouTubeService CreateYouTubeService() {
             UserCredential credential;
             credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                 new ClientSecrets {

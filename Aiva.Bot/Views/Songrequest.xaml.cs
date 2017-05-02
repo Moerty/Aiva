@@ -7,6 +7,7 @@ namespace Aiva.Bot.Views {
     public partial class Songrequest : MetroContentControl {
         public Songrequest() {
             InitializeComponent();
+            this.DataContext = new ViewModels.Songrequest();
         }
     }
 }

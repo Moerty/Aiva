@@ -13,17 +13,16 @@ namespace Aiva.Bot {
     public partial class App : Application {
         private void StartApp(object sender, EventArgs e) {
             var mainWindow = new MainWindow();
-            mainWindow.Closing += MainWindow_Closing;
+            //mainWindow.Closing += MainWindow_Closing;
             mainWindow.Show();
         }
 
-        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
-            Environment.Exit(0);
-        }
-
         private void ExitApp(object sender, EventArgs e) {
-            Environment.Exit(0);
+            //Application.Current.Dispatcher.Thread.Abort();
+            //Dispatcher.CurrentDispatcher.Thread.Abort();
             Core.AivaClient.Instance.Disconnect();
+            CefSharp.Cef.Shutdown();
+            Environment.Exit(0);
         }
     }
 }

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TwitchLib.Events.Client;
 
-namespace Aiva.Extensions.Songrequest
-{
-    public class SongrequestHandler
-    {
+namespace Aiva.Extensions.Songrequest {
+    [PropertyChanged.ImplementPropertyChanged]
+    public class SongrequestHandler {
         /*
          * 
          * - Setting who can request songs
@@ -20,58 +20,79 @@ namespace Aiva.Extensions.Songrequest
             - add playlist
             - add video
     */
+
+        private bool _IsEnabled;
+        public bool IsEnabled {
+            get {
+                return _IsEnabled;
+            }
+            set {
+                if (!String.IsNullOrEmpty(Command)) {
+                    if (value) {
+                        EnableSongrequest();
+                    } else {
+                        DisableSongrequest();
+                    }
+                    _IsEnabled = value;
+                }
+            }
+        }
+
         public Player Player { get; private set; }
-        public bool IsEnabled { get; set; }
         public bool Autoplay { get; set; }
         public string Command { get; set; }
         public TwitchLib.Enums.UserType UserType { get; set; }
 
-        public void EnableSongrequest(string command)
-        {
-            this.Command = command;
+        public void EnableSongrequest() {
+            CefSharp.Cef.Initialize();
             Player = new Player();
             Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived += OnSongrequestCommandReceived;
         }
 
-        public void DisableSongrequest()
-        {
+        public void DisableSongrequest() {
             Player = null;
             Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived -= OnSongrequestCommandReceived;
+            CefSharp.Cef.Shutdown();
         }
 
-        private void OnSongrequestCommandReceived(object sender, OnChatCommandReceivedArgs e)
-        {
+        private void OnSongrequestCommandReceived(object sender, OnChatCommandReceivedArgs e) {
             if (String.Compare(e.Command.Command, Command, true) == 0) {
                 AddSong(e.Command.ArgumentsAsString, e.Command.ChatMessage.Username, Convert.ToInt64(e.Command.ChatMessage.UserId));
             }
         }
 
-        public void AddSong(string argument, string username, long userid)
-        {
-            Player.SongList.Add(
-                                new Song(argument, username) {
-                                    TwitchID = userid
-                                });
+        public void AddSong(string argument, string username, long userid) {
+            var song = new Song(argument, username) {
+                TwitchID = userid
+            };
+
+            Application.Current.Dispatcher.Invoke(() => {
+                Player.SongList.Add(song);
+            });
         }
 
-        public void AddPlaylist(string addPlaylistUrl, string username, long twitchID)
-        {
+        public void AddPlaylist(string addPlaylistUrl, string username, long twitchID) {
             throw new NotImplementedException();
         }
 
-        public void StartSong(Song song)
-        {
+        public void StartSong(Song song) {
             Player.ChangeSong(song, Autoplay);
         }
 
-        public void StopSong()
-        {
+        public void StopSong() {
             Player.StartStopMusic();
         }
 
-        public void AddPlaylist(string userinput)
-        {
+        public void AddPlaylist(string userinput) {
 
+        }
+
+        /// <summary>
+        /// Send Message to Chat
+        /// </summary>
+        /// <param name="text"></param>
+        public void SendStartSongMessage(string text) {
+            Core.AivaClient.Instance.AivaTwitchClient.SendMessage(text);
         }
     }
 }
