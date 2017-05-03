@@ -5,7 +5,7 @@ namespace Aiva.Bot.ViewModels.Flyouts {
     [PropertyChanged.ImplementPropertyChanged]
     public class HonorSongrequester {
         private long TwitchID;
-        private string Username;
+        private readonly string Username;
         public int CurrencyToAdd { get; set; }
         public bool WriteInChat { get; set; }
 
@@ -21,6 +21,9 @@ namespace Aiva.Bot.ViewModels.Flyouts {
             HonorRequesterCommand = new Internal.RelayCommand(h => HonorRequester(), h => twitchID.HasValue);
         }
 
+        /// <summary>
+        /// Do Honor
+        /// </summary>
         private void HonorRequester() {
             if (TwitchID != 0) {
                 Core.Database.Currency.Add.AddCurrencyToUser(TwitchID, CurrencyToAdd);
@@ -30,6 +33,9 @@ namespace Aiva.Bot.ViewModels.Flyouts {
                 SendMessageInChat();
         }
 
+        /// <summary>
+        /// Send Message in TwitchChat
+        /// </summary>
         private void SendMessageInChat() {
             Core.Client.Internal.Chat.SendMessage(
                 $"@{Username} was added {CurrencyToAdd} currency! Nice Song, dude!");

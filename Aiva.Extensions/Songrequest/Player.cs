@@ -1,22 +1,10 @@
-﻿using CefSharp;
-using CefSharp.OffScreen;
-using Google.Apis.Auth.OAuth2;
+﻿using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using Google.Apis.YouTube.v3;
 using System.Threading;
 using System.Collections.ObjectModel;
-using System.Linq;
-/*
- * - Setting who can request songs
-    - max song duration
-    - max quene size
-    
-    - cost sttings
-    
-    - add playlist
-    - add video
- * */
+
 namespace Aiva.Extensions.Songrequest {
     [PropertyChanged.ImplementPropertyChanged]
     public class Player {
@@ -45,24 +33,7 @@ namespace Aiva.Extensions.Songrequest {
 
         public Player() {
             YouTubeConnector = CreateYouTubeService();
-            //Cef.Initialize();
             SongList = new ObservableCollection<Song>();
-        }
-
-
-        /// <summary>
-        /// Change Song
-        /// </summary>
-        /// <param name="autoplay"></param>
-        /// <param name="song">todo: describe song parameter on ChangeSong</param>
-        public void ChangeSong(Song song, bool autoplay = false) {
-            string url = youtube + song.VideoID + (autoplay ? "?autoplay=1" : "");
-
-            //Browser.Load(url);
-
-            if (autoplay) {
-                //IsMusicPlaying = true;
-            }
         }
 
         /// <summary>
@@ -81,13 +52,13 @@ namespace Aiva.Extensions.Songrequest {
                 new[] { YouTubeService.Scope.Youtube },
                 "user",
                 CancellationToken.None,
-                new FileDataStore("Aiva")
+                new FileDataStore(nameof(Aiva))
             ).Result;
 
 
             var youtubeService = new YouTubeService(new BaseClientService.Initializer {
                 HttpClientInitializer = credential,
-                ApplicationName = "Aiva"
+                ApplicationName = nameof(Aiva)
             });
 
             return youtubeService;

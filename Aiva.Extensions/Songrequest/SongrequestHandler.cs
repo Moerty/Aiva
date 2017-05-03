@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using TwitchLib.Events.Client;
 
@@ -36,20 +32,37 @@ namespace Aiva.Extensions.Songrequest {
             Player = new Player();
         }
 
+        /// <summary>
+        /// Enabled Songrequest
+        /// </summary>
         public void EnableSongrequest() {
             Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived += OnSongrequestCommandReceived;
         }
 
+        /// <summary>
+        /// Disable Songrequest
+        /// </summary>
         public void DisableSongrequest() {
             Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived -= OnSongrequestCommandReceived;
         }
 
+        /// <summary>
+        /// Fires when Songrequest Command received
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnSongrequestCommandReceived(object sender, OnChatCommandReceivedArgs e) {
             if (String.Compare(e.Command.Command, Command, true) == 0 || String.Compare(e.Command.Command, Command.TrimStart('!'), true) == 0) {
                 AddSong(e.Command.ArgumentsAsString, e.Command.ChatMessage.Username, Convert.ToInt64(e.Command.ChatMessage.UserId));
             }
         }
 
+        /// <summary>
+        /// Add a Song to the Playlist
+        /// </summary>
+        /// <param name="argument"></param>
+        /// <param name="username"></param>
+        /// <param name="userid"></param>
         public void AddSong(string argument, string username, long userid) {
 
             var song = new Song(argument, username) {
@@ -61,7 +74,11 @@ namespace Aiva.Extensions.Songrequest {
             });
         }
 
-        public void AddPlaylist(string addPlaylistUrl, string username, long twitchID) {
+        /// <summary>
+        /// Add a Playlist from YouTube to the internal Playlist
+        /// </summary>
+        /// <param name="addPlaylistUrl"></param>
+        public void AddPlaylist(string addPlaylistUrl) {
             var SongList = new Playlist(addPlaylistUrl).GetSongListFromPlaylist();
 
             foreach (var song in SongList) {
@@ -75,7 +92,7 @@ namespace Aiva.Extensions.Songrequest {
         /// Send Message to Chat
         /// </summary>
         /// <param name="text"></param>
-        public void SendStartSongMessage(string text) {
+        public static void SendStartSongMessage(string text) {
             Core.AivaClient.Instance.AivaTwitchClient.SendMessage(text);
         }
     }

@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Aiva.Extensions.Songrequest {
@@ -30,9 +28,12 @@ namespace Aiva.Extensions.Songrequest {
             return UserInput.StartsWith("/watch?", StringComparison.OrdinalIgnoreCase) ? UserInput.Substring(9, UserInput.Length - 9) : UserInput;
         }
 
+        /// <summary>
+        /// Get List of Songs from Youtube
+        /// </summary>
+        /// <returns></returns>
         public List<Song> GetSongListFromPlaylist() {
             var request = YouTubeConnector.PlaylistItems.List("snippet,contentDetails");
-            //var request = YouTubeConnector.Videos.List("snippet,contentDetails");
             request.PlaylistId = ExtractVideoID();
             var response = request.Execute();
 
