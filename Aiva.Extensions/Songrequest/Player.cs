@@ -6,6 +6,7 @@ using Google.Apis.Util.Store;
 using Google.Apis.YouTube.v3;
 using System.Threading;
 using System.Collections.ObjectModel;
+using System.Linq;
 /*
  * - Setting who can request songs
     - max song duration
@@ -35,32 +36,21 @@ namespace Aiva.Extensions.Songrequest {
 
 
         public YouTubeService YouTubeConnector { get; private set; }
-        public ChromiumWebBrowser Browser { get; private set; }
+        public ChromiumWebBrowser Browser { get; set; }
 
-        public bool IsInit { get; private set; }
-        public bool IsMusicPlaying { get; private set; }
         public bool Autoplay { get; set; } = true;
         public ObservableCollection<Song> SongList { get; set; }
         public Song SelectedSong { get; set; }
+        public Song PlayedSong { get; set; }
 
         const string youtube = "https://www.youtube.com/embed/";
 
         public Player() {
-            Browser = new ChromiumWebBrowser();
             YouTubeConnector = CreateYouTubeService();
-            Browser.BrowserInitialized += BrowserInitialized;
             //Cef.Initialize();
             SongList = new ObservableCollection<Song>();
         }
 
-        /// <summary>
-        /// Internal
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BrowserInitialized(object sender, System.EventArgs e) {
-            IsInit = true;
-        }
 
         /// <summary>
         /// Change Song
@@ -70,10 +60,10 @@ namespace Aiva.Extensions.Songrequest {
         public void ChangeSong(Song song, bool autoplay = false) {
             string url = youtube + song.VideoID + (autoplay ? "?autoplay=1" : "");
 
-            Browser.Load(url);
+            //Browser.Load(url);
 
             if (autoplay) {
-                IsMusicPlaying = true;
+                //IsMusicPlaying = true;
             }
         }
 
@@ -81,11 +71,11 @@ namespace Aiva.Extensions.Songrequest {
         /// Start/Stop the Player
         /// </summary>
         public void StartStopMusic() {
-            if (IsMusicPlaying) {
+            if (SongList.Any(x => x.IsPlaying)) {
                 Browser.GetBrowser().GetHost().SendMouseClickEvent(0, 0, MouseButtonType.Left, false, 1, CefEventFlags.None);
                 Thread.Sleep(100);
                 Browser.GetBrowser().GetHost().SendMouseClickEvent(0, 0, MouseButtonType.Left, true, 1, CefEventFlags.None);
-                IsMusicPlaying = false;
+                //IsMusicPlaying = false;
             }
         }
 

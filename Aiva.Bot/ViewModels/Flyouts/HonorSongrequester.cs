@@ -10,7 +10,7 @@ namespace Aiva.Bot.ViewModels.Flyouts {
 
         public ICommand HonorRequesterCommand { get; set; }
 
-        public HonorSongrequester(long? twitchID = null, string username) {
+        public HonorSongrequester(string username, long? twitchID = null) {
             if (twitchID.HasValue) {
                 this.TwitchID = twitchID.Value;
 

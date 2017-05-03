@@ -113,6 +113,7 @@
   <ItemGroup>
     <Compile Include="Bankheist\Bankheist.cs" />
     <Compile Include="Bankheist\Handler.cs" />
+    <Compile Include="CefFiles\BoundObject.cs" />
     <Compile Include="CefFiles\InitCefSharp.cs" />
     <Compile Include="Chat\Chat.cs" />
     <Compile Include="Models\Bankheist.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Models\Songrequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Songrequest\Player.cs" />
+    <Compile Include="Songrequest\Player2.cs" />
     <Compile Include="Songrequest\Playlist.cs" />
     <Compile Include="Songrequest\Song.cs" />
     <Compile Include="Songrequest\SongrequestHandler.cs" />
@@ -151,7 +153,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>$(SolutionDir)\BuildProcess\PreBuildEvents.bat  "$(TargetPath)"  "$(TargetFileName)"</PreBuildEvent>
+    <PreBuildEvent>$(SolutionDir)\BuildProcess\PreBuildEvents.bat  "$(TargetPath)"  "$(TargetFileName)"
+
+taskkill /im msbuild.exe /f</PreBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets" Condition="Exists('..\packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -170,4 +174,8 @@
   <Import Project="..\packages\CefSharp.Common.57.0.0\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.57.0.0\build\CefSharp.Common.targets')" />
   <Import Project="..\packages\CefSharp.OffScreen.57.0.0\build\CefSharp.OffScreen.targets" Condition="Exists('..\packages\CefSharp.OffScreen.57.0.0\build\CefSharp.OffScreen.targets')" />
   <Import Project="..\packages\Fody.2.0.0\build\dotnet\Fody.targets" Condition="Exists('..\packages\Fody.2.0.0\build\dotnet\Fody.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>

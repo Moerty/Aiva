@@ -44,16 +44,16 @@ namespace Aiva.Extensions.Songrequest {
         public TwitchLib.Enums.UserType UserType { get; set; }
 
         public SongrequestHandler() {
-            CefSharp.Cef.Initialize();
+            //CefSharp.Cef.Initialize();
+            Player = new Player();
+            Player.Autoplay = Autoplay;
         }
 
         public void EnableSongrequest() {
-            Player = new Player();
             Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived += OnSongrequestCommandReceived;
         }
 
         public void DisableSongrequest() {
-            Player.StartStopMusic();
             Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived -= OnSongrequestCommandReceived;
         }
 
@@ -64,6 +64,7 @@ namespace Aiva.Extensions.Songrequest {
         }
 
         public void AddSong(string argument, string username, long userid) {
+
             var song = new Song(argument, username) {
                 TwitchID = userid
             };

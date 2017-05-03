@@ -17,7 +17,6 @@ namespace Aiva.Bot.ViewModels {
         public ICommand SetSongrequestInactiveCommand { get; set; }
         public ICommand HonorRequesterCommand { get; set; }
 
-
         public string AddYoutubeUrl { get; set; }
         public string AddPlaylistUrl { get; set; }
 
@@ -72,34 +71,18 @@ namespace Aiva.Bot.ViewModels {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PlaySong() {
-            //var Song = (Extensions.Songrequest.Song)(sender as Views.Songrequest).listView.SelectedItem;
-            var Song = Handler.Player.SelectedSong;
 
+            Handler.Player.PlayedSong = Handler.Player.SelectedSong;
 
-            // Handle DoubleClick cause Pause
-            var currentSong = Handler.Player.SongList.SingleOrDefault(x => x.IsPlaying);
-            if (currentSong != null) {
-                if (Song.VideoID == currentSong.VideoID) {
-                    currentSong.IsPlaying = false;
-                    Handler.Player.StartStopMusic();
-
-
-                    return;
-                }
-            }
-
-            if (Song != null) {
-
-                //Player.ChangeSong(Song.VideoID);
-                Player.Instance.ChangeSong(Song, Handler.Autoplay);
+            if (Handler.Player.PlayedSong != null) {
 
                 // Inform User
-                Handler.SendStartSongMessage($"Start Song \"{Song.Title}\". Gewünscht von @{Song.Requester}. Link: {Song.Url}");
+                Handler.SendStartSongMessage($"Start Song \"{Handler.Player.PlayedSong.Title}\". Gewünscht von @{Handler.Player.PlayedSong.Requester}. Link: {Handler.Player.PlayedSong.Url}");
 
                 //SongList.ToList().ForEach(x => x.IsPlaying = false);
                 Handler.Player.SongList.ToList().ForEach(x => x.IsPlaying = false);
 
-                Song.IsPlaying = true;
+                Handler.Player.PlayedSong.IsPlaying = true;
 
             }
         }

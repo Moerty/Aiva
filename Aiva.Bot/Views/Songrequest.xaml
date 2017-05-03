@@ -2,12 +2,14 @@
     x:Class="Aiva.Bot.Views.Songrequest"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:Aiva.Bot.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvm="clr-namespace:Aiva.Bot.ViewModels"
+    xmlns:yt="clr-namespace:YoutubePlayerLib.Cef;assembly=YoutubePlayerLib"
     Width="720"
     Height="470"
     d:DataContext="{d:DesignInstance d:Type=mvvm:Songrequest}"
@@ -76,7 +78,7 @@
                 controls:TextBoxHelper.Watermark="Command..."
                 Text="{Binding Handler.Command}">
                 <TextBox.Style>
-                    <Style TargetType="TextBox">
+                    <Style BasedOn="{StaticResource MetroTextBox}" TargetType="TextBox">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Handler.IsEnabled}" Value="True">
                                 <Setter Property="IsReadOnly" Value="True" />
@@ -98,7 +100,7 @@
             <CheckBox
                 HorizontalAlignment="Right"
                 Content="Autoplay"
-                IsChecked="{Binding Handler.Autoplay}" />
+                IsChecked="{Binding AutoPlay, ElementName=Player}" />
         </StackPanel>
         <ListView
             x:Name="listView"
@@ -210,5 +212,88 @@
                 </ContextMenu>
             </ListView.ContextMenu>
         </ListView>
+
+        <StackPanel
+            Height="30"
+            Margin="19,428,416,12"
+            Orientation="Horizontal">
+            <Button Command="{Binding PauseCommand, ElementName=Player}">
+                <Rectangle
+                    Width="16"
+                    Height="16"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Visibility="Visible">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_control_pause}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+            <Button Command="{Binding StopCommand, ElementName=Player}">
+                <Rectangle
+                    Width="16"
+                    Height="16"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Visibility="Visible">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_control_stop}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+            <Button Command="{Binding StartCommand, ElementName=Player}">
+                <Rectangle
+                    Width="16"
+                    Height="16"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Visibility="Visible">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_control_play}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+
+            <Slider
+                Width="149"
+                Height="30"
+                Margin="40,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                IsSnapToTickEnabled="True"
+                Maximum="100"
+                TickFrequency="10"
+                TickPlacement="BottomRight"
+                Value="{Binding Volume, ElementName=Player}" />
+        </StackPanel>
+
+        <Expander
+            Width="Auto"
+            Height="Auto"
+            Margin="10,212,416,54"
+            ExpandDirection="Up"
+            IsExpanded="True"
+            Header="Video"
+            IsEnabled="True">
+            <Grid>
+                <yt:CefYoutubeController
+                    Name="Player"
+                    CurrentQuality="hd1080"
+                    VideoId="{Binding Handler.Player.PlayedSong.VideoID}" >
+
+                    <yt:CefYoutubeController.Style>
+                        <Style TargetType="yt:CefYoutubeController">
+                            <Setter Property="Visibility" Value="Hidden"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Handler.Player.SelectedSong.IsPlaying}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </yt:CefYoutubeController.Style>
+                </yt:CefYoutubeController>
+            </Grid>
+        </Expander>
+
     </Grid>
 </controls:MetroContentControl>

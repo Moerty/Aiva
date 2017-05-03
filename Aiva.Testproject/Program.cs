@@ -17,12 +17,21 @@ namespace Aiva.Testproject {
 
         static void Main(string[] args) {
 
+            Aiva.Extensions.Songrequest.Player2 p = new Extensions.Songrequest.Player2();
+            p.SetAutoPlay(true);
+            p.SetVideoId("bKXIUQbardg");
+
+            //p.Browser.Load("https://www.youtube.com/embed/bKXIUQbardg?autoplay=1");
+
             // Make sure you set performDependencyCheck false
             //Cef.Initialize();
             YouTubeConnector = CreateYouTubeService();
-            Extensions.Songrequest.Playlist p = new Extensions.Songrequest.Playlist("RDMpZFVM800f8");
-            p.GetYoutubeDetails();
-            Core.AivaClient.Instance.AivaTwitchClient.SendMessage("Aiva started.");
+            //Extensions.Songrequest.Playlist p = new Extensions.Songrequest.Playlist("RDMpZFVM800f8");
+
+            //YoutubePlayerLib.Cef.CefYoutubeController controller = new YoutubePlayerLib.Cef.CefYoutubeController();
+            //controller. = "bKXIUQbardg";
+
+            //Core.AivaClient.Instance.AivaTwitchClient.SendMessage("Aiva started.");
             //TwitchLib.TwitchApi.ValidationAPIRequest("pcwfd4rhcevonwdjw6kdh1g5f8bz1g");
             //TwitchLib.TwitchApi.ValidClientId("10n39mbfftkcy2kg1jkzmm62yszdcg");
 
