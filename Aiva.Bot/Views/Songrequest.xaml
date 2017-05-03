@@ -38,7 +38,12 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Header="Expander">
-            <Grid Background="#FFE5E5E5" />
+            <Grid Background="#FFE5E5E5">
+                <StackPanel Name="WhoCanRequest" Orientation="Vertical">
+                    <CheckBox Content="Viewer" />
+                    <CheckBox Content="Mod" />
+                </StackPanel>
+            </Grid>
         </Expander>
         <Expander
             Width="195"
@@ -68,8 +73,7 @@
         </Expander>
         <StackPanel
             Width="200"
-            Height="100"
-            Margin="231,14,289,356"
+            Margin="231,14,289,340"
             Orientation="Vertical">
             <TextBox
                 Name="tbCommand"
@@ -272,26 +276,25 @@
             Height="Auto"
             Margin="10,212,416,54"
             ExpandDirection="Up"
-            IsExpanded="True"
             Header="Video"
-            IsEnabled="True">
+            IsEnabled="True"
+            IsExpanded="True">
             <Grid>
-                <yt:CefYoutubeController
+                <!--<yt:CefYoutubeController
                     Name="Player"
                     CurrentQuality="hd1080"
-                    VideoId="{Binding Handler.Player.PlayedSong.VideoID}" >
-
+                    VideoId="{Binding Handler.Player.PlayedSong.VideoID}">
                     <yt:CefYoutubeController.Style>
                         <Style TargetType="yt:CefYoutubeController">
-                            <Setter Property="Visibility" Value="Hidden"/>
+                            <Setter Property="Visibility" Value="Hidden" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Handler.Player.SelectedSong.IsPlaying}" Value="True">
-                                    <Setter Property="Visibility" Value="Visible"/>
+                                <DataTrigger Binding="{Binding Handler.Player.PlayedSong.IsPlaying}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </yt:CefYoutubeController.Style>
-                </yt:CefYoutubeController>
+                </yt:CefYoutubeController>-->
             </Grid>
         </Expander>
 
