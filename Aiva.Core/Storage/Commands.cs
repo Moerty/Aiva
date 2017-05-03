@@ -12,11 +12,16 @@ namespace Aiva.Core.Storage
     using System;
     using System.Collections.Generic;
     
-    public partial class ActiveUsers
+    public partial class Commands
     {
-        public long ID { get; set; }
-        public Nullable<System.DateTime> JoinedTime { get; set; }
-    
-        public virtual Users Users { get; set; }
+        public long Index { get; set; }
+        public string Command { get; set; }
+        public string Text { get; set; }
+        public System.DateTime CreatedAt { get; set; }
+        public Nullable<System.DateTime> ModifiedAt { get; set; }
+        public long ExecutionRight { get; set; }
+        public Nullable<long> Count { get; set; }
+        public Nullable<long> Cooldown { get; set; }
+        public Nullable<System.DateTime> LastExecution { get; set; }
     }
 }

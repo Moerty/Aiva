@@ -120,14 +120,19 @@
     <Compile Include="Internal\RelayCommand.cs" />
     <Compile Include="Internal\ScrollViewerExtension.cs" />
     <Compile Include="Internal\TextBoxEnterKeyUpdateBehavior.cs" />
+    <Compile Include="Models\Commands.cs" />
     <Compile Include="Models\Console.cs" />
     <Compile Include="Models\MainWindow.cs" />
+    <Compile Include="ViewModels\Commands.cs" />
     <Compile Include="ViewModels\Flyouts\HonorSongrequester.cs" />
     <Compile Include="ViewModels\Flyouts\UsersInfoVM.cs" />
     <Compile Include="ViewModels\Users.cs" />
     <Compile Include="ViewModels\ConsoleVM.cs" />
     <Compile Include="ViewModels\MainWindow.cs" />
     <Compile Include="ViewModels\Songrequest.cs" />
+    <Compile Include="Views\Commands.xaml.cs">
+      <DependentUpon>Commands.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Console.xaml.cs">
       <DependentUpon>Console.xaml</DependentUpon>
     </Compile>
@@ -159,7 +164,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\Slider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\TabControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Commands.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -238,11 +251,8 @@
     </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
-if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"
-$(SolutionDir)\BuildProcess\PreBuildEvents.bat  "$(TargetPath)"  "$(TargetFileName)"  "$(TargetDir)"  "$(TargetName)"
-
-taskkill /im msbuild.exe /f</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Fody.2.0.0\build\dotnet\Fody.targets" Condition="Exists('..\packages\Fody.2.0.0\build\dotnet\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -21,6 +21,7 @@
                 <ResourceDictionary Source="Styles/Icons.xaml" />
 
                 <ResourceDictionary Source="Styles/TabControl.xaml" />
+                <ResourceDictionary Source="Styles/Slider.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

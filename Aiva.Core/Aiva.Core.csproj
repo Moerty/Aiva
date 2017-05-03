@@ -79,6 +79,9 @@
     <Compile Include="Storage\Chat.cs">
       <DependentUpon>Storage.tt</DependentUpon>
     </Compile>
+    <Compile Include="Storage\Commands.cs">
+      <DependentUpon>Storage.tt</DependentUpon>
+    </Compile>
     <Compile Include="Storage\Currency.cs">
       <DependentUpon>Storage.tt</DependentUpon>
     </Compile>

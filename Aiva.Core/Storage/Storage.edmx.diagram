@@ -14,6 +14,7 @@
         <AssociationConnector Association="StorageModel.FK_ActiveUsers_0_0" />
         <AssociationConnector Association="StorageModel.FK_Currency_0_0" />
         <AssociationConnector Association="StorageModel.FK_TimeWatched_0_0" />
+        <EntityTypeShape EntityType="StorageModel.Commands" Width="1.5" PointX="5.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

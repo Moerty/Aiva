@@ -116,8 +116,10 @@
     <Compile Include="CefFiles\BoundObject.cs" />
     <Compile Include="CefFiles\InitCefSharp.cs" />
     <Compile Include="Chat\Chat.cs" />
+    <Compile Include="Commands\CommandHandler.cs" />
     <Compile Include="Models\Bankheist.cs" />
     <Compile Include="Models\Chat.cs" />
+    <Compile Include="Models\Commands.cs" />
     <Compile Include="Models\Songrequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Songrequest\Player.cs" />
@@ -152,9 +154,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>$(SolutionDir)\BuildProcess\PreBuildEvents.bat  "$(TargetPath)"  "$(TargetFileName)"
-
-taskkill /im msbuild.exe /f</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets" Condition="Exists('..\packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

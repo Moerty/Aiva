@@ -17,13 +17,14 @@ namespace Aiva.Testproject {
 
         static void Main(string[] args) {
 
-            
 
+            Core.AivaClient.Instance.AivaTwitchClient.SendMessage("Aiva started");
+            TwitchLib.TwitchApi.Streams.BroadcasterOnline("aeffchaen");
             //p.Browser.Load("https://www.youtube.com/embed/bKXIUQbardg?autoplay=1");
 
             // Make sure you set performDependencyCheck false
             //Cef.Initialize();
-            YouTubeConnector = CreateYouTubeService();
+            //YouTubeConnector = CreateYouTubeService();
             //Extensions.Songrequest.Playlist p = new Extensions.Songrequest.Playlist("RDMpZFVM800f8");
 
             //YoutubePlayerLib.Cef.CefYoutubeController controller = new YoutubePlayerLib.Cef.CefYoutubeController();
@@ -51,15 +52,14 @@ namespace Aiva.Testproject {
             Console.ReadKey();
         }
 
-        
+
 
 
         /// <summary>
         /// Create the YouTube Service
         /// </summary>
         /// <returns></returns>
-        public static YouTubeService CreateYouTubeService()
-        {
+        public static YouTubeService CreateYouTubeService() {
             UserCredential credential;
             credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                 new ClientSecrets {

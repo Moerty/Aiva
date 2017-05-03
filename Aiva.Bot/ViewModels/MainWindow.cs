@@ -1,10 +1,6 @@
 ﻿using Aiva.Bot.Internal;
 using MahApps.Metro.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -71,6 +67,10 @@ namespace Aiva.Bot.ViewModels {
                                 Position = Position.Right
                             }
                         }
+                    },
+                    new Models.MainWindow.TabItemsModel {
+                        Header = "Commands",
+                        Content = new Views.Commands()
                     }
                 }
             };

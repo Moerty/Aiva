@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="StorageModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Cloud\Aiva\Aiva.Core\ConfigFiles\Database.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="StorageModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\F\cloud\Nextcloud\Git\Aiva\Aiva.Core\ConfigFiles\Database.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ActiveUsers">
           <Key>
             <PropertyRef Name="ID" />
@@ -28,6 +28,20 @@ Warnung 6002: Für Tabelle/Sicht 'main.BlacklistedWords' ist kein Primärschlüs
           <Property Name="TwitchID" Type="integer" />
           <Property Name="Timestamp" Type="datetime" Nullable="false" />
           <Property Name="ChatMessage" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Commands">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Command" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedAt" Type="datetime" />
+          <Property Name="ExecutionRight" Type="integer" Nullable="false" />
+          <Property Name="Count" Type="integer" />
+          <Property Name="Cooldown" Type="integer" />
+          <Property Name="LastExecution" Type="datetime" />
         </EntityType>
         <EntityType Name="Currency">
           <Key>
@@ -97,6 +111,7 @@ Warnung 6002: Für Tabelle/Sicht 'main.BlacklistedWords' ist kein Primärschlüs
         <EntityContainer Name="StorageModelStoreContainer">
           <EntitySet Name="ActiveUsers" EntityType="Self.ActiveUsers" store:Type="Tables" />
           <EntitySet Name="Chat" EntityType="Self.Chat" store:Type="Tables" />
+          <EntitySet Name="Commands" EntityType="Self.Commands" store:Type="Tables" />
           <EntitySet Name="Currency" EntityType="Self.Currency" store:Type="Tables" />
           <EntitySet Name="TimeWatched" EntityType="Self.TimeWatched" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" />
@@ -141,6 +156,7 @@ FROM [BlacklistedWords] AS [BlacklistedWords]</DefiningQuery>
             <End Role="Users" EntitySet="Users" />
             <End Role="TimeWatched" EntitySet="TimeWatched" />
           </AssociationSet>
+          <EntitySet Name="Commands" EntityType="StorageModel.Commands" />
         </EntityContainer>
         <EntityType Name="ActiveUsers">
           <Key>
@@ -235,6 +251,20 @@ FROM [BlacklistedWords] AS [BlacklistedWords]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Commands">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Command" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" />
+          <Property Name="ModifiedAt" Type="DateTime" />
+          <Property Name="ExecutionRight" Type="Int64" Nullable="false" />
+          <Property Name="Count" Type="Int64" />
+          <Property Name="Cooldown" Type="Int64" />
+          <Property Name="LastExecution" Type="DateTime" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -295,6 +325,21 @@ FROM [BlacklistedWords] AS [BlacklistedWords]</DefiningQuery>
             <EntityTypeMapping TypeName="StorageModel.BlacklistedWords">
               <MappingFragment StoreEntitySet="BlacklistedWords">
                 <ScalarProperty Name="Word" ColumnName="Word" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Commands">
+            <EntityTypeMapping TypeName="StorageModel.Commands">
+              <MappingFragment StoreEntitySet="Commands">
+                <ScalarProperty Name="LastExecution" ColumnName="LastExecution" />
+                <ScalarProperty Name="Cooldown" ColumnName="Cooldown" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="ExecutionRight" ColumnName="ExecutionRight" />
+                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Command" ColumnName="Command" />
+                <ScalarProperty Name="Index" ColumnName="Index" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
