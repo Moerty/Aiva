@@ -36,8 +36,6 @@ namespace Aiva.Extensions.Songrequest {
 
 
         public YouTubeService YouTubeConnector { get; private set; }
-        public ChromiumWebBrowser Browser { get; set; }
-
         public bool Autoplay { get; set; } = true;
         public ObservableCollection<Song> SongList { get; set; }
         public Song SelectedSong { get; set; }
@@ -66,26 +64,6 @@ namespace Aiva.Extensions.Songrequest {
                 //IsMusicPlaying = true;
             }
         }
-
-        /// <summary>
-        /// Start/Stop the Player
-        /// </summary>
-        public void StartStopMusic() {
-            if (SongList.Any(x => x.IsPlaying)) {
-                Browser.GetBrowser().GetHost().SendMouseClickEvent(0, 0, MouseButtonType.Left, false, 1, CefEventFlags.None);
-                Thread.Sleep(100);
-                Browser.GetBrowser().GetHost().SendMouseClickEvent(0, 0, MouseButtonType.Left, true, 1, CefEventFlags.None);
-                //IsMusicPlaying = false;
-            }
-        }
-
-        /// <summary>
-        /// Reset the Player to default;
-        /// </summary>
-        public void ResetPlayer() {
-            Browser = new ChromiumWebBrowser();
-        }
-
 
         /// <summary>
         /// Create the YouTube Service

@@ -9,17 +9,6 @@ using TwitchLib.Events.Client;
 namespace Aiva.Extensions.Songrequest {
     [PropertyChanged.ImplementPropertyChanged]
     public class SongrequestHandler {
-        /*
-         * 
-         * - Setting who can request songs
-            - max song duration
-            - max quene size
-    
-            - cost sttings
-    
-            - add playlist
-            - add video
-    */
 
         private bool _IsEnabled;
         public bool IsEnabled {
@@ -44,9 +33,7 @@ namespace Aiva.Extensions.Songrequest {
         public TwitchLib.Enums.UserType UserType { get; set; }
 
         public SongrequestHandler() {
-            //CefSharp.Cef.Initialize();
             Player = new Player();
-            Player.Autoplay = Autoplay;
         }
 
         public void EnableSongrequest() {
@@ -82,18 +69,6 @@ namespace Aiva.Extensions.Songrequest {
                     Player.SongList.Add(song);
                 });
             }
-        }
-
-        public void StartSong(Song song) {
-            Player.ChangeSong(song, Autoplay);
-        }
-
-        public void StopSong() {
-            Player.StartStopMusic();
-        }
-
-        public void AddPlaylist(string userinput) {
-
         }
 
         /// <summary>

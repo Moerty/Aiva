@@ -17,9 +17,7 @@ namespace Aiva.Testproject {
 
         static void Main(string[] args) {
 
-            Aiva.Extensions.Songrequest.Player2 p = new Extensions.Songrequest.Player2();
-            p.SetAutoPlay(true);
-            p.SetVideoId("bKXIUQbardg");
+            
 
             //p.Browser.Load("https://www.youtube.com/embed/bKXIUQbardg?autoplay=1");
 

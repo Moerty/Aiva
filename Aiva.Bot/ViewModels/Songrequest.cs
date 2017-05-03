@@ -14,7 +14,6 @@ namespace Aiva.Bot.ViewModels {
 
         public ICommand AddCommand { get; set; }
         public ICommand PlaySongCommand { get; set; }
-        public ICommand SetSongrequestInactiveCommand { get; set; }
         public ICommand HonorRequesterCommand { get; set; }
 
         public string AddYoutubeUrl { get; set; }
@@ -22,14 +21,11 @@ namespace Aiva.Bot.ViewModels {
 
         public SongrequestHandler Handler { get; set; }
 
-
         public Songrequest() {
             Handler = new SongrequestHandler();
 
             var type = new MetroContentControl().GetType();
             AddCommand = new Internal.RelayCommand(add => AddSongToPlaylist(), add => !String.IsNullOrEmpty(AddYoutubeUrl) || !String.IsNullOrEmpty(AddPlaylistUrl));
-            //SetSongrequestActiveCommand = new Internal.RelayCommand(active => SetRequestActive(), active => true);
-            //SetSongrequestActiveCommand = new Internal.RelayCommand(inactive => SetRequestInactive(), inactive => true);
             PlaySongCommand = new Internal.RelayCommand(p => PlaySong(), p => Handler.Player.SongList.Any());
             HonorRequesterCommand = new Internal.RelayCommand(h => HonorRequester(), p => Handler.Player.SelectedSong != null);
         }
