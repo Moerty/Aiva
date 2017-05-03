@@ -66,6 +66,7 @@
     <Compile Include="Config\Config.cs" />
     <Compile Include="Config\Text.cs" />
     <Compile Include="Database\Chat.cs" />
+    <Compile Include="Database\Commands.cs" />
     <Compile Include="Database\Currency.cs" />
     <Compile Include="Database\Users.cs" />
     <Compile Include="Models\DatabaseCurrencyModel.cs" />

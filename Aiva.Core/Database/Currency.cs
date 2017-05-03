@@ -117,6 +117,40 @@ namespace Aiva.Core.Database {
 
         }
 
+        /// <summary>
+        /// Get Currency from a user
+        /// </summary>
+        /// <returns></returns>
+        public static long? GetCurrencyFromUser(long twitchID) {
+            using (var context = new Core.Storage.StorageEntities()) {
+                var user = context.Users.SingleOrDefault(u => u.Id == twitchID);
+
+                if (user != null) {
+                    return user.Currency.Value;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Get Currency from a user
+        /// </summary>
+        /// <returns></returns>
+        public static long? GetCurrencyFromUser(string userid) {
+            var twitchID = Convert.ToInt64(userid);
+
+            using (var context = new Core.Storage.StorageEntities()) {
+                var user = context.Users.SingleOrDefault(u => u.Id == twitchID);
+
+                if (user != null) {
+                    return user.Currency.Value;
+                }
+            }
+
+            return null;
+        }
+
 
         /// <summary>
         /// Add User to Table Currency

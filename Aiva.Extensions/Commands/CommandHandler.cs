@@ -9,8 +9,12 @@ namespace Aiva.Extensions.Commands {
     public class CommandHandler {
         public List<Core.Storage.Commands> CommandList { get; private set; }
 
+        public CommandReceiver Receiver { get; set; }
+
         public CommandHandler() {
             LoadCommandList();
+
+            Receiver = new CommandReceiver();
         }
 
         /// <summary>
@@ -38,7 +42,9 @@ namespace Aiva.Extensions.Commands {
                         CreatedAt = DateTime.Now,
                         ModifiedAt = DateTime.Now,
                         ExecutionRight = (int)AddModel.SelectedUserRight,
-                        Text = AddModel.Text
+                        Text = AddModel.Text,
+                        Cooldown = AddModel.Cooldown,
+                        Count = 0,
                     };
 
                     context.Commands.Add(commandEntry);
@@ -47,6 +53,7 @@ namespace Aiva.Extensions.Commands {
                     commandEntry.ExecutionRight = (int)AddModel.SelectedUserRight;
                     commandEntry.ModifiedAt = DateTime.Now;
                     commandEntry.Text = AddModel.Text;
+                    commandEntry.Cooldown = AddModel.Cooldown;
                 }
 
                 await context.SaveChangesAsync();

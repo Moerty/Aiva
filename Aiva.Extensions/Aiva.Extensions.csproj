@@ -113,10 +113,9 @@
   <ItemGroup>
     <Compile Include="Bankheist\Bankheist.cs" />
     <Compile Include="Bankheist\Handler.cs" />
-    <Compile Include="CefFiles\BoundObject.cs" />
-    <Compile Include="CefFiles\InitCefSharp.cs" />
     <Compile Include="Chat\Chat.cs" />
     <Compile Include="Commands\CommandHandler.cs" />
+    <Compile Include="Commands\CommandReceiver.cs" />
     <Compile Include="Models\Bankheist.cs" />
     <Compile Include="Models\Chat.cs" />
     <Compile Include="Models\Commands.cs" />
@@ -139,15 +138,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="CefFiles\YouTube\CefPlayer.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="CefFiles\YouTube\CefPlayer.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="CefFiles\YouTube\Player.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="FodyWeavers.xml">
       <SubType>Designer</SubType>
     </None>
