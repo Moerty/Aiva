@@ -1,11 +1,7 @@
-﻿using Aiva.Core;
-using Aiva.Extensions.Songrequest;
+﻿using Aiva.Extensions.Songrequest;
 using MahApps.Metro.Controls;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
@@ -31,6 +27,8 @@ namespace Aiva.Bot.ViewModels {
         }
 
         private void HonorRequester() {
+
+            MainWindow.Instance.SelectedTab.Flyouts[0].DataContext = new ViewModels.Flyouts.HonorSongrequester(Handler.Player.SelectedSong.Requester, Handler.Player.SelectedSong.TwitchID);
             MainWindow.Instance.SelectedTab.Flyouts[0].IsOpen = true;
         }
 
@@ -56,8 +54,10 @@ namespace Aiva.Bot.ViewModels {
         private void AddSongToPlaylist() {
             if (!String.IsNullOrEmpty(AddYoutubeUrl)) {
                 Handler.AddSong(AddYoutubeUrl, Core.AivaClient.Instance.Username, Core.AivaClient.Instance.TwitchID);
+                AddYoutubeUrl = String.Empty;
             } else {
                 Handler.AddPlaylist(AddPlaylistUrl, Core.AivaClient.Instance.Username, Core.AivaClient.Instance.TwitchID);
+                AddPlaylistUrl = String.Empty;
             }
         }
 
@@ -73,7 +73,7 @@ namespace Aiva.Bot.ViewModels {
             if (Handler.Player.PlayedSong != null) {
 
                 // Inform User
-                Handler.SendStartSongMessage($"Start Song \"{Handler.Player.PlayedSong.Title}\". Gewünscht von @{Handler.Player.PlayedSong.Requester}. Link: {Handler.Player.PlayedSong.Url}");
+                Handler.SendStartSongMessage($"Start Song \"{Handler.Player.PlayedSong.Title}\". Desired by @{Handler.Player.PlayedSong.Requester}. Link: {Handler.Player.PlayedSong.Url}");
 
                 //SongList.ToList().ForEach(x => x.IsPlaying = false);
                 Handler.Player.SongList.ToList().ForEach(x => x.IsPlaying = false);

@@ -6,6 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Aiva.Bot.Views.Flyouts"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:Aiva.Bot.ViewModels.Flyouts"
+    d:DataContext="{d:DesignInstance d:Type=vm:HonorSongrequester}"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
@@ -15,11 +17,18 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Orientation="Vertical">
-                <TextBlock Text="Add currency to Viewer" />
-                <controls:NumericUpDown Value="{Binding CurrencyToAdd}" />
+                <TextBlock Margin="0,20,0,0" Text="Add currency to Viewer" />
+                <controls:NumericUpDown Margin="0,20,0,0" Value="{Binding CurrencyToAdd}" />
             </StackPanel>
-            <Separator />
-            <CheckBox Content="Write added Value in Chat" IsChecked="{Binding WriteInChat}" />
+            <Separator Margin="0,20,0,0" />
+            <CheckBox
+                Margin="0,20,0,0"
+                Content="Write added Value in Chat"
+                IsChecked="{Binding WriteInChat}" />
+            <Button
+                Margin="0,50,0,0"
+                Command="{Binding HonorRequesterCommand}"
+                Content="Honor" />
         </StackPanel>
     </Grid>
 </controls:MetroContentControl>
