@@ -3,7 +3,9 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows;
+using Aiva.Core.Models;
 using TwitchLib.Events.Client;
+using System.Collections.Generic;
 
 namespace Aiva.Extensions.Chat {
 
@@ -40,11 +42,29 @@ namespace Aiva.Extensions.Chat {
             Messages.CollectionChanged += MessagesCountCheck;
             Core.AivaClient.Instance.AivaTwitchClient.OnMessageReceived += ChatMessageReceived;
             Core.AivaClient.Instance.AivaTwitchClient.OnModeratorsReceived += ModeratorsReceived;
-            Core.AivaClient.Instance.AivaTwitchClient.OnUserJoined += UserJoined;
-            Core.AivaClient.Instance.AivaTwitchClient.OnExistingUsersDetected += ExistingUsers;
             Core.AivaClient.Instance.AivaTwitchClient.OnUserLeft += RemoveViewerFromViewers;
+            Core.Client.Internal.Users.OnNewUserFound += OnNewUserFound;
 
             _Instance = this;
+        }
+
+        private void OnNewUserFound(object sender, OnNewUserFoundArgs e) {
+
+            foreach(var user in e.User) {
+                var IsUserSubscriber = TwitchLib.TwitchApi.Subscriptions.ChannelHasUserSubscribed(user.Name, Core.AivaClient.Instance.Channel);
+
+                Application.Current.Dispatcher.Invoke(() => {
+                    Viewers.Add(
+                        new Models.Chat.Viewers {
+                            Name = user.Name,
+                            IsSub = IsUserSubscriber != null ? true : false,
+                        //IsMod = will be filled from the event "ModeratoersReceived"
+                    });
+                });
+            }
+
+            // Get Channel Moderators to fire "ModeratorsReceived"
+            Core.AivaClient.Instance.AivaTwitchClient.GetChannelModerators(Core.AivaClient.Instance.Channel);
         }
 
         /// <summary>
@@ -74,47 +94,6 @@ namespace Aiva.Extensions.Chat {
                     Viewers.Remove(viewer);
                 });
             }
-        }
-
-        /// <summary>
-        /// Fires when existing Users detected
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ExistingUsers(object sender, OnExistingUsersDetectedArgs e) {
-            foreach (var user in e.Users) {
-                var twitchUser = TwitchLib.TwitchApi.Subscriptions.ChannelHasUserSubscribed(user, Core.AivaClient.Instance.Channel);
-
-                Core.AivaClient.Instance.AivaTwitchClient.GetChannelModerators(Core.AivaClient.Instance.Channel);
-
-                Application.Current.Dispatcher.Invoke(() => {
-                    Viewers.Add(
-                        new Models.Chat.Viewers {
-                            Name = user,
-                            IsSub = twitchUser != null ? true : false,
-                            // UserType >= 1 -> Mod or greater
-                        });
-                });
-            }
-        }
-
-        /// <summary>
-        /// Fires when User joined
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void UserJoined(object sender, OnUserJoinedArgs e) {
-            var twitchUser = TwitchLib.TwitchApi.Subscriptions.ChannelHasUserSubscribed(e.Username, Core.AivaClient.Instance.Channel);
-
-            Core.AivaClient.Instance.AivaTwitchClient.GetChannelModerators(Core.AivaClient.Instance.Channel);
-
-            Application.Current.Dispatcher.Invoke(() => {
-                Viewers.Add(
-                    new Models.Chat.Viewers {
-                        Name = e.Username,
-                        IsSub = twitchUser != null ? true : false,
-                    });
-            });
         }
 
         /// <summary>

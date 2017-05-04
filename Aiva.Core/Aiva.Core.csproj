@@ -54,6 +54,7 @@
     <Compile Include="Client\AivaClient.cs" />
     <Compile Include="Client\Internal\Chat.cs" />
     <Compile Include="Client\Internal\Commands.cs" />
+    <Compile Include="Models\OnNewUserFoundArgs.cs" />
     <Compile Include="Client\Internal\Stream.cs" />
     <Compile Include="Client\Internal\Users.cs" />
     <Compile Include="Client\Tasks\ChatChecker.cs" />

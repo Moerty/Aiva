@@ -2,6 +2,7 @@
 using TwitchLib.Events.Client;
 using TwitchLib;
 using System;
+using Aiva.Core.Models;
 
 namespace Aiva.Core.Database {
     public class Users {
@@ -10,32 +11,6 @@ namespace Aiva.Core.Database {
         /// Add User Class
         /// </summary>
         public class AddUser {
-            /// <summary>
-            /// Add existing Users
-            /// </summary>
-            /// <param name="sender"></param>
-            /// <param name="e"></param>
-            public static void AddUserToDatabase(object sender, OnExistingUsersDetectedArgs e) {
-                foreach (var user in e.Users) {
-                    var TwitchUser = TwitchApi.Users.GetUser(user);
-
-                    AddUserToDatabase(TwitchUser);
-                    Currency.AddUserToCurrencyTable(TwitchUser.Id.Value);
-                }
-            }
-
-            /// <summary>
-            /// Add joined User
-            /// </summary>
-            /// <param name="sender"></param>
-            /// <param name="e"></param>
-            public static void AddUserToDatabase(object sender, OnUserJoinedArgs e) {
-                var TwitchUser = TwitchApi.Users.GetUser(e.Username);
-
-                AddUserToDatabase(TwitchUser);
-                Currency.AddUserToCurrencyTable(TwitchUser.Id.Value);
-            }
-
             /// <summary>
             /// Add or Update User in Database
             /// </summary>
@@ -98,8 +73,18 @@ namespace Aiva.Core.Database {
                     }
                 }
             }
-        }
 
+            /// <summary>
+            /// Fires when new Users joined and add them
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
+            internal static void AddUserToDatabase(object sender, OnNewUserFoundArgs e) {
+                e.User.ForEach(user => {
+                    AddUserToDatabase(user);
+                });
+            }
+        }
 
         /// <summary>
         /// Remove User class
@@ -130,6 +115,17 @@ namespace Aiva.Core.Database {
                         }
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Check if the user is in the Database
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public static bool IsUserInDatabase(string username) {
+            using(var context = new Storage.StorageEntities()) {
+                return context.Users.Any(u => String.Compare(u.Name, username, true) == 0);
             }
         }
     }

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Timers;
 using TwitchLib;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Aiva.Core.Client.Tasks {
     public class Tasks {
@@ -17,6 +20,8 @@ namespace Aiva.Core.Client.Tasks {
             Client = OnUserLeft(Client);
             Client = OnNewSubscriber(Client);
             Client = ModCommands(Client);
+
+            SetTimers();
 
             return Client;
         }
@@ -55,7 +60,9 @@ namespace Aiva.Core.Client.Tasks {
         /// <param name="client"></param>
         /// <returns></returns>
         private static TwitchClient OnUserJoined(TwitchClient client) {
-            client.OnUserJoined += Database.Users.AddUser.AddUserToDatabase;
+            //client.OnUserJoined += Database.Users.AddUser.AddUserToDatabase;
+            client.OnUserJoined += Internal.Users.OnUserJoined;
+            Internal.Users.OnNewUserFound += Database.Users.AddUser.AddUserToDatabase;
 
             return client;
         }
@@ -66,7 +73,9 @@ namespace Aiva.Core.Client.Tasks {
         /// <param name="client"></param>
         /// <returns></returns>
         private static TwitchClient OnExistingUsersDetected(TwitchClient client) {
-            client.OnUserJoined += Database.Users.AddUser.AddUserToDatabase;
+            //client.OnExistingUsersDetected += Database.Users.AddUser.AddUserToDatabase;
+            client.OnExistingUsersDetected += Internal.Users.OnExistingUserJoined;
+            Internal.Users.OnNewUserFound += Database.Users.AddUser.AddUserToDatabase;
 
             return client;
         }
@@ -89,5 +98,40 @@ namespace Aiva.Core.Client.Tasks {
 
             return client;
         }
+
+
+        #region Timers
+        private static void SetTimers() {
+
+            // ChatUsersCheckerTimer for undocumented Endpoint
+            ChatUsersCheckerTimer = new Timer();
+            ChatUsersCheckerTimer.Interval = new TimeSpan(0, 1, 0).TotalMilliseconds;
+            ChatUsersCheckerTimer.Elapsed += TriggerChatUsersCheckerTimer;
+            ChatUsersCheckerTimer.AutoReset = true;
+            ChatUsersCheckerTimer.Start();
+        }
+
+        /// <summary>
+        /// Triggers the Timer to check the undocumented Endpoint for Chatters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void TriggerChatUsersCheckerTimer(object sender, ElapsedEventArgs e) {
+            var users = TwitchApi.Streams.GetChatters(Core.AivaClient.Instance.Channel);
+
+            if(users != null && users.Any()) {
+                var userList = new List<string>();
+
+                users.ForEach(u => {
+                    userList.Add(u.Username);
+                });
+
+                Internal.Users.InvokeOnNewUserFound(userList);
+            }
+        }
+
+        static Timer ChatUsersCheckerTimer;
+
+#endregion Timers
     }
 }

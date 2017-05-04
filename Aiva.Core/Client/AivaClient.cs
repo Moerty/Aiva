@@ -24,7 +24,6 @@ namespace Aiva.Core {
             Instance = new AivaClient();
         }
 
-
         public TwitchClient AivaTwitchClient;
         public string Username;
         public string Channel;
