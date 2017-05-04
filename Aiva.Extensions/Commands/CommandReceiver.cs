@@ -48,10 +48,6 @@ namespace Aiva.Extensions.Commands {
                             ExecuteCommand(command, e);
                             command.LastExecution = DateTime.Now;
                         }
-                        // check if last execution has a value and cooldown is > 0
-                        if (command.LastExecution.HasValue && command.Cooldown.Value > 0) {
-
-                        }
                     }
                 }
             }

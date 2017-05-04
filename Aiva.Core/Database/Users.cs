@@ -59,7 +59,13 @@ namespace Aiva.Core.Database {
                             databaseUser.UpdatedAt = User.UpdatedAt.ToString();
 
                             // Active users
-                            databaseUser.ActiveUsers.JoinedTime = DateTime.Now;
+                            if (databaseUser.ActiveUsers == null) {
+                                databaseUser.ActiveUsers = new Storage.ActiveUsers {
+                                    ID = databaseUser.Id,
+                                    JoinedTime = DateTime.Now,
+                                    Users = databaseUser,
+                                };
+                            }
                         }
                         // Create User
                         else {
