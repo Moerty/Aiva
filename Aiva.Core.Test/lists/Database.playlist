@@ -1,1 +1,0 @@
-<Playlist Version="1.0"><Add Test="Aiva.Core.Test.Database.Database_AddUserToDatabase" /><Add Test="Aiva.Core.Test.Database.Database_AddUserToDatabaseCheckCurrency" /><Add Test="Aiva.Core.Test.Database.Database_Exists" /></Playlist>
