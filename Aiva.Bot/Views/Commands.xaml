@@ -88,7 +88,11 @@
             <Separator HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
         </Grid>
         <Grid Grid.Row="1">
-            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Handler.CommandList}">
+            <DataGrid
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                CanUserDeleteRows="False"
+                ItemsSource="{Binding Handler.CommandList}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Index}" Header="ID" />
                     <DataGridTextColumn Binding="{Binding Command}" Header="Command" />
@@ -102,6 +106,11 @@
                     <DataGridTextColumn Binding="{Binding Count}" Header="Stacks" />
                     <DataGridTextColumn Binding="{Binding LastExecution, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" Header="Last run" />
                 </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Delete" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
             </DataGrid>
         </Grid>
     </Grid>

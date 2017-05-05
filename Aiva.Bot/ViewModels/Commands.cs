@@ -14,6 +14,7 @@ namespace Aiva.Bot.ViewModels {
 
         public ICommand AddCommand { get; set; }
         public ICommand ResetAddCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
 
         public Commands() {
             AddModel = new Extensions.Models.Commands.AddModel();
@@ -28,7 +29,13 @@ namespace Aiva.Bot.ViewModels {
         private void SetCommands() {
             AddCommand = new Internal.RelayCommand(add => AddCommandToList(), add => !String.IsNullOrEmpty(AddModel.Command) && !String.IsNullOrEmpty(AddModel.Text));
             ResetAddCommand = new Internal.RelayCommand(reset => AddModel = new Extensions.Models.Commands.AddModel(), add => true);
+            DeleteCommand = new Internal.RelayCommand(d => Delete(), delete => Handler.SelectedCommand != null);
         }
+
+        /// <summary>
+        /// Remove the selected Command from list and Database
+        /// </summary>
+        private void Delete() => Handler.RemoveCommand();
 
         /// <summary>
         /// Add a Command to the List

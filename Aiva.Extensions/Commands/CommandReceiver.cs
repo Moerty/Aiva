@@ -24,10 +24,10 @@ namespace Aiva.Extensions.Commands {
                 if (command != null) {
                     // can user execute command?
                     if (CanUserExecuteCommand(e.Command.ChatMessage.UserType, command.ExecutionRight)) {
-                        // check if cooldown is over 0 
+                        // check if cooldown is over 0
                         if (command.Cooldown.HasValue && command.Cooldown > 0) {
                             if (command.LastExecution.HasValue) {
-                                // last execution is not empty 
+                                // last execution is not empty
                                 var nextTime = command.LastExecution.Value.AddMinutes(command.Cooldown.Value);
 
                                 // if next execution time <= now
@@ -60,7 +60,7 @@ namespace Aiva.Extensions.Commands {
         /// <param name="executionRight"></param>
         /// <returns></returns>
         private bool CanUserExecuteCommand(UserType userType, long executionRight) {
-            switch(executionRight) {
+            switch (executionRight) {
                 case (1): // TODO: Difference between Mod and gloabel Mod
                     return (int)userType == 1 ? true : (int)userType == 2 ? true : false; // Mod&GloabelMod:
                 case (2): // return true if it is the broeadcaster or admin; staff will be ignored
@@ -69,7 +69,7 @@ namespace Aiva.Extensions.Commands {
                     return true;
             }
         }
-       
+
         /// <summary>
         /// Replace all values
         /// </summary>
@@ -87,8 +87,8 @@ namespace Aiva.Extensions.Commands {
             * currency from user
             * */
 
-        // user
-        var stringToSend = command.Text.Replace("%user%", args.Command.ChatMessage.Username);
+            // user
+            var stringToSend = command.Text.Replace("%user%", args.Command.ChatMessage.Username);
 
             // currency
             if (stringToSend.Contains("%currency%")) {
@@ -102,7 +102,7 @@ namespace Aiva.Extensions.Commands {
 
             // stack
             if (stringToSend.Contains("%stack%")) {
-                stringToSend.Replace("%stack%", (command.Count + 1).ToString());
+                stringToSend = stringToSend.Replace("%stack%", (command.Count + 1).ToString());
                 Task.Run(() => Core.Database.Commands.IncreaseCommandCount(command.Command));
             }
 
