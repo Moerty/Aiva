@@ -29,8 +29,8 @@ namespace Aiva.Core {
         public string Channel;
         public string TwitchID;
 
-        private string ClientID;
-        private string OAuthKey;
+        public string ClientID;
+        public string OAuthKey;
 
         public AivaClient() {
             // Get config related informations
@@ -49,25 +49,21 @@ namespace Aiva.Core {
         /// <summary>
         /// Validation for Twitch ClientID & OAuthKey
         /// </summary>
-        //private void DoValidation() {
-        //    //if (!TwitchApi.ValidClientId(ClientID, true))
-        //    //    throw new Exception("Twitch ClientID is not valid!");
-        //    // Bug!!! Reported!
+        private void DoValidation() {
+            if (String.IsNullOrEmpty(TwitchAPI.Settings.AccessToken))
+                TwitchAPI.Settings.AccessToken = OAuthKey;
 
-        //    var oAuthResult = TwitchApi.ValidationAPIRequest(OAuthKey);
+            var root = TwitchAPI.Root.v5.GetRoot(OAuthKey).Result;
 
 
-        //    if (oAuthResult != null) {
-        //        if (oAuthResult.Token.Valid) {
-        //            TwitchID = Convert.ToInt64(oAuthResult.Token.UserId);
-        //            Username = oAuthResult.Token.Username;
-        //        } else {
-        //            throw new Exception("OAuth Token is not valid!");
-        //        }
-        //    } else {
-        //        throw new Exception("Cant validate Twitch OAuth Key");
-        //    }
-        //}
+            if (root.Token.Valid) {
+                ClientID = root.Token.ClientId;
+                TwitchID = root.Token.UserId;
+                Username = root.Token.Username;
+            } else {
+                throw new Exception("Cant validate Twitch OAuth Key");
+            }
+        }
 
         /// <summary>
         /// Setup TwitchClient
@@ -94,25 +90,9 @@ namespace Aiva.Core {
             AivaTwitchClient.OnConnected += OnConnected;
             AivaTwitchClient.OnJoinedChannel += OnJoinedChannel;
 
-            GetUserID();
-
             AivaTwitchClient.Connect();
-        }
 
-        /// <summary>
-        /// Get the UserID from Bot!
-        /// </summary>
-        private async void GetUserID() {
-            var users = await TwitchAPI.Users.v5.GetUserByName(Username);
-
-            if (users != null && users.Total > 0) {
-                foreach (var user in users.Matches) {
-                    if (String.Compare(user.Name, Username, true) == 0)
-                        TwitchID = user.Id;
-                }
-            } else {
-                throw new Exception("Cant get TwitchID from given Username!");
-            }
+            DoValidation();
         }
 
         /// <summary>

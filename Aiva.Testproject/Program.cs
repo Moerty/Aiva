@@ -18,7 +18,8 @@ namespace Aiva.Testproject {
         static void Main(string[] args) {
 
 
-            Core.AivaClient.Instance.AivaTwitchClient.SendMessage("Aiva started");
+            //Core.AivaClient.Instance.AivaTwitchClient.SendMessage("Aiva started");
+            var root = TwitchLib.TwitchAPI.Root.v5.GetRoot(Core.AivaClient.Instance.OAuthKey).Result;
             //TwitchLib.TwitchApi.Streams.BroadcasterOnline("aeffchaen");
             //p.Browser.Load("https://www.youtube.com/embed/bKXIUQbardg?autoplay=1");
 
