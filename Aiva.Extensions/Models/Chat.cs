@@ -13,7 +13,7 @@ namespace Aiva.Extensions.Models {
             public bool IsUserMod { get; set; }
             public bool IsUserSub { get; set; }
             public string Username { get; set; }
-            public long TwitchID { get; set; }
+            public string TwitchID { get; set; }
             public string Message { get; set; }
             public DateTime TimeStamp { get; set; }
         }
@@ -23,7 +23,7 @@ namespace Aiva.Extensions.Models {
             public bool IsMod { get; set; }
             public bool IsSub { get; set; }
             public string Name { get; set; }
-            public long TwitchID { get; set; }
+            public string TwitchID { get; set; }
         }
     }
 }

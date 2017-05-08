@@ -53,7 +53,7 @@ namespace Aiva.Extensions.Songrequest {
         /// <param name="e"></param>
         private void OnSongrequestCommandReceived(object sender, OnChatCommandReceivedArgs e) {
             if (String.Compare(e.Command.Command, Command, true) == 0 || String.Compare(e.Command.Command, Command.TrimStart('!'), true) == 0) {
-                AddSong(e.Command.ArgumentsAsString, e.Command.ChatMessage.Username, Convert.ToInt64(e.Command.ChatMessage.UserId));
+                AddSong(e.Command.ArgumentsAsString, e.Command.ChatMessage.Username, e.Command.ChatMessage.UserId);
             }
         }
 
@@ -63,7 +63,7 @@ namespace Aiva.Extensions.Songrequest {
         /// <param name="argument"></param>
         /// <param name="username"></param>
         /// <param name="userid"></param>
-        public void AddSong(string argument, string username, long userid) {
+        public void AddSong(string argument, string username, string userid) {
 
             var song = new Song(argument, username) {
                 TwitchID = userid

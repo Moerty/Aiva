@@ -50,16 +50,19 @@ namespace Aiva.Extensions.Chat {
 
         private void OnNewUserFound(object sender, OnNewUserFoundArgs e) {
 
-            foreach(var user in e.User) {
-                var IsUserSubscriber = TwitchLib.TwitchApi.Subscriptions.ChannelHasUserSubscribed(user.Name, Core.AivaClient.Instance.Channel);
+            foreach (var user in e.User) {
+
+                var scopes = TwitchLib.TwitchAPI.Settings.Scopes;
+                var IsUserSubscriber = TwitchLib.TwitchAPI.Subscriptions.ChannelHasUserSubscribed(Core.AivaClient.Instance.Channel, user.Name).Result;
+
 
                 Application.Current.Dispatcher.Invoke(() => {
                     Viewers.Add(
                         new Models.Chat.Viewers {
                             Name = user.Name,
                             IsSub = IsUserSubscriber != null ? true : false,
-                        //IsMod = will be filled from the event "ModeratoersReceived"
-                    });
+                            //IsMod = will be filled from the event "ModeratoersReceived"
+                        });
                 });
             }
 
@@ -120,7 +123,7 @@ namespace Aiva.Extensions.Chat {
             var AddModel = new Models.Chat.Messages {
                 IsUserMod = e.ChatMessage.IsModerator,
                 IsUserSub = e.ChatMessage.IsSubscriber,
-                TwitchID = Convert.ToInt64(e.ChatMessage.UserId),
+                TwitchID = e.ChatMessage.UserId,
                 Username = e.ChatMessage.Username,
                 Message = e.ChatMessage.Message,
                 TimeStamp = DateTime.Now

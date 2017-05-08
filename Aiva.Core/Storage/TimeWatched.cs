@@ -14,7 +14,7 @@ namespace Aiva.Core.Storage
     
     public partial class TimeWatched
     {
-        public long ID { get; set; }
+        public string ID { get; set; }
         public long TimeWatched1 { get; set; }
     
         public virtual Users Users { get; set; }

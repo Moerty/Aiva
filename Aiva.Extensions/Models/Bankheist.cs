@@ -14,7 +14,7 @@ namespace Aiva.Extensions.Models {
 
         public class BankheistUserModel {
             public string Name { get; set; }
-            public long TwitchID { get; set; }
+            public string TwitchID { get; set; }
             public int Bet { get; set; }
         }
 

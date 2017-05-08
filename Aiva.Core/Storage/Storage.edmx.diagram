@@ -5,16 +5,16 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="01ae94e0c7584b2cb240ce00972288f4" Name="Diagram1">
-        <EntityTypeShape EntityType="StorageModel.ActiveUsers" Width="1.5" PointX="3" PointY="5.875" />
-        <EntityTypeShape EntityType="StorageModel.Chat" Width="1.5" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="StorageModel.Currency" Width="1.5" PointX="3" PointY="1.125" />
-        <EntityTypeShape EntityType="StorageModel.TimeWatched" Width="1.5" PointX="3" PointY="3.5" />
-        <EntityTypeShape EntityType="StorageModel.Users" Width="1.5" PointX="0.75" PointY="2.5" />
-        <EntityTypeShape EntityType="StorageModel.BlacklistedWords" Width="1.5" PointX="5.75" PointY="3.75" />
+        <EntityTypeShape EntityType="StorageModel.ActiveUsers" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="StorageModel.BlacklistedWords" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="StorageModel.Commands" Width="1.5" PointX="5.75" PointY="6.75" />
+        <EntityTypeShape EntityType="StorageModel.Currency" Width="1.5" PointX="3" PointY="3.5" />
+        <EntityTypeShape EntityType="StorageModel.TimeWatched" Width="1.5" PointX="3" PointY="5.875" />
+        <EntityTypeShape EntityType="StorageModel.Users" Width="1.5" PointX="0.75" PointY="2.75" />
         <AssociationConnector Association="StorageModel.FK_ActiveUsers_0_0" />
         <AssociationConnector Association="StorageModel.FK_Currency_0_0" />
         <AssociationConnector Association="StorageModel.FK_TimeWatched_0_0" />
-        <EntityTypeShape EntityType="StorageModel.Commands" Width="1.5" PointX="5.375" PointY="5.75" />
+        <EntityTypeShape EntityType="StorageModel.Chat" Width="1.5" PointX="5.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

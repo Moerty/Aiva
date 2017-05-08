@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Aiva.Core.Models;
 using TwitchLib;
 using TwitchLib.Events.Client;
@@ -12,19 +10,25 @@ namespace Aiva.Core.Client.Internal {
         public static event EventHandler<OnNewUserFoundArgs> OnNewUserFound;
 
         public static void InvokeOnNewUserFound(List<string> Usernames) {
-            var userList = new List<TwitchLib.Models.API.User.User>();
+            var userList = new List<TwitchLib.Models.API.v5.Users.User>();
 
             foreach (var user in Usernames) {
                 if (!Database.Users.IsUserInDatabase(user)) {
-                    var twitchUser = TwitchApi.Users.GetUser(user);
+                    var twitchUser = TwitchAPI.Users.v5.GetUserByName(user).Result; //TwitchApi.Users.GetUser(user);
 
-                    if (twitchUser != null) {
-                        userList.Add(twitchUser);
+                    if (twitchUser != null && twitchUser.Total > 0) {
+
+                        foreach (var userMatch in twitchUser.Matches) {
+                            if (String.Compare(user, userMatch.Name, true) != 0)
+                                continue;
+
+                            userList.Add(userMatch);
+                        }
                     }
                 }
             }
 
-            if(userList.Any())
+            if (userList.Any())
                 OnNewUserFound?.Invoke(null, new OnNewUserFoundArgs { User = userList });
         }
 
@@ -33,10 +37,19 @@ namespace Aiva.Core.Client.Internal {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public static void OnUserJoined(object sender, OnUserJoinedArgs e) {
-            var user = TwitchApi.Users.GetUser(e.Username);
+        public async static void OnUserJoined(object sender, OnUserJoinedArgs e) {
+            var user = await TwitchAPI.Users.v5.GetUserByName(e.Username);
 
-            InvokeUserJoined(new List<TwitchLib.Models.API.User.User> { user });
+            if (user != null && user.Total > 0) {
+                foreach (var userMatch in user.Matches) {
+                    if (String.Compare(userMatch.Name, e.Username, true) != 0)
+                        continue;
+
+                    InvokeUserJoined(new List<TwitchLib.Models.API.v5.Users.User> { userMatch });
+                }
+            }
+
+
         }
 
         /// <summary>
@@ -44,14 +57,21 @@ namespace Aiva.Core.Client.Internal {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public static void OnExistingUserJoined(object sender, OnExistingUsersDetectedArgs e) {
-            var userList = new List<TwitchLib.Models.API.User.User>();
+        public async static void OnExistingUserJoined(object sender, OnExistingUsersDetectedArgs e) {
+            //var userList = new List<TwitchLib.Models.API.User.User>();
+            var userList = new List<TwitchLib.Models.API.v5.Users.User>();
 
-            foreach(var user in e.Users) {
-                var twitchUser = TwitchApi.Users.GetUser(user);
+            foreach (var user in e.Users) {
+                var twitchUser = await TwitchAPI.Users.v5.GetUserByName(user);
 
-                if (twitchUser != null)
-                    userList.Add(twitchUser);
+                if (twitchUser != null && twitchUser.Total > 0) {
+                    foreach (var userMatch in twitchUser.Matches) {
+                        if (String.Compare(userMatch.Name, user) != 0)
+                            continue;
+
+                        userList.Add(userMatch);
+                    }
+                }
             }
 
             if (userList.Any())
@@ -61,8 +81,8 @@ namespace Aiva.Core.Client.Internal {
         /// <summary>
         /// Invoke the Eventhandler
         /// </summary>
-        /// <param name="userList"></param>
-        private static void InvokeUserJoined(List<TwitchLib.Models.API.User.User> userList) {
+        /// <param name="userList"></param> 
+        private static void InvokeUserJoined(List<TwitchLib.Models.API.v5.Users.User/*TwitchLib.Models.API.User.User*/> userList) {
             OnNewUserFound?.Invoke(
                 null, new OnNewUserFoundArgs {
                     User = userList

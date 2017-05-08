@@ -9,15 +9,14 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="integer" Nullable="false" />
+          <Property Name="ID" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="JoinedTime" Type="datetime" />
         </EntityType>
-        <!--Während der Generierung sind Fehler aufgetreten:
-Warnung 6002: Für Tabelle/Sicht 'main.BlacklistedWords' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.-->
         <EntityType Name="BlacklistedWords">
           <Key>
-            <PropertyRef Name="Word" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Word" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="Chat">
@@ -25,7 +24,7 @@ Warnung 6002: Für Tabelle/Sicht 'main.BlacklistedWords' ist kein Primärschlüs
             <PropertyRef Name="Index" />
           </Key>
           <Property Name="Index" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TwitchID" Type="integer" />
+          <Property Name="TwitchID" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Timestamp" Type="datetime" Nullable="false" />
           <Property Name="ChatMessage" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
@@ -47,29 +46,27 @@ Warnung 6002: Für Tabelle/Sicht 'main.BlacklistedWords' ist kein Primärschlüs
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="integer" Nullable="false" />
+          <Property Name="ID" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Value" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="TimeWatched">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="integer" Nullable="false" />
+          <Property Name="ID" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="TimeWatched" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="DisplayName" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="Id" Type="integer" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Type" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Bio" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="CreatedAt" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="TimeSinceCreated" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="UpdatedAt" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="TimeSinceUpdated" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="UpdatedAt" Type="datetime" />
           <Property Name="Logo" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <Association Name="FK_ActiveUsers_0_0">
@@ -110,16 +107,12 @@ Warnung 6002: Für Tabelle/Sicht 'main.BlacklistedWords' ist kein Primärschlüs
         </Association>
         <EntityContainer Name="StorageModelStoreContainer">
           <EntitySet Name="ActiveUsers" EntityType="Self.ActiveUsers" store:Type="Tables" />
+          <EntitySet Name="BlacklistedWords" EntityType="Self.BlacklistedWords" store:Type="Tables" />
           <EntitySet Name="Chat" EntityType="Self.Chat" store:Type="Tables" />
           <EntitySet Name="Commands" EntityType="Self.Commands" store:Type="Tables" />
           <EntitySet Name="Currency" EntityType="Self.Currency" store:Type="Tables" />
           <EntitySet Name="TimeWatched" EntityType="Self.TimeWatched" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" />
-          <EntitySet Name="BlacklistedWords" EntityType="Self.BlacklistedWords" store:Type="Tables">
-            <DefiningQuery>SELECT 
-[BlacklistedWords].[Word] AS [Word]
-FROM [BlacklistedWords] AS [BlacklistedWords]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_ActiveUsers_0_0" Association="Self.FK_ActiveUsers_0_0">
             <End Role="Users" EntitySet="Users" />
             <End Role="ActiveUsers" EntitySet="ActiveUsers" />
@@ -139,11 +132,11 @@ FROM [BlacklistedWords] AS [BlacklistedWords]</DefiningQuery>
       <Schema Namespace="StorageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="StorageEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ActiveUsers" EntityType="StorageModel.ActiveUsers" />
-          <EntitySet Name="Chat" EntityType="StorageModel.Chat" />
+          <EntitySet Name="BlacklistedWords" EntityType="StorageModel.BlacklistedWords" />
+          <EntitySet Name="Commands" EntityType="StorageModel.Commands" />
           <EntitySet Name="Currency" EntityType="StorageModel.Currency" />
           <EntitySet Name="TimeWatched" EntityType="StorageModel.TimeWatched" />
           <EntitySet Name="Users" EntityType="StorageModel.Users" />
-          <EntitySet Name="BlacklistedWords" EntityType="StorageModel.BlacklistedWords" />
           <AssociationSet Name="FK_ActiveUsers_0_0" Association="StorageModel.FK_ActiveUsers_0_0">
             <End Role="Users" EntitySet="Users" />
             <End Role="ActiveUsers" EntitySet="ActiveUsers" />
@@ -156,30 +149,42 @@ FROM [BlacklistedWords] AS [BlacklistedWords]</DefiningQuery>
             <End Role="Users" EntitySet="Users" />
             <End Role="TimeWatched" EntitySet="TimeWatched" />
           </AssociationSet>
-          <EntitySet Name="Commands" EntityType="StorageModel.Commands" />
+          <EntitySet Name="Chat" EntityType="StorageModel.Chat" />
         </EntityContainer>
         <EntityType Name="ActiveUsers">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="JoinedTime" Type="DateTime" />
           <NavigationProperty Name="Users" Relationship="StorageModel.FK_ActiveUsers_0_0" FromRole="ActiveUsers" ToRole="Users" />
         </EntityType>
-        <EntityType Name="Chat">
+        <EntityType Name="BlacklistedWords">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Word" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Commands">
           <Key>
             <PropertyRef Name="Index" />
           </Key>
           <Property Name="Index" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TwitchID" Type="Int64" />
-          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
-          <Property Name="ChatMessage" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Command" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" />
+          <Property Name="ModifiedAt" Type="DateTime" />
+          <Property Name="ExecutionRight" Type="Int64" Nullable="false" />
+          <Property Name="Count" Type="Int64" />
+          <Property Name="Cooldown" Type="Int64" />
+          <Property Name="LastExecution" Type="DateTime" />
         </EntityType>
         <EntityType Name="Currency">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Value" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="StorageModel.FK_Currency_0_0" FromRole="Currency" ToRole="Users" />
         </EntityType>
@@ -187,7 +192,7 @@ FROM [BlacklistedWords] AS [BlacklistedWords]</DefiningQuery>
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="TimeWatched1" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="StorageModel.FK_TimeWatched_0_0" FromRole="TimeWatched" ToRole="Users" />
         </EntityType>
@@ -195,25 +200,17 @@ FROM [BlacklistedWords] AS [BlacklistedWords]</DefiningQuery>
           <Key>
             <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="DisplayName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="Id" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Bio" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="TimeSinceCreated" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedAt" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="TimeSinceUpdated" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" />
+          <Property Name="UpdatedAt" Type="DateTime" />
           <Property Name="Logo" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ActiveUsers" Relationship="StorageModel.FK_ActiveUsers_0_0" FromRole="Users" ToRole="ActiveUsers" />
           <NavigationProperty Name="Currency" Relationship="StorageModel.FK_Currency_0_0" FromRole="Users" ToRole="Currency" />
           <NavigationProperty Name="TimeWatched" Relationship="StorageModel.FK_TimeWatched_0_0" FromRole="Users" ToRole="TimeWatched" />
-        </EntityType>
-        <EntityType Name="BlacklistedWords">
-          <Key>
-            <PropertyRef Name="Word" />
-          </Key>
-          <Property Name="Word" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_ActiveUsers_0_0">
           <End Type="StorageModel.Users" Role="Users" Multiplicity="1" />
@@ -251,19 +248,14 @@ FROM [BlacklistedWords] AS [BlacklistedWords]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Commands">
+        <EntityType Name="Chat">
           <Key>
             <PropertyRef Name="Index" />
           </Key>
           <Property Name="Index" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Command" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="Text" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Nullable="false" />
-          <Property Name="ModifiedAt" Type="DateTime" />
-          <Property Name="ExecutionRight" Type="Int64" Nullable="false" />
-          <Property Name="Count" Type="Int64" />
-          <Property Name="Cooldown" Type="Int64" />
-          <Property Name="LastExecution" Type="DateTime" />
+          <Property Name="TwitchID" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+          <Property Name="ChatMessage" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -279,12 +271,25 @@ FROM [BlacklistedWords] AS [BlacklistedWords]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Chat">
-            <EntityTypeMapping TypeName="StorageModel.Chat">
-              <MappingFragment StoreEntitySet="Chat">
-                <ScalarProperty Name="ChatMessage" ColumnName="ChatMessage" />
-                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-                <ScalarProperty Name="TwitchID" ColumnName="TwitchID" />
+          <EntitySetMapping Name="BlacklistedWords">
+            <EntityTypeMapping TypeName="StorageModel.BlacklistedWords">
+              <MappingFragment StoreEntitySet="BlacklistedWords">
+                <ScalarProperty Name="Word" ColumnName="Word" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Commands">
+            <EntityTypeMapping TypeName="StorageModel.Commands">
+              <MappingFragment StoreEntitySet="Commands">
+                <ScalarProperty Name="LastExecution" ColumnName="LastExecution" />
+                <ScalarProperty Name="Cooldown" ColumnName="Cooldown" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="ExecutionRight" ColumnName="ExecutionRight" />
+                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Command" ColumnName="Command" />
                 <ScalarProperty Name="Index" ColumnName="Index" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -309,36 +314,22 @@ FROM [BlacklistedWords] AS [BlacklistedWords]</DefiningQuery>
             <EntityTypeMapping TypeName="StorageModel.Users">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="Logo" ColumnName="Logo" />
-                <ScalarProperty Name="TimeSinceUpdated" ColumnName="TimeSinceUpdated" />
                 <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
-                <ScalarProperty Name="TimeSinceCreated" ColumnName="TimeSinceCreated" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="Bio" ColumnName="Bio" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BlacklistedWords">
-            <EntityTypeMapping TypeName="StorageModel.BlacklistedWords">
-              <MappingFragment StoreEntitySet="BlacklistedWords">
-                <ScalarProperty Name="Word" ColumnName="Word" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Commands">
-            <EntityTypeMapping TypeName="StorageModel.Commands">
-              <MappingFragment StoreEntitySet="Commands">
-                <ScalarProperty Name="LastExecution" ColumnName="LastExecution" />
-                <ScalarProperty Name="Cooldown" ColumnName="Cooldown" />
-                <ScalarProperty Name="Count" ColumnName="Count" />
-                <ScalarProperty Name="ExecutionRight" ColumnName="ExecutionRight" />
-                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="Command" ColumnName="Command" />
+          <EntitySetMapping Name="Chat">
+            <EntityTypeMapping TypeName="StorageModel.Chat">
+              <MappingFragment StoreEntitySet="Chat">
+                <ScalarProperty Name="ChatMessage" ColumnName="ChatMessage" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="TwitchID" ColumnName="TwitchID" />
                 <ScalarProperty Name="Index" ColumnName="Index" />
               </MappingFragment>
             </EntityTypeMapping>

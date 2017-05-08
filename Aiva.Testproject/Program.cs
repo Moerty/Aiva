@@ -19,7 +19,7 @@ namespace Aiva.Testproject {
 
 
             Core.AivaClient.Instance.AivaTwitchClient.SendMessage("Aiva started");
-            TwitchLib.TwitchApi.Streams.BroadcasterOnline("aeffchaen");
+            //TwitchLib.TwitchApi.Streams.BroadcasterOnline("aeffchaen");
             //p.Browser.Load("https://www.youtube.com/embed/bKXIUQbardg?autoplay=1");
 
             // Make sure you set performDependencyCheck false

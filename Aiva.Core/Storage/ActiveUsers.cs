@@ -14,7 +14,7 @@ namespace Aiva.Core.Storage
     
     public partial class ActiveUsers
     {
-        public long ID { get; set; }
+        public string ID { get; set; }
         public Nullable<System.DateTime> JoinedTime { get; set; }
     
         public virtual Users Users { get; set; }

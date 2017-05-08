@@ -26,11 +26,11 @@ namespace Aiva.Core.Storage
         }
     
         public virtual DbSet<ActiveUsers> ActiveUsers { get; set; }
-        public virtual DbSet<Chat> Chat { get; set; }
+        public virtual DbSet<BlacklistedWords> BlacklistedWords { get; set; }
+        public virtual DbSet<Commands> Commands { get; set; }
         public virtual DbSet<Currency> Currency { get; set; }
         public virtual DbSet<TimeWatched> TimeWatched { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<BlacklistedWords> BlacklistedWords { get; set; }
-        public virtual DbSet<Commands> Commands { get; set; }
+        public virtual DbSet<Chat> Chat { get; set; }
     }
 }

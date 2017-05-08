@@ -13,7 +13,7 @@ namespace Aiva.Extensions.Songrequest {
         public string Requester { get; set; }
         public bool IsPlaying { get; set; }
         public string Url { get; set; }
-        public long TwitchID { get; set; }
+        public string TwitchID { get; set; }
 
         public Song(string UserInput, string Username) {
             this.UserInput = UserInput;

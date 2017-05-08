@@ -14,6 +14,7 @@ namespace Aiva.Core.Storage
     
     public partial class BlacklistedWords
     {
+        public long ID { get; set; }
         public string Word { get; set; }
     }
 }

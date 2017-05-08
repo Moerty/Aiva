@@ -15,7 +15,7 @@ namespace Aiva.Core.Storage
     public partial class Chat
     {
         public long Index { get; set; }
-        public Nullable<long> TwitchID { get; set; }
+        public string TwitchID { get; set; }
         public System.DateTime Timestamp { get; set; }
         public string ChatMessage { get; set; }
     }

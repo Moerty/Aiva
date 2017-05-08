@@ -105,7 +105,7 @@ namespace Aiva.Extensions.Bankheist {
                     }
 
                     CurrentBankheist.AddUserToBankheist(e.Command.ChatMessage.Username,
-                        Convert.ToInt64(e.Command.ChatMessage.UserId), e.Command.ArgumentsAsString);
+                        e.Command.ChatMessage.UserId, e.Command.ArgumentsAsString);
 
                 } else {
                     AivaClient.Instance.AivaTwitchClient.SendMessage("Bankheist is on Cooldown!");

@@ -14,15 +14,13 @@ namespace Aiva.Core.Storage
     
     public partial class Users
     {
+        public string Id { get; set; }
         public string DisplayName { get; set; }
-        public long Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public string Bio { get; set; }
-        public string CreatedAt { get; set; }
-        public string TimeSinceCreated { get; set; }
-        public string UpdatedAt { get; set; }
-        public string TimeSinceUpdated { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
+        public Nullable<System.DateTime> UpdatedAt { get; set; }
         public string Logo { get; set; }
     
         public virtual ActiveUsers ActiveUsers { get; set; }

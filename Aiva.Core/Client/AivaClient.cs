@@ -27,7 +27,7 @@ namespace Aiva.Core {
         public TwitchClient AivaTwitchClient;
         public string Username;
         public string Channel;
-        public long TwitchID;
+        public string TwitchID;
 
         private string ClientID;
         private string OAuthKey;
@@ -49,32 +49,35 @@ namespace Aiva.Core {
         /// <summary>
         /// Validation for Twitch ClientID & OAuthKey
         /// </summary>
-        private void DoValidation() {
-            //if (!TwitchApi.ValidClientId(ClientID, true))
-            //    throw new Exception("Twitch ClientID is not valid!");
-            // Bug!!! Reported!
+        //private void DoValidation() {
+        //    //if (!TwitchApi.ValidClientId(ClientID, true))
+        //    //    throw new Exception("Twitch ClientID is not valid!");
+        //    // Bug!!! Reported!
 
-            var oAuthResult = TwitchApi.ValidationAPIRequest(OAuthKey);
+        //    var oAuthResult = TwitchApi.ValidationAPIRequest(OAuthKey);
 
-            if (oAuthResult != null) {
-                if (oAuthResult.Token.Valid) {
-                    TwitchID = Convert.ToInt64(oAuthResult.Token.UserId);
-                    Username = oAuthResult.Token.Username;
-                } else {
-                    throw new Exception("OAuth Token is not valid!");
-                }
-            } else {
-                throw new Exception("Cant validate Twitch OAuth Key");
-            }
-        }
+
+        //    if (oAuthResult != null) {
+        //        if (oAuthResult.Token.Valid) {
+        //            TwitchID = Convert.ToInt64(oAuthResult.Token.UserId);
+        //            Username = oAuthResult.Token.Username;
+        //        } else {
+        //            throw new Exception("OAuth Token is not valid!");
+        //        }
+        //    } else {
+        //        throw new Exception("Cant validate Twitch OAuth Key");
+        //    }
+        //}
 
         /// <summary>
         /// Setup TwitchClient
         /// </summary>
         private void SetupTwitch() {
             // TwitchApi
-            TwitchApi.SetClientId(ClientID);
-            TwitchApi.SetAccessToken(OAuthKey);
+            //TwitchApi.SetClientId(ClientID);
+            //TwitchApi.SetAccessToken(OAuthKey);
+            TwitchAPI.Settings.AccessToken = OAuthKey;
+            TwitchAPI.Settings.ClientId = ClientID;
 
             // TwitchClient
             var TwitchCredentials = new TwitchLib.Models.Client.ConnectionCredentials(Username, OAuthKey);
@@ -91,9 +94,25 @@ namespace Aiva.Core {
             AivaTwitchClient.OnConnected += OnConnected;
             AivaTwitchClient.OnJoinedChannel += OnJoinedChannel;
 
-            TwitchID = Convert.ToInt64(TwitchApi.ValidationAPIRequest().Token.UserId);
+            GetUserID();
 
             AivaTwitchClient.Connect();
+        }
+
+        /// <summary>
+        /// Get the UserID from Bot!
+        /// </summary>
+        private async void GetUserID() {
+            var users = await TwitchAPI.Users.v5.GetUserByName(Username);
+
+            if (users != null && users.Total > 0) {
+                foreach (var user in users.Matches) {
+                    if (String.Compare(user.Name, Username, true) == 0)
+                        TwitchID = user.Id;
+                }
+            } else {
+                throw new Exception("Cant get TwitchID from given Username!");
+            }
         }
 
         /// <summary>

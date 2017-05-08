@@ -104,10 +104,11 @@ namespace Aiva.Core.Client.Tasks {
         private static void SetTimers() {
 
             // ChatUsersCheckerTimer for undocumented Endpoint
-            ChatUsersCheckerTimer = new Timer();
-            ChatUsersCheckerTimer.Interval = new TimeSpan(0, 1, 0).TotalMilliseconds;
+            ChatUsersCheckerTimer = new Timer {
+                Interval = new TimeSpan(0, 1, 0).TotalMilliseconds,
+                AutoReset = true
+            };
             ChatUsersCheckerTimer.Elapsed += TriggerChatUsersCheckerTimer;
-            ChatUsersCheckerTimer.AutoReset = true;
             ChatUsersCheckerTimer.Start();
         }
 
@@ -116,15 +117,46 @@ namespace Aiva.Core.Client.Tasks {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void TriggerChatUsersCheckerTimer(object sender, ElapsedEventArgs e) {
-            var users = TwitchApi.Streams.GetChatters(Core.AivaClient.Instance.Channel);
+        private async static void TriggerChatUsersCheckerTimer(object sender, ElapsedEventArgs e) {
+            var users = await TwitchAPI.Undocumented.GetChatters(Core.AivaClient.Instance.Channel);
 
-            if(users != null && users.Any()) {
+            if (users != null && users.ChatterCount > 0) {
                 var userList = new List<string>();
 
-                users.ForEach(u => {
-                    userList.Add(u.Username);
-                });
+                // Admins
+                if (users.Chatters.Admins.Any()) {
+                    foreach (var chatter in users.Chatters.Admins) {
+                        userList.Add(chatter);
+                    }
+                }
+
+                // Global Mods
+                if (users.Chatters.GlobalMods.Any()) {
+                    foreach (var chatter in users.Chatters.GlobalMods) {
+                        userList.Add(chatter);
+                    }
+                }
+
+                // Mod
+                if (users.Chatters.Moderators.Any()) {
+                    foreach (var chatter in users.Chatters.Moderators) {
+                        userList.Add(chatter);
+                    }
+                }
+
+                // Staff
+                if (users.Chatters.Staff.Any()) {
+                    foreach (var chatter in users.Chatters.Staff) {
+                        userList.Add(chatter);
+                    }
+                }
+
+                // Viewers
+                if (users.Chatters.Viewers.Any()) {
+                    foreach (var chatter in users.Chatters.Viewers) {
+                        userList.Add(chatter);
+                    }
+                }
 
                 Internal.Users.InvokeOnNewUserFound(userList);
             }
@@ -132,6 +164,6 @@ namespace Aiva.Core.Client.Tasks {
 
         static Timer ChatUsersCheckerTimer;
 
-#endregion Timers
+        #endregion Timers
     }
 }

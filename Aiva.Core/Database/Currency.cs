@@ -51,7 +51,7 @@ namespace Aiva.Core.Database {
             public async static void AddCurrencyToUserList(List<Models.DatabaseCurrencyModel.ListCurrencyUpdate> UserList) {
                 using (var context = new Storage.StorageEntities()) {
                     foreach (var user in UserList) {
-                        var userDb = context.Users.SingleOrDefault(u => u.Id == user.TwitchID);
+                        var userDb = context.Users.SingleOrDefault(u => String.Compare(u.Id, user.TwitchID) == 0);
 
                         if (userDb != null) {
                             userDb.Currency.Value += user.Value;
@@ -62,9 +62,9 @@ namespace Aiva.Core.Database {
                 }
             }
 
-            public static void AddCurrencyToUser(long twitchID, int value) {
+            public static void AddCurrencyToUser(string twitchID, int value) {
                 using (var context = new Storage.StorageEntities()) {
-                    var user = context.Users.SingleOrDefault(u => u.Id == twitchID);
+                    var user = context.Users.SingleOrDefault(u => String.Compare(u.Id, twitchID) == 0);
 
                     if (user != null) {
                         user.Currency.Value += value;
@@ -82,9 +82,9 @@ namespace Aiva.Core.Database {
             /// </summary>
             /// <param name="twitchID"></param>
             /// <param name="value"></param>
-            public static void RemoveCurrencyFromUser(long twitchID, int value) {
+            public static void RemoveCurrencyFromUser(string twitchID, int value) {
                 using (var context = new Storage.StorageEntities()) {
-                    var user = context.Users.SingleOrDefault(u => u.Id == twitchID);
+                    var user = context.Users.SingleOrDefault(u => String.Compare(u.Id, twitchID) == 0);
 
                     if (user != null) {
                         user.Currency.Value -= value;
@@ -101,7 +101,7 @@ namespace Aiva.Core.Database {
             public async static void RemoveCurrencyToUserList(List<Models.DatabaseCurrencyModel.ListCurrencyUpdate> UserList) {
                 using (var context = new Storage.StorageEntities()) {
                     foreach (var user in UserList) {
-                        var userDb = context.Users.SingleOrDefault(u => u.Id == user.TwitchID);
+                        var userDb = context.Users.SingleOrDefault(u => String.Compare(u.Id, user.TwitchID) == 0);
 
                         if (userDb != null) {
                             userDb.Currency.Value -= user.Value;
@@ -120,10 +120,11 @@ namespace Aiva.Core.Database {
         /// <summary>
         /// Get Currency from a user
         /// </summary>
+        /// <param name="twitchID">todo: describe twitchID parameter on GetCurrencyFromUser</param>
         /// <returns></returns>
-        public static long? GetCurrencyFromUser(long twitchID) {
+        public static long? GetCurrencyFromUser(string twitchID) {
             using (var context = new Core.Storage.StorageEntities()) {
-                var user = context.Users.SingleOrDefault(u => u.Id == twitchID);
+                var user = context.Users.SingleOrDefault(u => String.Compare(u.Id, twitchID) == 0);
 
                 if (user != null) {
                     return user.Currency.Value;
@@ -132,33 +133,14 @@ namespace Aiva.Core.Database {
 
             return null;
         }
-
-        /// <summary>
-        /// Get Currency from a user
-        /// </summary>
-        /// <returns></returns>
-        public static long? GetCurrencyFromUser(string userid) {
-            var twitchID = Convert.ToInt64(userid);
-
-            using (var context = new Core.Storage.StorageEntities()) {
-                var user = context.Users.SingleOrDefault(u => u.Id == twitchID);
-
-                if (user != null) {
-                    return user.Currency.Value;
-                }
-            }
-
-            return null;
-        }
-
 
         /// <summary>
         /// Add User to Table Currency
         /// </summary>
         /// <param name="twitchID"></param>
-        public async static void AddUserToCurrencyTable(long twitchID) {
+        public async static void AddUserToCurrencyTable(string twitchID) {
             using (var context = new Storage.StorageEntities()) {
-                var currencyEntry = context.Currency.SingleOrDefault(c => c.ID == twitchID);
+                var currencyEntry = context.Currency.SingleOrDefault(c => String.Compare(c.ID, twitchID) == 0);
 
                 if (currencyEntry == null) {
                     context.Currency.Add(

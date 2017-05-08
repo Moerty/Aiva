@@ -36,12 +36,8 @@ namespace Aiva.Core.Client.Internal {
                         if (e.Command.ChatMessage.UserType != TwitchLib.Enums.UserType.Viewer ||
                             e.Command.ChatMessage.UserType != TwitchLib.Enums.UserType.Staff) {
 
-                            var updateUser = TwitchLib.TwitchApi.Users.GetUser(e.Command.ArgumentsAsList[0]);
-
-                            if (updateUser != null) {
-                                if (int.TryParse(e.Command.ArgumentsAsList[1], out int value)) {
-                                    Database.Currency.Add.AddCurrencyToUser(updateUser.Id.Value, value);
-                                }
+                            if (int.TryParse(e.Command.ArgumentsAsList[1], out int value)) {
+                                Database.Currency.Add.AddCurrencyToUser(e.Command.ChatMessage.UserId, value);
                             }
                         }
                     }

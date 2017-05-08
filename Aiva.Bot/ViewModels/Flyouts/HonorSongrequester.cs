@@ -4,28 +4,28 @@ using System.Windows.Input;
 namespace Aiva.Bot.ViewModels.Flyouts {
     [PropertyChanged.ImplementPropertyChanged]
     public class HonorSongrequester {
-        private long TwitchID;
+        private string TwitchID;
         private readonly string Username;
         public int CurrencyToAdd { get; set; }
         public bool WriteInChat { get; set; }
 
         public ICommand HonorRequesterCommand { get; set; }
 
-        public HonorSongrequester(string username, long? twitchID = null) {
-            if (twitchID.HasValue) {
-                this.TwitchID = twitchID.Value;
+        public HonorSongrequester(string username, string twitchID = null) {
+            if (!String.IsNullOrEmpty(twitchID)) {
+                this.TwitchID = twitchID;
                 Username = !String.IsNullOrEmpty(username) ? username : String.Empty;
             } else {
                 Username = username;
             }
-            HonorRequesterCommand = new Internal.RelayCommand(h => HonorRequester(), h => twitchID.HasValue);
+            HonorRequesterCommand = new Internal.RelayCommand(h => HonorRequester(), h => !String.IsNullOrEmpty(twitchID));
         }
 
         /// <summary>
         /// Do Honor
         /// </summary>
         private void HonorRequester() {
-            if (TwitchID != 0) {
+            if (!String.IsNullOrEmpty(TwitchID)) {
                 Core.Database.Currency.Add.AddCurrencyToUser(TwitchID, CurrencyToAdd);
             }
 

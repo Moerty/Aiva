@@ -27,7 +27,7 @@ namespace Aiva.Extensions.Bankheist {
         /// <param name="name">todo: describe name parameter on AddUserToBankheist</param>
         /// <param name="argument">todo: describe argument parameter on AddUserToBankheist</param>
         /// <param name="userID">todo: describe userID parameter on AddUserToBankheist</param>
-        public void AddUserToBankheist(string name, long userID, string argument) {
+        public void AddUserToBankheist(string name, string userID, string argument) {
 
             // Is Argument a valid Int
             if (int.TryParse(argument, out int bet)) {
@@ -52,10 +52,10 @@ namespace Aiva.Extensions.Bankheist {
         /// <param name="bet"></param>
         /// <param name="userID"></param>
         /// <returns></returns>
-        private bool UserHasEnoughCurrency(long bet, long userID) {
+        private bool UserHasEnoughCurrency(long bet, string userID) {
             using (var context = new Core.Storage.StorageEntities()) {
 
-                var currency = context.Currency.SingleOrDefault(c => c.ID == userID);
+                var currency = context.Currency.SingleOrDefault(c => String.Compare(c.ID, userID) == 0);
 
                 if (currency != null) {
                     if (currency.Value >= bet) {
