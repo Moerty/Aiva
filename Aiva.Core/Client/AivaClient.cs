@@ -39,9 +39,6 @@ namespace Aiva.Core {
             Channel = Config.Config.Instance["General"]["Channel"].ToLower();
             ClientID = Config.Config.Instance["Credentials"]["TwitchClientID"];
 
-            // Valid Twitch Credentials
-            //DoValidation();
-
             // setup TwitchApi
             SetupTwitch();
         }
@@ -70,8 +67,6 @@ namespace Aiva.Core {
         /// </summary>
         private void SetupTwitch() {
             // TwitchApi
-            //TwitchApi.SetClientId(ClientID);
-            //TwitchApi.SetAccessToken(OAuthKey);
             TwitchAPI.Settings.AccessToken = OAuthKey;
             TwitchAPI.Settings.ClientId = ClientID;
 

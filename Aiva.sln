@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.3
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aiva.Core", "Aiva.Core\Aiva.Core.csproj", "{9207B344-0BA9-441F-81D8-F4B6F0E2AB6D}"
 EndProject
@@ -10,6 +10,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aiva.Testproject", "Aiva.Testproject\Aiva.Testproject.csproj", "{70B247C7-3524-465A-A4D0-4FA98D428D0E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aiva.Bot", "Aiva.Bot\Aiva.Bot.csproj", "{3E1D12BD-2ED4-4125-93C2-504A8ABC3EE7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dll", "dll", "{2858F5BA-58C8-434C-8FDB-AD0A900517F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitchLib", "dll\TwitchLib\TwitchLib\TwitchLib.csproj", "{5D5746FD-63B3-4DB0-9389-7FEDA1A05A09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,8 +55,19 @@ Global
 		{3E1D12BD-2ED4-4125-93C2-504A8ABC3EE7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3E1D12BD-2ED4-4125-93C2-504A8ABC3EE7}.Release|x86.ActiveCfg = Release|Any CPU
 		{3E1D12BD-2ED4-4125-93C2-504A8ABC3EE7}.Release|x86.Build.0 = Release|Any CPU
+		{5D5746FD-63B3-4DB0-9389-7FEDA1A05A09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D5746FD-63B3-4DB0-9389-7FEDA1A05A09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D5746FD-63B3-4DB0-9389-7FEDA1A05A09}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5D5746FD-63B3-4DB0-9389-7FEDA1A05A09}.Debug|x86.Build.0 = Debug|Any CPU
+		{5D5746FD-63B3-4DB0-9389-7FEDA1A05A09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D5746FD-63B3-4DB0-9389-7FEDA1A05A09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D5746FD-63B3-4DB0-9389-7FEDA1A05A09}.Release|x86.ActiveCfg = Release|Any CPU
+		{5D5746FD-63B3-4DB0-9389-7FEDA1A05A09}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5D5746FD-63B3-4DB0-9389-7FEDA1A05A09} = {2858F5BA-58C8-434C-8FDB-AD0A900517F4}
 	EndGlobalSection
 EndGlobal

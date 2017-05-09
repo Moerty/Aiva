@@ -44,19 +44,9 @@
                     Header="Is Viewing"
                     IsReadOnly="True" />
                 <DataGridTextColumn
-                    x:Name="lastSeenColumn"
-                    Width="110"
-                    Binding="{Binding LastSeen}"
-                    Header="Last Seen" />
-                <DataGridTextColumn
-                    x:Name="rankColumn"
-                    Width="54"
-                    Binding="{Binding Rank}"
-                    Header="Rank" />
-                <DataGridTextColumn
                     x:Name="twitchIDColumn"
                     Width="82"
-                    Binding="{Binding TwitchID}"
+                    Binding="{Binding Id}"
                     Header="Twitch ID" />
                 <DataGridTextColumn
                     x:Name="typeColumn"
