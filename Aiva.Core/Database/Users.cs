@@ -76,7 +76,7 @@ namespace Aiva.Core.Database {
             /// <param name="sender"></param>
             /// <param name="e"></param>
             internal static void AddUserToDatabase(object sender, OnNewUserFoundArgs e) {
-                e.User.ForEach(user => {
+                e.Users.ForEach(user => {
                     AddUserToDatabase(user);
                 });
             }

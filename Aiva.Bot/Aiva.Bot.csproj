@@ -105,6 +105,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="TwitchLib, Version=1.4.8.30514, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TwitchLib.1.4.8\lib\net45\TwitchLib.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -234,10 +237,6 @@
     <ProjectReference Include="..\Aiva.Extensions\Aiva.Extensions.csproj">
       <Project>{73daa38e-17cb-48e4-bdc4-92d77b5cf59d}</Project>
       <Name>Aiva.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\dll\TwitchLib\TwitchLib\TwitchLib.csproj">
-      <Project>{5d5746fd-63b3-4db0-9389-7feda1a05a09}</Project>
-      <Name>TwitchLib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

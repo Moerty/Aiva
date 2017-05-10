@@ -120,45 +120,16 @@ namespace Aiva.Core.Client.Tasks {
         private async static void TriggerChatUsersCheckerTimer(object sender, ElapsedEventArgs e) {
             var users = await TwitchAPI.Undocumented.GetChatters(Core.AivaClient.Instance.Channel);
 
-            if (users != null && users.ChatterCount > 0) {
-                var userList = new List<string>();
 
-                // Admins
-                if (users.Chatters.Admins.Any()) {
-                    foreach (var chatter in users.Chatters.Admins) {
-                        userList.Add(chatter);
-                    }
+            if (users != null && users.Any()) {
+                var UserList = new List<string>();
+
+
+                foreach (var user in users) {
+                    UserList.Add(user.Username);
                 }
 
-                // Global Mods
-                if (users.Chatters.GlobalMods.Any()) {
-                    foreach (var chatter in users.Chatters.GlobalMods) {
-                        userList.Add(chatter);
-                    }
-                }
-
-                // Mod
-                if (users.Chatters.Moderators.Any()) {
-                    foreach (var chatter in users.Chatters.Moderators) {
-                        userList.Add(chatter);
-                    }
-                }
-
-                // Staff
-                if (users.Chatters.Staff.Any()) {
-                    foreach (var chatter in users.Chatters.Staff) {
-                        userList.Add(chatter);
-                    }
-                }
-
-                // Viewers
-                if (users.Chatters.Viewers.Any()) {
-                    foreach (var chatter in users.Chatters.Viewers) {
-                        userList.Add(chatter);
-                    }
-                }
-
-                Internal.Users.InvokeOnNewUserFound(userList);
+                Internal.Users.InvokeOnNewUserFound(UserList);
             }
         }
 

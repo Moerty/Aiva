@@ -50,7 +50,7 @@ namespace Aiva.Extensions.Chat {
 
         private void OnNewUserFound(object sender, OnNewUserFoundArgs e) {
 
-            foreach (var user in e.User) {
+            foreach (var user in e.Users) {
 
                 var scopes = TwitchLib.TwitchAPI.Settings.Scopes;
                 var IsUserSubscriber = TwitchLib.TwitchAPI.Subscriptions.ChannelHasUserSubscribed(Core.AivaClient.Instance.Channel, user.Name).Result;

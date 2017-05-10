@@ -4,15 +4,16 @@ using System.Linq;
 using Aiva.Core.Models;
 using TwitchLib;
 using TwitchLib.Events.Client;
+using TwitchLib.Enums;
 
 namespace Aiva.Core.Client.Internal {
     public class Users {
         public static event EventHandler<OnNewUserFoundArgs> OnNewUserFound;
 
-        public static void InvokeOnNewUserFound(List<string> Usernames) {
+        public static void InvokeOnNewUserFound(List<string> UserList) {
             var userList = new List<TwitchLib.Models.API.v5.Users.User>();
 
-            foreach (var user in Usernames) {
+            foreach (var user in UserList) {
                 if (!Database.Users.IsUserInDatabase(user)) {
                     var twitchUser = TwitchAPI.Users.v5.GetUserByName(user).Result; //TwitchApi.Users.GetUser(user);
 
@@ -29,7 +30,7 @@ namespace Aiva.Core.Client.Internal {
             }
 
             if (userList.Any())
-                OnNewUserFound?.Invoke(null, new OnNewUserFoundArgs { User = userList });
+                OnNewUserFound?.Invoke(null, new OnNewUserFoundArgs { Users = userList });
         }
 
         /// <summary>
@@ -69,6 +70,7 @@ namespace Aiva.Core.Client.Internal {
                         if (String.Compare(userMatch.Name, user) != 0)
                             continue;
 
+
                         userList.Add(userMatch);
                     }
                 }
@@ -82,10 +84,10 @@ namespace Aiva.Core.Client.Internal {
         /// Invoke the Eventhandler
         /// </summary>
         /// <param name="userList"></param> 
-        private static void InvokeUserJoined(List<TwitchLib.Models.API.v5.Users.User/*TwitchLib.Models.API.User.User*/> userList) {
+        private static void InvokeUserJoined(List<TwitchLib.Models.API.v5.Users.User> userList) {
             OnNewUserFound?.Invoke(
                 null, new OnNewUserFoundArgs {
-                    User = userList
+                    Users = userList
                 });
         }
     }
