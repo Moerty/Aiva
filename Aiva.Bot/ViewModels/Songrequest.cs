@@ -59,7 +59,6 @@ namespace Aiva.Bot.ViewModels {
         /// Play clicked song
         /// </summary>
         private void PlaySong() {
-
             Handler.Player.PlayedSong = Handler.Player.SelectedSong;
 
             if (Handler.Player.PlayedSong != null) {
@@ -68,7 +67,6 @@ namespace Aiva.Bot.ViewModels {
                 SongrequestHandler.SendStartSongMessage
                     ($"Start Song \"{Handler.Player.PlayedSong.Title}\". Desired by @{Handler.Player.PlayedSong.Requester}. Link: {Handler.Player.PlayedSong.Url}");
 
-                //SongList.ToList().ForEach(x => x.IsPlaying = false);
                 Handler.Player.SongList.ToList().ForEach(x => x.IsPlaying = false);
 
                 Handler.Player.PlayedSong.IsPlaying = true;

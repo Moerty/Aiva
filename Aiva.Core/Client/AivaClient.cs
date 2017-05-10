@@ -27,6 +27,7 @@ namespace Aiva.Core {
         public TwitchClient AivaTwitchClient;
         public string Username;
         public string Channel;
+        public string ChannelID;
         public string TwitchID;
 
         public string ClientID;
@@ -41,6 +42,17 @@ namespace Aiva.Core {
 
             // setup TwitchApi
             SetupTwitch();
+
+            GetChannelID();
+        }
+
+        /// <summary>
+        /// Get the channel id from twitch
+        /// </summary>
+        private void GetChannelID() {
+            var channelDetails = TwitchAPI.Channels.v5.GetChannel().Result;
+
+            ChannelID = channelDetails.Id.ToString();
         }
 
         /// <summary>

@@ -52,8 +52,10 @@ namespace Aiva.Extensions.Chat {
 
             foreach (var user in e.Users) {
 
-                var scopes = TwitchLib.TwitchAPI.Settings.Scopes;
+                //var scopes = TwitchLib.TwitchAPI.Settings.Scopes;
                 var IsUserSubscriber = TwitchLib.TwitchAPI.Subscriptions.ChannelHasUserSubscribed(Core.AivaClient.Instance.Channel, user.Name).Result;
+                //var UserFollowedChannel = TwitchLib.TwitchAPI.Follows.GetFollowsStatus(user.Name, Core.AivaClient.Instance.Channel).Result;
+                //var UserFollowedChannel = TwitchLib.TwitchAPI.Users.v5.CheckUserFollowsByChannel(user.Id, Core.AivaClient.Instance.ChannelID).Result;
 
 
                 Application.Current.Dispatcher.Invoke(() => {
@@ -61,6 +63,8 @@ namespace Aiva.Extensions.Chat {
                         new Models.Chat.Viewers {
                             Name = user.Name,
                             IsSub = IsUserSubscriber != null ? true : false,
+                            UserType = IsUserSubscriber != null ? Models.Chat.SortDirectionListView.Subscriber
+                                                : /*UserFollowedChannel != null ? Models.Chat.SortDirectionListView.Follower :*/ Models.Chat.SortDirectionListView.Viewer
                             //IsMod = will be filled from the event "ModeratoersReceived"
                         });
                 });
@@ -80,6 +84,7 @@ namespace Aiva.Extensions.Chat {
 
             foreach (var match in matches) {
                 match.IsMod = true;
+                match.UserType = Models.Chat.SortDirectionListView.Mod;
             }
         }
 

@@ -130,7 +130,7 @@
     <Compile Include="ViewModels\Flyouts\HonorSongrequester.cs" />
     <Compile Include="ViewModels\Flyouts\UsersInfoVM.cs" />
     <Compile Include="ViewModels\Users.cs" />
-    <Compile Include="ViewModels\ConsoleVM.cs" />
+    <Compile Include="ViewModels\Console.cs" />
     <Compile Include="ViewModels\MainWindow.cs" />
     <Compile Include="ViewModels\Songrequest.cs" />
     <Compile Include="Views\Commands.xaml.cs">

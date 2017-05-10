@@ -24,6 +24,15 @@ namespace Aiva.Extensions.Models {
             public bool IsSub { get; set; }
             public string Name { get; set; }
             public string TwitchID { get; set; }
+            public SortDirectionListView UserType { get; set; }
+        }
+
+        public enum SortDirectionListView {
+            Admin,
+            Mod,
+            Subscriber,
+            Follower,
+            Viewer
         }
     }
 }

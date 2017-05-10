@@ -9,8 +9,15 @@
     xmlns:mvvm="clr-namespace:Aiva.Bot.ViewModels"
     Width="720"
     Height="470"
-    d:DataContext="{d:DesignInstance d:Type=mvvm:ConsoleVM}"
+    d:DataContext="{d:DesignInstance d:Type=mvvm:Console}"
     mc:Ignorable="d">
+    <controls:MetroContentControl.Resources>
+        <CollectionViewSource x:Key="GroupedItems" Source="{Binding ChatHandler.Viewers}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="UserType" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+    </controls:MetroContentControl.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -51,8 +58,9 @@
         </ScrollViewer>
 
         <ListView
+            Name="lvUsers"
             Grid.Column="1"
-            ItemsSource="{Binding ChatHandler.Viewers}"
+            ItemsSource="{Binding Source={StaticResource GroupedItems}}"
             SelectedItem="{Binding ChatHandler.SelectedViewer}">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -105,6 +113,45 @@
                     </WrapPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <!--<GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            --><!--<TextBlock DataContext="{Binding Items}">
+                                <TextBlock.Text>
+                                    <Binding Path="UserType" />
+                                </TextBlock.Text>
+                            </TextBlock>--><!--
+                            <Expander IsExpanded="True" DataContext="{Binding Items}">
+                                <Expander.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Path=UserType}" FontWeight="Bold" Foreground="Gray" FontSize="22" VerticalAlignment="Bottom" />
+                                    </StackPanel>
+                                </Expander.Header>
+                                <ItemsPresenter />
+                            </Expander>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>-->
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander DataContext="{Binding Items}" IsExpanded="True">
+                                            <Expander.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Path=UserType}" FontWeight="Bold" Foreground="Gray" FontSize="22" VerticalAlignment="Bottom" />
+                                                </StackPanel>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListView.GroupStyle>
             <ListView.ContextMenu>
                 <ContextMenu Name="ViewerContextMenu">
                     <MenuItem Command="{Binding MuteCommand}" Header="Mute Viewer" />

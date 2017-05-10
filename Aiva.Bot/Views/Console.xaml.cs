@@ -20,7 +20,22 @@ namespace Aiva.Bot.Views {
     public partial class Console : MahApps.Metro.Controls.MetroContentControl {
         public Console() {
             InitializeComponent();
-            this.DataContext = new ViewModels.ConsoleVM();
+            this.DataContext = new ViewModels.Console();
+
+            Grouping();
+        }
+
+        private void Grouping() {
+            Task.Run(() => {
+                while(lvUsers.ItemsSource == null) {
+                    CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvUsers.ItemsSource);
+                    PropertyGroupDescription groupDescription = new PropertyGroupDescription("UserType");
+
+                    if(view != null && groupDescription != null)
+                        view.GroupDescriptions.Add(groupDescription);
+                }
+            });
+            
         }
     }
 }
