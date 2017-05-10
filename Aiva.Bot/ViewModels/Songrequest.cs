@@ -11,6 +11,7 @@ namespace Aiva.Bot.ViewModels {
         public ICommand AddCommand { get; set; }
         public ICommand PlaySongCommand { get; set; }
         public ICommand HonorRequesterCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
 
         public string AddYoutubeUrl { get; set; }
         public string AddPlaylistUrl { get; set; }
@@ -24,7 +25,13 @@ namespace Aiva.Bot.ViewModels {
             AddCommand = new Internal.RelayCommand(add => AddSongToPlaylist(), add => !String.IsNullOrEmpty(AddYoutubeUrl) || !String.IsNullOrEmpty(AddPlaylistUrl));
             PlaySongCommand = new Internal.RelayCommand(p => PlaySong(), p => Handler.Player.SongList.Any());
             HonorRequesterCommand = new Internal.RelayCommand(h => HonorRequester(), p => Handler.Player.SelectedSong != null);
+            DeleteCommand = new Internal.RelayCommand(d => DeleteSong(), d => Handler.Player.SelectedSong != null);
         }
+
+        /// <summary>
+        /// Delete selected Song
+        /// </summary>
+        private void DeleteSong() => Handler.Player.DeleteSongFromPlaylist();
 
         /// <summary>
         /// Open HonorRequester Flyout

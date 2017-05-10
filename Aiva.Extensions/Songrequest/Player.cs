@@ -4,6 +4,7 @@ using Google.Apis.Util.Store;
 using Google.Apis.YouTube.v3;
 using System.Threading;
 using System.Collections.ObjectModel;
+using System;
 
 namespace Aiva.Extensions.Songrequest {
     [PropertyChanged.ImplementPropertyChanged]
@@ -62,6 +63,14 @@ namespace Aiva.Extensions.Songrequest {
             });
 
             return youtubeService;
+        }
+
+        /// <summary>
+        /// Delete Song from Playlist
+        /// </summary>
+        public void DeleteSongFromPlaylist() {
+            SongList.Remove(SelectedSong);
+            SelectedSong = null;
         }
     }
 }
