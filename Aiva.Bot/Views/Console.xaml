@@ -14,7 +14,7 @@
     <controls:MetroContentControl.Resources>
         <CollectionViewSource x:Key="GroupedItems" Source="{Binding ChatHandler.Viewers}">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="UserType" />
+                <PropertyGroupDescription PropertyName="Type" />
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
     </controls:MetroContentControl.Resources>
@@ -60,8 +60,7 @@
         <ListView
             Name="lvUsers"
             Grid.Column="1"
-            ItemsSource="{Binding Source={StaticResource GroupedItems}}"
-            SelectedItem="{Binding ChatHandler.SelectedViewer}">
+            ItemsSource="{Binding Source={StaticResource GroupedItems}}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
@@ -115,32 +114,25 @@
             </ListView.ItemTemplate>
             <ListView.GroupStyle>
                 <GroupStyle>
-                    <!--<GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            --><!--<TextBlock DataContext="{Binding Items}">
-                                <TextBlock.Text>
-                                    <Binding Path="UserType" />
-                                </TextBlock.Text>
-                            </TextBlock>--><!--
-                            <Expander IsExpanded="True" DataContext="{Binding Items}">
-                                <Expander.Header>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Path=UserType}" FontWeight="Bold" Foreground="Gray" FontSize="22" VerticalAlignment="Bottom" />
-                                    </StackPanel>
-                                </Expander.Header>
-                                <ItemsPresenter />
-                            </Expander>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>-->
                     <GroupStyle.ContainerStyle>
                         <Style TargetType="{x:Type GroupItem}">
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate>
-                                        <Expander DataContext="{Binding Items}" IsExpanded="True">
+                                        <Expander
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            DataContext="{Binding Items}"
+                                            Foreground="Transparent"
+                                            IsExpanded="True">
                                             <Expander.Header>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding Path=UserType}" FontWeight="Bold" Foreground="Gray" FontSize="22" VerticalAlignment="Bottom" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Top"
+                                                        FontSize="22"
+                                                        FontWeight="Bold"
+                                                        Foreground="Gray"
+                                                        Text="{Binding Type}" />
                                                 </StackPanel>
                                             </Expander.Header>
                                             <ItemsPresenter />

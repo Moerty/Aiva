@@ -24,7 +24,7 @@ namespace Aiva.Extensions.Models {
             public bool IsSub { get; set; }
             public string Name { get; set; }
             public string TwitchID { get; set; }
-            public SortDirectionListView UserType { get; set; }
+            public SortDirectionListView Type { get; set; }
         }
 
         public enum SortDirectionListView {
