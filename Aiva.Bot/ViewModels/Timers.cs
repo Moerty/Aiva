@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Aiva.Bot.ViewModels {
     [PropertyChanged.ImplementPropertyChanged]
-    public class Commands {
+    public class Timers {
         #region Models
         public Extensions.Models.Commands.AddModel AddModel { get; set; }
         public Extensions.Commands.CommandHandler Handler { get; set; }
@@ -19,7 +19,7 @@ namespace Aiva.Bot.ViewModels {
         #endregion Models
 
         #region Constructor
-        public Commands() {
+        public Timers() {
             AddModel = new Extensions.Models.Commands.AddModel();
             Handler = new Extensions.Commands.CommandHandler();
 

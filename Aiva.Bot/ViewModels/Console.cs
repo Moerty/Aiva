@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
     [PropertyChanged.ImplementPropertyChanged]
     public class Console {
 
+        #region Models
         public Models.Console Model { get; set; }
         public Extensions.Chat.Chat ChatHandler { get; set; }
 
         public ICommand SendMessageCommand { get; set; } = new RoutedCommand();
-
         // ContextMenu Commands
         public ICommand MuteCommand { get; set; } = new RoutedCommand();
         public ICommand UnmuteCommand { get; set; } = new RoutedCommand();
@@ -24,10 +19,22 @@ namespace Aiva.Bot.ViewModels {
         public ICommand CopyTwitchUsernameCommand { get; set; } = new RoutedCommand();
         public ICommand ShowUserInfo { get; set; } = new RoutedCommand();
 
+        #endregion Models
+
+        #region Constructor
         public Console() {
             Model = new Models.Console();
             ChatHandler = new Extensions.Chat.Chat();
+            SetCommands();
+        }
 
+        #endregion Constructor
+
+        #region Commands
+        /// <summary>
+        /// Set the Commands
+        /// </summary>
+        private void SetCommands() {
             SendMessageCommand = new Internal.RelayCommand(u => SendMessage(), s => Model.CanSendMessage);
             UnmuteCommand = new Internal.RelayCommand(um => UnmuteUser(), um => true);
             MuteCommand = new Internal.RelayCommand(um => MuteUser(), um => true);
@@ -72,6 +79,6 @@ namespace Aiva.Bot.ViewModels {
 
             Model.MessageToSend = String.Empty;
         }
-
+        #endregion Commands
     }
 }

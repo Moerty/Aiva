@@ -126,6 +126,7 @@
     <Compile Include="Models\Commands.cs" />
     <Compile Include="Models\Console.cs" />
     <Compile Include="Models\MainWindow.cs" />
+    <Compile Include="ViewModels\Timers.cs" />
     <Compile Include="ViewModels\Commands.cs" />
     <Compile Include="ViewModels\Flyouts\HonorSongrequester.cs" />
     <Compile Include="ViewModels\Flyouts\UsersInfoVM.cs" />
@@ -133,6 +134,9 @@
     <Compile Include="ViewModels\Console.cs" />
     <Compile Include="ViewModels\MainWindow.cs" />
     <Compile Include="ViewModels\Songrequest.cs" />
+    <Compile Include="Views\Timers.xaml.cs">
+      <DependentUpon>Timers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Commands.xaml.cs">
       <DependentUpon>Commands.xaml</DependentUpon>
     </Compile>
@@ -174,6 +178,10 @@
     <Page Include="Styles\TabControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Timers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Commands.xaml">
       <SubType>Designer</SubType>
