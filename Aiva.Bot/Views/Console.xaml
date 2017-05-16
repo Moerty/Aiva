@@ -15,14 +15,8 @@
     d:DataContext="{d:DesignInstance d:Type=mvvm:Console}"
     mc:Ignorable="d">
     <controls:MetroContentControl.Resources>
-        <CollectionViewSource x:Key="GroupedItems" Source="{Binding ChatHandler.Viewers}">
-            <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Type" />
-            </CollectionViewSource.GroupDescriptions>
-        </CollectionViewSource>
-
         <CollectionViewSource
-            x:Key="cvsActors"
+            x:Key="cvsViewers"
             IsLiveGroupingRequested="True"
             Source="{Binding ChatHandler.Viewers}">
             <CollectionViewSource.LiveGroupingProperties>
@@ -75,7 +69,7 @@
         <ListView
             Name="lvUsers"
             Grid.Column="1"
-            ItemsSource="{Binding Source={StaticResource cvsActors}}">
+            ItemsSource="{Binding Source={StaticResource cvsViewers}}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
