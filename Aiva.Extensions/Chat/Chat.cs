@@ -62,8 +62,8 @@ namespace Aiva.Extensions.Chat {
                             Name = user.Name,
                             TwitchID = user.Id,
                             IsSub = IsUserSubscriber != null ? true : false,
-                            Type = IsUserSubscriber != null ? Models.Chat.SortDirectionListView.Subscriber
-                                                : Models.Chat.SortDirectionListView.Viewer
+                            Type = IsUserSubscriber != null ? nameof(Models.Chat.SortDirectionListView.Subscriber)
+                                                : nameof(Models.Chat.SortDirectionListView.Viewer)
                             //IsMod = will be filled from the event "ModeratoersReceived"
                         });
                 });
@@ -79,11 +79,11 @@ namespace Aiva.Extensions.Chat {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ModeratorsReceived(object sender, OnModeratorsReceivedArgs e) {
-            var matches = Viewers.Where(v => e.Moderators.Contains(v.Name)).ToList();
+            var matches = Viewers.Where(v => e.Moderators.Contains(v.Name));
 
             foreach (var match in matches) {
                 match.IsMod = true;
-                match.Type = Models.Chat.SortDirectionListView.Mod;
+                match.Type = nameof(Models.Chat.SortDirectionListView.Mod);
             }
         }
 
