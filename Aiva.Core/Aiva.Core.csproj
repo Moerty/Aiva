@@ -54,6 +54,7 @@
     <Compile Include="Client\AivaClient.cs" />
     <Compile Include="Client\Internal\Chat.cs" />
     <Compile Include="Client\Internal\Commands.cs" />
+    <Compile Include="Database\Timers.cs" />
     <Compile Include="Models\OnNewUserFoundArgs.cs" />
     <Compile Include="Client\Internal\Stream.cs" />
     <Compile Include="Client\Internal\Users.cs" />
@@ -101,6 +102,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Storage.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Storage\Timers.cs">
+      <DependentUpon>Storage.tt</DependentUpon>
     </Compile>
     <Compile Include="Storage\TimeWatched.cs">
       <DependentUpon>Storage.tt</DependentUpon>

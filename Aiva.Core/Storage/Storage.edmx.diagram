@@ -15,6 +15,7 @@
         <AssociationConnector Association="StorageModel.FK_Currency_0_0" />
         <AssociationConnector Association="StorageModel.FK_TimeWatched_0_0" />
         <EntityTypeShape EntityType="StorageModel.Chat" Width="1.5" PointX="5.375" PointY="3.75" />
+        <EntityTypeShape EntityType="StorageModel.Timers" Width="1.5" PointX="8.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

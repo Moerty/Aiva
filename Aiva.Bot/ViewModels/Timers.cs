@@ -7,8 +7,8 @@ namespace Aiva.Bot.ViewModels {
     [PropertyChanged.ImplementPropertyChanged]
     public class Timers {
         #region Models
-        public Extensions.Models.Commands.AddModel AddModel { get; set; }
-        public Extensions.Commands.CommandHandler Handler { get; set; }
+        public Extensions.Models.Timers.AddModel AddModel { get; set; }
+        public Extensions.Timers.TimersHandler Handler { get; set; }
 
         public List<string> UserRightsItems { get; private set; } = Enum.GetNames(typeof(Extensions.Models.Commands.UserRights)).ToList();
 
@@ -20,8 +20,8 @@ namespace Aiva.Bot.ViewModels {
 
         #region Constructor
         public Timers() {
-            AddModel = new Extensions.Models.Commands.AddModel();
-            Handler = new Extensions.Commands.CommandHandler();
+            AddModel = new Extensions.Models.Timers.AddModel();
+            Handler = new Extensions.Timers.TimersHandler();
 
             SetCommands();
         }
@@ -33,20 +33,20 @@ namespace Aiva.Bot.ViewModels {
         /// Init Commands
         /// </summary>
         private void SetCommands() {
-            AddCommand = new Internal.RelayCommand(add => AddCommandToList(), add => !String.IsNullOrEmpty(AddModel.Command) && !String.IsNullOrEmpty(AddModel.Text));
-            ResetAddCommand = new Internal.RelayCommand(reset => AddModel = new Extensions.Models.Commands.AddModel(), add => true);
-            DeleteCommand = new Internal.RelayCommand(d => Delete(), delete => Handler.SelectedCommand != null);
+            AddCommand = new Internal.RelayCommand(add => AddCommandToList(), add => !String.IsNullOrEmpty(AddModel.Name) && !String.IsNullOrEmpty(AddModel.Text));
+            ResetAddCommand = new Internal.RelayCommand(reset => AddModel = new Extensions.Models.Timers.AddModel(), add => true);
+            DeleteCommand = new Internal.RelayCommand(d => Delete(), delete => Handler.SelectedTimer != null);
         }
 
         /// <summary>
         /// Remove the selected Command from list and Database
         /// </summary>
-        private void Delete() => Handler.RemoveCommand();
+        private void Delete() => Handler.RemoveTimer();
 
         /// <summary>
         /// Add a Command to the List
         /// </summary>
-        public void AddCommandToList() => Handler.AddCommandAsync(AddModel);
+        public void AddCommandToList() => Handler.AddTimerAsync(AddModel);
 
         #endregion Commands
     }

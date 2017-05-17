@@ -32,5 +32,6 @@ namespace Aiva.Core.Storage
         public virtual DbSet<TimeWatched> TimeWatched { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Chat> Chat { get; set; }
+        public virtual DbSet<Timers> Timers { get; set; }
     }
 }

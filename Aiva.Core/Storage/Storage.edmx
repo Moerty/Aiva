@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="StorageModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\F\cloud\Nextcloud\Git\Aiva\Aiva.Core\ConfigFiles\Database.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="StorageModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=H:\Github\Repos\Aiva\Aiva.Core\ConfigFiles\Database.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ActiveUsers">
           <Key>
             <PropertyRef Name="ID" />
@@ -48,6 +48,20 @@
           </Key>
           <Property Name="ID" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Value" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Timers">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Timer" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedAt" Type="datetime" />
+          <Property Name="Interval" Type="integer" Nullable="false" />
+          <Property Name="LastExecution" Type="datetime" />
+          <Property Name="Autoreset" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="TimeWatched">
           <Key>
@@ -111,6 +125,7 @@
           <EntitySet Name="Chat" EntityType="Self.Chat" store:Type="Tables" />
           <EntitySet Name="Commands" EntityType="Self.Commands" store:Type="Tables" />
           <EntitySet Name="Currency" EntityType="Self.Currency" store:Type="Tables" />
+          <EntitySet Name="Timers" EntityType="Self.Timers" store:Type="Tables" />
           <EntitySet Name="TimeWatched" EntityType="Self.TimeWatched" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" />
           <AssociationSet Name="FK_ActiveUsers_0_0" Association="Self.FK_ActiveUsers_0_0">
@@ -150,6 +165,7 @@
             <End Role="TimeWatched" EntitySet="TimeWatched" />
           </AssociationSet>
           <EntitySet Name="Chat" EntityType="StorageModel.Chat" />
+          <EntitySet Name="Timers" EntityType="StorageModel.Timers" />
         </EntityContainer>
         <EntityType Name="ActiveUsers">
           <Key>
@@ -257,6 +273,20 @@
           <Property Name="Timestamp" Type="DateTime" Nullable="false" />
           <Property Name="ChatMessage" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Timers">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Timer" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" />
+          <Property Name="ModifiedAt" Type="DateTime" />
+          <Property Name="Interval" Type="Int64" Nullable="false" />
+          <Property Name="LastExecution" Type="DateTime" />
+          <Property Name="Autoreset" Type="Boolean" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -330,6 +360,21 @@
                 <ScalarProperty Name="ChatMessage" ColumnName="ChatMessage" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
                 <ScalarProperty Name="TwitchID" ColumnName="TwitchID" />
+                <ScalarProperty Name="Index" ColumnName="Index" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Timers">
+            <EntityTypeMapping TypeName="StorageModel.Timers">
+              <MappingFragment StoreEntitySet="Timers">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Autoreset" ColumnName="Autoreset" />
+                <ScalarProperty Name="LastExecution" ColumnName="LastExecution" />
+                <ScalarProperty Name="Interval" ColumnName="Interval" />
+                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Timer" ColumnName="Timer" />
                 <ScalarProperty Name="Index" ColumnName="Index" />
               </MappingFragment>
             </EntityTypeMapping>
