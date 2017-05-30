@@ -1,23 +1,26 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
-    [PropertyChanged.ImplementPropertyChanged]
-    public class Console {
+
+    public class Console : INotifyPropertyChanged {
 
         #region Models
         public Models.Console Model { get; set; }
         public Extensions.Chat.Chat ChatHandler { get; set; }
 
-        public ICommand SendMessageCommand { get; set; } = new RoutedCommand();
+        public ICommand SendMessageCommand { get; set; }
         // ContextMenu Commands
-        public ICommand MuteCommand { get; set; } = new RoutedCommand();
-        public ICommand UnmuteCommand { get; set; } = new RoutedCommand();
-        public ICommand ModCommand { get; set; } = new RoutedCommand();
-        public ICommand UnmodCommand { get; set; } = new RoutedCommand();
-        public ICommand CopyMessageCommand { get; set; } = new RoutedCommand();
-        public ICommand CopyTwitchUsernameCommand { get; set; } = new RoutedCommand();
-        public ICommand ShowUserInfo { get; set; } = new RoutedCommand();
+        public ICommand MuteCommand { get; set; }
+        public ICommand UnmuteCommand { get; set; }
+        public ICommand ModCommand { get; set; }
+        public ICommand UnmodCommand { get; set; }
+        public ICommand CopyMessageCommand { get; set; }
+        public ICommand CopyTwitchUsernameCommand { get; set; }
+        public ICommand ShowUserInfo { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion Models
 
@@ -43,8 +46,7 @@ namespace Aiva.Bot.ViewModels {
             ShowUserInfo = new Internal.RelayCommand(u => ShowUserinfo(), u => true);
         }
 
-        private void ShowUserinfo()
-        {
+        private void ShowUserinfo() {
             MainWindow.Instance.SelectedTab.Flyouts[0].DataContext = new ViewModels.Flyouts.UsersInfoVM(ChatHandler.SelectedViewer.Name);
             MainWindow.Instance.SelectedTab.Flyouts[0].IsOpen = true;
         }

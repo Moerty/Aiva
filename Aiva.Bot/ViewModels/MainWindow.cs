@@ -1,12 +1,15 @@
 ﻿using Aiva.Bot.Internal;
 using MahApps.Metro.Controls;
 using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Aiva.Bot.ViewModels {
-    [PropertyChanged.ImplementPropertyChanged]
-    class MainWindow {
+
+    class MainWindow : INotifyPropertyChanged {
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private static MainWindow _Instance;
         public static MainWindow Instance {

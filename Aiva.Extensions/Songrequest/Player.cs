@@ -5,10 +5,13 @@ using Google.Apis.YouTube.v3;
 using System.Threading;
 using System.Collections.ObjectModel;
 using System;
+using System.ComponentModel;
 
 namespace Aiva.Extensions.Songrequest {
-    [PropertyChanged.ImplementPropertyChanged]
-    public class Player {
+
+    public class Player : INotifyPropertyChanged {
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private static Player _Player;
         public static Player Instance {

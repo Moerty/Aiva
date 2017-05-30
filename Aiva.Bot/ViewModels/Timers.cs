@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Windows.Input;
 using System.Linq;
+using System.ComponentModel;
 
 namespace Aiva.Bot.ViewModels {
-    [PropertyChanged.ImplementPropertyChanged]
-    public class Timers {
+
+    public class Timers : INotifyPropertyChanged {
         #region Models
         public Extensions.Models.Timers.AddModel AddModel { get; set; }
         public Extensions.Timers.TimersHandler Handler { get; set; }
@@ -15,6 +16,8 @@ namespace Aiva.Bot.ViewModels {
         public ICommand AddCommand { get; set; }
         public ICommand ResetAddCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion Models
 

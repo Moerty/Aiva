@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using TwitchLib.Events.Client;
 
 namespace Aiva.Extensions.Songrequest {
-    [PropertyChanged.ImplementPropertyChanged]
-    public class SongrequestHandler {
+    public class SongrequestHandler : INotifyPropertyChanged {
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private bool _IsEnabled;
         public bool IsEnabled {

@@ -6,6 +6,7 @@ using System.Windows;
 using Aiva.Core.Models;
 using TwitchLib.Events.Client;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Aiva.Extensions.Chat {
 
@@ -14,8 +15,9 @@ namespace Aiva.Extensions.Chat {
      * Store Messages in Database
      * Write Messages from GUI
      */
-    [PropertyChanged.ImplementPropertyChanged]
-    public class Chat {
+    //[PropertyChanged.ImplementPropertyChanged]
+    public class Chat : INotifyPropertyChanged {
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private static Chat _Instance;
         public static Chat Instance {
@@ -54,7 +56,7 @@ namespace Aiva.Extensions.Chat {
                 if (Viewers.Any(v => String.Compare(v.TwitchID, user.Id) == 0)) // check if user is already in List
                     return;
 
-                var IsUserSubscriber = TwitchLib.TwitchAPI.Subscriptions.ChannelHasUserSubscribed(Core.AivaClient.Instance.Channel, user.Name).Result;
+                var IsUserSubscriber = TwitchLib.TwitchAPI.Subscriptions.v3.ChannelHasUserSubscribed(Core.AivaClient.Instance.Channel, user.Name).Result;
 
                 Application.Current.Dispatcher.Invoke(() => {
                     Viewers.Add(

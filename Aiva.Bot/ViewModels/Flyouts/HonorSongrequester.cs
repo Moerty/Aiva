@@ -1,15 +1,18 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels.Flyouts {
-    [PropertyChanged.ImplementPropertyChanged]
-    public class HonorSongrequester {
+
+    public class HonorSongrequester : INotifyPropertyChanged {
         private string TwitchID;
         private readonly string Username;
         public int CurrencyToAdd { get; set; }
         public bool WriteInChat { get; set; }
 
         public ICommand HonorRequesterCommand { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public HonorSongrequester(string username, string twitchID = null) {
             if (!String.IsNullOrEmpty(twitchID)) {

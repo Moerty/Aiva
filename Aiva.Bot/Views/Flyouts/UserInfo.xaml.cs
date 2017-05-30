@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,19 +14,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Aiva.Bot.Views.Flyouts
-{
+namespace Aiva.Bot.Views.Flyouts {
     /// <summary>
     /// Interaktionslogik für UserInfo.xaml
     /// </summary>
     /// 
-    [PropertyChanged.ImplementPropertyChanged]
-    public partial class UserInfo : MahApps.Metro.Controls.MetroContentControl
-    {
+    public partial class UserInfo : MahApps.Metro.Controls.MetroContentControl, INotifyPropertyChanged {
         public new object DataContext { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public UserInfo(string name)
-        {
+        public UserInfo(string name) {
             InitializeComponent();
             this.DataContext = new ViewModels.Flyouts.UsersInfoVM(name);
         }

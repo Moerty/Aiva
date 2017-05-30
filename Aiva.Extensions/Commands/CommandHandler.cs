@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Aiva.Extensions.Commands {
-    [PropertyChanged.ImplementPropertyChanged]
-    public class CommandHandler {
+    //[PropertyChanged.ImplementPropertyChanged]
+    public class CommandHandler : INotifyPropertyChanged {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public List<Core.Storage.Commands> CommandList { get; private set; }
         public Core.Storage.Commands SelectedCommand { get; set; }
 
