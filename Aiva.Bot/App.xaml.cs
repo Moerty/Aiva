@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,9 +13,15 @@ namespace Aiva.Bot {
     /// </summary>
     public partial class App : Application {
         private void StartApp(object sender, EventArgs e) {
-            var mainWindow = new MainWindow();
-            //mainWindow.Closing += MainWindow_Closing;
-            mainWindow.Show();
+
+            if (File.Exists("ConfigFiles\\general.ini")) {
+                var mainWindow = new MainWindow();
+                //mainWindow.Closing += MainWindow_Closing;
+                mainWindow.Show();
+            } else {
+                var setup = new Views.Setup();
+                setup.Show();
+            }
         }
 
         private void ExitApp(object sender, EventArgs e) {

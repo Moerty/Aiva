@@ -169,8 +169,8 @@ namespace Aiva.Extensions.Commands {
             if (stringToSend.Contains("%isbroadcaster%"))
                 stringToSend = stringToSend.Replace("%isbroadcaster%", args.Command.ChatMessage.IsBroadcaster.ToString());
 
-            if (stringToSend.Contains("%ispartnered%"))
-                stringToSend = stringToSend.Replace("%ispartnered%", args.Command.ChatMessage.IsPartnered.ToString());
+            //if (stringToSend.Contains("%ispartnered%"))
+            //    stringToSend = stringToSend.Replace("%ispartnered%", args.Command.ChatMessage.is.ToString());
 
             if (stringToSend.Contains("%spendonbits%"))
                 stringToSend = stringToSend.Replace("%spendonbits%", args.Command.ChatMessage.BitsInDollars.ToString());

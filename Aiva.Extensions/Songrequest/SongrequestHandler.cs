@@ -4,9 +4,9 @@ using System.Windows;
 using TwitchLib.Events.Client;
 
 namespace Aiva.Extensions.Songrequest {
-    public class SongrequestHandler : INotifyPropertyChanged {
 
-        public event PropertyChangedEventHandler PropertyChanged;
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
+    public class SongrequestHandler {
 
         private bool _IsEnabled;
         public bool IsEnabled {

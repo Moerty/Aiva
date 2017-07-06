@@ -6,9 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Aiva.Extensions.Commands {
-    //[PropertyChanged.ImplementPropertyChanged]
-    public class CommandHandler : INotifyPropertyChanged {
-        public event PropertyChangedEventHandler PropertyChanged;
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
+    public class CommandHandler {
 
         public List<Core.Storage.Commands> CommandList { get; private set; }
         public Core.Storage.Commands SelectedCommand { get; set; }

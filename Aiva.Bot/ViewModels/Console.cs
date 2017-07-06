@@ -4,7 +4,8 @@ using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
 
-    public class Console : INotifyPropertyChanged {
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
+    public class Console {
 
         #region Models
         public Models.Console Model { get; set; }
@@ -19,8 +20,6 @@ namespace Aiva.Bot.ViewModels {
         public ICommand CopyMessageCommand { get; set; }
         public ICommand CopyTwitchUsernameCommand { get; set; }
         public ICommand ShowUserInfo { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion Models
 

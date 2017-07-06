@@ -4,12 +4,13 @@ using System.Linq;
 
 namespace Aiva.Bot.ViewModels.Flyouts {
 
-    public class UsersInfoVM : INotifyPropertyChanged {
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
+    public class UsersInfoVM {
         public string Username { get; set; }
         public string ID { get; set; }
         public string Currency { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+
 
         public UsersInfoVM(string name = null, string id = null) {
             if (name == null && id == null) return;

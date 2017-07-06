@@ -6,9 +6,9 @@ using System.Linq;
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
-    public class Songrequest : INotifyPropertyChanged {
 
-        public event PropertyChangedEventHandler PropertyChanged;
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
+    public class Songrequest {
 
         public ICommand AddCommand { get; set; }
         public ICommand PlaySongCommand { get; set; }

@@ -6,7 +6,8 @@ using System.ComponentModel;
 
 namespace Aiva.Bot.ViewModels {
 
-    public class Timers : INotifyPropertyChanged {
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
+    public class Timers {
         #region Models
         public Extensions.Models.Timers.AddModel AddModel { get; set; }
         public Extensions.Timers.TimersHandler Handler { get; set; }
@@ -17,7 +18,7 @@ namespace Aiva.Bot.ViewModels {
         public ICommand ResetAddCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+
 
         #endregion Models
 

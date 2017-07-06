@@ -7,10 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Aiva.Bot.Models {
-    public class Console : INotifyPropertyChanged {
-        public ObservableCollection<MessageModel> Messages { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
+    public class Console {
+        public ObservableCollection<MessageModel> Messages { get; set; }
 
         private string _MessageToSend;
         public string MessageToSend {

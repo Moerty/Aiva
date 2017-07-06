@@ -7,27 +7,26 @@ using System.Threading.Tasks;
 
 namespace Aiva.Extensions.Models {
 
-    public class Chat : INotifyPropertyChanged {
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
+    public class Chat {
 
-        public class Messages : INotifyPropertyChanged {
+        [PropertyChanged.AddINotifyPropertyChangedInterface]
+        public class Messages {
             public bool IsUserMod { get; set; }
             public bool IsUserSub { get; set; }
             public string Username { get; set; }
             public string TwitchID { get; set; }
             public string Message { get; set; }
             public DateTime TimeStamp { get; set; }
-
-            public event PropertyChangedEventHandler PropertyChanged;
         }
 
-        public class Viewers : INotifyPropertyChanged {
+        [PropertyChanged.AddINotifyPropertyChangedInterface]
+        public class Viewers {
             public bool IsMod { get; set; }
             public bool IsSub { get; set; }
             public string Name { get; set; }
             public string TwitchID { get; set; }
             public string Type { get; set; }
-
-            public event PropertyChangedEventHandler PropertyChanged;
         }
 
         public enum SortDirectionListView {
@@ -37,7 +36,5 @@ namespace Aiva.Extensions.Models {
             Follower,
             Viewer
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

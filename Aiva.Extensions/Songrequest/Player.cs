@@ -9,9 +9,8 @@ using System.ComponentModel;
 
 namespace Aiva.Extensions.Songrequest {
 
-    public class Player : INotifyPropertyChanged {
-
-        public event PropertyChangedEventHandler PropertyChanged;
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
+    public class Player {
 
         private static Player _Player;
         public static Player Instance {

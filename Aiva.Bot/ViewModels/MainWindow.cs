@@ -7,9 +7,8 @@ using System.Windows.Controls;
 
 namespace Aiva.Bot.ViewModels {
 
-    class MainWindow : INotifyPropertyChanged {
-
-        public event PropertyChangedEventHandler PropertyChanged;
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
+    class MainWindow {
 
         private static MainWindow _Instance;
         public static MainWindow Instance {

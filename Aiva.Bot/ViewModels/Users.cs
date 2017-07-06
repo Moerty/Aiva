@@ -7,10 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Aiva.Bot.ViewModels {
-    public class Users : INotifyPropertyChanged {
-        public ObservableCollection<Core.Storage.Users> UsersList { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
+    public class Users {
+        public ObservableCollection<Core.Storage.Users> UsersList { get; set; }
 
         public Users() {
             using (var context = new Core.Storage.StorageEntities()) {

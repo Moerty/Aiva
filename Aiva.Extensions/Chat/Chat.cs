@@ -15,9 +15,8 @@ namespace Aiva.Extensions.Chat {
      * Store Messages in Database
      * Write Messages from GUI
      */
-    //[PropertyChanged.ImplementPropertyChanged]
-    public class Chat : INotifyPropertyChanged {
-        public event PropertyChangedEventHandler PropertyChanged;
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
+    public class Chat {
 
         private static Chat _Instance;
         public static Chat Instance {

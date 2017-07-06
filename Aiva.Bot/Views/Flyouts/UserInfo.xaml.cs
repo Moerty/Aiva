@@ -18,10 +18,10 @@ namespace Aiva.Bot.Views.Flyouts {
     /// <summary>
     /// Interaktionslogik für UserInfo.xaml
     /// </summary>
-    /// 
-    public partial class UserInfo : MahApps.Metro.Controls.MetroContentControl, INotifyPropertyChanged {
+    ///
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
+    public partial class UserInfo : MahApps.Metro.Controls.MetroContentControl {
         public new object DataContext { get; set; }
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public UserInfo(string name) {
             InitializeComponent();

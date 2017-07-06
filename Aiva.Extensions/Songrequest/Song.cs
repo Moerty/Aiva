@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 
 namespace Aiva.Extensions.Songrequest {
-    public class Song : INotifyPropertyChanged {
+
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
+    public class Song {
 
         public string Title { get; set; }
         public TimeSpan Duration { get; set; }
@@ -14,8 +16,6 @@ namespace Aiva.Extensions.Songrequest {
         public bool IsPlaying { get; set; }
         public string Url { get; set; }
         public string TwitchID { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public Song(string UserInput, string Username) {
             this.UserInput = UserInput;

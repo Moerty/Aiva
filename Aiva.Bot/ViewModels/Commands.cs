@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using System.Linq;
 using System.ComponentModel;
+using PropertyChanged;
 
 namespace Aiva.Bot.ViewModels {
 
-    public class Commands : INotifyPropertyChanged {
+    [AddINotifyPropertyChangedInterface]
+    public class Commands {
         #region Models
         public Extensions.Models.Commands.AddModel AddModel { get; set; }
         public Extensions.Commands.CommandHandler Handler { get; set; }
@@ -16,8 +18,6 @@ namespace Aiva.Bot.ViewModels {
         public ICommand AddCommand { get; set; }
         public ICommand ResetAddCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion Models
 

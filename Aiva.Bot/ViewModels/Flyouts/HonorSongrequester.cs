@@ -4,7 +4,8 @@ using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels.Flyouts {
 
-    public class HonorSongrequester : INotifyPropertyChanged {
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
+    public class HonorSongrequester {
         private string TwitchID;
         private readonly string Username;
         public int CurrencyToAdd { get; set; }
@@ -12,7 +13,7 @@ namespace Aiva.Bot.ViewModels.Flyouts {
 
         public ICommand HonorRequesterCommand { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+
 
         public HonorSongrequester(string username, string twitchID = null) {
             if (!String.IsNullOrEmpty(twitchID)) {
