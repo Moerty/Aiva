@@ -36,7 +36,7 @@ namespace Aiva.Bot.ViewModels {
         }
 
         private void Confirm() {
-            var config = new IniData(new FileIniDataParser().ReadFile("ConfigFiles\\general.default"));
+            //var config = new IniData(new FileIniDataParser().ReadFile("ConfigFiles\\general.default"));
         }
 
         private void RequestGoogleAuth() {
