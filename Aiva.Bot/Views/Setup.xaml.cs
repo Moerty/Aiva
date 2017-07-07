@@ -20,7 +20,7 @@ namespace Aiva.Bot.Views {
     public partial class Setup : MetroWindow {
         public Setup() {
             InitializeComponent();
-            this.DataContext = new ViewModels.Setup();
+            //this.DataContext = new ViewModels.Setup();
         }
     }
 }

@@ -18,35 +18,8 @@ namespace Aiva.Testproject {
         static void Main(string[] args) {
 
 
-            //Core.AivaClient.Instance.AivaTwitchClient.SendMessage("Aiva started");
             var root = TwitchLib.TwitchAPI.Root.v5.GetRoot(Core.AivaClient.Instance.OAuthKey).Result;
-            //TwitchLib.TwitchApi.Streams.BroadcasterOnline("aeffchaen");
-            //p.Browser.Load("https://www.youtube.com/embed/bKXIUQbardg?autoplay=1");
 
-            // Make sure you set performDependencyCheck false
-            //Cef.Initialize();
-            //YouTubeConnector = CreateYouTubeService();
-            //Extensions.Songrequest.Playlist p = new Extensions.Songrequest.Playlist("RDMpZFVM800f8");
-
-            //YoutubePlayerLib.Cef.CefYoutubeController controller = new YoutubePlayerLib.Cef.CefYoutubeController();
-            //controller. = "bKXIUQbardg";
-
-            //Core.AivaClient.Instance.AivaTwitchClient.SendMessage("Aiva started.");
-            //TwitchLib.TwitchApi.ValidationAPIRequest("pcwfd4rhcevonwdjw6kdh1g5f8bz1g");
-            //TwitchLib.TwitchApi.ValidClientId("10n39mbfftkcy2kg1jkzmm62yszdcg");
-
-            //TwitchLib.TwitchApi.SetAccessToken("5to3wi9u0bkxl6r1w9bhjpcq8r1dut");
-
-
-            //var xy = TwitchLib.TwitchApi.Channels.GetChannelsObject(Core.AivaClient.Instance.TwitchID.ToString());
-
-            //// https://www.youtube.com/watch?v=KbNXnxwMOqU
-            //p = new Extensions.Songrequest.Player();
-
-            //p.Browser.BrowserInitialized += Browser_BrowserInitialized;
-            //p.ChangeSong(new Extensions.Songrequest.Song("5_SLU1ByyKg", "aeffchaen") {
-            //    VideoID = "5_SLU1ByyKg",
-            //}, true);
 
 
 

@@ -135,10 +135,10 @@ namespace Aiva.Core.Client {
         /// <summary>
         /// Starts the Request for the User to authorize for twitch
         /// </summary>
-        public void SendRequestToBrowser() {
+        public void SendRequestToBrowser(string ClientID) {
             Thread.Sleep(500);
 
-            string urlS = getUrl();
+            string urlS = getUrl(ClientID);
             Uri uri = new Uri(urlS);
 
             System.Diagnostics.Process.Start(urlS);
@@ -148,11 +148,11 @@ namespace Aiva.Core.Client {
         /// Returns the URL which we call to create a oauth token
         /// </summary>
         /// <returns></returns>
-        private static string getUrl() {
+        private static string getUrl(string ClientID) {
             var sb = new StringBuilder();
             sb.Append("https://api.twitch.tv/kraken/oauth2/authorize");
             sb.Append("?response_type=token");
-            sb.Append("&client_id=10n39mbfftkcy2kg1jkzmm62yszdcg");
+            sb.Append($"&client_id={ClientID}");
             sb.Append("&redirect_uri=http://localhost:12345");
             sb.Append("&scope=user_read+user_blocks_edit+user_blocks_read+user_follows_edit+channel_read+channel_editor+channel_commercial+channel_stream+channel_subscriptions+user_subscriptions+channel_check_subscription+chat_login+channel_feed_read+channel_feed_edit");
             return sb.ToString();

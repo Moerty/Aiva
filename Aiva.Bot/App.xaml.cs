@@ -14,7 +14,7 @@ namespace Aiva.Bot {
     public partial class App : Application {
         private void StartApp(object sender, EventArgs e) {
 
-            if (File.Exists("ConfigFiles\\general.ini")) {
+            if (File.Exists("ConfigFiles\\config.ini")) {
                 var mainWindow = new MainWindow();
                 //mainWindow.Closing += MainWindow_Closing;
                 mainWindow.Show();

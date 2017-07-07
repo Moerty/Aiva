@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
@@ -11,7 +13,11 @@ namespace Aiva.Bot.ViewModels {
     public class Setup {
         public string OAuthKey { get; set; }
         public string Channel { get; set; }
+        public string ClientID { get; set; }
+        public string BotName { get; set; }
         public bool IsYoutubeAuthenticated { get; set; }
+        public bool IsTwitchAuthenticated { get; set; }
+
 
         public ICommand RequestTwitchOAuthKeyCommand { get; set; }
         public ICommand RequestGoogleAuthCommand { get; set; }
@@ -27,16 +33,31 @@ namespace Aiva.Bot.ViewModels {
         }
 
         private void SetupCommands() {
-            RequestTwitchOAuthKeyCommand = new Internal.RelayCommand(t => RequestTwitchOAuthKey(), p => true);
-            RequestGoogleAuthCommand = new Internal.RelayCommand(g => RequestGoogleAuth(), g => true);
+            RequestTwitchOAuthKeyCommand = new Internal.RelayCommand(t => RequestTwitchOAuthKey(), p => !String.IsNullOrEmpty(ClientID));
+            RequestGoogleAuthCommand = new Internal.RelayCommand(g => RequestGoogleAuth());
             ConfirmCommand = new Internal.RelayCommand(c => Confirm(), c => !String.IsNullOrEmpty(OAuthKey) &&
                                                                             !String.IsNullOrEmpty(Channel) &&
                                                                             TwitchScopes != null &&
-                                                                            IsYoutubeAuthenticated);
+                                                                            IsYoutubeAuthenticated &&
+                                                                            IsTwitchAuthenticated &&
+                                                                            !String.IsNullOrEmpty(BotName));
         }
 
         private void Confirm() {
-            //var config = new IniData(new FileIniDataParser().ReadFile("ConfigFiles\\general.default"));
+            Core.Config.Config.CreateDefaultConfig();
+            Core.Config.Config.Instance["Credentials"]["TwitchOAuth"] = OAuthKey;
+            Core.Config.Config.Instance["Credentials"]["TwitchClientID"] = ClientID;
+            Core.Config.Config.Instance["General"]["Channel"] = Channel;
+            Core.Config.Config.Instance["General"]["BotName"] = BotName;
+
+            Core.Config.Config.WriteConfig();
+
+            RestartProgram();
+        }
+
+        private void RestartProgram() {
+            Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
         }
 
         private void RequestGoogleAuth() {
@@ -44,7 +65,7 @@ namespace Aiva.Bot.ViewModels {
         }
 
         private async void RequestTwitchOAuthKey() {
-            Task.Run(() => TwitchAuthenticator.SendRequestToBrowser());
+            Task.Run(() => TwitchAuthenticator.SendRequestToBrowser(ClientID));
 
             var result = await TwitchAuthenticator.GetAuthenticationValuesAsync();
 
@@ -55,6 +76,8 @@ namespace Aiva.Bot.ViewModels {
                 foreach (var scope in result.Scopes.Split(' ')) {
                     TwitchScopes.Add(scope);
                 }
+
+                IsTwitchAuthenticated = true;
             }
         }
     }
