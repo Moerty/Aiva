@@ -116,9 +116,11 @@
     <Compile Include="Chat\Chat.cs" />
     <Compile Include="Commands\CommandHandler.cs" />
     <Compile Include="Commands\CommandReceiver.cs" />
+    <Compile Include="Extensions\EnumDescriptionTypeConverter.cs" />
     <Compile Include="Models\Bankheist.cs" />
     <Compile Include="Models\Chat.cs" />
     <Compile Include="Models\Commands.cs" />
+    <Compile Include="Models\Giveaway.cs" />
     <Compile Include="Models\Songrequest.cs" />
     <Compile Include="Models\Timers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -139,7 +141,9 @@
       <Name>Aiva.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Giveaway\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml">
       <SubType>Designer</SubType>

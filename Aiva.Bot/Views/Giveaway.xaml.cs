@@ -21,6 +21,7 @@ namespace Aiva.Bot.Views {
     public partial class Giveaway : MetroContentControl {
         public Giveaway() {
             InitializeComponent();
+            this.DataContext = new ViewModels.Giveaway();
         }
     }
 }

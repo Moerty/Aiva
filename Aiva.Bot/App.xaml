@@ -22,6 +22,7 @@
 
                 <ResourceDictionary Source="Styles/TabControl.xaml" />
                 <ResourceDictionary Source="Styles/Slider.xaml" />
+                <ResourceDictionary Source="Styles/Expander.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
