@@ -131,7 +131,12 @@
                 <Slider
                     controls:SliderHelper.ChangeValueBy="SmallChange"
                     controls:SliderHelper.EnableMouseWheel="MouseHover"
-                    Maximum="100"
+                    IsSnapToTickEnabled="True"
+                    Maximum="10"
+                    Minimum="1"
+                    Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
+                    TickFrequency="1"
+                    TickPlacement="BottomRight"
                     Value="{Binding SubLuck}" />
             </Expander>
 
@@ -147,12 +152,15 @@
                     Width="200"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Minimum="1"
+                    controls:SliderHelper.ChangeValueBy="SmallChange"
+                    controls:SliderHelper.EnableMouseWheel="MouseHover"
+                    IsSnapToTickEnabled="True"
                     Maximum="30"
+                    Minimum="1"
+                    Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
+                    TickFrequency="1"
                     TickPlacement="BottomRight"
-                    Template="{StaticResource HorizontalSliderTemplate}"
-                    Value="{Binding Timer}">
-                </Slider>
+                    Value="{Binding Timer}" />
             </Expander>
         </Grid>
 
@@ -164,6 +172,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 controls:TextBoxHelper.Watermark="Winner..."
+                IsReadOnly="True"
                 Text="{Binding Winner}"
                 TextWrapping="Wrap" />
             <ListView
