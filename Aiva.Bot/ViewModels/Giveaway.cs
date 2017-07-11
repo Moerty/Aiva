@@ -14,19 +14,54 @@ namespace Aiva.Bot.ViewModels {
         public Extensions.Giveaway.GiveawayHandler Handler { get; set; }
 
         public ICommand StartGiveawayCommand { get; set; }
+        public ICommand StopGiveawayCommand { get; set; }
         public ICommand GetWinnerCommand { get; set; }
         public ICommand ResetCommand { get; set; }
 
 
 
         public Giveaway() {
+            Handler = new Extensions.Giveaway.GiveawayHandler();
             SetCommands();
         }
 
         private void SetCommands() {
-            Handler = new Extensions.Giveaway.GiveawayHandler();
-
             StartGiveawayCommand = new Internal.RelayCommand(g => StartGiveaway(), g => CanStartGiveaway());
+            StopGiveawayCommand = new Internal.RelayCommand(g => StopGiveaway(), g => CanStopGiveaway());
+            GetWinnerCommand = new Internal.RelayCommand(g => GetWinner(), g => CanGetWinner());
+            ResetCommand = new Internal.RelayCommand(g => Reset());
+        }
+
+        private void Reset() {
+            Handler.Reset();
+        }
+
+        private bool CanGetWinner() {
+            if (Handler != null) {
+                if (Handler.JoinedUsers.Any()) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void GetWinner() {
+            throw new NotImplementedException();
+        }
+
+        private bool CanStopGiveaway() {
+            if (Handler != null) {
+                if (Handler.IsStarted) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void StopGiveaway() {
+            Handler.StopGiveaway();
         }
 
         private bool CanStartGiveaway() {
@@ -37,7 +72,7 @@ namespace Aiva.Bot.ViewModels {
         }
 
         private void StartGiveaway() {
-            throw new NotImplementedException();
+            Handler.StartGiveaway();
         }
     }
 }

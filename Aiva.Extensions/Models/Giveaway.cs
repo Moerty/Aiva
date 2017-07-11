@@ -13,7 +13,7 @@ namespace Aiva.Extensions.Models {
         [Description(nameof(Everyone))]
         Everyone,
 
-        [Description("Subscriber")]
+        [Description(nameof(Subscriber))]
         Subscriber,
 
         [Description("Mod")]
@@ -23,5 +23,14 @@ namespace Aiva.Extensions.Models {
     public class Giveaway {
         public string Username { get; set; }
         public string UserID { get; set; }
+        public bool IsSub { get; set; }
+
+
+        public class Messages {
+            public string Username { get; set; }
+            public string Message { get; set; }
+        }
     }
+
+
 }

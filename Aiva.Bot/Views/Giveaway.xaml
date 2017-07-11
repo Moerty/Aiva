@@ -5,6 +5,7 @@
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enums="clr-namespace:Aiva.Extensions.Models;assembly=Aiva.Extensions"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:internal="clr-namespace:Aiva.Bot.Internal"
     xmlns:local="clr-namespace:Aiva.Bot.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -27,7 +28,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.RowSpan="2" Grid.Column="0">
-            <ListView>
+            <ListView ItemsSource="{Binding Handler.JoinedUsers, XPath=Username}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn />
@@ -44,7 +45,8 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 controls:TextBoxHelper.Watermark="Command"
-                Text="{Binding Command}"
+                IsReadOnly="{Binding Handler.IsStarted}"
+                Text="{Binding Handler.Command, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 TextWrapping="Wrap" />
 
             <StackPanel
@@ -56,9 +58,12 @@
                 <TextBlock Text="Price:" />
                 <controls:NumericUpDown
                     Height="15"
+                    Culture="de-DE"
                     HasDecimals="False"
-                    Minimum="1"
-                    Value="{Binding Price}" />
+                    Interval="10"
+                    IsReadOnly="{Binding Handler.IsStarted}"
+                    Minimum="0"
+                    Value="{Binding Handler.Price}" />
             </StackPanel>
             <StackPanel
                 Width="150"
@@ -82,43 +87,78 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Content="Must be following to win"
-                    IsChecked="{Binding BeFollower}" />
+                    IsChecked="{Binding Handler.BeFollower}" />
                 <CheckBox
                     Margin="0,10,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Content="Notify winner in chat"
-                    IsChecked="{Binding NotifyWinner}" />
+                    IsChecked="{Binding Handler.NotifyWinner}" />
                 <CheckBox
                     Margin="0,10,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Content="Remove winner from list"
-                    IsChecked="{Binding RemoveWinnerFromList}" />
+                    IsChecked="{Binding Handler.RemoveWinnerFromList}" />
                 <CheckBox
                     Margin="0,10,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Content="Block re-entry of previous winners"
-                    IsChecked="{Binding BlockReEntry}" />
+                    IsChecked="{Binding Handler.BlockReEntry}" />
             </StackPanel>
-            <Button
-                Width="120"
-                Margin="35,274,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Content="Start Giveaway" />
             <Button
                 Width="112"
                 Margin="216,274,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Content="Pick Winner" />
+            <ToggleButton
+                Name="StartStopButton"
+                Width="50"
+                Height="50"
+                Margin="70,254,414,12"
+                Style="{DynamicResource MetroCircleToggleButtonStyle}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Checked">
+                        <i:InvokeCommandAction Command="{Binding StartGiveawayCommand}" />
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="Unchecked">
+                        <i:InvokeCommandAction Command="{Binding StopGiveawayCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Rectangle
+                    Width="25"
+                    Height="25"
+                    Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}">
+                    <Rectangle.Style>
+                        <Style TargetType="{x:Type Rectangle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsChecked, ElementName=StartStopButton}" Value="False">
+                                    <Setter Property="OpacityMask">
+                                        <Setter.Value>
+                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_control_play}" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsChecked, ElementName=StartStopButton}" Value="True">
+                                    <Setter Property="OpacityMask">
+                                        <Setter.Value>
+                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_control_stop}" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Rectangle.Style>
+                </Rectangle>
+            </ToggleButton>
             <Button
                 Width="117"
                 Margin="383,271,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
+                Command="{Binding ResetCommand}"
                 Content="Reset" />
             <Expander
                 Width="206"
@@ -127,7 +167,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Header="Subscriber luck"
-                IsExpanded="{Binding IsSubLuckActive}">
+                IsExpanded="{Binding Handler.IsSubLuckActive}">
                 <Slider
                     controls:SliderHelper.ChangeValueBy="SmallChange"
                     controls:SliderHelper.EnableMouseWheel="MouseHover"
@@ -137,7 +177,7 @@
                     Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                     TickFrequency="1"
                     TickPlacement="BottomRight"
-                    Value="{Binding SubLuck}" />
+                    Value="{Binding Handler.SubLuck}" />
             </Expander>
 
             <Expander
@@ -146,8 +186,8 @@
                 Margin="308,52,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Header="Timer"
-                IsExpanded="{Binding IsTimerActive}">
+                Header="Timer (minutes)"
+                IsExpanded="{Binding Handler.IsTimerActive}">
                 <Slider
                     Width="200"
                     HorizontalAlignment="Left"
@@ -160,7 +200,7 @@
                     Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                     TickFrequency="1"
                     TickPlacement="BottomRight"
-                    Value="{Binding Timer}" />
+                    Value="{Binding Handler.Timer}" />
             </Expander>
         </Grid>
 
@@ -173,7 +213,7 @@
                 VerticalAlignment="Top"
                 controls:TextBoxHelper.Watermark="Winner..."
                 IsReadOnly="True"
-                Text="{Binding Winner}"
+                Text="{Binding Handler.Winner}"
                 TextWrapping="Wrap" />
             <ListView
                 Width="513"
