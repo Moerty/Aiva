@@ -4,27 +4,40 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
 
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Giveaway {
-        List<string> JoinPermissions = new List<string>();
+
+        public Extensions.Giveaway.GiveawayHandler Handler { get; set; }
+
+        public ICommand StartGiveawayCommand { get; set; }
+        public ICommand GetWinnerCommand { get; set; }
+        public ICommand ResetCommand { get; set; }
+
+
 
         public Giveaway() {
-            //SetModels();
+            SetCommands();
         }
 
-        //private void SetModels() {
-        //    var joinPermissions = Enum.GetValues(typeof(Extensions.Models.Giveaway.JoinPermission))
-        //        .Cast<Enum>()
-        //        .Select(value => new {
-        //            (Attribute.GetCustomAttribute(value.GetType().GetField(value.ToString()), typeof(DescriptionAttribute)) as DescriptionAttribute).Description
-        //        })
-        //        .OrderBy(item => item.Description)
-        //        .ToList();
+        private void SetCommands() {
+            Handler = new Extensions.Giveaway.GiveawayHandler();
 
-        //    joinPermissions.ForEach(value => JoinPermissions.Add(value.Description));
-        //}
+            StartGiveawayCommand = new Internal.RelayCommand(g => StartGiveaway(), g => CanStartGiveaway());
+        }
+
+        private bool CanStartGiveaway() {
+
+            return
+                !String.IsNullOrEmpty(Handler.Command)
+                && Handler.Price > 0;
+        }
+
+        private void StartGiveaway() {
+            throw new NotImplementedException();
+        }
     }
 }

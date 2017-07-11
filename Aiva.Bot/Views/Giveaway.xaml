@@ -8,9 +8,12 @@
     xmlns:internal="clr-namespace:Aiva.Bot.Internal"
     xmlns:local="clr-namespace:Aiva.Bot.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mvvm="clr-namespace:Aiva.Bot.ViewModels"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     Width="720"
     Height="470"
+    d:DataContext="{d:DesignInstance d:Type=mvvm:Giveaway,
+                                     IsDesignTimeCreatable=True}"
     mc:Ignorable="d">
 
     <Grid>
@@ -41,6 +44,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 controls:TextBoxHelper.Watermark="Command"
+                Text="{Binding Command}"
                 TextWrapping="Wrap" />
 
             <StackPanel
@@ -50,7 +54,11 @@
                 VerticalAlignment="Top"
                 Orientation="Vertical">
                 <TextBlock Text="Price:" />
-                <controls:NumericUpDown Height="15" />
+                <controls:NumericUpDown
+                    Height="15"
+                    HasDecimals="False"
+                    Minimum="1"
+                    Value="{Binding Price}" />
             </StackPanel>
             <StackPanel
                 Width="150"
@@ -63,11 +71,7 @@
                     VerticalAlignment="Top"
                     Text="Join permission"
                     TextWrapping="Wrap" />
-                <ComboBox
-                    Width="193"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    ItemsSource="{Binding Source={internal:EnumBindingSource {x:Type enums:JoinPermission}}}" />
+                <ComboBox ItemsSource="{Binding Source={internal:EnumBindingSource {x:Type enums:JoinPermission}}}" SelectedValue="{Binding SelectedJoinPermission}" />
             </StackPanel>
             <StackPanel
                 Width="200"
@@ -77,22 +81,26 @@
                     Margin="0,10,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Content="Must be following to win" />
+                    Content="Must be following to win"
+                    IsChecked="{Binding BeFollower}" />
                 <CheckBox
                     Margin="0,10,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Content="Notify winner in chat" />
+                    Content="Notify winner in chat"
+                    IsChecked="{Binding NotifyWinner}" />
                 <CheckBox
                     Margin="0,10,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Content="Remove winner from list" />
+                    Content="Remove winner from list"
+                    IsChecked="{Binding RemoveWinnerFromList}" />
                 <CheckBox
                     Margin="0,10,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Content="Block re-entry of previous winners" />
+                    Content="Block re-entry of previous winners"
+                    IsChecked="{Binding BlockReEntry}" />
             </StackPanel>
             <Button
                 Width="120"
@@ -118,21 +126,33 @@
                 Margin="308,159,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Header="Subscriber luck">
-                <Slider controls:SliderHelper.ChangeValueBy="SmallChange" controls:SliderHelper.EnableMouseWheel="MouseHover" />
+                Header="Subscriber luck"
+                IsExpanded="{Binding IsSubLuckActive}">
+                <Slider
+                    controls:SliderHelper.ChangeValueBy="SmallChange"
+                    controls:SliderHelper.EnableMouseWheel="MouseHover"
+                    Maximum="100"
+                    Value="{Binding SubLuck}" />
             </Expander>
+
             <Expander
                 Width="206"
                 Height="64"
                 Margin="308,52,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Header="Timer">
+                Header="Timer"
+                IsExpanded="{Binding IsTimerActive}">
                 <Slider
                     Width="200"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    TickPlacement="BottomRight" />
+                    Minimum="1"
+                    Maximum="30"
+                    TickPlacement="BottomRight"
+                    Template="{StaticResource HorizontalSliderTemplate}"
+                    Value="{Binding Timer}">
+                </Slider>
             </Expander>
         </Grid>
 
@@ -144,7 +164,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 controls:TextBoxHelper.Watermark="Winner..."
-                Text=""
+                Text="{Binding Winner}"
                 TextWrapping="Wrap" />
             <ListView
                 Width="513"

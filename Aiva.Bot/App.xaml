@@ -2,6 +2,8 @@
     x:Class="Aiva.Bot.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:Custom1="http://metro.mahapps.com/winfx/xaml/shared"
     xmlns:local="clr-namespace:Aiva.Bot"
     Exit="ExitApp"
     Startup="StartApp">
