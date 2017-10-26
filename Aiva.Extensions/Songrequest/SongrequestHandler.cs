@@ -54,7 +54,7 @@ namespace Aiva.Extensions.Songrequest {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void OnSongrequestCommandReceived(object sender, OnChatCommandReceivedArgs e) {
-            if (String.Compare(e.Command.Command, Command, true) == 0 || String.Compare(e.Command.Command, Command.TrimStart('!'), true) == 0) {
+            if (String.Compare(e.Command.CommandText, Command, true) == 0 || String.Compare(e.Command.CommandText, Command.TrimStart('!'), true) == 0) {
                 AddSong(e.Command.ArgumentsAsString, e.Command.ChatMessage.Username, e.Command.ChatMessage.UserId);
             }
         }

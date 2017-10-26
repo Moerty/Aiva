@@ -96,7 +96,7 @@ namespace Aiva.Core.Database {
             public async static void RemoveUserFromActiveUsers(object sender, OnUserLeftArgs e) {
                 using (var context = new Storage.StorageEntities()) {
                     //var twitchID = TwitchApi.Users.GetUser(e.Username);
-                    var twitchID = await TwitchAPI.Users.v5.GetUserByName(e.Username);
+                    var twitchID = await TwitchAPI.Users.v5.GetUserByNameAsync(e.Username);
 
                     if (twitchID != null && twitchID.Total > 0) {
                         foreach (var userMatch in twitchID.Matches) {

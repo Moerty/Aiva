@@ -19,7 +19,7 @@ namespace Aiva.Extensions.Commands {
         private void CommandReceived(object sender, OnChatCommandReceivedArgs e) {
 
             using (var context = new Core.Storage.StorageEntities()) {
-                var command = context.Commands.SingleOrDefault(c => String.Compare(e.Command.Command, c.Command, true) == 0);
+                var command = context.Commands.SingleOrDefault(c => String.Compare(e.Command.CommandText, c.Command, true) == 0);
 
                 if (command != null) {
                     // can user execute command?

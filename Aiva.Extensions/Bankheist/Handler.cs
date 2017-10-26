@@ -92,7 +92,7 @@ namespace Aiva.Extensions.Bankheist {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public void OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e) {
-            if ((String.Compare(e.Command.Command, Config.Instance["Bankheist"]["Command"])) == 0) {
+            if ((String.Compare(e.Command.CommandText, Config.Instance["Bankheist"]["Command"])) == 0) {
                 if (!IsOnCooldown) {
                     if (CurrentBankheist == null) {
                         CurrentBankheist = new Bankheist(InitModel);

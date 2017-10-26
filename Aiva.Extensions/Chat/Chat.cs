@@ -36,7 +36,8 @@ namespace Aiva.Extensions.Chat {
         public Models.Chat.Viewers SelectedViewer { get; set; }
 
         public Chat() {
-            if (_Instance != null) return;
+            if (_Instance != null)
+                return;
 
             Messages = new ObservableCollection<Models.Chat.Messages>();
             Viewers = new ObservableCollection<Models.Chat.Viewers>();
@@ -55,7 +56,7 @@ namespace Aiva.Extensions.Chat {
                 if (Viewers.Any(v => String.Compare(v.TwitchID, user.Id) == 0)) // check if user is already in List
                     return;
 
-                var IsUserSubscriber = TwitchLib.TwitchAPI.Subscriptions.v3.ChannelHasUserSubscribed(Core.AivaClient.Instance.Channel, user.Name).Result;
+                var IsUserSubscriber = TwitchLib.TwitchAPI.Subscriptions.v3.ChannelHasUserSubscribedAsync(Core.AivaClient.Instance.Channel, user.Name).Result;
 
                 Application.Current.Dispatcher.Invoke(() => {
                     Viewers.Add(

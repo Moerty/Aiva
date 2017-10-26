@@ -18,7 +18,7 @@ namespace Aiva.Testproject {
         static void Main(string[] args) {
 
 
-            var root = TwitchLib.TwitchAPI.Root.v5.GetRoot(Core.AivaClient.Instance.OAuthKey).Result;
+            var root = TwitchLib.TwitchAPI.Root.v5.GetRoot(Core.AivaClient.Instance.OAuthKey);
 
 
 

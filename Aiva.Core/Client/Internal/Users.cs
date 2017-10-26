@@ -15,7 +15,7 @@ namespace Aiva.Core.Client.Internal {
 
             foreach (var user in UserList) {
                 if (!Database.Users.IsUserInDatabase(user)) {
-                    var twitchUser = TwitchAPI.Users.v5.GetUserByName(user).Result; //TwitchApi.Users.GetUser(user);
+                    var twitchUser = TwitchAPI.Users.v5.GetUserByNameAsync(user).Result; //TwitchApi.Users.GetUser(user);
 
                     if (twitchUser != null && twitchUser.Total > 0) {
 
@@ -39,7 +39,7 @@ namespace Aiva.Core.Client.Internal {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public async static void OnUserJoined(object sender, OnUserJoinedArgs e) {
-            var user = await TwitchAPI.Users.v5.GetUserByName(e.Username);
+            var user = await TwitchAPI.Users.v5.GetUserByNameAsync(e.Username);
 
             if (user != null && user.Total > 0) {
                 foreach (var userMatch in user.Matches) {
@@ -63,7 +63,7 @@ namespace Aiva.Core.Client.Internal {
             var userList = new List<TwitchLib.Models.API.v5.Users.User>();
 
             foreach (var user in e.Users) {
-                var twitchUser = await TwitchAPI.Users.v5.GetUserByName(user);
+                var twitchUser = await TwitchAPI.Users.v5.GetUserByNameAsync(user);
 
                 if (twitchUser != null && twitchUser.Total > 0) {
                     foreach (var userMatch in twitchUser.Matches) {

@@ -50,7 +50,7 @@ namespace Aiva.Core {
         /// Get the channel id from twitch
         /// </summary>
         private async void GetChannelID() {
-            var channelDetails = await TwitchAPI.Channels.v5.GetChannel();
+            var channelDetails = await TwitchAPI.Channels.v5.GetChannelAsync();
 
             ChannelID = channelDetails.Id.ToString();
         }
@@ -62,7 +62,7 @@ namespace Aiva.Core {
             if (String.IsNullOrEmpty(TwitchAPI.Settings.AccessToken))
                 TwitchAPI.Settings.AccessToken = OAuthKey;
 
-            var root = TwitchAPI.Root.v5.GetRoot(OAuthKey).Result;
+            var root = TwitchAPI.Root.v5.GetRoot(OAuthKey);
 
 
             if (root.Token.Valid) {
@@ -89,7 +89,8 @@ namespace Aiva.Core {
                 null,
                 Convert.ToChar(Config.Config.Instance["General"]["CommandIdentifier"]),
                 '@',
-                true, // Loggin
+                false, // Loggin
+                null, // logger
                 true); // ReListen when error occurs
 
             AivaTwitchClient = Client.Tasks.Tasks.SetClientTasks(AivaTwitchClient);

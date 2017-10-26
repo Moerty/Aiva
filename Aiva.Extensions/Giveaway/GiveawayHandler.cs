@@ -135,7 +135,7 @@ namespace Aiva.Extensions.Giveaway {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private async void ChatCommandReceived(object sender, TwitchLib.Events.Client.OnChatCommandReceivedArgs e) {
-            if (String.Compare(Command.TrimStart('!'), e.Command.Command, true) == 0) {
+            if (String.Compare(Command.TrimStart('!'), e.Command.CommandText, true) == 0) {
 
                 if (HasUserAlreadyJoined(e.Command.ChatMessage.UserId)) {
                     return;
@@ -155,7 +155,7 @@ namespace Aiva.Extensions.Giveaway {
 
                 // Check if the User is a follower
                 if (BeFollower) {
-                    var isFollowing = await TwitchLib.TwitchAPI.Users.v5.UserFollowsChannel(e.Command.ChatMessage.UserId, Core.AivaClient.Instance.ChannelID);
+                    var isFollowing = await TwitchLib.TwitchAPI.Users.v5.UserFollowsChannelAsync(e.Command.ChatMessage.UserId, Core.AivaClient.Instance.ChannelID);
 
                     if (!isFollowing) {
                         return;
@@ -181,7 +181,7 @@ namespace Aiva.Extensions.Giveaway {
         /// <param name="username"></param>
         /// <returns></returns>
         private async Task<bool> IsUserSub(string username) {
-            return await TwitchLib.TwitchAPI.Subscriptions.v3.ChannelHasUserSubscribed(Core.AivaClient.Instance.Channel, username) != null;
+            return await TwitchLib.TwitchAPI.Subscriptions.v3.ChannelHasUserSubscribedAsync(Core.AivaClient.Instance.Channel, username) != null;
         }
 
         /// <summary>

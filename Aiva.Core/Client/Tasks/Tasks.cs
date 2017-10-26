@@ -118,7 +118,7 @@ namespace Aiva.Core.Client.Tasks {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private async static void TriggerChatUsersCheckerTimer(object sender, ElapsedEventArgs e) {
-            var users = await TwitchAPI.Undocumented.GetChatters(Core.AivaClient.Instance.Channel);
+            var users = await TwitchAPI.Undocumented.GetChattersAsync(Core.AivaClient.Instance.Channel);
 
 
             if (users != null && users.Any()) {
