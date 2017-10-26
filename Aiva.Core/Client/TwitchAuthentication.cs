@@ -9,11 +9,11 @@ namespace Aiva.Core.Client {
     public class TwitchAuthentication {
 
         HttpListener TwitchListener;
-        string prefix = "http://localhost:12345/";
+        const string ReturnUrl = "http://localhost:56207";
 
         public TwitchAuthentication() {
             TwitchListener = new HttpListener();
-            TwitchListener.Prefixes.Add(prefix);
+            TwitchListener.Prefixes.Add(ReturnUrl + "/");
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace Aiva.Core.Client {
             sb.Append("https://api.twitch.tv/kraken/oauth2/authorize");
             sb.Append("?response_type=token");
             sb.Append($"&client_id={ClientID}");
-            sb.Append("&redirect_uri=http://localhost:12345");
+            sb.Append($"&redirect_uri={ReturnUrl}");
             sb.Append("&scope=user_read+user_blocks_edit+user_blocks_read+user_follows_edit+channel_read+channel_editor+channel_commercial+channel_stream+channel_subscriptions+user_subscriptions+channel_check_subscription+chat_login+channel_feed_read+channel_feed_edit");
             return sb.ToString();
         }
