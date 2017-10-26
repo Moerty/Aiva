@@ -65,7 +65,9 @@ namespace Aiva.Bot.ViewModels {
         }
 
         private async void RequestTwitchOAuthKey() {
+#pragma warning disable CS4014 // Da dieser Aufruf nicht abgewartet wird, wird die Ausführung der aktuellen Methode fortgesetzt, bevor der Aufruf abgeschlossen ist
             Task.Run(() => TwitchAuthenticator.SendRequestToBrowser(ClientID));
+#pragma warning restore CS4014 // Da dieser Aufruf nicht abgewartet wird, wird die Ausführung der aktuellen Methode fortgesetzt, bevor der Aufruf abgeschlossen ist
 
             var result = await TwitchAuthenticator.GetAuthenticationValuesAsync();
 
