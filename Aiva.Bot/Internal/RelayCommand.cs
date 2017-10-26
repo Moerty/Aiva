@@ -73,19 +73,32 @@ namespace Aiva.Bot.Internal {
         #endregion
     }
 
-
     public class RelayCommand : ICommand {
+        #region Fields
+
         private Action<object> execute;
         private Func<object, bool> canExecute;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute) {
+            this.execute = execute;
+            this.canExecute = canExecute;
+        }
+
+        public RelayCommand(Action<object> execute) {
+            this.execute = execute;
+        }
+
+        #endregion Constructors
+
+        #region Members
 
         public event EventHandler CanExecuteChanged {
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
-        }
-
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null) {
-            this.execute = execute;
-            this.canExecute = canExecute;
         }
 
         public bool CanExecute(object parameter) {
@@ -95,5 +108,7 @@ namespace Aiva.Bot.Internal {
         public void Execute(object parameter) {
             this.execute(parameter);
         }
+
+        #endregion Members
     }
 }
