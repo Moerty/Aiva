@@ -76,7 +76,7 @@ namespace Aiva.Bot.ViewModels {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SendMessage(object sender = null, ExecutedRoutedEventArgs e = null) {
-            Extensions.Chat.Chat.Instance.SendMessage(Model.MessageToSend);
+            ChatHandler.SendMessage(Model.MessageToSend);
 
             Model.MessageToSend = String.Empty;
         }

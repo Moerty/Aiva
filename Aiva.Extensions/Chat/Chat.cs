@@ -18,27 +18,11 @@ namespace Aiva.Extensions.Chat {
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Chat {
 
-        private static Chat _Instance;
-        public static Chat Instance {
-            get {
-                if (_Instance == null)
-                    _Instance = new Chat();
-
-                return _Instance;
-            }
-            private set {
-                _Instance = value;
-            }
-        }
-
         public ObservableCollection<Models.Chat.Messages> Messages { get; set; }
         public ObservableCollection<Models.Chat.Viewers> Viewers { get; set; }
         public Models.Chat.Viewers SelectedViewer { get; set; }
 
         public Chat() {
-            if (_Instance != null)
-                return;
-
             Messages = new ObservableCollection<Models.Chat.Messages>();
             Viewers = new ObservableCollection<Models.Chat.Viewers>();
             Messages.CollectionChanged += MessagesCountCheck;
@@ -46,8 +30,6 @@ namespace Aiva.Extensions.Chat {
             Core.AivaClient.Instance.AivaTwitchClient.OnModeratorsReceived += ModeratorsReceived;
             Core.AivaClient.Instance.AivaTwitchClient.OnUserLeft += RemoveViewerFromViewers;
             Core.Client.Internal.Users.OnNewUserFound += OnNewUserFound;
-
-            _Instance = this;
         }
 
         private void OnNewUserFound(object sender, OnNewUserFoundArgs e) {
