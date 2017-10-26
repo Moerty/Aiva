@@ -76,7 +76,7 @@
                     VerticalAlignment="Top"
                     Text="Join permission"
                     TextWrapping="Wrap" />
-                <ComboBox ItemsSource="{Binding Source={internal:EnumBindingSource {x:Type enums:JoinPermission}}}" SelectedValue="{Binding SelectedJoinPermission}" />
+                <ComboBox ItemsSource="{Binding Source={internal:EnumBindingSource {x:Type enums:JoinPermission}}}" SelectedValue="{Binding Handler.SelectedJoinPermission}" />
             </StackPanel>
             <StackPanel
                 Width="200"
