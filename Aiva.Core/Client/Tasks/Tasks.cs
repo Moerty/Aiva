@@ -3,9 +3,12 @@ using System.Timers;
 using TwitchLib;
 using System.Linq;
 using System.Collections.Generic;
+using TwitchLib.Events.Client;
 
 namespace Aiva.Core.Client.Tasks {
     public class Tasks {
+
+        public static event EventHandler<OnModeratorsReceivedArgs> OnModeratorsReceivedEvent;
 
         /// <summary>
         /// Set AivaClient Tasks
@@ -14,6 +17,7 @@ namespace Aiva.Core.Client.Tasks {
         /// <returns></returns>
         public static TwitchClient SetClientTasks(TwitchClient Client) {
 
+            Client = OnModeratorsReceived(Client);
             Client = OnExistingUsersDetected(Client);
             Client = OnUserJoined(Client);
             Client = OnMessageReceived(Client);
@@ -97,6 +101,15 @@ namespace Aiva.Core.Client.Tasks {
                 client.OnMessageReceived += ChatChecker.LinkChecker;
 
             return client;
+        }
+
+        public static TwitchClient OnModeratorsReceived(TwitchClient client) {
+            client.OnModeratorsReceived += Client_OnModeratorsReceived;
+            return client;
+        }
+
+        private static void Client_OnModeratorsReceived(object sender, TwitchLib.Events.Client.OnModeratorsReceivedArgs e) {
+            OnModeratorsReceivedEvent.Invoke(null, e);
         }
 
 

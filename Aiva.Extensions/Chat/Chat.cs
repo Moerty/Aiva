@@ -27,7 +27,8 @@ namespace Aiva.Extensions.Chat {
             Viewers = new ObservableCollection<Models.Chat.Viewers>();
             Messages.CollectionChanged += MessagesCountCheck;
             Core.AivaClient.Instance.AivaTwitchClient.OnMessageReceived += ChatMessageReceived;
-            Core.AivaClient.Instance.AivaTwitchClient.OnModeratorsReceived += ModeratorsReceived;
+            //Core.AivaClient.Instance.AivaTwitchClient.OnModeratorsReceived += ModeratorsReceived;
+            Core.Client.Tasks.Tasks.OnModeratorsReceivedEvent += ModeratorsReceived;
             Core.AivaClient.Instance.AivaTwitchClient.OnUserLeft += RemoveViewerFromViewers;
             Core.Client.Internal.Users.OnNewUserFound += OnNewUserFound;
         }
