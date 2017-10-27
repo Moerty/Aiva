@@ -33,6 +33,8 @@ namespace Aiva.Core {
         public string ClientID;
         public string OAuthKey;
 
+        public Client.Tasks.Tasks Tasks = new Client.Tasks.Tasks();
+
         public AivaClient() {
             // Get config related informations
             Username = Config.Config.Instance["General"]["BotName"];      //Switch to OAuth Validation
@@ -93,7 +95,7 @@ namespace Aiva.Core {
                 null, // logger
                 true); // ReListen when error occurs
 
-            AivaTwitchClient = Client.Tasks.Tasks.SetClientTasks(AivaTwitchClient);
+            AivaTwitchClient = Tasks.SetTasks(AivaTwitchClient);
 
             AivaTwitchClient.OnConnected += OnConnected;
             AivaTwitchClient.OnJoinedChannel += OnJoinedChannel;

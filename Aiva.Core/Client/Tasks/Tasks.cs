@@ -8,29 +8,28 @@ using TwitchLib.Events.Client;
 namespace Aiva.Core.Client.Tasks {
     public class Tasks {
 
-        public static event EventHandler<OnModeratorsReceivedArgs> OnModeratorsReceivedEvent;
+        public event EventHandler<OnModeratorsReceivedArgs> OnModeratorsReceivedEvent;
 
         /// <summary>
         /// Set AivaClient Tasks
         /// </summary>
-        /// <param name="Client"></param>
+        /// <param name="client"></param>
         /// <returns></returns>
-        public static TwitchClient SetClientTasks(TwitchClient Client) {
-
-            Client = OnModeratorsReceived(Client);
-            Client = OnExistingUsersDetected(Client);
-            Client = OnUserJoined(Client);
-            Client = OnMessageReceived(Client);
-            Client = OnUserLeft(Client);
-            Client = OnNewSubscriber(Client);
-            Client = ModCommands(Client);
+        public TwitchClient SetTasks(TwitchClient client) {
+            client = OnModeratorsReceived(client);
+            client = OnExistingUsersDetected(client);
+            client = OnUserJoined(client);
+            client = OnMessageReceived(client);
+            client = OnUserLeft(client);
+            client = OnNewSubscriber(client);
+            client = ModCommands(client);
 
             SetTimers();
 
-            return Client;
+            return client;
         }
 
-        private static TwitchClient ModCommands(TwitchClient client) {
+        public TwitchClient ModCommands(TwitchClient client) {
             client.OnChatCommandReceived += Internal.Commands.ModCommands.ParseModCommand;
 
             return client;
@@ -41,7 +40,7 @@ namespace Aiva.Core.Client.Tasks {
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
-        private static TwitchClient OnNewSubscriber(TwitchClient client) {
+        public TwitchClient OnNewSubscriber(TwitchClient client) {
             client.OnNewSubscriber += Internal.Chat.Client_OnNewSubscriber;
 
             return client;
@@ -52,7 +51,7 @@ namespace Aiva.Core.Client.Tasks {
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
-        private static TwitchClient OnUserLeft(TwitchClient client) {
+        public TwitchClient OnUserLeft(TwitchClient client) {
             client.OnUserLeft += Database.Users.Removeuser.RemoveUserFromActiveUsers;
 
             return client;
@@ -63,7 +62,7 @@ namespace Aiva.Core.Client.Tasks {
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
-        private static TwitchClient OnUserJoined(TwitchClient client) {
+        public TwitchClient OnUserJoined(TwitchClient client) {
             //client.OnUserJoined += Database.Users.AddUser.AddUserToDatabase;
             client.OnUserJoined += Internal.Users.OnUserJoined;
             Internal.Users.OnNewUserFound += Database.Users.AddUser.AddUserToDatabase;
@@ -76,7 +75,7 @@ namespace Aiva.Core.Client.Tasks {
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
-        private static TwitchClient OnExistingUsersDetected(TwitchClient client) {
+        public TwitchClient OnExistingUsersDetected(TwitchClient client) {
             //client.OnExistingUsersDetected += Database.Users.AddUser.AddUserToDatabase;
             client.OnExistingUsersDetected += Internal.Users.OnExistingUserJoined;
             Internal.Users.OnNewUserFound += Database.Users.AddUser.AddUserToDatabase;
@@ -89,7 +88,7 @@ namespace Aiva.Core.Client.Tasks {
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
-        private static TwitchClient OnMessageReceived(TwitchClient client) {
+        public TwitchClient OnMessageReceived(TwitchClient client) {
 
             if (Convert.ToBoolean(Config.Config.Instance["Chat"]["BlacklistedWordsChecker"]))
                 client.OnMessageReceived += ChatChecker.BlacklistWordsChecker;
@@ -103,12 +102,12 @@ namespace Aiva.Core.Client.Tasks {
             return client;
         }
 
-        public static TwitchClient OnModeratorsReceived(TwitchClient client) {
+        public TwitchClient OnModeratorsReceived(TwitchClient client) {
             client.OnModeratorsReceived += Client_OnModeratorsReceived;
             return client;
         }
 
-        private static void Client_OnModeratorsReceived(object sender, TwitchLib.Events.Client.OnModeratorsReceivedArgs e) {
+        public void Client_OnModeratorsReceived(object sender, TwitchLib.Events.Client.OnModeratorsReceivedArgs e) {
             OnModeratorsReceivedEvent.Invoke(null, e);
         }
 
