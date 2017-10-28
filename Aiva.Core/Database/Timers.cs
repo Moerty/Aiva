@@ -18,11 +18,23 @@ namespace Aiva.Core.Database {
         }
 
         /// <summary>
-        /// Remove the selected command command from list and database
+        /// Remove the selected timer from database
         /// </summary>
         public static void RemoveTimer(Storage.Timers timer) {
             using (var context = new Core.Storage.StorageEntities()) {
                 context.Timers.Remove(timer);
+
+                context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Add a timer to the database
+        /// </summary>
+        /// <param name="timer"></param>
+        public static void AddTimerToDatabase(Storage.Timers timer) {
+            using(var context = new Storage.StorageEntities()) {
+                context.Timers.Add(timer);
 
                 context.SaveChanges();
             }

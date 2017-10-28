@@ -29,7 +29,7 @@
                         Height="23"
                         controls:TextBoxHelper.AutoWatermark="True"
                         controls:TextBoxHelper.Watermark="Command..."
-                        Text="{Binding AddModel.Command, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Text="{Binding AddModel.Timer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         TextWrapping="Wrap" />
                     <TextBox
                         Width="500"
@@ -40,12 +40,6 @@
                         Text="{Binding AddModel.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <ComboBox
-                        Width="150"
-                        controls:ComboBoxHelper.CharacterCasing="Normal"
-                        ItemsSource="{Binding UserRightsItems}"
-                        SelectedItem="{Binding AddModel.SelectedUserRight}"
-                        Text="UserRights" />
                     <Slider
                         Width="200"
                         Margin="20,0,0,0"
@@ -102,10 +96,10 @@
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
                 CanUserDeleteRows="False"
-                ItemsSource="{Binding Handler.CommandList}">
+                ItemsSource="{Binding Handler.Timers}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Index}" Header="ID" />
-                    <DataGridTextColumn Binding="{Binding Command}" Header="Command" />
+                    <DataGridTextColumn Binding="{Binding Timer}" Header="Timer" />
                     <DataGridTextColumn
                         Width="*"
                         Binding="{Binding Text}"

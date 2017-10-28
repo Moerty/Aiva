@@ -37,7 +37,7 @@ namespace Aiva.Bot.ViewModels {
         /// Init Commands
         /// </summary>
         private void SetCommands() {
-            AddCommand = new Internal.RelayCommand(add => AddCommandToList(), add => !String.IsNullOrEmpty(AddModel.Name) && !String.IsNullOrEmpty(AddModel.Text));
+            AddCommand = new Internal.RelayCommand(add => AddCommandToList(), add => !String.IsNullOrEmpty(AddModel.Timer) && !String.IsNullOrEmpty(AddModel.Text));
             ResetAddCommand = new Internal.RelayCommand(reset => AddModel = new Extensions.Models.Timers.AddModel(), add => true);
             DeleteCommand = new Internal.RelayCommand(d => Delete(), delete => Handler.SelectedTimer != null);
         }

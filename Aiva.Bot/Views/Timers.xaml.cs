@@ -5,7 +5,7 @@
     public partial class Timers : MahApps.Metro.Controls.MetroContentControl {
         public Timers() {
             InitializeComponent();
-            this.DataContext = new ViewModels.Commands();
+            this.DataContext = new ViewModels.Timers();
         }
     }
 }
