@@ -4,25 +4,12 @@ using TwitchLib;
 namespace Aiva.Core {
     public class AivaClient {
 
-        private static AivaClient _Instance;
-        public static AivaClient Instance {
-            get {
-                if (_Instance == null)
-                    InitAivaClient();
-
-                return _Instance;
-            }
-            private set {
-                _Instance = value;
-            }
-        }
-
         /// <summary>
-        /// Init AivaClient
+        /// Static AivaClientMember
+        /// Thread safe
         /// </summary>
-        private static void InitAivaClient() {
-            Instance = new AivaClient();
-        }
+        private static readonly Lazy<AivaClient> lazyAivaClient = new Lazy<AivaClient>();
+        public static AivaClient Instance => lazyAivaClient.Value;
 
         public TwitchClient AivaTwitchClient;
         public string Username;
@@ -35,7 +22,7 @@ namespace Aiva.Core {
 
         public Client.Tasks.Tasks Tasks;
 
-        private AivaClient() {
+        public AivaClient() {
             // Get config related informations
             Username = Config.Config.Instance["General"]["BotName"];      //Switch to OAuth Validation
             OAuthKey = Config.Config.Instance["Credentials"]["TwitchOAuth"];
