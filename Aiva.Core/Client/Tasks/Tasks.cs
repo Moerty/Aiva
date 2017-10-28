@@ -8,6 +8,10 @@ using TwitchLib.Events.Client;
 namespace Aiva.Core.Client.Tasks {
     public class Tasks {
 
+        /// <summary>
+        /// Error from TwitchLib cause "OnModeratorsReceived" ist null.
+        /// Listen to this event from the Client fíx this issue
+        /// </summary>
         public event EventHandler<OnModeratorsReceivedArgs> OnModeratorsReceivedEvent;
 
         /// <summary>
