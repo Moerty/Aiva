@@ -16,7 +16,6 @@ namespace Aiva.Bot {
 
             if (File.Exists("ConfigFiles\\config.ini")) {
                 var mainWindow = new MainWindow();
-                //mainWindow.Closing += MainWindow_Closing;
                 mainWindow.Show();
             } else {
                 var setup = new Views.Setup();
@@ -27,7 +26,12 @@ namespace Aiva.Bot {
         private void ExitApp(object sender, EventArgs e) {
             //Application.Current.Dispatcher.Thread.Abort();
             //Dispatcher.CurrentDispatcher.Thread.Abort();
-            Core.AivaClient.Instance.Disconnect();
+
+            // when setup is closed without saving the config file, 
+            // aivaclient cant save the config, cause the file doesnt exists
+            if (File.Exists("ConfigFiles\\config.ini")) {
+                Core.AivaClient.Instance.Disconnect();
+            }
             CefSharp.Cef.Shutdown();
             Environment.Exit(0);
         }
