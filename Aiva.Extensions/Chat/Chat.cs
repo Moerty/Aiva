@@ -136,6 +136,7 @@ namespace Aiva.Extensions.Chat {
                 Username = e.ChatMessage.Username,
                 Message = e.ChatMessage.Message,
                 TimeStamp = DateTime.Now,
+                IsBroadcaster = e.ChatMessage.IsBroadcaster,
                 Color = e.ChatMessage.Color.IsEmpty ? GetChatColor(e.ChatMessage.UserId) : e.ChatMessage.Color
             };
 

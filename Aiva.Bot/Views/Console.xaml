@@ -54,6 +54,24 @@
                         <TextBlock Background="LightGray" TextWrapping="Wrap">
                             <Run Text="{Binding TimeStamp, StringFormat='{}{0: HH:mm:ss}'}" />
                             <Separator />
+                            <InlineUIContainer>
+                                <Image
+                                    Width="18"
+                                    Height="18"
+                                    Source="pack://application:,,,/Images/broadcaster_symbol.png">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Visibility" Value="Hidden" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsBroadcaster}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </InlineUIContainer>
+                            <Separator />
                             <Run Foreground="{Binding Path=Color, Converter={StaticResource colorConverter}}" Text="{Binding Path=Username, StringFormat={}{0}:}" />
                             <Separator />
                             <Run FontWeight="Bold" Text="{Binding Path=Message}" />

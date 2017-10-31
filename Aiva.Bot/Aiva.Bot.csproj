@@ -133,7 +133,7 @@
     <Compile Include="Internal\RelayCommand.cs" />
     <Compile Include="Internal\ScrollViewerExtension.cs" />
     <Compile Include="Internal\TextBoxEnterKeyUpdateBehavior.cs" />
-    <Compile Include="Internal\ChatColorConverter.cs" />
+    <Compile Include="Internal\Converters.cs" />
     <Compile Include="Models\Commands.cs" />
     <Compile Include="Models\Console.cs" />
     <Compile Include="Models\MainWindow.cs" />
@@ -277,6 +277,9 @@
     <Resource Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\broadcaster_symbol.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="lib\YoutubePlayerLib.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

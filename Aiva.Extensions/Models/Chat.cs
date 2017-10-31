@@ -14,6 +14,7 @@ namespace Aiva.Extensions.Models {
         public class Messages {
             public bool IsUserMod { get; set; }
             public bool IsUserSub { get; set; }
+            public bool IsBroadcaster { get; set; }
             public string Username { get; set; }
             public string TwitchID { get; set; }
             public string Message { get; set; }
