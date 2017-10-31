@@ -7,6 +7,7 @@ using Aiva.Core.Models;
 using TwitchLib.Events.Client;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 
 namespace Aiva.Extensions.Chat {
 
@@ -34,10 +35,10 @@ namespace Aiva.Extensions.Chat {
         }
 
         private void AivaTwitchClient_OnExistingUsersDetected(object sender, OnExistingUsersDetectedArgs e) {
-            foreach(var user in e.Users) {
+            foreach (var user in e.Users) {
                 var twitchUser = TwitchLib.TwitchAPI.Users.v5.GetUserByNameAsync(user).Result;
 
-                if(twitchUser != null) {
+                if (twitchUser != null) {
                     OnNewUserFound(twitchUser.Matches[0].Name, twitchUser.Matches[0].Id);
                 }
             }
@@ -46,7 +47,7 @@ namespace Aiva.Extensions.Chat {
         private void AivaTwitchClient_OnUserJoined(object sender, OnUserJoinedArgs e) {
             var twitchUser = TwitchLib.TwitchAPI.Users.v5.GetUserByNameAsync(e.Username).Result;
 
-            if(twitchUser != null) {
+            if (twitchUser != null) {
                 OnNewUserFound(twitchUser.Matches[0].Name, twitchUser.Matches[0].Id);
             }
         }
@@ -58,17 +59,18 @@ namespace Aiva.Extensions.Chat {
 
             var IsUserSubscriber = TwitchLib.TwitchAPI.Subscriptions.v3.ChannelHasUserSubscribedAsync(Core.AivaClient.Instance.Channel, name).Result;
 
-            Application.Current.Dispatcher.Invoke(() => {
-                Viewers.Add(
-                    new Models.Chat.Viewers {
-                        Name = name,
-                        TwitchID = id,
-                        IsSub = IsUserSubscriber != null ? true : false,
-                        Type = IsUserSubscriber != null ? nameof(Models.Chat.SortDirectionListView.Subscriber)
-                                            : nameof(Models.Chat.SortDirectionListView.Viewer)
-                        //IsMod = will be filled from the event "ModeratoersReceived"
-                    });
-            });
+            var rnd = new Random();
+            var viewer = new Models.Chat.Viewers {
+                Name = name,
+                TwitchID = id,
+                IsSub = IsUserSubscriber != null ? true : false,
+                Type = IsUserSubscriber != null ? nameof(Models.Chat.SortDirectionListView.Subscriber)
+                                            : nameof(Models.Chat.SortDirectionListView.Viewer),
+                ChatNameColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256))
+                //IsMod = will be filled from the event "ModeratoersReceived"
+            };
+
+            Application.Current.Dispatcher.Invoke(() => { Viewers.Add(viewer); });
 
 
             // Get Channel Moderators to fire "ModeratorsReceived"
@@ -126,13 +128,15 @@ namespace Aiva.Extensions.Chat {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ChatMessageReceived(object sender, OnMessageReceivedArgs e) {
+            var rnd = new Random();
             var AddModel = new Models.Chat.Messages {
                 IsUserMod = e.ChatMessage.IsModerator,
                 IsUserSub = e.ChatMessage.IsSubscriber,
                 TwitchID = e.ChatMessage.UserId,
                 Username = e.ChatMessage.Username,
                 Message = e.ChatMessage.Message,
-                TimeStamp = DateTime.Now
+                TimeStamp = DateTime.Now,
+                Color = e.ChatMessage.Color.IsEmpty ? GetChatColor(e.ChatMessage.UserId) : e.ChatMessage.Color
             };
 
             Application.Current.Dispatcher.Invoke(() => {
@@ -142,6 +146,17 @@ namespace Aiva.Extensions.Chat {
 
             // Save in Database
             StoreIndatabase(AddModel);
+        }
+
+        private Color GetChatColor(string userId) {
+            var viewer = Viewers.SingleOrDefault(v => String.Compare(v.TwitchID, userId, true) == 0);
+
+            if (viewer != null) {
+                return viewer.ChatNameColor;
+            } else {
+                var rnd = new Random();
+                return Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+            }
         }
 
         /// <summary>
