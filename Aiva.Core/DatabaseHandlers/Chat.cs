@@ -1,7 +1,7 @@
 ﻿using System;
 using TwitchLib.Events.Client;
 
-namespace Aiva.Core.Database {
+namespace Aiva.Core.DatabaseHandlers {
     public class Chat {
 
         /// <summary>
@@ -9,7 +9,7 @@ namespace Aiva.Core.Database {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public static void AddReceivedMessageToDatabase(object sender, OnMessageReceivedArgs e) {
+        public void AddReceivedMessageToDatabase(object sender, OnMessageReceivedArgs e) {
             using (var context = new Storage.StorageEntities()) {
                 context.Chat.Add(new Storage.Chat {
                     TwitchID = e.ChatMessage.UserId,

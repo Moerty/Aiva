@@ -14,12 +14,17 @@ namespace Aiva.Core.Client.Tasks {
         /// </summary>
         public event EventHandler<OnModeratorsReceivedArgs> OnModeratorsReceivedEvent;
 
+        private Client.Internal.Currency _currencyTimer;
+        private Internal.Commands.ModCommands _modCommandsHandler;
+
         /// <summary>
         /// Set AivaClient Tasks
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
         public TwitchClient SetTasks(TwitchClient client) {
+
+            _modCommandsHandler = new Internal.Commands.ModCommands();
             client = OnModeratorsReceived(client);
             client = OnExistingUsersDetected(client);
             client = OnUserJoined(client);
@@ -27,14 +32,21 @@ namespace Aiva.Core.Client.Tasks {
             client = OnUserLeft(client);
             client = OnNewSubscriber(client);
             client = ModCommands(client);
+            SetCurrencyTimer();
 
             SetTimers();
 
             return client;
         }
 
+        private void SetCurrencyTimer() {
+            if (Convert.ToBoolean(Config.Config.Instance["Currency"]["AddCurrencyFrequently"])) {
+                _currencyTimer = new Internal.Currency();
+            }
+        }
+
         public TwitchClient ModCommands(TwitchClient client) {
-            client.OnChatCommandReceived += Internal.Commands.ModCommands.ParseModCommand;
+            client.OnChatCommandReceived += _modCommandsHandler.ParseModCommand;
 
             return client;
         }
@@ -56,7 +68,7 @@ namespace Aiva.Core.Client.Tasks {
         /// <param name="client"></param>
         /// <returns></returns>
         public TwitchClient OnUserLeft(TwitchClient client) {
-            client.OnUserLeft += Database.Users.Removeuser.RemoveUserFromActiveUsers;
+            client.OnUserLeft += DatabaseHandlers.Users.Removeuser.RemoveUserFromActiveUsers;
 
             return client;
         }
@@ -69,7 +81,7 @@ namespace Aiva.Core.Client.Tasks {
         public TwitchClient OnUserJoined(TwitchClient client) {
             //client.OnUserJoined += Database.Users.AddUser.AddUserToDatabase;
             client.OnUserJoined += Internal.Users.OnUserJoined;
-            Internal.Users.OnNewUserFound += Database.Users.AddUser.AddUserToDatabase;
+            Internal.Users.OnNewUserFound += DatabaseHandlers.Users.AddUser.AddUserToDatabase;
 
             return client;
         }
@@ -82,7 +94,7 @@ namespace Aiva.Core.Client.Tasks {
         public TwitchClient OnExistingUsersDetected(TwitchClient client) {
             //client.OnExistingUsersDetected += Database.Users.AddUser.AddUserToDatabase;
             client.OnExistingUsersDetected += Internal.Users.OnExistingUserJoined;
-            Internal.Users.OnNewUserFound += Database.Users.AddUser.AddUserToDatabase;
+            Internal.Users.OnNewUserFound += DatabaseHandlers.Users.AddUser.AddUserToDatabase;
 
             return client;
         }

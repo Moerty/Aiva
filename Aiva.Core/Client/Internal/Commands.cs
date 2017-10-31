@@ -8,17 +8,30 @@ using TwitchLib.Events.Client;
 namespace Aiva.Core.Client.Internal {
     public class Commands {
 
+        public ModCommands Mods;
+
+        public Commands() {
+            Mods = new ModCommands();
+        }
+
         /// <summary>
         /// Class for ModCommands
         /// </summary>
         public class ModCommands {
-            public static void ParseModCommand(object sender, OnChatCommandReceivedArgs e) {
+
+            public Currency CurrencyHandler;
+
+            public ModCommands() {
+                CurrencyHandler = new Currency();
+            }
+
+            public void ParseModCommand(object sender, OnChatCommandReceivedArgs e) {
                 if (e.Command.ChatMessage.UserType != TwitchLib.Enums.UserType.Viewer ||
                             e.Command.ChatMessage.UserType != TwitchLib.Enums.UserType.Staff) {
 
                     // Currency
                     if (String.Compare(e.Command.CommandText, Config.Config.Instance["ModCommand"]["AddCurrency"], true) == 0) {
-                        Currency.Add.AddCurrencyToUser(e);
+                        CurrencyHandler.Add.AddCurrencyToUser(e);
                     }
                 }
             }
@@ -28,16 +41,33 @@ namespace Aiva.Core.Client.Internal {
             /// </summary>
             public class Currency {
 
+                public AddCurrency Add;
+                public TransferCurrency Transfer;
+                public RemoveCurrency Remove;
+
+                public Currency() {
+                    Add = new AddCurrency();
+                    Transfer = new TransferCurrency();
+                    Remove = new RemoveCurrency();
+                }
+
                 /// <summary>
                 /// Add Currency ModCommands
                 /// </summary>
-                public class Add {
-                    public static void AddCurrencyToUser(OnChatCommandReceivedArgs e) {
+                public class AddCurrency {
+
+                    private DatabaseHandlers.Currency.AddCurrency _addCurrencyDatabaseHandler;
+
+                    public AddCurrency() {
+                        _addCurrencyDatabaseHandler = new DatabaseHandlers.Currency.AddCurrency();
+                    }
+
+                    public void AddCurrencyToUser(OnChatCommandReceivedArgs e) {
                         if (e.Command.ChatMessage.UserType != TwitchLib.Enums.UserType.Viewer ||
                             e.Command.ChatMessage.UserType != TwitchLib.Enums.UserType.Staff) {
 
                             if (int.TryParse(e.Command.ArgumentsAsList[1], out int value)) {
-                                Database.Currency.Add.AddCurrencyToUser(e.Command.ChatMessage.UserId, value);
+                                _addCurrencyDatabaseHandler.Add(e.Command.ChatMessage.UserId, value);
                             }
                         }
                     }
@@ -46,14 +76,14 @@ namespace Aiva.Core.Client.Internal {
                 /// <summary>
                 /// Transfer Currency ModCommands
                 /// </summary>
-                public class Transfer {
+                public class TransferCurrency {
 
                 }
 
                 /// <summary>
                 /// Remove Currency ModCommands
                 /// </summary>
-                public class Remove {
+                public class RemoveCurrency {
 
                 }
             }

@@ -15,8 +15,11 @@ namespace Aiva.Extensions.Timers {
         public Core.Storage.Timers SelectedTimer { get; set; }
         public List<Timer> TimersList { get; set; }
 
+        private Core.DatabaseHandlers.Timers _timersDatabaseHandler;
+
         #region Constuctor
         public TimersHandler() {
+            _timersDatabaseHandler = new Core.DatabaseHandlers.Timers();
             TimersList = new List<Timer>();
             LoadTimers();
         }
@@ -27,8 +30,8 @@ namespace Aiva.Extensions.Timers {
         }
 
         private void GetTimers() {
-            var timersDatabase = Core.Database.Timers.GetExistingTimers();
-
+            var timersDatabase = _timersDatabaseHandler.GetExistingTimers();
+            
             Timers = new ObservableCollection<Core.Storage.Timers>(timersDatabase);
         }
 
@@ -52,7 +55,7 @@ namespace Aiva.Extensions.Timers {
             Core.AivaClient.Instance.AivaTwitchClient.SendMessage(message);
         }
 
-        public void RemoveTimer() => Core.Database.Timers.RemoveTimer(SelectedTimer);
+        public void RemoveTimer() => _timersDatabaseHandler.RemoveTimer(SelectedTimer);
 
         public async void AddTimerAsync(Models.Timers.AddModel model) {
             AddTimerToDatabase(model);
@@ -75,7 +78,7 @@ namespace Aiva.Extensions.Timers {
         }
 
 
-        private static void AddTimerToDatabase(Models.Timers.AddModel model) {
+        private void AddTimerToDatabase(Models.Timers.AddModel model) {
             var timer = new Core.Storage.Timers {
                 Active = model.Active,
                 Autoreset = model.Autoreset,
@@ -85,7 +88,7 @@ namespace Aiva.Extensions.Timers {
                 Timer = model.Timer
             };
 
-            Core.Database.Timers.AddTimerToDatabase(timer);
+            _timersDatabaseHandler.AddTimerToDatabase(timer);
         }
         #endregion Funtions
     }

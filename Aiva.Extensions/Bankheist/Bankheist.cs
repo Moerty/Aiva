@@ -14,9 +14,12 @@ namespace Aiva.Extensions.Bankheist {
         public List<Models.Bankheist.BankheistUserModel> UserList;
         public bool IsStarted { get; private set; }
 
+        private Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
+
         public Bankheist(Models.Bankheist.BankheistInitModel InitModel) {
             this.InitModel = InitModel;
             this.UserList = new List<Models.Bankheist.BankheistUserModel>();
+            _currencyDatabaseHandler = new Core.DatabaseHandlers.Currency();
 
             IsStarted = true;
         }
@@ -97,9 +100,9 @@ namespace Aiva.Extensions.Bankheist {
             }
 
             if (Winners.Any())
-                Core.Database.Currency.Add.AddCurrencyToUserList(Winners);
+                _currencyDatabaseHandler.Add.Add(Winners);
 
-            Core.Database.Currency.Remove.RemoveCurrencyToUserList(Loosers);
+            _currencyDatabaseHandler.Remove.Remove(Loosers);
         }
 
         /// <summary>

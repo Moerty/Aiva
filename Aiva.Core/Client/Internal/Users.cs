@@ -14,7 +14,7 @@ namespace Aiva.Core.Client.Internal {
             var userList = new List<TwitchLib.Models.API.v5.Users.User>();
 
             foreach (var user in UserList) {
-                if (!Database.Users.IsUserInDatabase(user)) {
+                if (!DatabaseHandlers.Users.IsUserInDatabase(user)) {
                     var twitchUser = TwitchAPI.Users.v5.GetUserByNameAsync(user).Result; //TwitchApi.Users.GetUser(user);
 
                     if (twitchUser != null && twitchUser.Total > 0) {

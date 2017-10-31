@@ -6,21 +6,24 @@ namespace Aiva.Bot.ViewModels.Flyouts {
 
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class HonorSongrequester {
-        private string TwitchID;
-        private readonly string Username;
         public int CurrencyToAdd { get; set; }
         public bool WriteInChat { get; set; }
 
         public ICommand HonorRequesterCommand { get; set; }
 
+        private string _twitchID;
+        private readonly string _username;
+        private Core.DatabaseHandlers.Currency.AddCurrency _addCurrencyDatabaseHandler;
 
 
         public HonorSongrequester(string username, string twitchID = null) {
+            _addCurrencyDatabaseHandler = new Core.DatabaseHandlers.Currency.AddCurrency();
+
             if (!String.IsNullOrEmpty(twitchID)) {
-                this.TwitchID = twitchID;
-                Username = !String.IsNullOrEmpty(username) ? username : String.Empty;
+                this._twitchID = twitchID;
+                _username = !String.IsNullOrEmpty(username) ? username : String.Empty;
             } else {
-                Username = username;
+                _username = username;
             }
             HonorRequesterCommand = new Internal.RelayCommand(h => HonorRequester(), h => !String.IsNullOrEmpty(twitchID));
         }
@@ -29,8 +32,8 @@ namespace Aiva.Bot.ViewModels.Flyouts {
         /// Do Honor
         /// </summary>
         private void HonorRequester() {
-            if (!String.IsNullOrEmpty(TwitchID)) {
-                Core.Database.Currency.Add.AddCurrencyToUser(TwitchID, CurrencyToAdd);
+            if (!String.IsNullOrEmpty(_twitchID)) {
+                _addCurrencyDatabaseHandler.Add(_twitchID, CurrencyToAdd);
             }
 
             if (WriteInChat)
@@ -42,7 +45,7 @@ namespace Aiva.Bot.ViewModels.Flyouts {
         /// </summary>
         private void SendMessageInChat() {
             Core.Client.Internal.Chat.SendMessage(
-                $"@{Username} was added {CurrencyToAdd} currency! Nice Song, dude!");
+                $"@{_username} was added {CurrencyToAdd} currency! Nice Song, dude!");
         }
     }
 }

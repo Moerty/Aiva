@@ -4,7 +4,7 @@ using TwitchLib;
 using System;
 using Aiva.Core.Models;
 
-namespace Aiva.Core.Database {
+namespace Aiva.Core.DatabaseHandlers {
     public class Users {
 
         /// <summary>
