@@ -14,7 +14,15 @@ namespace Aiva.Bot.Internal {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
 
             var converted = (Drawing.Color)value;
-            var color = Drawing.Color.FromArgb(converted.A, converted.R, converted.G, converted.B);
+
+            Drawing.Color color;
+            if (converted.IsEmpty) {
+                Random rnd = new Random();
+                color = Drawing.Color.FromArgb(rnd.Next(255), rnd.Next(255), rnd.Next(255), rnd.Next(255));
+            } else {
+                color = Drawing.Color.FromArgb(converted.A, converted.R, converted.G, converted.B);
+            }
+
             return new SolidColorBrush(Color.FromArgb(color.A, color.R, color.G, color.B));
         }
 

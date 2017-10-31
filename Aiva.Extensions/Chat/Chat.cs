@@ -19,12 +19,12 @@ namespace Aiva.Extensions.Chat {
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Chat {
 
-        public ObservableCollection<Models.Chat.Messages> Messages { get; set; }
+        public ObservableCollection<Models.Chat.MessageModel> Messages { get; set; }
         public ObservableCollection<Models.Chat.Viewers> Viewers { get; set; }
         public Models.Chat.Viewers SelectedViewer { get; set; }
 
         public Chat() {
-            Messages = new ObservableCollection<Models.Chat.Messages>();
+            Messages = new ObservableCollection<Models.Chat.MessageModel>();
             Viewers = new ObservableCollection<Models.Chat.Viewers>();
             Messages.CollectionChanged += MessagesCountCheck;
             Core.AivaClient.Instance.AivaTwitchClient.OnMessageReceived += ChatMessageReceived;
@@ -128,25 +128,29 @@ namespace Aiva.Extensions.Chat {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ChatMessageReceived(object sender, OnMessageReceivedArgs e) {
-            var rnd = new Random();
-            var AddModel = new Models.Chat.Messages {
-                IsUserMod = e.ChatMessage.IsModerator,
-                IsUserSub = e.ChatMessage.IsSubscriber,
-                TwitchID = e.ChatMessage.UserId,
-                Username = e.ChatMessage.Username,
-                Message = e.ChatMessage.Message,
-                TimeStamp = DateTime.Now,
+
+            var message = new Models.Chat.MessageModel {
+                Color = e.ChatMessage.Color.IsEmpty ? GetChatColor(e.ChatMessage.UserId) : e.ChatMessage.Color,
+                DisplayName = e.ChatMessage.DisplayName,
                 IsBroadcaster = e.ChatMessage.IsBroadcaster,
-                Color = e.ChatMessage.Color.IsEmpty ? GetChatColor(e.ChatMessage.UserId) : e.ChatMessage.Color
+                IsMe = e.ChatMessage.IsMe,
+                IsModerator = e.ChatMessage.IsModerator,
+                IsSubscriber = e.ChatMessage.IsSubscriber,
+                IsTurbo = e.ChatMessage.IsTurbo,
+                Message = e.ChatMessage.Message,
+                SubscribedMonthCount = e.ChatMessage.SubscribedMonthCount,
+                UserId = e.ChatMessage.UserId,
+                Username = e.ChatMessage.Username,
+                UserType = e.ChatMessage.UserType,
             };
 
             Application.Current.Dispatcher.Invoke(() => {
-                Messages.Add(AddModel);
+                Messages.Add(message);
             });
 
 
             // Save in Database
-            StoreIndatabase(AddModel);
+            StoreIndatabase(e.ChatMessage.UserId, e.ChatMessage.Message, DateTime.Now);
         }
 
         private Color GetChatColor(string userId) {
@@ -164,13 +168,13 @@ namespace Aiva.Extensions.Chat {
         /// Store Message in Database
         /// </summary>
         /// <param name="AddModel"></param>
-        private static void StoreIndatabase(Models.Chat.Messages AddModel) {
+        private static void StoreIndatabase(string twitchId, string chatMessage, DateTime timeStamp) {
             using (var context = new Core.Storage.StorageEntities()) {
                 context.Chat.Add(
                     new Core.Storage.Chat {
-                        TwitchID = AddModel.TwitchID,
-                        ChatMessage = AddModel.Message,
-                        Timestamp = AddModel.TimeStamp,
+                        TwitchID = twitchId,
+                        ChatMessage = chatMessage,
+                        Timestamp = timeStamp,
                     });
 
                 context.SaveChanges();
@@ -193,14 +197,7 @@ namespace Aiva.Extensions.Chat {
         /// <param name="message"></param>
         private static void AddMessageToDatabase(string message) {
             // Database
-            StoreIndatabase(new Models.Chat.Messages {
-                TimeStamp = DateTime.Now,
-                TwitchID = Core.AivaClient.Instance.TwitchID,
-                IsUserMod = true,
-                IsUserSub = false,
-                Message = message,
-                Username = Core.AivaClient.Instance.Username
-            });
+            StoreIndatabase(Core.AivaClient.Instance.TwitchID, message, DateTime.Now);
         }
 
         /// <summary>
@@ -208,15 +205,15 @@ namespace Aiva.Extensions.Chat {
         /// </summary>
         /// <param name="message"></param>
         private void PutMessageInList(string message) {
-            Messages.Add(
-                            new Models.Chat.Messages {
-                                IsUserMod = true,
-                                IsUserSub = false,
-                                TimeStamp = DateTime.Now,
-                                Message = message,
-                                TwitchID = Core.AivaClient.Instance.TwitchID,
-                                Username = Core.AivaClient.Instance.Username
-                            });
+            Messages.Add(new Models.Chat.MessageModel {
+                DisplayName = Core.AivaClient.Instance.Username,
+                IsMe = true,
+                IsBroadcaster = true,
+                IsModerator = true,
+                Message = message,
+                Username = Core.AivaClient.Instance.Username,
+                UserId = Core.AivaClient.Instance.TwitchID,
+            });
         }
     }
 }

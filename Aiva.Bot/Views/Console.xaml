@@ -51,8 +51,8 @@
             <ItemsControl ItemsSource="{Binding ChatHandler.Messages}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Background="LightGray" TextWrapping="Wrap">
-                            <Run Text="{Binding TimeStamp, StringFormat='{}{0: HH:mm:ss}'}" />
+                        <TextBlock Background="GhostWhite" TextWrapping="Wrap">
+                            <Run Text="{Binding Timestamp, StringFormat='{}{0: HH:mm:ss}'}" />
                             <Separator />
                             <InlineUIContainer>
                                 <Image
@@ -71,10 +71,44 @@
                                     </Image.Style>
                                 </Image>
                             </InlineUIContainer>
+                            <InlineUIContainer>
+                                <Image
+                                    Width="18"
+                                    Height="18"
+                                    Source="pack://application:,,,/Images/moderator_symbol.png">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Visibility" Value="Hidden" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsModerator}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </InlineUIContainer>
+                            <InlineUIContainer>
+                                <Image
+                                    Width="18"
+                                    Height="18"
+                                    Source="pack://application:,,,/Images/turbo_symbol.png">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Visibility" Value="Hidden" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsTurbo}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </InlineUIContainer>
                             <Separator />
-                            <Run Foreground="{Binding Path=Color, Converter={StaticResource colorConverter}}" Text="{Binding Path=Username, StringFormat={}{0}:}" />
+                            <Run Foreground="{Binding Color, Converter={StaticResource colorConverter}}" Text="{Binding Username, StringFormat={}{0}:}" />
                             <Separator />
-                            <Run FontWeight="Bold" Text="{Binding Path=Message}" />
+                            <Run FontWeight="Bold" Text="{Binding Message}" />
                         </TextBlock>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
