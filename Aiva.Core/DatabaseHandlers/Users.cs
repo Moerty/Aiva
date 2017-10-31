@@ -75,10 +75,19 @@ namespace Aiva.Core.DatabaseHandlers {
             /// </summary>
             /// <param name="sender"></param>
             /// <param name="e"></param>
-            internal static void AddUserToDatabase(object sender, OnNewUserFoundArgs e) {
+            internal static void AddUserToDatabase(object sender, OnExistingUsersDetectedArgs e) {
                 e.Users.ForEach(user => {
-                    AddUserToDatabase(user);
+                    var twitchUser = TwitchAPI.Users.v5.GetUserByNameAsync(user).Result;
+                    AddUserToDatabase(twitchUser.Matches[0]);
                 });
+            }
+
+            internal static void AddUserToDatabase(object sender, OnUserJoinedArgs e) {
+                var twitchUser = TwitchAPI.Users.v5.GetUserByNameAsync(e.Username).Result;
+
+                if(twitchUser != null) {
+                    AddUserToDatabase(twitchUser.Matches[0]);
+                }
             }
         }
 

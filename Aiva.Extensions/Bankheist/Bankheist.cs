@@ -74,9 +74,7 @@ namespace Aiva.Extensions.Bankheist {
         /// Payout
         /// </summary>
         internal void PayOut() {
-            int SuccessRate;
-            double WinningMultiplicator;
-            GetBankheistPayoutDetails(out SuccessRate, out WinningMultiplicator);
+            GetBankheistPayoutDetails(out int SuccessRate, out double WinningMultiplicator);
 
             var Winners = new List<Core.Models.DatabaseCurrencyModel.ListCurrencyUpdate>();
             var Loosers = new List<Core.Models.DatabaseCurrencyModel.ListCurrencyUpdate>();
