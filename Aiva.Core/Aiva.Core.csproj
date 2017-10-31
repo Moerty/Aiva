@@ -56,7 +56,6 @@
     <Compile Include="Client\Internal\Commands.cs" />
     <Compile Include="Client\Internal\Currency.cs" />
     <Compile Include="Client\TwitchAuthentication.cs" />
-    <Compile Include="DatabaseHandlers\Timers.cs" />
     <Compile Include="Client\Internal\Stream.cs" />
     <Compile Include="Client\Tasks\ChatChecker.cs" />
     <Compile Include="Client\Tasks\Tasks.cs" />

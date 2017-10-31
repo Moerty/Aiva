@@ -138,7 +138,6 @@
     <Compile Include="Models\MainWindow.cs" />
     <Compile Include="ViewModels\Giveaway.cs" />
     <Compile Include="ViewModels\Setup.cs" />
-    <Compile Include="ViewModels\Timers.cs" />
     <Compile Include="ViewModels\Commands.cs" />
     <Compile Include="ViewModels\Flyouts\HonorSongrequester.cs" />
     <Compile Include="ViewModels\Flyouts\UsersInfoVM.cs" />
@@ -151,9 +150,6 @@
     </Compile>
     <Compile Include="Views\Setup.xaml.cs">
       <DependentUpon>Setup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Timers.xaml.cs">
-      <DependentUpon>Timers.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Commands.xaml.cs">
       <DependentUpon>Commands.xaml</DependentUpon>
@@ -208,10 +204,6 @@
     <Page Include="Views\Setup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Timers.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Commands.xaml">
       <SubType>Designer</SubType>

@@ -75,10 +75,6 @@ namespace Aiva.Bot.ViewModels {
                         Content = new Views.Commands()
                     },
                     new Models.MainWindow.TabItemsModel {
-                        Header = "Timers",
-                        Content = new Views.Timers(),
-                    },
-                    new Models.MainWindow.TabItemsModel {
                         Header = "Giveaway",
                         Content = new Views.Giveaway(),
                     }
