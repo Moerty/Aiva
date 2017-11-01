@@ -62,12 +62,18 @@ namespace Aiva.Core.Client.Internal {
                         _addCurrencyDatabaseHandler = new DatabaseHandlers.Currency.AddCurrency();
                     }
 
-                    public void AddCurrencyToUser(OnChatCommandReceivedArgs e) {
+                    public async void AddCurrencyToUser(OnChatCommandReceivedArgs e) {
                         if (e.Command.ChatMessage.UserType != TwitchLib.Enums.UserType.Viewer ||
                             e.Command.ChatMessage.UserType != TwitchLib.Enums.UserType.Staff) {
 
                             if (int.TryParse(e.Command.ArgumentsAsList[1], out int value)) {
-                                _addCurrencyDatabaseHandler.Add(e.Command.ChatMessage.UserId, value);
+
+                                var user = await TwitchLib.TwitchAPI.Users.v5.GetUserByNameAsync(e.Command.ArgumentsAsList[0]);
+
+                                if (user != null && user.Total > 0) {
+                                    _addCurrencyDatabaseHandler.Add(user.Matches[0].Id, value);
+                                    Core.AivaClient.Instance.AivaTwitchClient.SendMessage($"@{e.Command.ChatMessage.DisplayName} : {user.Matches[0].DisplayName} added {e.Command.ArgumentsAsList[1]} currency!");
+                                }
                             }
                         }
                     }
