@@ -51,13 +51,15 @@
         </EntityType>
         <EntityType Name="Timers">
           <Key>
-            <PropertyRef Name="Name" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Text" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="ModifiedAt" Type="datetime" />
           <Property Name="Interval" Type="integer" Nullable="false" />
+          <Property Name="NextExecution" Type="datetime" />
         </EntityType>
         <EntityType Name="TimeWatched">
           <Key>
@@ -271,13 +273,15 @@
         </EntityType>
         <EntityType Name="Timers">
           <Key>
-            <PropertyRef Name="Name" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Text" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" />
           <Property Name="ModifiedAt" Type="DateTime" />
           <Property Name="Interval" Type="Int64" Nullable="false" />
+          <Property Name="NextExecution" Type="DateTime" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -359,11 +363,13 @@
           <EntitySetMapping Name="Timers">
             <EntityTypeMapping TypeName="StorageModel.Timers">
               <MappingFragment StoreEntitySet="Timers">
+                <ScalarProperty Name="NextExecution" ColumnName="NextExecution" />
                 <ScalarProperty Name="Interval" ColumnName="Interval" />
                 <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

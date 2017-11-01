@@ -130,6 +130,7 @@
     <Compile Include="Songrequest\Song.cs" />
     <Compile Include="Songrequest\SongrequestHandler.cs" />
     <Compile Include="Songrequest\YouTubeAuthenticator.cs" />
+    <Compile Include="Timers\Handler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

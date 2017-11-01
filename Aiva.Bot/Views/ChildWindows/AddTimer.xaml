@@ -12,7 +12,7 @@
     AllowMove="False"
     BorderBrush="{DynamicResource AccentBaseColorBrush}"
     BorderThickness="1"
-    ChildWindowHeight="199"
+    ChildWindowHeight="308"
     ChildWindowWidth="252"
     EnableDropShadow="True"
     GlowBrush="{DynamicResource AccentColorBrush}"
@@ -21,33 +21,48 @@
     ShowTitleBar="True"
     mc:Ignorable="d">
 
-    <Grid Height="162">
+    <Grid>
         <StackPanel Orientation="Vertical">
             <TextBox
                 Width="250"
-                Height="10"
+                Height="15"
                 controls:TextBoxHelper.Watermark="Name..."
                 Text="{Binding Name}" />
             <Separator />
             <TextBox
                 Width="250"
-                Height="20"
+                Height="135"
                 controls:TextBoxHelper.Watermark="Message..."
-                Text="{Binding Text}" />
+                AcceptsReturn="True"
+                AcceptsTab="True"
+                Text="{Binding Text}"
+                TextWrapping="Wrap" />
             <Separator />
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Interval" />
                 <Slider
+                    controls:SliderHelper.ChangeValueBy="SmallChange"
+                    controls:SliderHelper.EnableMouseWheel="MouseHover"
+                    IsSnapToTickEnabled="True"
                     Maximum="60"
                     Minimum="1"
+                    Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
+                    TickFrequency="1"
+                    TickPlacement="BottomRight"
                     Value="{Binding Interval}" />
             </StackPanel>
             <Separator />
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Chat Lines" />
                 <Slider
-                    Maximum="60"
+                    controls:SliderHelper.ChangeValueBy="SmallChange"
+                    controls:SliderHelper.EnableMouseWheel="MouseHover"
+                    IsSnapToTickEnabled="True"
+                    Maximum="4"
                     Minimum="1"
+                    Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
+                    TickFrequency="1"
+                    TickPlacement="BottomRight"
                     Value="{Binding Lines}" />
             </StackPanel>
             <Grid>
