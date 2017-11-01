@@ -6,115 +6,97 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Aiva.Bot.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="clr-namespace:Aiva.Extensions.Models;assembly=Aiva.Extensions"
     xmlns:mvvm="clr-namespace:Aiva.Bot.ViewModels"
     Width="720"
     Height="470"
     d:DataContext="{d:DesignInstance d:Type=mvvm:Timers}"
     mc:Ignorable="d">
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="134*" />
-            <RowDefinition Height="337*" />
+            <RowDefinition Height="107*" />
+            <RowDefinition Height="364*" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <StackPanel Orientation="Vertical">
-                <StackPanel
+            <StackPanel
+                Margin="0,10,10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Orientation="Horizontal">
+                <Button
+                    Grid.Row="0"
+                    Width="50"
                     Height="50"
-                    VerticalAlignment="Top"
-                    Orientation="Horizontal">
-                    <TextBox
-                        Width="200"
-                        Height="23"
-                        controls:TextBoxHelper.AutoWatermark="True"
-                        controls:TextBoxHelper.Watermark="Command..."
-                        Text="{Binding AddModel.Timer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        TextWrapping="Wrap" />
-                    <TextBox
-                        Width="500"
-                        Height="23"
-                        Margin="10,0,0,0"
-                        controls:TextBoxHelper.AutoWatermark="True"
-                        controls:TextBoxHelper.Watermark="Text..."
-                        Text="{Binding AddModel.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Slider
-                        Width="200"
-                        Margin="20,0,0,0"
-                        controls:SliderHelper.ChangeValueBy="SmallChange"
-                        controls:SliderHelper.EnableMouseWheel="MouseHover"
-                        AutoToolTipPlacement="BottomRight"
-                        IsSnapToTickEnabled="True"
-                        Maximum="60"
-                        Minimum="1"
-                        TickPlacement="BottomRight"
-                        Value="{Binding AddModel.Interval}" />
-                    <CheckBox
-                        Width="80"
-                        Height="23"
-                        Content="Active"
-                        IsChecked="{Binding AddModel.Active}" />
-                    <CheckBox
-                        Width="80"
-                        Height="23"
-                        Content="Autoreset"
-                        IsChecked="{Binding AddModel.Autoreset}" />
-                </StackPanel>
-                <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
-                    <Button Command="{Binding AddCommand}">
-                        <Rectangle
-                            Width="16"
-                            Height="16"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Visibility="Visible">
-                            <Rectangle.Fill>
-                                <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_add}" />
-                            </Rectangle.Fill>
-                        </Rectangle>
-                    </Button>
-                    <Button Command="{Binding ResetAddCommand}">
-                        <Rectangle
-                            Width="16"
-                            Height="16"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Visibility="Visible">
-                            <Rectangle.Fill>
-                                <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_undo}" />
-                            </Rectangle.Fill>
-                        </Rectangle>
-                    </Button>
-                </StackPanel>
+                    Command="{Binding AddTimerCommand}">
+                    <Rectangle
+                        Width="30"
+                        Height="30"
+                        Visibility="Visible">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_add}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Button
+                    Grid.Row="0"
+                    Width="50"
+                    Height="50"
+                    Margin="10,0,0,0"
+                    Command="{Binding EditTimerCommand}">
+                    <Rectangle
+                        Width="30"
+                        Height="30"
+                        Visibility="Visible">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_edit}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Button
+                    Grid.Row="0"
+                    Width="50"
+                    Height="50"
+                    Margin="10,0,0,0"
+                    Command="{Binding RemoveTimerCommand}">
+                    <Rectangle
+                        Width="30"
+                        Height="30"
+                        Visibility="Visible">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_delete}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
             </StackPanel>
-            <Separator HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+
         </Grid>
         <Grid Grid.Row="1">
             <DataGrid
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
                 CanUserDeleteRows="False"
-                ItemsSource="{Binding Handler.Timers}">
+                CanUserResizeColumns="False"
+                ItemsSource="{Binding Handler.Timers}"
+                SelectedItem="{Binding Handler.SelectedTimer}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Index}" Header="ID" />
-                    <DataGridTextColumn Binding="{Binding Timer}" Header="Timer" />
+                    <DataGridTextColumn
+                        Width="100"
+                        Binding="{Binding Name}"
+                        Header="Name" />
+                    <DataGridTextColumn
+                        Width="70"
+                        Binding="{Binding Interval}"
+                        Header="Interval" />
+                    <DataGridTextColumn
+                        Width="100"
+                        Binding="{Binding NextExecution, StringFormat='HH:mm:ss'}"
+                        Header="Next" />
                     <DataGridTextColumn
                         Width="*"
                         Binding="{Binding Text}"
                         Header="Text" />
-                    <DataGridTextColumn Binding="{Binding CreatedDate, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" Header="Created Date" />
-                    <DataGridTextColumn Binding="{Binding ModifiedDate, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" Header="Modified Date" />
-                    <DataGridTextColumn Binding="{Binding ExecutionRight}" Header="User permission" />
-                    <DataGridTextColumn Binding="{Binding Count}" Header="Stacks" />
-                    <DataGridTextColumn Binding="{Binding LastExecution, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" Header="Last run" />
                 </DataGrid.Columns>
-                <DataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Delete" />
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
             </DataGrid>
         </Grid>
     </Grid>

@@ -14,14 +14,12 @@ namespace Aiva.Core.Storage
     
     public partial class Timers
     {
-        public long Index { get; set; }
-        public string Timer { get; set; }
+        public long ID { get; set; }
+        public string Name { get; set; }
         public string Text { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public Nullable<System.DateTime> ModifiedAt { get; set; }
         public long Interval { get; set; }
-        public Nullable<System.DateTime> LastExecution { get; set; }
-        public bool Autoreset { get; set; }
-        public bool Active { get; set; }
+        public Nullable<System.DateTime> NextExecution { get; set; }
     }
 }

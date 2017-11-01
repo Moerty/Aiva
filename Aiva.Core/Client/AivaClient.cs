@@ -74,13 +74,13 @@ namespace Aiva.Core {
             // TwitchClient
             var TwitchCredentials = new TwitchLib.Models.Client.ConnectionCredentials(Username, OAuthKey);
             AivaTwitchClient = new TwitchClient(
-                TwitchCredentials,
-                null,
-                Convert.ToChar(Config.Config.Instance["General"]["CommandIdentifier"]),
-                '@',
-                false, // Loggin
-                null, // logger
-                true); // ReListen when error occurs
+                credentials: TwitchCredentials,
+                channel: null,
+                chatCommandIdentifier: Convert.ToChar(Config.Config.Instance["General"]["CommandIdentifier"]),
+                whisperCommandIdentifier: '@',
+                logging: false,
+                logger: null,
+                autoReListenOnExceptions: true);
 
             Tasks = new Client.Tasks.Tasks();
             AivaTwitchClient = Tasks.SetTasks(AivaTwitchClient);

@@ -7,6 +7,7 @@ using Aiva.Core.Models;
 using TwitchLib.Events.Client;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 
 namespace Aiva.Extensions.Chat {
 
@@ -18,40 +19,59 @@ namespace Aiva.Extensions.Chat {
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Chat {
 
-        public ObservableCollection<Models.Chat.Messages> Messages { get; set; }
+        public ObservableCollection<Models.Chat.MessageModel> Messages { get; set; }
         public ObservableCollection<Models.Chat.Viewers> Viewers { get; set; }
         public Models.Chat.Viewers SelectedViewer { get; set; }
 
         public Chat() {
-            Messages = new ObservableCollection<Models.Chat.Messages>();
+            Messages = new ObservableCollection<Models.Chat.MessageModel>();
             Viewers = new ObservableCollection<Models.Chat.Viewers>();
             Messages.CollectionChanged += MessagesCountCheck;
             Core.AivaClient.Instance.AivaTwitchClient.OnMessageReceived += ChatMessageReceived;
             Core.AivaClient.Instance.Tasks.OnModeratorsReceivedEvent += ModeratorsReceived;
             Core.AivaClient.Instance.AivaTwitchClient.OnUserLeft += RemoveViewerFromViewers;
-            Core.Client.Internal.Users.OnNewUserFound += OnNewUserFound;
+            Core.AivaClient.Instance.AivaTwitchClient.OnUserJoined += AivaTwitchClient_OnUserJoined;
+            Core.AivaClient.Instance.AivaTwitchClient.OnExistingUsersDetected += AivaTwitchClient_OnExistingUsersDetected;
         }
 
-        private void OnNewUserFound(object sender, OnNewUserFoundArgs e) {
-
+        private void AivaTwitchClient_OnExistingUsersDetected(object sender, OnExistingUsersDetectedArgs e) {
             foreach (var user in e.Users) {
-                if (Viewers.Any(v => String.Compare(v.TwitchID, user.Id) == 0)) // check if user is already in List
-                    return;
+                var twitchUser = TwitchLib.TwitchAPI.Users.v5.GetUserByNameAsync(user).Result;
 
-                var IsUserSubscriber = TwitchLib.TwitchAPI.Subscriptions.v3.ChannelHasUserSubscribedAsync(Core.AivaClient.Instance.Channel, user.Name).Result;
-
-                Application.Current.Dispatcher.Invoke(() => {
-                    Viewers.Add(
-                        new Models.Chat.Viewers {
-                            Name = user.Name,
-                            TwitchID = user.Id,
-                            IsSub = IsUserSubscriber != null ? true : false,
-                            Type = IsUserSubscriber != null ? nameof(Models.Chat.SortDirectionListView.Subscriber)
-                                                : nameof(Models.Chat.SortDirectionListView.Viewer)
-                            //IsMod = will be filled from the event "ModeratoersReceived"
-                        });
-                });
+                if (twitchUser != null) {
+                    OnNewUserFound(twitchUser.Matches[0].Name, twitchUser.Matches[0].Id);
+                }
             }
+        }
+
+        private void AivaTwitchClient_OnUserJoined(object sender, OnUserJoinedArgs e) {
+            var twitchUser = TwitchLib.TwitchAPI.Users.v5.GetUserByNameAsync(e.Username).Result;
+
+            if (twitchUser != null) {
+                OnNewUserFound(twitchUser.Matches[0].Name, twitchUser.Matches[0].Id);
+            }
+        }
+
+        private void OnNewUserFound(string name, string id) {
+
+            if (Viewers.Any(v => String.Compare(v.TwitchID, id) == 0)) // check if user is already in List
+                return;
+
+            var IsUserSubscriber = TwitchLib.TwitchAPI.Subscriptions.v3.ChannelHasUserSubscribedAsync(Core.AivaClient.Instance.Channel, name).Result;
+
+            var rnd = new Random();
+            var viewer = new Models.Chat.Viewers {
+                Name = name,
+                TwitchID = id,
+                IsSub = IsUserSubscriber != null ? true : false,
+                Type = IsUserSubscriber != null ? nameof(Models.Chat.SortDirectionListView.Subscriber)
+                                            : nameof(Models.Chat.SortDirectionListView.Viewer),
+                ChatNameColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256))
+                //IsMod = will be filled from the event "ModeratoersReceived"
+            };
+
+            Application.Current.Dispatcher.Invoke(() => { Viewers.Add(viewer); });
+
 
             // Get Channel Moderators to fire "ModeratorsReceived"
             Core.AivaClient.Instance.AivaTwitchClient.GetChannelModerators(Core.AivaClient.Instance.Channel);
@@ -108,35 +128,52 @@ namespace Aiva.Extensions.Chat {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ChatMessageReceived(object sender, OnMessageReceivedArgs e) {
-            var AddModel = new Models.Chat.Messages {
-                IsUserMod = e.ChatMessage.IsModerator,
-                IsUserSub = e.ChatMessage.IsSubscriber,
-                TwitchID = e.ChatMessage.UserId,
-                Username = e.ChatMessage.Username,
+
+            var message = new Models.Chat.MessageModel {
+                Color = e.ChatMessage.Color.IsEmpty ? GetChatColor(e.ChatMessage.UserId) : e.ChatMessage.Color,
+                DisplayName = e.ChatMessage.DisplayName,
+                IsBroadcaster = e.ChatMessage.IsBroadcaster,
+                IsMe = e.ChatMessage.IsMe,
+                IsModerator = e.ChatMessage.IsModerator,
+                IsSubscriber = e.ChatMessage.IsSubscriber,
+                IsTurbo = e.ChatMessage.IsTurbo,
                 Message = e.ChatMessage.Message,
-                TimeStamp = DateTime.Now
+                SubscribedMonthCount = e.ChatMessage.SubscribedMonthCount,
+                UserId = e.ChatMessage.UserId,
+                Username = e.ChatMessage.Username,
+                UserType = e.ChatMessage.UserType,
             };
 
             Application.Current.Dispatcher.Invoke(() => {
-                Messages.Add(AddModel);
+                Messages.Add(message);
             });
 
-
             // Save in Database
-            StoreIndatabase(AddModel);
+            StoreIndatabase(e.ChatMessage.UserId, e.ChatMessage.Message, DateTime.Now);
+        }
+
+        private Color GetChatColor(string userId) {
+            var viewer = Viewers.SingleOrDefault(v => String.Compare(v.TwitchID, userId, true) == 0);
+
+            if (viewer != null) {
+                return viewer.ChatNameColor;
+            } else {
+                var rnd = new Random();
+                return Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+            }
         }
 
         /// <summary>
         /// Store Message in Database
         /// </summary>
         /// <param name="AddModel"></param>
-        private static void StoreIndatabase(Models.Chat.Messages AddModel) {
+        private static void StoreIndatabase(string twitchId, string chatMessage, DateTime timeStamp) {
             using (var context = new Core.Storage.StorageEntities()) {
                 context.Chat.Add(
                     new Core.Storage.Chat {
-                        TwitchID = AddModel.TwitchID,
-                        ChatMessage = AddModel.Message,
-                        Timestamp = AddModel.TimeStamp,
+                        TwitchID = twitchId,
+                        ChatMessage = chatMessage,
+                        Timestamp = timeStamp,
                     });
 
                 context.SaveChanges();
@@ -159,14 +196,7 @@ namespace Aiva.Extensions.Chat {
         /// <param name="message"></param>
         private static void AddMessageToDatabase(string message) {
             // Database
-            StoreIndatabase(new Models.Chat.Messages {
-                TimeStamp = DateTime.Now,
-                TwitchID = Core.AivaClient.Instance.TwitchID,
-                IsUserMod = true,
-                IsUserSub = false,
-                Message = message,
-                Username = Core.AivaClient.Instance.Username
-            });
+            StoreIndatabase(Core.AivaClient.Instance.TwitchID, message, DateTime.Now);
         }
 
         /// <summary>
@@ -174,15 +204,15 @@ namespace Aiva.Extensions.Chat {
         /// </summary>
         /// <param name="message"></param>
         private void PutMessageInList(string message) {
-            Messages.Add(
-                            new Models.Chat.Messages {
-                                IsUserMod = true,
-                                IsUserSub = false,
-                                TimeStamp = DateTime.Now,
-                                Message = message,
-                                TwitchID = Core.AivaClient.Instance.TwitchID,
-                                Username = Core.AivaClient.Instance.Username
-                            });
+            Messages.Add(new Models.Chat.MessageModel {
+                DisplayName = Core.AivaClient.Instance.Username,
+                IsMe = true,
+                IsBroadcaster = true,
+                IsModerator = true,
+                Message = message,
+                Username = Core.AivaClient.Instance.Username,
+                UserId = Core.AivaClient.Instance.TwitchID,
+            });
         }
     }
 }

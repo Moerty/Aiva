@@ -26,11 +26,14 @@
                 <PropertyGroupDescription PropertyName="Type" />
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
+
+        <helpers:ChatColorConverter x:Key="colorConverter" />
     </controls:MetroContentControl.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="570*" />
+            <ColumnDefinition Width="1" />
             <ColumnDefinition Width="150" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -48,12 +51,64 @@
             <ItemsControl ItemsSource="{Binding ChatHandler.Messages}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Background="LightGray" TextWrapping="Wrap">
-                            <Run Text="{Binding TimeStamp, StringFormat='{}{0: HH:mm:ss}'}" />
+                        <TextBlock Background="GhostWhite" TextWrapping="Wrap">
+                            <Run Text="{Binding Timestamp, StringFormat='{}{0: HH:mm:ss}'}" />
                             <Separator />
-                            <Run Text="{Binding Path=Username, StringFormat={}{0}:}" />
+                            <InlineUIContainer>
+                                <Image
+                                    Width="18"
+                                    Height="18"
+                                    Source="pack://application:,,,/Images/broadcaster_symbol.png">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Visibility" Value="Hidden" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsBroadcaster}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </InlineUIContainer>
+                            <InlineUIContainer>
+                                <Image
+                                    Width="18"
+                                    Height="18"
+                                    Source="pack://application:,,,/Images/moderator_symbol.png">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Visibility" Value="Hidden" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsModerator}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </InlineUIContainer>
+                            <InlineUIContainer>
+                                <Image
+                                    Width="18"
+                                    Height="18"
+                                    Source="pack://application:,,,/Images/turbo_symbol.png">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Visibility" Value="Hidden" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsTurbo}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </InlineUIContainer>
                             <Separator />
-                            <Run FontWeight="Bold" Text="{Binding Path=Message}" />
+                            <Run Foreground="{Binding Color, Converter={StaticResource colorConverter}}" Text="{Binding Username, StringFormat={}{0}:}" />
+                            <Separator />
+                            <Run FontWeight="Bold" Text="{Binding Message}" />
                         </TextBlock>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -68,7 +123,7 @@
 
         <ListView
             Name="lvUsers"
-            Grid.Column="1"
+            Grid.Column="3"
             ItemsSource="{Binding Source={StaticResource cvsViewers}}">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -180,8 +235,13 @@
         </TextBox>
         <Button
             Grid.Row="1"
-            Grid.Column="1"
+            Grid.Column="3"
             Command="{Binding SendMessageCommand}"
             Content="Send" />
+
+        <GridSplitter
+            Grid.Column="1"
+            Width="5"
+            HorizontalAlignment="Stretch" />
     </Grid>
 </controls:MetroContentControl>

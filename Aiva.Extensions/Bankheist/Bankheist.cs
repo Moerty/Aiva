@@ -14,9 +14,12 @@ namespace Aiva.Extensions.Bankheist {
         public List<Models.Bankheist.BankheistUserModel> UserList;
         public bool IsStarted { get; private set; }
 
+        private Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
+
         public Bankheist(Models.Bankheist.BankheistInitModel InitModel) {
             this.InitModel = InitModel;
             this.UserList = new List<Models.Bankheist.BankheistUserModel>();
+            _currencyDatabaseHandler = new Core.DatabaseHandlers.Currency();
 
             IsStarted = true;
         }
@@ -71,9 +74,7 @@ namespace Aiva.Extensions.Bankheist {
         /// Payout
         /// </summary>
         internal void PayOut() {
-            int SuccessRate;
-            double WinningMultiplicator;
-            GetBankheistPayoutDetails(out SuccessRate, out WinningMultiplicator);
+            GetBankheistPayoutDetails(out int SuccessRate, out double WinningMultiplicator);
 
             var Winners = new List<Core.Models.DatabaseCurrencyModel.ListCurrencyUpdate>();
             var Loosers = new List<Core.Models.DatabaseCurrencyModel.ListCurrencyUpdate>();
@@ -97,9 +98,9 @@ namespace Aiva.Extensions.Bankheist {
             }
 
             if (Winners.Any())
-                Core.Database.Currency.Add.AddCurrencyToUserList(Winners);
+                _currencyDatabaseHandler.Add.Add(Winners);
 
-            Core.Database.Currency.Remove.RemoveCurrencyToUserList(Loosers);
+            _currencyDatabaseHandler.Remove.Remove(Loosers);
         }
 
         /// <summary>

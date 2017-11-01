@@ -7,7 +7,14 @@ using TwitchLib.Events.Client;
 namespace Aiva.Extensions.Commands {
     public class CommandReceiver {
 
+        private Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
+        private Core.DatabaseHandlers.Commands _commandsDatabaseHandler;
+
         public CommandReceiver() {
+
+            _currencyDatabaseHandler = new Core.DatabaseHandlers.Currency();
+            _commandsDatabaseHandler = new Core.DatabaseHandlers.Commands();
+
             Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived += CommandReceived;
         }
 
@@ -92,7 +99,7 @@ namespace Aiva.Extensions.Commands {
 
             // currency
             if (stringToSend.Contains("%currency%")) {
-                var currency = Core.Database.Currency.GetCurrencyFromUser(args.Command.ChatMessage.UserId);
+                var currency = _currencyDatabaseHandler.GetCurrency(args.Command.ChatMessage.UserId);
                 if (!currency.HasValue) {
                     return; // return if this is a currency command and we dont have a currency value
                 } else {
@@ -103,7 +110,7 @@ namespace Aiva.Extensions.Commands {
             // stack
             if (stringToSend.Contains("%stack%")) {
                 stringToSend = stringToSend.Replace("%stack%", (command.Count + 1).ToString());
-                Task.Run(() => Core.Database.Commands.IncreaseCommandCount(command.Command));
+                Task.Run(() => _commandsDatabaseHandler.IncreaseCommandCount(command.Command));
             }
 
             // time

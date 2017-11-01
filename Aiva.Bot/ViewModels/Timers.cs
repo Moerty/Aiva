@@ -1,57 +1,104 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using MahApps.Metro.SimpleChildWindow;
+using System;
 using System.Collections.Generic;
-using System.Windows.Input;
 using System.Linq;
-using System.ComponentModel;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using MahApps.Metro.Controls.Dialogs;
+using System.Collections.ObjectModel;
 
 namespace Aiva.Bot.ViewModels {
 
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Timers {
+
         #region Models
-        public Extensions.Models.Timers.AddModel AddModel { get; set; }
-        public Extensions.Timers.TimersHandler Handler { get; set; }
 
-        public List<string> UserRightsItems { get; private set; } = Enum.GetNames(typeof(Extensions.Models.Commands.UserRights)).ToList();
+        public ICommand AddTimerCommand { get; set; }
+        public ICommand EditTimerCommand { get; set; }
+        public ICommand RemoveTimerCommand { get; set; }
 
-        public ICommand AddCommand { get; set; }
-        public ICommand ResetAddCommand { get; set; }
-        public ICommand DeleteCommand { get; set; }
-
-
+        public Extensions.Timers.Handler Handler { get; set; }
 
         #endregion Models
 
         #region Constructor
         public Timers() {
-            AddModel = new Extensions.Models.Timers.AddModel();
-            Handler = new Extensions.Timers.TimersHandler();
-
+            Handler = new Extensions.Timers.Handler();
             SetCommands();
         }
-
         #endregion Constructor
 
-        #region Commands
+        #region Methods
         /// <summary>
-        /// Init Commands
+        /// Set commands
         /// </summary>
         private void SetCommands() {
-            AddCommand = new Internal.RelayCommand(add => AddCommandToList(), add => !String.IsNullOrEmpty(AddModel.Timer) && !String.IsNullOrEmpty(AddModel.Text));
-            ResetAddCommand = new Internal.RelayCommand(reset => AddModel = new Extensions.Models.Timers.AddModel(), add => true);
-            DeleteCommand = new Internal.RelayCommand(d => Delete(), delete => Handler.SelectedTimer != null);
+            AddTimerCommand = new Internal.RelayCommand(async add => await ShowAddWindow());
+            EditTimerCommand = new Internal.RelayCommand(edit => EditTimer(), edit => Handler.SelectedTimer != null);
+            RemoveTimerCommand = new Internal.RelayCommand(remove => RemoveTimer(), remove => Handler.SelectedTimer != null);
+        }
+
+        private void RemoveTimer() => Handler.RemoveTimer();
+
+        /// <summary>
+        /// Show the child window
+        /// IMHO a giant hack against mvvm
+        /// </summary>
+        private async void EditTimer() {
+            var addTimerWindow = new Views.ChildWindows.AddTimer(Handler.SelectedTimer.Name, Handler.SelectedTimer.Text, (int)Handler.SelectedTimer.Interval, Handler.SelectedTimer.ID);
+            ((ViewModels.ChildWindows.AddTimer)addTimerWindow.DataContext).CloseEvent += (sender, EventArgs) => ClosingAddWindow(addTimerWindow);
+
+            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(addTimerWindow);
         }
 
         /// <summary>
-        /// Remove the selected Command from list and Database
+        /// Show that add child window
+        /// IMHO a giant hack against mvvm
         /// </summary>
-        private void Delete() => Handler.RemoveTimer();
+        /// <returns></returns>
+        private async Task ShowAddWindow() {
+            var addTimerWindow = new Views.ChildWindows.AddTimer() { IsModal = true, AllowMove = true };
+            ((ViewModels.ChildWindows.AddTimer)addTimerWindow.DataContext).CloseEvent += (sender, EventArgs) => ClosingAddWindow(addTimerWindow);
+            //addTimerWindow.Closing += (sender, CancelEventArgs) => ClosingAddWindow(addTimerWindow.DataContext);
+
+            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(addTimerWindow);
+        }
 
         /// <summary>
-        /// Add a Command to the List
+        /// Fires when add child window close
         /// </summary>
-        public void AddCommandToList() => Handler.AddTimerAsync(AddModel);
+        /// <param name="rawWindow"></param>
+        private void ClosingAddWindow(object rawWindow) {
+            Views.ChildWindows.AddTimer window;
+            ChildWindows.AddTimer dataContext;
 
-        #endregion Commands
+            if ((window = rawWindow as Views.ChildWindows.AddTimer) != null) {
+                if ((dataContext = window.DataContext as ChildWindows.AddTimer) != null) {
+                    if (dataContext.IsCompleted) {
+                        if (!dataContext.IsEditing) {
+                            var result = Handler.AddTimerToDatabase(dataContext.Name, dataContext.Text, dataContext.Interval, dataContext.Lines);
+                            if (result) {
+                                ShowConfirmWindow();
+                            }
+                        } else {
+                            Handler.EditTimer(dataContext.Name, dataContext.Text, dataContext.Interval, dataContext.Lines, dataContext.DatabaseID);
+                        }
+                    }
+                }
+
+                window.Close();
+            }
+        }
+
+        /// <summary>
+        /// Shows the confirm message for successfull
+        /// </summary>
+        private async void ShowConfirmWindow() => await ((MetroWindow)Application.Current.MainWindow).ShowMessageAsync("Successful", "Timer saved");
+
+        #endregion Methods
     }
 }

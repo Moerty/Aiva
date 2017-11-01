@@ -75,12 +75,12 @@ namespace Aiva.Bot.ViewModels {
                         Content = new Views.Commands()
                     },
                     new Models.MainWindow.TabItemsModel {
-                        Header = "Timers",
-                        Content = new Views.Timers(),
+                        Header = "Giveaway",
+                        Content = new Views.Giveaway()
                     },
                     new Models.MainWindow.TabItemsModel {
-                        Header = "Giveaway",
-                        Content = new Views.Giveaway(),
+                        Header = "Timers",
+                        Content = new Views.Timers()
                     }
                 }
             };

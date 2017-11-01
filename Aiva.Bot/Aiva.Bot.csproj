@@ -77,6 +77,9 @@
     <Reference Include="MahApps.Metro.IconPacks, Version=1.9.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.IconPacks.1.9.1\lib\net45\MahApps.Metro.IconPacks.dll</HintPath>
     </Reference>
+    <Reference Include="MahApps.Metro.SimpleChildWindow, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bbbfdff7f500a992, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.SimpleChildWindow.1.4.0\lib\net45\MahApps.Metro.SimpleChildWindow.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -98,9 +101,9 @@
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.105.2\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -133,16 +136,20 @@
     <Compile Include="Internal\RelayCommand.cs" />
     <Compile Include="Internal\ScrollViewerExtension.cs" />
     <Compile Include="Internal\TextBoxEnterKeyUpdateBehavior.cs" />
-    <Compile Include="Internal\ValueConverter.cs" />
+    <Compile Include="Internal\Converters.cs" />
     <Compile Include="Models\Commands.cs" />
     <Compile Include="Models\Console.cs" />
     <Compile Include="Models\MainWindow.cs" />
+    <Compile Include="ViewModels\ChildWindows\AddTimer.cs" />
+    <Compile Include="Views\ChildWindows\AddTimer.xaml.cs">
+      <DependentUpon>AddTimer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\Giveaway.cs" />
     <Compile Include="ViewModels\Setup.cs" />
-    <Compile Include="ViewModels\Timers.cs" />
     <Compile Include="ViewModels\Commands.cs" />
     <Compile Include="ViewModels\Flyouts\HonorSongrequester.cs" />
     <Compile Include="ViewModels\Flyouts\UsersInfoVM.cs" />
+    <Compile Include="ViewModels\Timers.cs" />
     <Compile Include="ViewModels\Users.cs" />
     <Compile Include="ViewModels\Console.cs" />
     <Compile Include="ViewModels\MainWindow.cs" />
@@ -152,9 +159,6 @@
     </Compile>
     <Compile Include="Views\Setup.xaml.cs">
       <DependentUpon>Setup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Timers.xaml.cs">
-      <DependentUpon>Timers.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Commands.xaml.cs">
       <DependentUpon>Commands.xaml</DependentUpon>
@@ -170,6 +174,9 @@
     </Compile>
     <Compile Include="Views\Songrequest.xaml.cs">
       <DependentUpon>Songrequest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Timers.xaml.cs">
+      <DependentUpon>Timers.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Users.xaml.cs">
       <DependentUpon>Users.xaml</DependentUpon>
@@ -202,6 +209,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ChildWindows\AddTimer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Giveaway.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -209,10 +220,6 @@
     <Page Include="Views\Setup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Timers.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Commands.xaml">
       <SubType>Designer</SubType>
@@ -231,6 +238,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Songrequest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Timers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -285,8 +296,21 @@
     <Resource Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\broadcaster_symbol.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\moderator_symbol.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\prime_symbol.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\turbo_symbol.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="lib\YoutubePlayerLib.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

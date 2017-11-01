@@ -44,10 +44,11 @@ namespace Aiva.Extensions.Giveaway {
         public ObservableCollection<Models.Giveaway> Winners { get; set; }
         public ObservableCollection<Models.Giveaway.Messages> Messages { get; set; }
 
-        private Timer EndTimer;
+        private Timer _endTimer;
+        private Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
 
         public GiveawayHandler() {
-
+            _currencyDatabaseHandler = new Core.DatabaseHandlers.Currency();
         }
 
         /// <summary>
@@ -163,7 +164,7 @@ namespace Aiva.Extensions.Giveaway {
                 }
 
                 // remove currency
-                Core.Database.Currency.Remove.RemoveCurrencyFromUser(e.Command.ChatMessage.UserId, Price);
+                _currencyDatabaseHandler.Remove.Remove(e.Command.ChatMessage.UserId, Price);
 
                 // add user to list
                 JoinedUsers.Add(
@@ -209,7 +210,7 @@ namespace Aiva.Extensions.Giveaway {
         /// <param name="userId">Twitch UserID</param>
         /// <returns>True -> Has enough | False -> Hasnt enough</returns>
         private bool CheckIfEnoughCurrency(string userId) {
-            var currency = Core.Database.Currency.GetCurrencyFromUser(userId);
+            var currency = _currencyDatabaseHandler.GetCurrency(userId);
 
             if (currency.HasValue) {
                 if (currency.Value >= Price) {
@@ -240,7 +241,7 @@ namespace Aiva.Extensions.Giveaway {
             JoinedUsers = new ObservableCollection<Models.Giveaway>();
             Winners = new ObservableCollection<Models.Giveaway>();
             Messages = new ObservableCollection<Models.Giveaway.Messages>();
-            EndTimer = null;
+            _endTimer = null;
             Core.AivaClient.Instance.AivaTwitchClient.OnMessageReceived -= ChatMessageReceived;
             Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived -= ChatCommandReceived;
             IsStarted = false;
@@ -251,11 +252,11 @@ namespace Aiva.Extensions.Giveaway {
         /// Set the Timer
         /// </summary>
         private void SetTimer() {
-            EndTimer = new Timer(60000) {
+            _endTimer = new Timer(60000) {
                 AutoReset = true
             }; // every minute
-            EndTimer.Elapsed += EndTimer_Elapsed;
-            EndTimer.Start();
+            _endTimer.Elapsed += EndTimer_Elapsed;
+            _endTimer.Start();
         }
 
         /// <summary>
@@ -267,7 +268,7 @@ namespace Aiva.Extensions.Giveaway {
             if (Timer != 0) {
                 Timer--;
             } else {
-                EndTimer.Stop();
+                _endTimer.Stop();
                 StopGiveaway();
             }
         }
