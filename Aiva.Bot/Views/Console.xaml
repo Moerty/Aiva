@@ -124,7 +124,8 @@
         <ListView
             Name="lvUsers"
             Grid.Column="3"
-            ItemsSource="{Binding Source={StaticResource cvsViewers}}">
+            ItemsSource="{Binding Source={StaticResource cvsViewers}}"
+            SelectedItem="{Binding ChatHandler.SelectedViewer}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
