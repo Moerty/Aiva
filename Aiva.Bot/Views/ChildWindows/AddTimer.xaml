@@ -1,0 +1,70 @@
+﻿<simpleChildWindow:ChildWindow
+    x:Class="Aiva.Bot.Views.ChildWindows.AddTimer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Aiva.Bot.Views.ChildWindows"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
+    Title="Add Timer"
+    AllowDrop="True"
+    AllowMove="False"
+    BorderBrush="{DynamicResource AccentBaseColorBrush}"
+    BorderThickness="1"
+    ChildWindowHeight="199"
+    ChildWindowWidth="252"
+    EnableDropShadow="True"
+    GlowBrush="{DynamicResource AccentColorBrush}"
+    IsOpen="True"
+    ShowCloseButton="True"
+    ShowTitleBar="True"
+    mc:Ignorable="d">
+
+    <Grid Height="162">
+        <StackPanel Orientation="Vertical">
+            <TextBox
+                Width="250"
+                Height="10"
+                controls:TextBoxHelper.Watermark="Name..."
+                Text="{Binding Name}" />
+            <Separator />
+            <TextBox
+                Width="250"
+                Height="20"
+                controls:TextBoxHelper.Watermark="Message..."
+                Text="{Binding Text}" />
+            <Separator />
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Interval" />
+                <Slider
+                    Maximum="60"
+                    Minimum="1"
+                    Value="{Binding Interval}" />
+            </StackPanel>
+            <Separator />
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Chat Lines" />
+                <Slider
+                    Maximum="60"
+                    Minimum="1"
+                    Value="{Binding Lines}" />
+            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*" />
+                    <ColumnDefinition Width="50*" />
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    Grid.Column="0"
+                    Command="{Binding SubmitCommand}"
+                    Content="Submit" />
+                <Button
+                    Grid.Column="1"
+                    Command="{Binding CancelCommand}"
+                    Content="Cancel" />
+            </Grid>
+        </StackPanel>
+    </Grid>
+</simpleChildWindow:ChildWindow>

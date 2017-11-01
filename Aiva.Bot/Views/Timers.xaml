@@ -1,0 +1,25 @@
+﻿<controls:MetroContentControl
+    x:Class="Aiva.Bot.Views.Timers"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Aiva.Bot.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mvvm="clr-namespace:Aiva.Bot.ViewModels"
+    Width="720"
+    Height="470"
+    d:DataContext="{d:DesignInstance d:Type=mvvm:Timers}"
+    mc:Ignorable="d">
+
+    <Grid>
+        <Button
+            Width="198"
+            Height="108"
+            Margin="126,136,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Command="{Binding AddTimerCommand}"
+            Content="Button" />
+    </Grid>
+</controls:MetroContentControl>

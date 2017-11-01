@@ -148,7 +148,6 @@ namespace Aiva.Extensions.Chat {
                 Messages.Add(message);
             });
 
-
             // Save in Database
             StoreIndatabase(e.ChatMessage.UserId, e.ChatMessage.Message, DateTime.Now);
         }

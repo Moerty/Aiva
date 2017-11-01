@@ -69,6 +69,7 @@
     <Compile Include="DatabaseHandlers\Chat.cs" />
     <Compile Include="DatabaseHandlers\Commands.cs" />
     <Compile Include="DatabaseHandlers\Currency.cs" />
+    <Compile Include="DatabaseHandlers\Timers.cs" />
     <Compile Include="DatabaseHandlers\Users.cs" />
     <Compile Include="Models\DatabaseCurrencyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

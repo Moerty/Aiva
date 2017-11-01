@@ -76,7 +76,11 @@ namespace Aiva.Bot.ViewModels {
                     },
                     new Models.MainWindow.TabItemsModel {
                         Header = "Giveaway",
-                        Content = new Views.Giveaway(),
+                        Content = new Views.Giveaway()
+                    },
+                    new Models.MainWindow.TabItemsModel {
+                        Header = "Timers",
+                        Content = new Views.Timers()
                     }
                 }
             };
