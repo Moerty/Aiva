@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Windows;
 using TwitchLib.Events.Client;
 
 namespace Aiva.Extensions.Giveaway {
@@ -12,37 +13,14 @@ namespace Aiva.Extensions.Giveaway {
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class GiveawayHandler {
 
-        private string _Command;
-        public string Command {
-            get {
-                return _Command;
-            }
-            set {
-                _Command = value.StartsWith("!") ? value : "!" + value;
-                _Command = _Command.TrimEnd('!');
-            }
-        }
-
-        public string Winner { get; set; }
-        public int Price { get; set; }
-        public int Timer { get; set; }
-        public int SubLuck { get; set; }
-
-        public bool BeFollower { get; set; } = true;
-        public bool NotifyWinner { get; set; } = true;
-        public bool RemoveWinnerFromList { get; set; } = true;
-        public bool BlockReEntry { get; set; } = true;
-
-        public bool IsTimerActive { get; set; }
-        public bool IsSubLuckActive { get; set; }
-
-        public bool IsStarted { get; set; }
-
-        public Models.JoinPermission SelectedJoinPermission { get; set; }
-
         public ObservableCollection<Models.Giveaway> JoinedUsers { get; set; }
         public ObservableCollection<Models.Giveaway> Winners { get; set; }
         public ObservableCollection<Models.Giveaway.Messages> Messages { get; set; }
+        public bool IsStarted { get; set; }
+        public bool IsTimerActive { get; set; }
+        public string Winner { get; set; }
+
+        public Models.Giveaway.Properties Properties;
 
         private Timer _endTimer;
         private Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
@@ -63,6 +41,15 @@ namespace Aiva.Extensions.Giveaway {
 
             if (IsTimerActive)
                 SetTimer();
+        }
+
+        /// <summary>
+        /// Stop all events
+        /// Stop from joining the giveaway
+        /// </summary>
+        public void StopRegistration() {
+            Core.AivaClient.Instance.AivaTwitchClient.OnMessageReceived -= ChatMessageReceived;
+            Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived -= ChatCommandReceived;
         }
 
         /// <summary>
@@ -99,8 +86,8 @@ namespace Aiva.Extensions.Giveaway {
             var tempList = new List<string>();
 
             foreach (var user in JoinedUsers) {
-                if (user.IsSub && IsSubLuckActive) {
-                    for (int i = 0; i < SubLuck; i++) {
+                if (user.IsSub && Properties.IsSubLuckActive) {
+                    for (int i = 0; i < Properties.SubLuck; i++) {
                         tempList.Add(user.Username);
                     }
                 } else {
@@ -115,10 +102,10 @@ namespace Aiva.Extensions.Giveaway {
 
             Winners.Add(joinedUsersWinnerEntry);
 
-            if (NotifyWinner)
+            if (Properties.NotifyWinner)
                 DoNotification(winner);
 
-            if (RemoveWinnerFromList)
+            if (Properties.RemoveWinnerFromList)
                 JoinedUsers.Remove(joinedUsersWinnerEntry);
         }
 
@@ -135,8 +122,8 @@ namespace Aiva.Extensions.Giveaway {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void ChatCommandReceived(object sender, TwitchLib.Events.Client.OnChatCommandReceivedArgs e) {
-            if (String.Compare(Command.TrimStart('!'), e.Command.CommandText, true) == 0) {
+        private async void ChatCommandReceived(object sender, OnChatCommandReceivedArgs e) {
+            if (String.Compare(Properties.Command.TrimStart('!'), e.Command.CommandText, true) == 0) {
 
                 if (HasUserAlreadyJoined(e.Command.ChatMessage.UserId)) {
                     return;
@@ -144,7 +131,7 @@ namespace Aiva.Extensions.Giveaway {
 
 
                 if (HasUserAlreadyWon(e.Command.ChatMessage.UserId)) {
-                    if (BlockReEntry)
+                    if (Properties.BlockReEntry)
                         return;
                 }
 
@@ -155,7 +142,7 @@ namespace Aiva.Extensions.Giveaway {
                 }
 
                 // Check if the User is a follower
-                if (BeFollower) {
+                if (Properties.BeFollower) {
                     var isFollowing = await TwitchLib.TwitchAPI.Users.v5.UserFollowsChannelAsync(e.Command.ChatMessage.UserId, Core.AivaClient.Instance.ChannelID);
 
                     if (!isFollowing) {
@@ -164,15 +151,18 @@ namespace Aiva.Extensions.Giveaway {
                 }
 
                 // remove currency
-                _currencyDatabaseHandler.Remove.Remove(e.Command.ChatMessage.UserId, Price);
+                _currencyDatabaseHandler.Remove.Remove(e.Command.ChatMessage.UserId, Properties.Price);
 
                 // add user to list
-                JoinedUsers.Add(
+                var isUserSub = await IsUserSub(e.Command.ChatMessage.Username);
+                Application.Current.Dispatcher.Invoke(() => {
+                    JoinedUsers.Add(
                     new Models.Giveaway {
                         Username = e.Command.ChatMessage.Username,
                         UserID = e.Command.ChatMessage.UserId,
-                        IsSub = await IsUserSub(e.Command.ChatMessage.Username),
+                        IsSub = isUserSub,
                     });
+                });
             }
         }
 
@@ -213,38 +203,12 @@ namespace Aiva.Extensions.Giveaway {
             var currency = _currencyDatabaseHandler.GetCurrency(userId);
 
             if (currency.HasValue) {
-                if (currency.Value >= Price) {
+                if (currency.Value >= Properties.Price) {
                     return true;
                 }
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// Reset values to standard
-        /// </summary>
-        public void Reset() {
-            Command = String.Empty;
-            Winner = String.Empty;
-            Price = 1;
-            Timer = 1;
-            SubLuck = 0;
-            BeFollower = true;
-            NotifyWinner = true;
-            RemoveWinnerFromList = true;
-            BlockReEntry = true;
-
-            IsTimerActive = false;
-            IsSubLuckActive = false;
-            SelectedJoinPermission = Models.JoinPermission.Everyone;
-            JoinedUsers = new ObservableCollection<Models.Giveaway>();
-            Winners = new ObservableCollection<Models.Giveaway>();
-            Messages = new ObservableCollection<Models.Giveaway.Messages>();
-            _endTimer = null;
-            Core.AivaClient.Instance.AivaTwitchClient.OnMessageReceived -= ChatMessageReceived;
-            Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived -= ChatCommandReceived;
-            IsStarted = false;
         }
 
         #region Timer
@@ -265,8 +229,8 @@ namespace Aiva.Extensions.Giveaway {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void EndTimer_Elapsed(object sender, ElapsedEventArgs e) {
-            if (Timer != 0) {
-                Timer--;
+            if (Properties.Timer != 0) {
+                Properties.Timer--;
             } else {
                 _endTimer.Stop();
                 StopGiveaway();

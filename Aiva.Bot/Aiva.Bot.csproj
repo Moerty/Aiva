@@ -140,7 +140,11 @@
     <Compile Include="Models\Commands.cs" />
     <Compile Include="Models\Console.cs" />
     <Compile Include="Models\MainWindow.cs" />
+    <Compile Include="ViewModels\ChildWindows\StartGiveaway.cs" />
     <Compile Include="ViewModels\ChildWindows\AddTimer.cs" />
+    <Compile Include="Views\ChildWindows\StartGiveaway.xaml.cs">
+      <DependentUpon>StartGiveaway.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ChildWindows\AddTimer.xaml.cs">
       <DependentUpon>AddTimer.xaml</DependentUpon>
     </Compile>
@@ -208,6 +212,10 @@
     <Page Include="Styles\TabControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChildWindows\StartGiveaway.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ChildWindows\AddTimer.xaml">
       <SubType>Designer</SubType>

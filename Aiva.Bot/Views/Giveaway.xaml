@@ -17,6 +17,15 @@
                                      IsDesignTimeCreatable=True}"
     mc:Ignorable="d">
 
+    <controls:MetroContentControl.Resources>
+        <Style
+            x:Key="JoinedUsersHeadersTemplate"
+            BasedOn="{StaticResource MetroDataGridColumnHeader}"
+            TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="TextBlock.Width" Value="{Binding ElementName=JoinedUsersGrid, Path=ActualWidth}" />
+        </Style>
+    </controls:MetroContentControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="317*" />
@@ -27,181 +36,112 @@
             <ColumnDefinition Width="89*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.RowSpan="2" Grid.Column="0">
-            <ListView ItemsSource="{Binding Handler.JoinedUsers, XPath=Username}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn />
-                    </GridView>
-                </ListView.View>
-            </ListView>
+        <Grid
+            x:Name="JoinedUsersGrid"
+            Grid.RowSpan="2"
+            Grid.Column="0">
+            <DataGrid
+                x:Name="JoinedUsers"
+                AutoGenerateColumns="False"
+                ColumnHeaderStyle="{StaticResource JoinedUsersHeadersTemplate}"
+                ItemsSource="{Binding Handler.JoinedUsers}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding Path=Username}"
+                        CanUserReorder="True"
+                        CanUserResize="True"
+                        CanUserSort="True"
+                        Header="Username"
+                        IsReadOnly="True" />
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
         <!--  http://www.c-sharpcorner.com/UploadFile/dpatra/customize-expander-control-in-wpf/  -->
         <Grid Grid.Column="1">
-            <TextBox
-                Width="504"
-                Height="22"
-                Margin="18,11,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                controls:TextBoxHelper.Watermark="Command"
-                IsReadOnly="{Binding Handler.IsStarted}"
-                Text="{Binding Handler.Command, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                TextWrapping="Wrap" />
 
-            <StackPanel
-                Width="90"
-                Margin="0,45,258,0"
-                HorizontalAlignment="Right"
+            <DockPanel
+                Height="100"
+                Margin="0,0,0,0"
+                HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
-                Orientation="Vertical">
-                <TextBlock Text="Price:" />
-                <controls:NumericUpDown
-                    Height="15"
-                    Culture="de-DE"
-                    HasDecimals="False"
-                    Interval="10"
-                    IsReadOnly="{Binding Handler.IsStarted}"
-                    Minimum="0"
-                    Value="{Binding Handler.Price}" />
-            </StackPanel>
-            <StackPanel
-                Width="150"
-                Height="50"
-                Margin="21,45,363,221"
-                Orientation="Vertical">
-                <TextBlock
-                    Width="108"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Text="Join permission"
-                    TextWrapping="Wrap" />
-                <ComboBox ItemsSource="{Binding Source={internal:EnumBindingSource {x:Type enums:JoinPermission}}}" SelectedValue="{Binding Handler.SelectedJoinPermission}" />
-            </StackPanel>
-            <StackPanel
-                Width="200"
-                Margin="19,107,315,82"
-                Orientation="Vertical">
-                <CheckBox
-                    Margin="0,10,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Must be following to win"
-                    IsChecked="{Binding Handler.BeFollower}" />
-                <CheckBox
-                    Margin="0,10,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Notify winner in chat"
-                    IsChecked="{Binding Handler.NotifyWinner}" />
-                <CheckBox
-                    Margin="0,10,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Remove winner from list"
-                    IsChecked="{Binding Handler.RemoveWinnerFromList}" />
-                <CheckBox
-                    Margin="0,10,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Block re-entry of previous winners"
-                    IsChecked="{Binding Handler.BlockReEntry}" />
-            </StackPanel>
-            <Button
-                Width="112"
-                Margin="216,274,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Content="Pick Winner" />
-            <ToggleButton
-                Name="StartStopButton"
-                Width="50"
-                Height="50"
-                Margin="70,254,414,12"
-                Style="{DynamicResource MetroCircleToggleButtonStyle}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Checked">
-                        <i:InvokeCommandAction Command="{Binding StartGiveawayCommand}" />
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="Unchecked">
-                        <i:InvokeCommandAction Command="{Binding StopGiveawayCommand}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <Rectangle
-                    Width="25"
-                    Height="25"
-                    Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}">
-                    <Rectangle.Style>
-                        <Style TargetType="{x:Type Rectangle}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsChecked, ElementName=StartStopButton}" Value="False">
-                                    <Setter Property="OpacityMask">
-                                        <Setter.Value>
-                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_control_play}" />
-                                        </Setter.Value>
-                                    </Setter>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding IsChecked, ElementName=StartStopButton}" Value="True">
-                                    <Setter Property="OpacityMask">
-                                        <Setter.Value>
-                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_control_stop}" />
-                                        </Setter.Value>
-                                    </Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Rectangle.Style>
-                </Rectangle>
-            </ToggleButton>
-            <Button
-                Width="117"
-                Margin="383,271,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Command="{Binding ResetCommand}"
-                Content="Reset" />
-            <Expander
-                Width="206"
-                Height="70"
-                Margin="308,159,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Header="Subscriber luck"
-                IsExpanded="{Binding Handler.IsSubLuckActive}">
-                <Slider
-                    controls:SliderHelper.ChangeValueBy="SmallChange"
-                    controls:SliderHelper.EnableMouseWheel="MouseHover"
-                    IsSnapToTickEnabled="True"
-                    Maximum="10"
-                    Minimum="1"
-                    Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
-                    TickFrequency="1"
-                    TickPlacement="BottomRight"
-                    Value="{Binding Handler.SubLuck}" />
-            </Expander>
+                LastChildFill="True">
+                <ToggleButton
+                    Width="80"
+                    Height="80"
+                    Margin="0,10,10,0"
+                    DockPanel.Dock="Left"
+                    IsChecked="{Binding Handler.IsStarted}"
+                    Style="{DynamicResource MetroCircleToggleButtonStyle}">
+                    <Rectangle
+                        Width="40"
+                        Height="40"
+                        Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_gift}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Checked">
+                            <i:InvokeCommandAction Command="{Binding StartGiveawayCommand}" />
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Unchecked">
+                            <i:InvokeCommandAction Command="{Binding StopGiveawayCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ToggleButton.ToolTip>
+                        <ToolTip Content="Start / Stop Giveaway" />
+                    </ToggleButton.ToolTip>
+                </ToggleButton>
 
-            <Expander
-                Width="206"
-                Height="64"
-                Margin="308,52,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Header="Timer (minutes)"
-                IsExpanded="{Binding Handler.IsTimerActive}">
-                <Slider
-                    Width="200"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    controls:SliderHelper.ChangeValueBy="SmallChange"
-                    controls:SliderHelper.EnableMouseWheel="MouseHover"
-                    IsSnapToTickEnabled="True"
-                    Maximum="30"
-                    Minimum="1"
-                    Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
-                    TickFrequency="1"
-                    TickPlacement="BottomRight"
-                    Value="{Binding Handler.Timer}" />
-            </Expander>
+                <Button
+                    Name="ResetButton"
+                    Width="80"
+                    Height="80"
+                    Margin="0,10,10,0"
+                    Command="{Binding ResetCommand}"
+                    DockPanel.Dock="Right"
+                    Opacity="100"
+                    Style="{DynamicResource MetroCircleButtonStyle}">
+                    <Rectangle
+                        Width="40"
+                        Height="40"
+                        Fill="Black">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_reset}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button.ToolTip>
+                        <ToolTip Content="Reset Giveaway" />
+                    </Button.ToolTip>
+                </Button>
+
+                <Button
+                    Name="GetWinnerButton"
+                    Width="80"
+                    Height="80"
+                    Margin="0,10,10,0"
+                    Command="{Binding GetWinnerCommand}"
+                    Opacity="100"
+                    Style="{DynamicResource MetroCircleButtonStyle}">
+                    <Rectangle
+                        Width="40"
+                        Height="40"
+                        Fill="Black">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_star_add}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button.ToolTip>
+                        <ToolTip Content="Select Winner" />
+                    </Button.ToolTip>
+                </Button>
+            </DockPanel>
+
+            <DockPanel
+                Height="200"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom" />
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="1">
