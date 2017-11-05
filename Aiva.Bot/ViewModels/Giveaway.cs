@@ -5,12 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Aiva.Bot.Views.ChildWindows;
+using MahApps.Metro.Controls;
+using System.Windows;
+using MahApps.Metro.SimpleChildWindow;
 
 namespace Aiva.Bot.ViewModels {
 
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Giveaway {
 
+        #region Models
         public Extensions.Giveaway.GiveawayHandler Handler { get; set; }
 
         public ICommand StartGiveawayCommand { get; set; }
@@ -18,24 +23,37 @@ namespace Aiva.Bot.ViewModels {
         public ICommand GetWinnerCommand { get; set; }
         public ICommand ResetCommand { get; set; }
 
+        #endregion Models
 
-
+        #region Constructor
         public Giveaway() {
-            Handler = new Extensions.Giveaway.GiveawayHandler();
             SetCommands();
         }
 
         private void SetCommands() {
-            StartGiveawayCommand = new Internal.RelayCommand(g => StartGiveaway(), g => CanStartGiveaway());
+            StartGiveawayCommand = new Internal.RelayCommand(g => StartGiveawaySetup(), g => Handler == null);
             StopGiveawayCommand = new Internal.RelayCommand(g => StopGiveaway(), g => CanStopGiveaway());
-            GetWinnerCommand = new Internal.RelayCommand(g => GetWinner(), g => CanGetWinner());
+            GetWinnerCommand = new Internal.RelayCommand(g => Handler.GetWinner(), g => CanGetWinner());
             ResetCommand = new Internal.RelayCommand(g => Reset());
         }
 
+        #endregion Constructor
+
+        #region Functions
+        /// <summary>
+        /// Resets the giveaway
+        /// </summary>
         private void Reset() {
-            Handler.Reset();
+            if (Handler != null) {
+                Handler.StopGiveaway();
+            }
+            Handler = null;
         }
 
+        /// <summary>
+        /// Checks if a winner get selected
+        /// </summary>
+        /// <returns></returns>
         private bool CanGetWinner() {
             if (Handler != null) {
                 if (Handler.JoinedUsers.Any()) {
@@ -44,10 +62,6 @@ namespace Aiva.Bot.ViewModels {
             }
 
             return false;
-        }
-
-        private void GetWinner() {
-            throw new NotImplementedException();
         }
 
         private bool CanStopGiveaway() {
@@ -60,19 +74,62 @@ namespace Aiva.Bot.ViewModels {
             return false;
         }
 
-        private void StopGiveaway() {
-            Handler.StopGiveaway();
+        /// <summary>
+        /// Stop the giveaway
+        /// prevent joining
+        /// </summary>
+        private void StopGiveaway() => Handler.StopRegistration();
+
+        /// <summary>
+        /// Start giveaway form
+        /// IMHO a giant hack against mvvm
+        /// </summary>
+        private async void StartGiveawaySetup() {
+            var startTimerWindow = new Views.ChildWindows.StartGiveaway() { IsModal = true, AllowMove = true };
+            ((ViewModels.ChildWindows.StartGiveaway)startTimerWindow.DataContext).CloseEvent += (sender, EventArgs) => CloseStartWindow(startTimerWindow);
+
+            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(startTimerWindow);
         }
 
-        private bool CanStartGiveaway() {
+        /// <summary>
+        /// Fires when the start giveaway form closed
+        /// </summary>
+        /// <param name="startTimerWindow"></param>
+        private void CloseStartWindow(StartGiveaway startTimerWindow) {
+            Views.ChildWindows.StartGiveaway window;
+            ChildWindows.StartGiveaway dataContext;
 
-            return
-                !String.IsNullOrEmpty(Handler.Command)
-                && Handler.Price > 0;
+            if ((window = startTimerWindow as Views.ChildWindows.StartGiveaway) != null) {
+                if ((dataContext = window.DataContext as ChildWindows.StartGiveaway) != null) {
+                    if (dataContext.IsCompleted) {
+                        StartGiveaway(dataContext);
+                    }
+                }
+
+                window.Close();
+            }
         }
 
-        private void StartGiveaway() {
+        /// <summary>
+        /// Creates the handler
+        /// </summary>
+        /// <param name="data"></param>
+        private void StartGiveaway(ChildWindows.StartGiveaway data) {
+            Handler = new Extensions.Giveaway.GiveawayHandler() {
+                Properties = new Extensions.Models.Giveaway.Properties {
+                    BeFollower = data.BeFollower,
+                    BlockReEntry = data.BlockReEntry,
+                    Command = data.Command,
+                    SubLuck = data.IsSubluckActive ? data.SubLuck : 1,
+                    IsSubLuckActive = data.IsSubluckActive,
+                    Price = data.Price,
+                    JoinPermission = data.SelectedJoinPermission
+                }
+            };
+
             Handler.StartGiveaway();
         }
+
+        #endregion Functions
     }
 }
