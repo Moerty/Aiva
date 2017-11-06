@@ -1,4 +1,4 @@
-﻿using MahApps.Metro.Controls;
+﻿using MahApps.Metro.SimpleChildWindow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Aiva.Bot.Views {
+namespace Aiva.Bot.Views.ChildWindows.Songrequest {
     /// <summary>
-    /// Interaktionslogik für Songrequest.xaml
+    /// Interaktionslogik für AddTimer.xaml
     /// </summary>
-    public partial class Songrequest : MetroContentControl {
-        public Songrequest() {
+    public partial class StartSongrequest : ChildWindow {
+        public StartSongrequest() {
             InitializeComponent();
-            this.DataContext = new ViewModels.Songrequest();
+            this.DataContext = new ViewModels.ChildWindows.Songrequest.StartSongrequest();
         }
     }
 }

@@ -122,6 +122,26 @@ namespace Aiva.Core.DatabaseHandlers {
         }
 
         /// <summary>
+        /// Checks if a user has enough currency
+        /// </summary>
+        /// <param name="twitchID"></param>
+        /// <param name="currencyToCheck"></param>
+        /// <returns></returns>
+        public bool HasUserEnoughCurrency(string twitchID, int currencyToCheck) {
+            using (var context = new Storage.StorageEntities()) {
+                var user = context.Users.SingleOrDefault(u => String.Compare(twitchID, u.Id, true) == 0);
+
+                if (user != null) {
+                    if (user.Currency.Value >= currencyToCheck) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Add User to Table Currency
         /// </summary>
         /// <param name="twitchID"></param>

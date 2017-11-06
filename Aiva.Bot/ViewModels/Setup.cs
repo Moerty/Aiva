@@ -61,7 +61,8 @@ namespace Aiva.Bot.ViewModels {
         }
 
         private void RequestGoogleAuth() {
-            IsYoutubeAuthenticated = Extensions.Songrequest.YouTubeAuthenticator.Authenticate();
+            var youtubeService = Core.Client.YoutubeConnector.CreateYouTubeService();
+            IsYoutubeAuthenticated = youtubeService != null;
         }
 
         private async void RequestTwitchOAuthKey() {
