@@ -92,14 +92,8 @@
     </controls:MetroWindow.Flyouts>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150" />
-            <ColumnDefinition Width="700*" />
-        </Grid.ColumnDefinitions>
-
         <controls:MetroTabControl
             Name="MainTabControl"
-            Grid.ColumnSpan="2"
             ItemsSource="{Binding Model.TabItems}"
             SelectedItem="{Binding SelectedTab}"
             Style="{StaticResource TabControlStyle}"
@@ -107,7 +101,6 @@
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <TextBlock
-                        Grid.Column="0"
                         Width="150"
                         Text="{Binding Header}" />
                 </DataTemplate>
@@ -115,7 +108,6 @@
             <TabControl.ContentTemplate>
                 <DataTemplate>
                     <controls:MetroContentControl
-                        Grid.Column="1"
                         Width="720"
                         Height="470"
                         Content="{Binding Content}" />
