@@ -26,47 +26,59 @@
                 Orientation="Horizontal">
                 <Button
                     Grid.Row="0"
-                    Width="50"
-                    Height="50"
-                    Command="{Binding AddTimerCommand}">
+                    Width="80"
+                    Height="80"
+                    Command="{Binding AddTimerCommand}"
+                    Style="{DynamicResource MetroCircleButtonStyle}">
                     <Rectangle
-                        Width="30"
-                        Height="30"
+                        Width="50"
+                        Height="50"
                         Visibility="Visible">
                         <Rectangle.Fill>
                             <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_add}" />
                         </Rectangle.Fill>
                     </Rectangle>
+                    <Button.ToolTip>
+                        <ToolTip Content="Add Timer" />
+                    </Button.ToolTip>
                 </Button>
                 <Button
                     Grid.Row="0"
-                    Width="50"
-                    Height="50"
+                    Width="80"
+                    Height="80"
                     Margin="10,0,0,0"
-                    Command="{Binding EditTimerCommand}">
+                    Command="{Binding EditTimerCommand}"
+                    Style="{DynamicResource MetroCircleButtonStyle}">
                     <Rectangle
-                        Width="30"
-                        Height="30"
+                        Width="50"
+                        Height="50"
                         Visibility="Visible">
                         <Rectangle.Fill>
                             <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_edit}" />
                         </Rectangle.Fill>
                     </Rectangle>
+                    <Button.ToolTip>
+                        <ToolTip Content="Edit Timer" />
+                    </Button.ToolTip>
                 </Button>
                 <Button
                     Grid.Row="0"
-                    Width="50"
-                    Height="50"
+                    Width="80"
+                    Height="80"
                     Margin="10,0,0,0"
-                    Command="{Binding RemoveTimerCommand}">
+                    Command="{Binding RemoveTimerCommand}"
+                    Style="{DynamicResource MetroCircleButtonStyle}">
                     <Rectangle
-                        Width="30"
-                        Height="30"
+                        Width="50"
+                        Height="50"
                         Visibility="Visible">
                         <Rectangle.Fill>
                             <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_delete}" />
                         </Rectangle.Fill>
                     </Rectangle>
+                    <Button.ToolTip>
+                        <ToolTip Content="Remove Timer" />
+                    </Button.ToolTip>
                 </Button>
             </StackPanel>
 

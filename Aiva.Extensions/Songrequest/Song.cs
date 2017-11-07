@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Google.Apis.YouTube.v3;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
@@ -12,14 +13,15 @@ namespace Aiva.Extensions.Songrequest {
         public TimeSpan Duration { get; set; }
         public string VideoID { get; set; }
         public string UserInput { get; set; }
-        public string Requester { get; set; }
         public bool IsPlaying { get; set; }
         public string Url { get; set; }
-        public string TwitchID { get; set; }
+        public bool FoundVideo;
 
-        public Song(string UserInput, string Username) {
+        private YouTubeService _youTubeService;
+
+        public Song(string UserInput) {
             this.UserInput = UserInput;
-            Requester = Username;
+            _youTubeService = Core.Client.YoutubeConnector.CreateYouTubeService();
             VideoID = ExtractVideoID();
             Url = "https://www.youtube.com/watch?v=" + VideoID;
 
@@ -30,7 +32,7 @@ namespace Aiva.Extensions.Songrequest {
         /// Get Videodetails from YouTube
         /// </summary>
         private void GetVideoDetails() {
-            var request = Player.Instance.YouTubeConnector.Videos.List("snippet,contentDetails");
+            var request = _youTubeService.Videos.List("snippet,contentDetails");
             request.Id = VideoID;
             var response = request.Execute();
 
@@ -39,6 +41,8 @@ namespace Aiva.Extensions.Songrequest {
 
                 Title = Video.Snippet.Title;
                 Duration = System.Xml.XmlConvert.ToTimeSpan(Video.ContentDetails.Duration);
+
+                FoundVideo = true;
             }
         }
 

@@ -61,14 +61,7 @@ namespace Aiva.Bot.ViewModels {
                     },
                     new Models.MainWindow.TabItemsModel {
                         Header = "Songrequest",
-                        Content = new Views.Songrequest(),
-                        Flyouts = new System.Collections.ObjectModel.ObservableCollection<Flyout> {
-                            new Flyout {
-                                Header = "Honor Requester",
-                                Content = new Views.Flyouts.HonorSongrequester(),
-                                Position = Position.Right
-                            }
-                        }
+                        Content = new Views.Songrequest()
                     },
                     new Models.MainWindow.TabItemsModel {
                         Header = "Commands",

@@ -1,79 +1,127 @@
-﻿using Aiva.Extensions.Songrequest;
-using MahApps.Metro.Controls;
-using System;
-using System.ComponentModel;
-using System.Linq;
+﻿using MahApps.Metro.Controls;
 using System.Windows.Input;
+using System.Windows;
+using MahApps.Metro.SimpleChildWindow;
+using System;
 
 namespace Aiva.Bot.ViewModels {
 
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Songrequest {
 
-        public ICommand AddCommand { get; set; }
+        #region Models
+
+        public ICommand StartSongrequestCommand { get; set; }
+        public ICommand StopSongrequestCommand { get; set; }
+        public ICommand AddSongCommand { get; set; }
+        public ICommand ResetSongrequestCommand { get; set; }
+        public ICommand NextSongCommand { get; set; }
         public ICommand PlaySongCommand { get; set; }
-        public ICommand HonorRequesterCommand { get; set; }
-        public ICommand DeleteCommand { get; set; }
 
-        public string AddYoutubeUrl { get; set; }
-        public string AddPlaylistUrl { get; set; }
+        public Extensions.Songrequest.Handler Handler { get; set; }
 
-        public SongrequestHandler Handler { get; set; }
+        #endregion Models
 
+        #region Constructor
         public Songrequest() {
-            Handler = new SongrequestHandler();
+            SetCommands();
+        }
 
-            var type = new MetroContentControl().GetType();
-            AddCommand = new Internal.RelayCommand(add => AddSongToPlaylist(), add => !String.IsNullOrEmpty(AddYoutubeUrl) || !String.IsNullOrEmpty(AddPlaylistUrl));
-            PlaySongCommand = new Internal.RelayCommand(p => PlaySong(), p => Handler.Player.SongList.Any());
-            HonorRequesterCommand = new Internal.RelayCommand(h => HonorRequester(), p => Handler.Player.SelectedSong != null);
-            DeleteCommand = new Internal.RelayCommand(d => DeleteSong(), d => Handler.Player.SelectedSong != null);
+        private void SetCommands() {
+            StartSongrequestCommand = new Internal.RelayCommand(start => StartSongrequestSetup());
+            StopSongrequestCommand = new Internal.RelayCommand(stop => StopRegisterSongrequest());
+            AddSongCommand = new Internal.RelayCommand(add => AddSong(), add => Handler != null);
+            ResetSongrequestCommand = new Internal.RelayCommand(reset => Handler = null);
+            NextSongCommand = new Internal.RelayCommand(next => NextSong(), next => Handler != null && Handler.SongList.Count > 0);
+            PlaySongCommand = new Internal.RelayCommand(play => PlaySong());
+        }
+
+        private void PlaySong() => Handler.PlaySelectedSong();
+
+        /// <summary>
+        /// Plays the next song
+        /// </summary>
+        private void NextSong() => Handler.NextSong();
+
+        #endregion Constructor
+
+        #region Functions
+
+        /// <summary>
+        /// start the window to add a song
+        /// </summary>
+        private async void AddSong() {
+            var startAddWindow = new Views.ChildWindows.Songrequest.AddSong() { IsModal = true, AllowMove = true };
+            ((ChildWindows.Songrequest.AddSong)startAddWindow.DataContext).CloseEvent += (sender, EventArgs) => CloseAddWindow(startAddWindow);
+
+            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(startAddWindow);
         }
 
         /// <summary>
-        /// Delete selected Song
+        /// Fires then the "add song window" is closed
         /// </summary>
-        private void DeleteSong() => Handler.Player.DeleteSongFromPlaylist();
+        /// <param name="startTimerWindow"></param>
+        private void CloseAddWindow(Views.ChildWindows.Songrequest.AddSong startTimerWindow) {
+            Views.ChildWindows.Songrequest.AddSong window;
+            ChildWindows.Songrequest.AddSong dataContext;
 
-        /// <summary>
-        /// Open HonorRequester Flyout
-        /// </summary>
-        private void HonorRequester() {
+            if ((window = startTimerWindow as Views.ChildWindows.Songrequest.AddSong) != null) {
+                if ((dataContext = window.DataContext as ChildWindows.Songrequest.AddSong) != null) {
+                    if (dataContext.IsCompleted) {
+                        Handler.AddSong(dataContext.Video, dataContext.InstantStart);
+                    }
+                }
 
-            MainWindow.Instance.SelectedTab.Flyouts[0].DataContext = new Flyouts.HonorSongrequester(Handler.Player.SelectedSong.Requester, Handler.Player.SelectedSong.TwitchID);
-            MainWindow.Instance.SelectedTab.Flyouts[0].IsOpen = true;
-        }
-
-        /// <summary>
-        /// Add Song to Playlist
-        /// </summary>
-        private void AddSongToPlaylist() {
-            if (!String.IsNullOrEmpty(AddYoutubeUrl)) {
-                Handler.AddSong(AddYoutubeUrl, Core.AivaClient.Instance.Username, Core.AivaClient.Instance.TwitchID);
-                AddYoutubeUrl = String.Empty;
-            } else {
-                Handler.AddPlaylist(AddPlaylistUrl);
-                AddPlaylistUrl = String.Empty;
+                window.Close();
             }
         }
 
         /// <summary>
-        /// Play clicked song
+        /// Stop a viewer to register a new song
         /// </summary>
-        private void PlaySong() {
-            Handler.Player.PlayedSong = Handler.Player.SelectedSong;
+        private void StopRegisterSongrequest() => Handler.StopRegistration();
 
-            if (Handler.Player.PlayedSong != null) {
+        /// <summary>
+        /// Start giveaway form
+        /// IMHO a giant hack against mvvm
+        /// </summary>
+        private async void StartSongrequestSetup() {
+            var startSongrequestWindow = new Views.ChildWindows.Songrequest.StartSongrequest() { IsModal = true, AllowMove = true };
+            ((ChildWindows.Songrequest.StartSongrequest)startSongrequestWindow.DataContext).CloseEvent += (sender, EventArgs) => CloseStartWindow(startSongrequestWindow);
 
-                // Inform User
-                SongrequestHandler.SendStartSongMessage
-                    ($"Start Song \"{Handler.Player.PlayedSong.Title}\". Desired by @{Handler.Player.PlayedSong.Requester}. Link: {Handler.Player.PlayedSong.Url}");
+            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(startSongrequestWindow);
+        }
 
-                Handler.Player.SongList.ToList().ForEach(x => x.IsPlaying = false);
+        /// <summary>
+        /// Fires when the start giveaway form closed
+        /// </summary>
+        /// <param name="startTimerWindow"></param>
+        private void CloseStartWindow(Views.ChildWindows.Songrequest.StartSongrequest startTimerWindow) {
+            Views.ChildWindows.Songrequest.StartSongrequest window;
+            ChildWindows.Songrequest.StartSongrequest dataContext;
 
-                Handler.Player.PlayedSong.IsPlaying = true;
+            if ((window = startTimerWindow as Views.ChildWindows.Songrequest.StartSongrequest) != null) {
+                if ((dataContext = window.DataContext as ChildWindows.Songrequest.StartSongrequest) != null) {
+                    if (dataContext.IsCompleted) {
+                        StartSongrequest(dataContext);
+                    }
+                }
 
+                window.Close();
             }
         }
+
+        /// <summary>
+        /// Starts the handler
+        /// </summary>
+        /// <param name="dataContext"></param>
+        private void StartSongrequest(ChildWindows.Songrequest.StartSongrequest dataContext) {
+            Handler = new Extensions.Songrequest.Handler {
+                Properties = dataContext.AddModel,
+                IsStarted = true
+            };
+        }
+
+        #endregion Functions
     }
 }

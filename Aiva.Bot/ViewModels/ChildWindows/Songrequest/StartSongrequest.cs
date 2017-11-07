@@ -1,25 +1,15 @@
 ﻿using Aiva.Extensions.Enums;
-using Aiva.Extensions.Models;
 using System;
 using System.Windows.Input;
 
-namespace Aiva.Bot.ViewModels.ChildWindows {
+namespace Aiva.Bot.ViewModels.ChildWindows.Songrequest {
 
     [PropertyChanged.AddINotifyPropertyChangedInterface]
-    public class StartGiveaway {
+    public class StartSongrequest {
 
         #region Models
 
-        public string Command { get; set; }
-        public JoinPermission SelectedJoinPermission { get; set; } = JoinPermission.Everyone;
-        public int Price { get; set; } = 100;
-        public int MinutesActive { get; set; } = 3;
-        public int SubLuck { get; set; } = 1;
-        public bool BeFollower { get; set; } = true;
-        public bool NotifyWinner { get; set; } = true;
-        public bool RemoveWinnerFromList { get; set; } = true;
-        public bool BlockReEntry { get; set; } = true;
-        public bool IsSubluckActive { get; set; } = true;
+        public Extensions.Models.Songrequest.AddModel AddModel { get; set; }
 
         public ICommand SubmitCommand { get; set; }
         public ICommand CancelCommand { get; set; }
@@ -31,7 +21,8 @@ namespace Aiva.Bot.ViewModels.ChildWindows {
         #endregion Models
 
         #region Constructor
-        public StartGiveaway() {
+        public StartSongrequest() {
+            AddModel = new Extensions.Models.Songrequest.AddModel();
             SetCommands();
         }
         #endregion Constructor

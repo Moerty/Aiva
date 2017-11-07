@@ -1,14 +1,9 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.SimpleChildWindow;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using MahApps.Metro.Controls.Dialogs;
-using System.Collections.ObjectModel;
 
 namespace Aiva.Bot.ViewModels {
 
