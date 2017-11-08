@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using Aiva.Core.Storage;
 
 namespace Aiva.Extensions.Timers {
 
@@ -18,12 +19,14 @@ namespace Aiva.Extensions.Timers {
 
         private Core.DatabaseHandlers.Timers _databaseHandler;
         private Timer _checker;
+        private Dictionary<string,Task> _internalTimersList;
 
         #endregion Models
 
         #region Constructor
         public Handler() {
             _databaseHandler = new Core.DatabaseHandlers.Timers();
+            _internalTimersList = new Dictionary<string, Task>();
             LoadTimers();
             ResetTimers();
             ActivateTimers();
@@ -38,12 +41,30 @@ namespace Aiva.Extensions.Timers {
         /// Load timer properties
         /// </summary>
         private void ActivateTimers() {
-            _checker = new Timer(TimeSpan.FromMinutes(1).TotalMilliseconds) {
-                Enabled = true,
-                AutoReset = true,
-            };
-            _checker.Elapsed += _checker_Elapsed;
-            _checker.Start();
+            foreach (var timer in Timers) {
+                SetTimer(timer);
+            }
+        }
+
+        private void SetTimer(Core.Storage.Timers timer) {
+            var task = Task.Run(async () => {
+                await Task.Delay(TimeSpan.FromMinutes(timer.Interval).Milliseconds);
+                StartTimer(timer);
+            });
+
+            //_internalTimersList.Add(timer.Name, task);
+        }
+
+        private void StartTimer(Core.Storage.Timers timer) {
+            Core.AivaClient.Instance.AivaTwitchClient.SendMessage(timer.Text);
+
+            SetTimer(timer);
+
+            //var timerDatabase = _internalTimersList.SingleOrDefault(t => String.Compare(t.Key, timer.Name) == 0);
+
+            //if(timerDatabase.Value != null) {
+            //    timerDatabase.Value.
+            //}
         }
 
         /// <summary>
@@ -79,8 +100,14 @@ namespace Aiva.Extensions.Timers {
         /// <summary>
         /// Load timers from Database
         /// </summary>
-        private void LoadTimers()
-            => Timers = new ObservableCollection<Core.Storage.Timers>(_databaseHandler.GetTimers());
+        private void LoadTimers() {
+            var timers = _databaseHandler.GetTimers();
+
+            Timers = new ObservableCollection<Core.Storage.Timers>(timers);
+
+            timers.ForEach(t => SetTimer(t));
+        }
+            //=> Timers = new ObservableCollection<Core.Storage.Timers>(_databaseHandler.GetTimers());
 
 
         /// <summary>

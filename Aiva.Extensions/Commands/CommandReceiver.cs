@@ -25,39 +25,39 @@ namespace Aiva.Extensions.Commands {
         /// <param name="e"></param>
         private void CommandReceived(object sender, OnChatCommandReceivedArgs e) {
 
-            using (var context = new Core.Storage.StorageEntities()) {
-                var command = context.Commands.SingleOrDefault(c => String.Compare(e.Command.CommandText, c.Command, true) == 0);
+            //using (var context = new Core.Storage.StorageEntities()) {
+            //    var command = context.Commands.SingleOrDefault(c => String.Compare(e.Command.CommandText, c.Name, true) == 0);
 
-                if (command != null) {
-                    // can user execute command?
-                    if (CanUserExecuteCommand(e.Command.ChatMessage.UserType, command.ExecutionRight)) {
-                        // check if cooldown is over 0
-                        if (command.Cooldown.HasValue && command.Cooldown > 0) {
-                            if (command.LastExecution.HasValue) {
-                                // last execution is not empty
-                                var nextTime = command.LastExecution.Value.AddMinutes(command.Cooldown.Value);
+            //    if (command != null) {
+            //        // can user execute command?
+            //        if (CanUserExecuteCommand(e.Command.ChatMessage.UserType, command.ExecutionRight)) {
+            //            // check if cooldown is over 0
+            //            if (command.Cooldown.HasValue && command.Cooldown > 0) {
+            //                if (command.LastExecution.HasValue) {
+            //                    // last execution is not empty
+            //                    var nextTime = command.LastExecution.Value.AddMinutes(command.Cooldown.Value);
 
-                                // if next execution time <= now
-                                if (nextTime <= DateTime.Now) {
-                                    ExecuteCommand(command, e);
-                                    command.LastExecution = DateTime.Now;
+            //                    // if next execution time <= now
+            //                    if (nextTime <= DateTime.Now) {
+            //                        ExecuteCommand(command, e);
+            //                        command.LastExecution = DateTime.Now;
 
-                                    context.SaveChanges();
-                                }
+            //                        context.SaveChanges();
+            //                    }
 
-                            } else {
-                                // last execution is empty - start command
-                                ExecuteCommand(command, e);
-                                command.LastExecution = DateTime.Now;
-                            }
-                        } else {
-                            // cooldown has no value or is < 0
-                            ExecuteCommand(command, e);
-                            command.LastExecution = DateTime.Now;
-                        }
-                    }
-                }
-            }
+            //                } else {
+            //                    // last execution is empty - start command
+            //                    ExecuteCommand(command, e);
+            //                    command.LastExecution = DateTime.Now;
+            //                }
+            //            } else {
+            //                // cooldown has no value or is < 0
+            //                ExecuteCommand(command, e);
+            //                command.LastExecution = DateTime.Now;
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace Aiva.Extensions.Commands {
             // stack
             if (stringToSend.Contains("%stack%")) {
                 stringToSend = stringToSend.Replace("%stack%", (command.Count + 1).ToString());
-                Task.Run(() => _commandsDatabaseHandler.IncreaseCommandCount(command.Command));
+                //Task.Run(() => _commandsDatabaseHandler.IncreaseCommandCount(command.Command));
             }
 
             // time

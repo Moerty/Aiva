@@ -63,10 +63,10 @@ namespace Aiva.Bot.ViewModels {
                         Header = "Songrequest",
                         Content = new Views.Songrequest()
                     },
-                    new Models.MainWindow.TabItemsModel {
-                        Header = "Commands",
-                        Content = new Views.Commands()
-                    },
+                    //new Models.MainWindow.TabItemsModel {
+                    //    Header = "Commands",
+                    //    Content = new Views.Commands()
+                    //},
                     new Models.MainWindow.TabItemsModel {
                         Header = "Giveaway",
                         Content = new Views.Giveaway()

@@ -33,12 +33,12 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="integer" />
-          <Property Name="Text" Type="integer" Nullable="false" />
-          <Property Name="CreatedAt" Type="integer" Nullable="false" />
-          <Property Name="ModifiedAt" Type="integer" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Text" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedAt" Type="datetime" />
           <Property Name="Interval" Type="integer" Nullable="false" />
-          <Property Name="NextExecution" Type="integer" />
+          <Property Name="NextExecution" Type="datetime" />
           <Property Name="Count" Type="integer" />
         </EntityType>
         <EntityType Name="Currency">
@@ -273,12 +273,12 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="Int64" />
-          <Property Name="Text" Type="Int64" Nullable="false" />
-          <Property Name="CreatedAt" Type="Int64" Nullable="false" />
-          <Property Name="ModifiedAt" Type="Int64" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" />
+          <Property Name="ModifiedAt" Type="DateTime" />
           <Property Name="Interval" Type="Int64" Nullable="false" />
-          <Property Name="NextExecution" Type="Int64" />
+          <Property Name="NextExecution" Type="DateTime" />
           <Property Name="Count" Type="Int64" />
         </EntityType>
         </Schema>

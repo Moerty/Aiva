@@ -15,12 +15,12 @@ namespace Aiva.Core.Storage
     public partial class Commands
     {
         public long ID { get; set; }
-        public Nullable<long> Name { get; set; }
-        public long Text { get; set; }
-        public long CreatedAt { get; set; }
-        public Nullable<long> ModifiedAt { get; set; }
+        public string Name { get; set; }
+        public string Text { get; set; }
+        public System.DateTime CreatedAt { get; set; }
+        public Nullable<System.DateTime> ModifiedAt { get; set; }
         public long Interval { get; set; }
-        public Nullable<long> NextExecution { get; set; }
+        public Nullable<System.DateTime> NextExecution { get; set; }
         public Nullable<long> Count { get; set; }
     }
 }
