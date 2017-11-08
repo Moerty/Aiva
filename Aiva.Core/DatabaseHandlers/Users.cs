@@ -77,13 +77,13 @@ namespace Aiva.Core.DatabaseHandlers {
             /// <param name="e"></param>
             internal static void AddUserToDatabase(object sender, OnExistingUsersDetectedArgs e) {
                 e.Users.ForEach(user => {
-                    var twitchUser = TwitchAPI.Users.v5.GetUserByNameAsync(user).Result;
+                    var twitchUser = AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(user).Result;
                     AddUserToDatabase(twitchUser.Matches[0]);
                 });
             }
 
             internal static void AddUserToDatabase(object sender, OnUserJoinedArgs e) {
-                var twitchUser = TwitchAPI.Users.v5.GetUserByNameAsync(e.Username).Result;
+                var twitchUser = AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(e.Username).Result;
 
                 if(twitchUser != null) {
                     AddUserToDatabase(twitchUser.Matches[0]);
@@ -105,7 +105,7 @@ namespace Aiva.Core.DatabaseHandlers {
             public async static void RemoveUserFromActiveUsers(object sender, OnUserLeftArgs e) {
                 using (var context = new Storage.StorageEntities()) {
                     //var twitchID = TwitchApi.Users.GetUser(e.Username);
-                    var twitchID = await TwitchAPI.Users.v5.GetUserByNameAsync(e.Username);
+                    var twitchID = await AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(e.Username);
 
                     if (twitchID != null && twitchID.Total > 0) {
                         foreach (var userMatch in twitchID.Matches) {

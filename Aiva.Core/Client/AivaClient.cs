@@ -12,6 +12,7 @@ namespace Aiva.Core {
         public static AivaClient Instance => lazyAivaClient.Value;
 
         public TwitchClient AivaTwitchClient;
+        public TwitchAPI TwitchApi;
         public string Username;
         public string Channel;
         public string ChannelID;
@@ -39,7 +40,7 @@ namespace Aiva.Core {
         /// Get the channel id from twitch
         /// </summary>
         private async void GetChannelID() {
-            var channelDetails = await TwitchAPI.Channels.v5.GetChannelAsync();
+            var channelDetails = await TwitchApi.Channels.v5.GetChannelAsync();
 
             ChannelID = channelDetails.Id.ToString();
         }
@@ -47,11 +48,11 @@ namespace Aiva.Core {
         /// <summary>
         /// Validation for Twitch ClientID & OAuthKey
         /// </summary>
-        private void DoValidation() {
-            if (String.IsNullOrEmpty(TwitchAPI.Settings.AccessToken))
-                TwitchAPI.Settings.AccessToken = OAuthKey;
+        private async void DoValidation() {
+            if (String.IsNullOrEmpty(TwitchApi.Settings.AccessToken))
+                TwitchApi.Settings.AccessToken = OAuthKey;
 
-            var root = TwitchAPI.Root.v5.GetRoot(OAuthKey);
+            var root = await TwitchApi.Root.v5.GetRoot(OAuthKey);
 
 
             if (root.Token.Valid) {
@@ -68,8 +69,7 @@ namespace Aiva.Core {
         /// </summary>
         private void SetupTwitch() {
             // TwitchApi
-            TwitchAPI.Settings.AccessToken = OAuthKey;
-            TwitchAPI.Settings.ClientId = ClientID;
+            TwitchApi = new TwitchAPI(ClientID, OAuthKey);
 
             // TwitchClient
             var TwitchCredentials = new TwitchLib.Models.Client.ConnectionCredentials(Username, OAuthKey);

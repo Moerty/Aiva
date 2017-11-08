@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aiva.Core;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -143,7 +144,7 @@ namespace Aiva.Extensions.Giveaway {
 
                 // Check if the User is a follower
                 if (Properties.BeFollower) {
-                    var isFollowing = await TwitchLib.TwitchAPI.Users.v5.UserFollowsChannelAsync(e.Command.ChatMessage.UserId, Core.AivaClient.Instance.ChannelID);
+                    var isFollowing = await AivaClient.Instance.TwitchApi.Users.v5.UserFollowsChannelAsync(e.Command.ChatMessage.UserId, Core.AivaClient.Instance.ChannelID);
 
                     if (!isFollowing) {
                         return;
@@ -172,7 +173,7 @@ namespace Aiva.Extensions.Giveaway {
         /// <param name="username"></param>
         /// <returns></returns>
         private async Task<bool> IsUserSub(string username) {
-            return await TwitchLib.TwitchAPI.Subscriptions.v3.ChannelHasUserSubscribedAsync(Core.AivaClient.Instance.Channel, username) != null;
+            return await AivaClient.Instance.TwitchApi.Subscriptions.v3.ChannelHasUserSubscribedAsync(Core.AivaClient.Instance.Channel, username) != null;
         }
 
         /// <summary>

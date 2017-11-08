@@ -8,6 +8,7 @@ using TwitchLib.Events.Client;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using Aiva.Core;
 
 namespace Aiva.Extensions.Chat {
 
@@ -36,7 +37,7 @@ namespace Aiva.Extensions.Chat {
 
         private void AivaTwitchClient_OnExistingUsersDetected(object sender, OnExistingUsersDetectedArgs e) {
             foreach (var user in e.Users) {
-                var twitchUser = TwitchLib.TwitchAPI.Users.v5.GetUserByNameAsync(user).Result;
+                var twitchUser = AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(user).Result;
 
                 if (twitchUser != null) {
                     OnNewUserFound(twitchUser.Matches[0].Name, twitchUser.Matches[0].Id);
@@ -45,7 +46,7 @@ namespace Aiva.Extensions.Chat {
         }
 
         private void AivaTwitchClient_OnUserJoined(object sender, OnUserJoinedArgs e) {
-            var twitchUser = TwitchLib.TwitchAPI.Users.v5.GetUserByNameAsync(e.Username).Result;
+            var twitchUser = AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(e.Username).Result;
 
             if (twitchUser != null) {
                 OnNewUserFound(twitchUser.Matches[0].Name, twitchUser.Matches[0].Id);
@@ -57,7 +58,7 @@ namespace Aiva.Extensions.Chat {
             if (Viewers.Any(v => String.Compare(v.TwitchID, id) == 0)) // check if user is already in List
                 return;
 
-            var IsUserSubscriber = TwitchLib.TwitchAPI.Subscriptions.v3.ChannelHasUserSubscribedAsync(Core.AivaClient.Instance.Channel, name).Result;
+            var IsUserSubscriber = AivaClient.Instance.TwitchApi.Subscriptions.v3.ChannelHasUserSubscribedAsync(Core.AivaClient.Instance.Channel, name).Result;
 
             var rnd = new Random();
             var viewer = new Models.Chat.Viewers {

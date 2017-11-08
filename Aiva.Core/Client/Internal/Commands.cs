@@ -68,7 +68,7 @@ namespace Aiva.Core.Client.Internal {
 
                             if (int.TryParse(e.Command.ArgumentsAsList[1], out int value)) {
 
-                                var user = await TwitchLib.TwitchAPI.Users.v5.GetUserByNameAsync(e.Command.ArgumentsAsList[0]);
+                                var user = await AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(e.Command.ArgumentsAsList[0]);
 
                                 if (user != null && user.Total > 0) {
                                     _addCurrencyDatabaseHandler.Add(user.Matches[0].Id, value);

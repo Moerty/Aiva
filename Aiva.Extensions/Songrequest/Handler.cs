@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aiva.Core;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -104,7 +105,7 @@ namespace Aiva.Extensions.Songrequest {
 
                 // follower
                 if (Properties.BeFollower) {
-                    var followerCheck = await TwitchLib.TwitchAPI.Users.v5.UserFollowsChannelAsync(e.Command.ChatMessage.UserId, Core.AivaClient.Instance.ChannelID);
+                    var followerCheck = await AivaClient.Instance.TwitchApi.Users.v5.UserFollowsChannelAsync(e.Command.ChatMessage.UserId, Core.AivaClient.Instance.ChannelID);
 
                     if (!followerCheck) {
                         return;
