@@ -25,8 +25,12 @@ namespace Aiva.Extensions.Timers {
         public Handler() {
             _databaseHandler = new Core.DatabaseHandlers.Timers();
             LoadTimers();
+            ResetTimers();
             ActivateTimers();
         }
+
+        private void ResetTimers()
+            => _databaseHandler.RefreshTimers();
         #endregion Constructor
 
         #region Methods

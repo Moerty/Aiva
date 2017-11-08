@@ -32,6 +32,19 @@ namespace Aiva.Core.DatabaseHandlers {
         }
 
         /// <summary>
+        /// Refresh timers on startup
+        /// </summary>
+        public void RefreshTimers() {
+            using (var context = new StorageEntities()) {
+                var timers = context.Timers.ToList();
+
+                timers.ForEach(t => t.NextExecution = DateTime.Now.AddMinutes(t.Interval));
+
+                context.SaveChanges();
+            }
+        }
+
+        /// <summary>
         /// Add a timer to the database
         /// </summary>
         /// <param name="timer"></param>
