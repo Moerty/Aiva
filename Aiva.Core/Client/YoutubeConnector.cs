@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 namespace Aiva.Core.Client {
     public class YoutubeConnector {
 
+        const string ClientId = "235778313506-9i7s8ghgtgn9v767murqk740i7febtho.apps.googleusercontent.com";
+        const string ClientSecret = "ttM4CVByzNNXO8AFmqe4kvC2";
+
         /// <summary>
         /// Create the YouTube Service
         /// </summary>
@@ -20,8 +23,8 @@ namespace Aiva.Core.Client {
             UserCredential credential;
             credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                 new ClientSecrets {
-                    ClientId = Config.Config.Instance["Credentials"]["GoogleClientID"],
-                    ClientSecret = Config.Config.Instance["Credentials"]["GoogleClientSecret"],
+                    ClientId = ClientId,
+                    ClientSecret = ClientSecret
                 },
                 // This OAuth 2.0 access scope allows for full read/write access to the
                 // authenticated user's account.
