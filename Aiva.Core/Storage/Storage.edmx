@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="StorageModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=A:\Cloud\CSharp_Projekte\Aiva\Aiva.Core\ConfigFiles\Database.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="StorageModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=A:\CSharp_Projekte\Aiva\Aiva.Core\ConfigFiles\Database.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ActiveUsers">
           <Key>
             <PropertyRef Name="ID" />
@@ -30,17 +30,16 @@
         </EntityType>
         <EntityType Name="Commands">
           <Key>
-            <PropertyRef Name="Index" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Index" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Command" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
-          <Property Name="Text" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
-          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
-          <Property Name="ModifiedAt" Type="datetime" />
-          <Property Name="ExecutionRight" Type="integer" Nullable="false" />
+          <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="integer" />
+          <Property Name="Text" Type="integer" Nullable="false" />
+          <Property Name="CreatedAt" Type="integer" Nullable="false" />
+          <Property Name="ModifiedAt" Type="integer" />
+          <Property Name="Interval" Type="integer" Nullable="false" />
+          <Property Name="NextExecution" Type="integer" />
           <Property Name="Count" Type="integer" />
-          <Property Name="Cooldown" Type="integer" />
-          <Property Name="LastExecution" Type="datetime" />
         </EntityType>
         <EntityType Name="Currency">
           <Key>
@@ -146,7 +145,6 @@
         <EntityContainer Name="StorageEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ActiveUsers" EntityType="StorageModel.ActiveUsers" />
           <EntitySet Name="BlacklistedWords" EntityType="StorageModel.BlacklistedWords" />
-          <EntitySet Name="Commands" EntityType="StorageModel.Commands" />
           <EntitySet Name="Currency" EntityType="StorageModel.Currency" />
           <EntitySet Name="TimeWatched" EntityType="StorageModel.TimeWatched" />
           <EntitySet Name="Users" EntityType="StorageModel.Users" />
@@ -164,6 +162,7 @@
           </AssociationSet>
           <EntitySet Name="Chat" EntityType="StorageModel.Chat" />
           <EntitySet Name="Timers" EntityType="StorageModel.Timers" />
+          <EntitySet Name="Commands" EntityType="StorageModel.Commands" />
         </EntityContainer>
         <EntityType Name="ActiveUsers">
           <Key>
@@ -179,20 +178,6 @@
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Word" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Commands">
-          <Key>
-            <PropertyRef Name="Index" />
-          </Key>
-          <Property Name="Index" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Command" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="Text" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Nullable="false" />
-          <Property Name="ModifiedAt" Type="DateTime" />
-          <Property Name="ExecutionRight" Type="Int64" Nullable="false" />
-          <Property Name="Count" Type="Int64" />
-          <Property Name="Cooldown" Type="Int64" />
-          <Property Name="LastExecution" Type="DateTime" />
         </EntityType>
         <EntityType Name="Currency">
           <Key>
@@ -283,6 +268,19 @@
           <Property Name="Interval" Type="Int64" Nullable="false" />
           <Property Name="NextExecution" Type="DateTime" />
         </EntityType>
+        <EntityType Name="Commands">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="Int64" />
+          <Property Name="Text" Type="Int64" Nullable="false" />
+          <Property Name="CreatedAt" Type="Int64" Nullable="false" />
+          <Property Name="ModifiedAt" Type="Int64" />
+          <Property Name="Interval" Type="Int64" Nullable="false" />
+          <Property Name="NextExecution" Type="Int64" />
+          <Property Name="Count" Type="Int64" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -302,21 +300,6 @@
               <MappingFragment StoreEntitySet="BlacklistedWords">
                 <ScalarProperty Name="Word" ColumnName="Word" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Commands">
-            <EntityTypeMapping TypeName="StorageModel.Commands">
-              <MappingFragment StoreEntitySet="Commands">
-                <ScalarProperty Name="LastExecution" ColumnName="LastExecution" />
-                <ScalarProperty Name="Cooldown" ColumnName="Cooldown" />
-                <ScalarProperty Name="Count" ColumnName="Count" />
-                <ScalarProperty Name="ExecutionRight" ColumnName="ExecutionRight" />
-                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="Command" ColumnName="Command" />
-                <ScalarProperty Name="Index" ColumnName="Index" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -363,6 +346,20 @@
           <EntitySetMapping Name="Timers">
             <EntityTypeMapping TypeName="StorageModel.Timers">
               <MappingFragment StoreEntitySet="Timers">
+                <ScalarProperty Name="NextExecution" ColumnName="NextExecution" />
+                <ScalarProperty Name="Interval" ColumnName="Interval" />
+                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Commands">
+            <EntityTypeMapping TypeName="StorageModel.Commands">
+              <MappingFragment StoreEntitySet="Commands">
+                <ScalarProperty Name="Count" ColumnName="Count" />
                 <ScalarProperty Name="NextExecution" ColumnName="NextExecution" />
                 <ScalarProperty Name="Interval" ColumnName="Interval" />
                 <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
