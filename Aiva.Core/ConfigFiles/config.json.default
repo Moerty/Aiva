@@ -1,0 +1,71 @@
+﻿{
+  "Credentials": {
+    "TwitchOAuth": "",
+    "TwitchClientID": ""
+  },
+  "General": {
+    "Channel": "",
+    "BotName": "",
+    "CommandIdentifier": "!"
+  },
+  "Chat": {
+    "CapsChecker": true,
+    "LinkChecker": true,
+    "BlacklistWordsChecker": true
+  },
+  "Currency": {
+    "AddCurrencyFrquently": true,
+    "TimerAddCurrencyFrequently": 6000,
+    "CurrencyToAddFrequently": 100
+  },
+  "Interactions": {
+    "WriteInChatNormalSub": true,
+    "WriteInChatPrimeSub": true
+  },
+  "ModCommands": {
+    "ModCurrency": {
+      "AddCurrency": "addcurrency",
+      "RemoveCurrency": "removecurrency",
+      "TransferCurrency": "transfercurrency"
+    }
+  },
+  "StreamGames": {
+    "Bankheist": {
+      "General": {
+        "Active": true,
+        "Command": "bankheist"
+      },
+      "Cooldowns": {
+        "BankheistDuration": 2400,
+        "BankheistCooldown": 6000
+      },
+      "Settings": {
+        "Bank1": {
+          "SuccessRate": 60,
+          "MinimumPlayers": 1,
+          "WinningMultiplier": 1.5
+        },
+        "Bank2": {
+          "SuccessRate": 58,
+          "MinimumPlayers": 10,
+          "WinningMultiplier": 1.7
+        },
+        "Bank3": {
+          "SuccessRate": 50,
+          "MinimumPlayers": 20,
+          "WinningMultiplier": 2
+        },
+        "Bank4": {
+          "SuccessRate": 44,
+          "MinimumPlayers": 30,
+          "WinningMultiplier": 2.25
+        },
+        "Bank5": {
+          "SuccessRate": 36,
+          "MinimumPlayers": 40,
+          "WinningMultiplier": 2.75
+        }
+      }
+    }
+  }
+}

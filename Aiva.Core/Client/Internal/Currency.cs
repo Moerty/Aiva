@@ -15,13 +15,12 @@ namespace Aiva.Core.Client.Internal {
         private Core.DatabaseHandlers.Currency.AddCurrency _addCurrencyDatabaseHandler;
 
         public Currency() {
-            if (TimeSpan.TryParse(Config.Config.Instance[nameof(Currency)]["TimerAddCurrencyFrequently"], out TimeSpan Interval)) {
-                Timer = new System.Timers.Timer();
-                Timer.Elapsed += CurrencyTimerTick;
-                Timer.Interval = Interval.TotalMilliseconds;
-                Timer.AutoReset = true;
-                Timer.Start();
-            }
+            Timer = new System.Timers.Timer();
+            Timer.Elapsed += CurrencyTimerTick;
+            Timer.Interval = Config.Config.Instance.Storage.Currency.TimerAddCurrencyFrequently;
+            Timer.AutoReset = true;
+            Timer.Start();
+
 
             _addCurrencyDatabaseHandler = new DatabaseHandlers.Currency.AddCurrency();
         }
@@ -31,7 +30,7 @@ namespace Aiva.Core.Client.Internal {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CurrencyTimerTick(object sender, System.Timers.ElapsedEventArgs e) 
+        private void CurrencyTimerTick(object sender, System.Timers.ElapsedEventArgs e)
                     => _addCurrencyDatabaseHandler.AddCurrencyActiveViewer();
     }
 }

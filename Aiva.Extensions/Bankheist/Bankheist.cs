@@ -132,24 +132,24 @@ namespace Aiva.Extensions.Bankheist {
             var bank = IdentifyBank();
             switch (bank) {
                 case Models.Bankheist.Bank.Bank2:
-                    SuccessRate = Convert.ToInt32(Config.Instance["Bankheist"]["Bank2SuccessRate"]);
-                    WinningMultiplicator = Convert.ToDouble(Config.Instance["Bankheist"]["Bank2WinningMultiplier"]);
+                    SuccessRate = Convert.ToInt32(Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank2.SuccessRate);
+                    WinningMultiplicator = Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank2.WinningMultiplier;
                     break;
                 case Models.Bankheist.Bank.Bank3:
-                    SuccessRate = Convert.ToInt32(Config.Instance["Bankheist"]["Bank3SuccessRate"]);
-                    WinningMultiplicator = Convert.ToDouble(Config.Instance["Bankheist"]["Bank3WinningMultiplier"]);
+                    SuccessRate = Convert.ToInt32(Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank3.SuccessRate);
+                    WinningMultiplicator = Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank3.WinningMultiplier;
                     break;
                 case Models.Bankheist.Bank.Bank4:
-                    SuccessRate = Convert.ToInt32(Config.Instance["Bankheist"]["Bank4SuccessRate"]);
-                    WinningMultiplicator = Convert.ToDouble(Config.Instance["Bankheist"]["Bank4WinningMultiplier"]);
+                    SuccessRate = Convert.ToInt32(Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank4.SuccessRate);
+                    WinningMultiplicator = Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank4.WinningMultiplier;
                     break;
                 case Models.Bankheist.Bank.Bank5:
-                    SuccessRate = Convert.ToInt32(Config.Instance["Bankheist"]["Bank5SuccessRate"]);
-                    WinningMultiplicator = Convert.ToDouble(Config.Instance["Bankheist"]["Bank5WinningMultiplier"]);
+                    SuccessRate = Convert.ToInt32(Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank5.SuccessRate);
+                    WinningMultiplicator = Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank5.WinningMultiplier;
                     break;
                 default: // Bank1
-                    SuccessRate = Convert.ToInt32(Config.Instance["Bankheist"]["Bank1SuccessRate"]);
-                    WinningMultiplicator = Convert.ToDouble(Config.Instance["Bankheist"]["Bank1WinningMultiplier"]);
+                    SuccessRate = Convert.ToInt32(Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank1.SuccessRate);
+                    WinningMultiplicator = Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank1.WinningMultiplier;
                     break;
             }
         }
@@ -161,13 +161,13 @@ namespace Aiva.Extensions.Bankheist {
         private Models.Bankheist.Bank IdentifyBank() {
             var MemberCount = UserList.Count;
 
-            if (MemberCount >= Convert.ToInt32(Config.Instance["Bankheist"]["Bank5MinimumPlayers"])) {
+            if (MemberCount >= Convert.ToInt32(Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank5.MinimumPlayers)) {
                 return Models.Bankheist.Bank.Bank5;
-            } else if (MemberCount >= Convert.ToInt32(Config.Instance["Bankheist"]["Bank4MinimumPlayers"])) {
+            } else if (MemberCount >= Convert.ToInt32(Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank4.MinimumPlayers)) {
                 return Models.Bankheist.Bank.Bank4;
-            } else if (MemberCount >= Convert.ToInt32(Config.Instance["Bankheist"]["Bank3MinimumPlayers"])) {
+            } else if (MemberCount >= Convert.ToInt32(Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank3.MinimumPlayers)) {
                 return Models.Bankheist.Bank.Bank3;
-            } else if (MemberCount >= Convert.ToInt32(Config.Instance["Bankheist"]["Bank2MinimumPlayers"])) {
+            } else if (MemberCount >= Convert.ToInt32(Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank2.MinimumPlayers)) {
                 return Models.Bankheist.Bank.Bank2;
             } else {
                 return Models.Bankheist.Bank.Bank1;

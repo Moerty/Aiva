@@ -38,7 +38,7 @@ namespace Aiva.Core.Client.Tasks {
         }
 
         private void SetCurrencyTimer() {
-            if (Convert.ToBoolean(Config.Config.Instance["Currency"]["AddCurrencyFrequently"])) {
+            if (Config.Config.Instance.Storage.Currency.AddCurrencyFrquently) {
                 _currencyTimer = new Internal.Currency();
             }
         }
@@ -100,13 +100,13 @@ namespace Aiva.Core.Client.Tasks {
         /// <returns></returns>
         public TwitchClient OnMessageReceived(TwitchClient client) {
 
-            if (Convert.ToBoolean(Config.Config.Instance["Chat"]["BlacklistedWordsChecker"]))
+            if (Config.Config.Instance.Storage.Chat.BlacklistWordsChecker)
                 client.OnMessageReceived += ChatChecker.BlacklistWordsChecker;
 
-            if (Convert.ToBoolean(Config.Config.Instance["Chat"]["CapsChecker"]))
+            if (Config.Config.Instance.Storage.Chat.CapsChecker)
                 client.OnMessageReceived += ChatChecker.CapsChecker;
 
-            if (Convert.ToBoolean(Config.Config.Instance["Chat"]["LinkChecker"]))
+            if (Config.Config.Instance.Storage.Chat.LinkChecker)
                 client.OnMessageReceived += ChatChecker.LinkChecker;
 
             return client;

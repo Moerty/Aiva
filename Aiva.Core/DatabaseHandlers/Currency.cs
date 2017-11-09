@@ -54,7 +54,7 @@ namespace Aiva.Core.DatabaseHandlers {
                     var activeUsers = context.ActiveUsers.ToList();
 
                     foreach (var user in activeUsers) {
-                        user.Users.Currency.Value += Convert.ToInt64(Config.Config.Instance[nameof(Currency)]["CurrencyToAddFrequently"]);
+                        user.Users.Currency.Value += Convert.ToInt64(Config.Config.Instance.Storage.Currency.CurrencyToAddFrequently);
                     }
 
                     context.SaveChanges();

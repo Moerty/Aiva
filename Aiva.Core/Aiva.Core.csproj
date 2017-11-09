@@ -74,6 +74,7 @@
     <Compile Include="DatabaseHandlers\Currency.cs" />
     <Compile Include="DatabaseHandlers\Timers.cs" />
     <Compile Include="DatabaseHandlers\Users.cs" />
+    <Compile Include="Models\ConfigStorage.cs" />
     <Compile Include="Models\DatabaseCurrencyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -126,11 +127,13 @@
     <None Include="ConfigFiles\config.ini.default">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ConfigFiles\Database.db" />
     <EntityDeploy Include="Storage\Storage.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Storage.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="ConfigFiles\config.json.default">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Storage\Storage.edmx.diagram">
       <DependentUpon>Storage.edmx</DependentUpon>
@@ -166,9 +169,6 @@
     </Reference>
     <Reference Include="Google.Apis.YouTube.v3, Version=1.30.0.1035, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.YouTube.v3.1.30.0.1035\lib\net45\Google.Apis.YouTube.v3.dll</HintPath>
-    </Reference>
-    <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
-      <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -242,7 +242,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ConfigFiles\ToDo.txt" />
     <Content Include="Storage\TableTemplate\ActiveUsers.txt" />
     <Content Include="Storage\TableTemplate\Chat.txt" />
     <Content Include="Storage\TableTemplate\Commands.txt" />

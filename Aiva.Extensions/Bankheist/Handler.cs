@@ -17,7 +17,7 @@ namespace Aiva.Extensions.Bankheist {
             this.InitModel = Model;
             SetupTimers();
 
-            if (Convert.ToBoolean(Config.Instance["Bankheist"]["Active"]))
+            if (Config.Instance.Storage.StreamGames.Bankheist.General.Active)
                 StartListining();
         }
 
@@ -27,14 +27,14 @@ namespace Aiva.Extensions.Bankheist {
         private void SetupTimers() {
             BankheistEndTimer = new System.Timers.Timer {
                 AutoReset = false,
-                Interval = TimeSpan.Parse(Config.Instance["Bankheist"]["BankheistDuration"]).TotalMilliseconds,
+                Interval = TimeSpan.FromTicks(Config.Instance.Storage.StreamGames.Bankheist.Cooldowns.BankheistCooldown).TotalMilliseconds,
             };
             BankheistEndTimer.Elapsed += BankheistEndTimer_Elapsed;
 
 
             NewBankheistTimer = new System.Timers.Timer {
                 AutoReset = false,
-                Interval = TimeSpan.Parse(Config.Instance["Bankheist"]["BankheistCooldown"]).TotalMilliseconds,
+                Interval = TimeSpan.FromTicks(Config.Instance.Storage.StreamGames.Bankheist.Cooldowns.BankheistCooldown).TotalMilliseconds,
             };
             NewBankheistTimer.Elapsed += NewBankheistTimer_Elapsed;
         }
@@ -92,7 +92,7 @@ namespace Aiva.Extensions.Bankheist {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public void OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e) {
-            if ((String.Compare(e.Command.CommandText, Config.Instance["Bankheist"]["Command"])) == 0) {
+            if ((String.Compare(e.Command.CommandText, Config.Instance.Storage.StreamGames.Bankheist.General.Command)) == 0) {
                 if (!IsOnCooldown) {
                     if (CurrentBankheist == null) {
                         CurrentBankheist = new Bankheist(InitModel);

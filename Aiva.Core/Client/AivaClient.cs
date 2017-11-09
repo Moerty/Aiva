@@ -25,10 +25,10 @@ namespace Aiva.Core {
 
         public AivaClient() {
             // Get config related informations
-            Username = Config.Config.Instance["General"]["BotName"];      //Switch to OAuth Validation
-            OAuthKey = Config.Config.Instance["Credentials"]["TwitchOAuth"];
-            Channel = Config.Config.Instance["General"]["Channel"].ToLower();
-            ClientID = Config.Config.Instance["Credentials"]["TwitchClientID"];
+            Username = Config.Config.Instance.Storage.General.BotName;
+            OAuthKey = Config.Config.Instance.Storage.Credentials.TwitchOAuth;
+            Channel = Config.Config.Instance.Storage.General.Channel;
+            ClientID = Config.Config.Instance.Storage.Credentials.TwitchClientID;
 
             // setup TwitchApi
             SetupTwitch();
@@ -76,7 +76,7 @@ namespace Aiva.Core {
             AivaTwitchClient = new TwitchClient(
                 credentials: TwitchCredentials,
                 channel: null,
-                chatCommandIdentifier: Convert.ToChar(Config.Config.Instance["General"]["CommandIdentifier"]),
+                chatCommandIdentifier: Convert.ToChar(Config.Config.Instance.Storage.General.CommandIdentifier),
                 whisperCommandIdentifier: '@',
                 logging: false,
                 logger: null,

@@ -44,13 +44,14 @@ namespace Aiva.Bot.ViewModels {
         }
 
         private void Confirm() {
-            Core.Config.Config.CreateDefaultConfig();
-            Core.Config.Config.Instance["Credentials"]["TwitchOAuth"] = OAuthKey;
-            Core.Config.Config.Instance["Credentials"]["TwitchClientID"] = ClientID;
-            Core.Config.Config.Instance["General"]["Channel"] = Channel;
-            Core.Config.Config.Instance["General"]["BotName"] = BotName;
+            Core.Config.Config.Instance.LoadDefaultConfigFile();
 
-            Core.Config.Config.WriteConfig();
+            Core.Config.Config.Instance.Storage.Credentials.TwitchOAuth = OAuthKey;
+            Core.Config.Config.Instance.Storage.Credentials.TwitchClientID = ClientID;
+            Core.Config.Config.Instance.Storage.General.Channel = Channel;
+            Core.Config.Config.Instance.Storage.General.BotName = BotName;
+
+            Core.Config.Config.Instance.WriteConfig();
 
             Core.DatabaseHandlers.Creator.CreateDatabaseIfNotExist();
 

@@ -30,7 +30,7 @@ namespace Aiva.Core.Client.Internal {
                             e.Command.ChatMessage.UserType != TwitchLib.Enums.UserType.Staff) {
 
                     // Currency
-                    if (String.Compare(e.Command.CommandText, Config.Config.Instance["ModCommand"]["AddCurrency"], true) == 0) {
+                    if (String.Compare(e.Command.CommandText, Config.Config.Instance.Storage.ModCommands.ModCurrency.AddCurrency, true) == 0) {
                         CurrencyHandler.Add.AddCurrencyToUser(e);
                     }
                 }
