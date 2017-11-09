@@ -1,0 +1,11 @@
+﻿CREATE TABLE `Commands` (
+	`Index`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`Command`	TEXT NOT NULL UNIQUE,
+	`Text`	TEXT NOT NULL,
+	`CreatedAt`	datetime NOT NULL,
+	`ModifiedAt`	datetime,
+	`ExecutionRight`	INTEGER NOT NULL DEFAULT 0,
+	`Count`	INTEGER DEFAULT 0,
+	`Cooldown`	INTEGER DEFAULT 0,
+	`LastExecution`	datetime
+);

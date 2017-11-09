@@ -1,0 +1,6 @@
+﻿CREATE TABLE `TimeWatched` (
+	`ID`	TEXT,
+	`TimeWatched`	integer NOT NULL,
+	PRIMARY KEY(`ID`),
+	FOREIGN KEY(`ID`) REFERENCES `Users`(`ID`)
+);

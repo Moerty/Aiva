@@ -52,6 +52,8 @@ namespace Aiva.Bot.ViewModels {
 
             Core.Config.Config.WriteConfig();
 
+            Core.DatabaseHandlers.Creator.CreateDatabaseIfNotExist();
+
             RestartProgram();
         }
 

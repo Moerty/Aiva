@@ -1,0 +1,11 @@
+﻿CREATE TABLE `Users` (
+	`Id`	TEXT NOT NULL UNIQUE,
+	`DisplayName`	TEXT,
+	`Name`	TEXT,
+	`Type`	TEXT,
+	`Bio`	TEXT,
+	`CreatedAt`	datetime,
+	`UpdatedAt`	datetime,
+	`Logo`	TEXT,
+	PRIMARY KEY(`Id`)
+);

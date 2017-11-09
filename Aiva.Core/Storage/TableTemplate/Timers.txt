@@ -1,0 +1,9 @@
+﻿CREATE TABLE `Timers` (
+	`ID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`Name`	TEXT NOT NULL UNIQUE,
+	`Text`	TEXT NOT NULL,
+	`CreatedAt`	datetime NOT NULL,
+	`ModifiedAt`	datetime,
+	`Interval`	INTEGER NOT NULL DEFAULT 1,
+	`NextExecution`	datetime
+);
