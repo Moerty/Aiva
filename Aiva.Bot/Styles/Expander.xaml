@@ -62,7 +62,6 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-
     <ControlTemplate x:Key="SimpleExpanderTemp" TargetType="{x:Type Expander}">
         <DockPanel>
             <ToggleButton
@@ -85,5 +84,4 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-
 </ResourceDictionary>

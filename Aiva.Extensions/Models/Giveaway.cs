@@ -7,7 +7,6 @@ namespace Aiva.Extensions.Models {
         public string UserID { get; set; }
         public bool IsSub { get; set; }
 
-
         public class Messages {
             public string Username { get; set; }
             public string Message { get; set; }
@@ -15,6 +14,7 @@ namespace Aiva.Extensions.Models {
 
         public class Properties {
             private string _Command;
+
             public string Command {
                 get {
                     return _Command;
@@ -24,7 +24,6 @@ namespace Aiva.Extensions.Models {
                     _Command = _Command.TrimEnd('!');
                 }
             }
-
 
             public int Price { get; set; }
             public int Timer { get; set; }
@@ -37,6 +36,4 @@ namespace Aiva.Extensions.Models {
             public JoinPermission JoinPermission { get; set; }
         }
     }
-
-
 }

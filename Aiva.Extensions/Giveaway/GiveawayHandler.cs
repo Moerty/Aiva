@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
@@ -13,7 +12,6 @@ namespace Aiva.Extensions.Giveaway {
 
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class GiveawayHandler {
-
         public ObservableCollection<Models.Giveaway> JoinedUsers { get; set; }
         public ObservableCollection<Models.Giveaway> Winners { get; set; }
         public ObservableCollection<Models.Giveaway.Messages> Messages { get; set; }
@@ -125,11 +123,9 @@ namespace Aiva.Extensions.Giveaway {
         /// <param name="e"></param>
         private async void ChatCommandReceived(object sender, OnChatCommandReceivedArgs e) {
             if (String.Compare(Properties.Command.TrimStart('!'), e.Command.CommandText, true) == 0) {
-
                 if (HasUserAlreadyJoined(e.Command.ChatMessage.UserId)) {
                     return;
                 }
-
 
                 if (HasUserAlreadyWon(e.Command.ChatMessage.UserId)) {
                     if (Properties.BlockReEntry)
@@ -213,6 +209,7 @@ namespace Aiva.Extensions.Giveaway {
         }
 
         #region Timer
+
         /// <summary>
         /// Set the Timer
         /// </summary>
@@ -237,6 +234,7 @@ namespace Aiva.Extensions.Giveaway {
                 StopGiveaway();
             }
         }
+
         #endregion Timer
     }
 }

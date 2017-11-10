@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 
 namespace Aiva.Bot.Internal {
+
     // http://stackoverflow.com/questions/23613171/wpf-how-to-make-textbox-lose-focus-after-hitting-enter/23613757#23613757
     public class TextBoxEnterKeyUpdateBehavior : Behavior<TextBox> {
+
         protected override void OnAttached() {
             if (this.AssociatedObject != null) {
                 base.OnAttached();

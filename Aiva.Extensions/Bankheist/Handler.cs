@@ -2,9 +2,9 @@
 using Aiva.Core.Config;
 using System;
 using TwitchLib.Events.Client;
-using Aiva.Extensions.Models;
 
 namespace Aiva.Extensions.Bankheist {
+
     public class Handler {
         public Bankheist CurrentBankheist { get; private set; }
         public Models.Bankheist.BankheistInitModel InitModel { get; private set; }
@@ -30,7 +30,6 @@ namespace Aiva.Extensions.Bankheist {
                 Interval = TimeSpan.FromTicks(Config.Instance.Storage.StreamGames.Bankheist.Cooldowns.BankheistCooldown).TotalMilliseconds,
             };
             BankheistEndTimer.Elapsed += BankheistEndTimer_Elapsed;
-
 
             NewBankheistTimer = new System.Timers.Timer {
                 AutoReset = false,
@@ -106,7 +105,6 @@ namespace Aiva.Extensions.Bankheist {
 
                     CurrentBankheist.AddUserToBankheist(e.Command.ChatMessage.Username,
                         e.Command.ChatMessage.UserId, e.Command.ArgumentsAsString);
-
                 } else {
                     AivaClient.Instance.AivaTwitchClient.SendMessage("Bankheist is on Cooldown!");
                 }

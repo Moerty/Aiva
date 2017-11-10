@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Timers;
 using TwitchLib;
-using System.Linq;
-using System.Collections.Generic;
 using TwitchLib.Events.Client;
 
 namespace Aiva.Core.Client.Tasks {
+
     public class Tasks {
 
         /// <summary>
@@ -23,7 +21,6 @@ namespace Aiva.Core.Client.Tasks {
         /// <param name="client"></param>
         /// <returns></returns>
         public TwitchClient SetTasks(TwitchClient client) {
-
             _modCommandsHandler = new Internal.Commands.ModCommands();
             client = OnModeratorsReceived(client);
             client = OnExistingUsersDetected(client);
@@ -99,7 +96,6 @@ namespace Aiva.Core.Client.Tasks {
         /// <param name="client"></param>
         /// <returns></returns>
         public TwitchClient OnMessageReceived(TwitchClient client) {
-
             if (Config.Config.Instance.Storage.Chat.BlacklistWordsChecker)
                 client.OnMessageReceived += ChatChecker.BlacklistWordsChecker;
 

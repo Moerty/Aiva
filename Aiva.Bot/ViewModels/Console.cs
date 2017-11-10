@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
-using System.IO;
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
@@ -9,12 +7,15 @@ namespace Aiva.Bot.ViewModels {
     public class Console {
 
         #region Models
+
         public Models.Console Model { get; set; }
         public Extensions.Chat.Chat ChatHandler { get; set; }
 
         public ICommand SendMessageCommand { get; set; }
+
         // ContextMenu Commands
         public ICommand MuteCommand { get; set; }
+
         public ICommand UnmuteCommand { get; set; }
         public ICommand ModCommand { get; set; }
         public ICommand UnmodCommand { get; set; }
@@ -25,6 +26,7 @@ namespace Aiva.Bot.ViewModels {
         #endregion Models
 
         #region Constructor
+
         public Console() {
             Model = new Models.Console();
             ChatHandler = new Extensions.Chat.Chat();
@@ -34,6 +36,7 @@ namespace Aiva.Bot.ViewModels {
         #endregion Constructor
 
         #region Commands
+
         /// <summary>
         /// Set the Commands
         /// </summary>
@@ -81,6 +84,7 @@ namespace Aiva.Bot.ViewModels {
 
             Model.MessageToSend = String.Empty;
         }
+
         #endregion Commands
     }
 }

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Aiva.Extensions.Models {
+﻿namespace Aiva.Extensions.Models {
 
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Commands {

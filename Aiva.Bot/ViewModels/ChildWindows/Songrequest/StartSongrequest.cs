@@ -1,5 +1,4 @@
-﻿using Aiva.Extensions.Enums;
-using System;
+﻿using System;
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels.ChildWindows.Songrequest {
@@ -21,10 +20,12 @@ namespace Aiva.Bot.ViewModels.ChildWindows.Songrequest {
         #endregion Models
 
         #region Constructor
+
         public StartSongrequest() {
             AddModel = new Extensions.Models.Songrequest.AddModel();
             SetCommands();
         }
+
         #endregion Constructor
 
         #region Methods

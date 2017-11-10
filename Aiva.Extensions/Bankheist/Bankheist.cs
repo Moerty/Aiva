@@ -1,15 +1,14 @@
-﻿using System;
+﻿using Aiva.Core;
+using Aiva.Core.Config;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using TwitchLib.Events.Client;
-using Aiva.Core;
-using Aiva.Core.Config;
 
 namespace Aiva.Extensions.Bankheist {
+
     public class Bankheist {
-        Models.Bankheist.BankheistInitModel InitModel;
+        private Models.Bankheist.BankheistInitModel InitModel;
 
         public List<Models.Bankheist.BankheistUserModel> UserList;
         public bool IsStarted { get; private set; }
@@ -31,10 +30,8 @@ namespace Aiva.Extensions.Bankheist {
         /// <param name="argument">todo: describe argument parameter on AddUserToBankheist</param>
         /// <param name="userID">todo: describe userID parameter on AddUserToBankheist</param>
         public void AddUserToBankheist(string name, string userID, string argument) {
-
             // Is Argument a valid Int
             if (int.TryParse(argument, out int bet)) {
-
                 // Does the user have enough Currency?
                 bool HasEnoughCurrency = UserHasEnoughCurrency(bet, userID);
 
@@ -57,7 +54,6 @@ namespace Aiva.Extensions.Bankheist {
         /// <returns></returns>
         private bool UserHasEnoughCurrency(long bet, string userID) {
             using (var context = new Core.Storage.StorageEntities()) {
-
                 var currency = context.Currency.SingleOrDefault(c => String.Compare(c.ID, userID) == 0);
 
                 if (currency != null) {
@@ -115,7 +111,6 @@ namespace Aiva.Extensions.Bankheist {
             else
                 sb.Append("The Winners are: ");
 
-
             foreach (var winner in Winners) {
                 sb.Append($"{winner.Name} - {winner.Value} | ");
             }
@@ -135,18 +130,22 @@ namespace Aiva.Extensions.Bankheist {
                     SuccessRate = Convert.ToInt32(Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank2.SuccessRate);
                     WinningMultiplicator = Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank2.WinningMultiplier;
                     break;
+
                 case Models.Bankheist.Bank.Bank3:
                     SuccessRate = Convert.ToInt32(Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank3.SuccessRate);
                     WinningMultiplicator = Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank3.WinningMultiplier;
                     break;
+
                 case Models.Bankheist.Bank.Bank4:
                     SuccessRate = Convert.ToInt32(Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank4.SuccessRate);
                     WinningMultiplicator = Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank4.WinningMultiplier;
                     break;
+
                 case Models.Bankheist.Bank.Bank5:
                     SuccessRate = Convert.ToInt32(Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank5.SuccessRate);
                     WinningMultiplicator = Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank5.WinningMultiplier;
                     break;
+
                 default: // Bank1
                     SuccessRate = Convert.ToInt32(Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank1.SuccessRate);
                     WinningMultiplicator = Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank1.WinningMultiplier;

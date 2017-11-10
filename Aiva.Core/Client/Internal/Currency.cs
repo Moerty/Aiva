@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Aiva.Core.Client.Internal {
 
-namespace Aiva.Core.Client.Internal {
     public class Currency {
 
         /// <summary>
@@ -20,7 +15,6 @@ namespace Aiva.Core.Client.Internal {
             Timer.Interval = Config.Config.Instance.Storage.Currency.TimerAddCurrencyFrequently;
             Timer.AutoReset = true;
             Timer.Start();
-
 
             _addCurrencyDatabaseHandler = new DatabaseHandlers.Currency.AddCurrency();
         }

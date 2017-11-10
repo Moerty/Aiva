@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
-using Aiva.Core.Storage;
 
 namespace Aiva.Extensions.Timers {
 
@@ -19,11 +17,12 @@ namespace Aiva.Extensions.Timers {
 
         private Core.DatabaseHandlers.Timers _databaseHandler;
         private Timer _checker;
-        private Dictionary<string,Task> _internalTimersList;
+        private Dictionary<string, Task> _internalTimersList;
 
         #endregion Models
 
         #region Constructor
+
         public Handler() {
             _databaseHandler = new Core.DatabaseHandlers.Timers();
             _internalTimersList = new Dictionary<string, Task>();
@@ -34,9 +33,11 @@ namespace Aiva.Extensions.Timers {
 
         private void ResetTimers()
             => _databaseHandler.RefreshTimers();
+
         #endregion Constructor
 
         #region Methods
+
         /// <summary>
         /// Load timer properties
         /// </summary>
@@ -96,7 +97,6 @@ namespace Aiva.Extensions.Timers {
             LoadTimers();
         }
 
-
         /// <summary>
         /// Load timers from Database
         /// </summary>
@@ -107,8 +107,8 @@ namespace Aiva.Extensions.Timers {
 
             timers.ForEach(t => SetTimer(t));
         }
-            //=> Timers = new ObservableCollection<Core.Storage.Timers>(_databaseHandler.GetTimers());
 
+        //=> Timers = new ObservableCollection<Core.Storage.Timers>(_databaseHandler.GetTimers());
 
         /// <summary>
         /// Add timer to database
@@ -119,7 +119,6 @@ namespace Aiva.Extensions.Timers {
         /// <param name="interval"></param>
         /// <param name="lines"></param>
         public bool AddTimerToDatabase(string name, string text, int interval, int lines) {
-
             var timer = new Core.Storage.Timers {
                 Name = name.Replace(" ", ""),
                 Text = text,
@@ -146,6 +145,7 @@ namespace Aiva.Extensions.Timers {
             _databaseHandler.EditTimer(name, text, interval, lines, id);
             LoadTimers();
         }
+
         #endregion Methods
     }
 }

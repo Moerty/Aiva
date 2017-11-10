@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TwitchLib.Extensions.Client;
+﻿using TwitchLib.Extensions.Client;
 
 namespace Aiva.Core.Client.Internal {
+
     public class Stream {
 
         /// <summary>

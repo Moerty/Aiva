@@ -2,6 +2,7 @@
 using TwitchLib;
 
 namespace Aiva.Core {
+
     public class AivaClient {
 
         /// <summary>
@@ -9,6 +10,7 @@ namespace Aiva.Core {
         /// Thread safe
         /// </summary>
         private static readonly Lazy<AivaClient> lazyAivaClient = new Lazy<AivaClient>();
+
         public static AivaClient Instance => lazyAivaClient.Value;
 
         public TwitchClient AivaTwitchClient;
@@ -53,7 +55,6 @@ namespace Aiva.Core {
                 TwitchApi.Settings.AccessToken = OAuthKey;
 
             var root = await TwitchApi.Root.v5.GetRoot(OAuthKey);
-
 
             if (root.Token.Valid) {
                 ClientID = root.Token.ClientId;

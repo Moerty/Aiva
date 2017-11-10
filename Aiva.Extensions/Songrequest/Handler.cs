@@ -26,6 +26,7 @@ namespace Aiva.Extensions.Songrequest {
         #endregion Models
 
         #region Constructor
+
         public Handler() {
             _currencyDatabaseHandler = new Core.DatabaseHandlers.Currency();
             SongList = new ObservableCollection<Models.Songrequest.SongModel>();
@@ -33,6 +34,7 @@ namespace Aiva.Extensions.Songrequest {
             Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived += AddSongCommandReceived;
             IsStarted = true;
         }
+
         #endregion Constructor
 
         #region Functions
@@ -63,7 +65,6 @@ namespace Aiva.Extensions.Songrequest {
                 Player.CurrentSong = SongList[0];
             }
         }
-
 
         /// <summary>
         /// Fires when a command was received

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace Aiva.Extensions.Enums {
+
     [TypeConverter(typeof(Extensions.EnumDescriptionTypeConverter))]
     public enum JoinPermission {
+
         [Description(nameof(Everyone))]
         Everyone,
 

@@ -1,9 +1,7 @@
-﻿using System;
+﻿using Aiva.Core.Storage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Aiva.Core.Storage;
 
 namespace Aiva.Core.DatabaseHandlers {
 
@@ -52,7 +50,6 @@ namespace Aiva.Core.DatabaseHandlers {
         public bool AddTimer(Storage.Timers timer) {
             if (!String.IsNullOrEmpty(timer.Name) &&
                 !String.IsNullOrEmpty(timer.Text)) {
-
                 using (var context = new StorageEntities()) {
                     var searchEntry = context.Timers.SingleOrDefault(t => String.Compare(t.Name, timer.Name, true) == 0);
 

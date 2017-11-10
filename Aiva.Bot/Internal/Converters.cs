@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
 using Drawing = System.Drawing;
 
 namespace Aiva.Bot.Internal {
-    public class ChatColorConverter : IValueConverter {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
 
+    public class ChatColorConverter : IValueConverter {
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             var converted = (Drawing.Color)value;
 
             Drawing.Color color;
@@ -28,7 +24,6 @@ namespace Aiva.Bot.Internal {
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
             if (targetType == typeof(Drawing.Color)) {
-
                 SolidColorBrush converted;
                 if ((converted = value as SolidColorBrush) != null) {
                     var color = Drawing.Color.FromArgb(converted.Color.A, converted.Color.R, converted.Color.G, converted.Color.B);
@@ -42,6 +37,7 @@ namespace Aiva.Bot.Internal {
     }
 
     public class AddSongCostCheckedConverter : IValueConverter {
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             return !(bool)value;
         }

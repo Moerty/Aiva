@@ -1,16 +1,15 @@
 ﻿using Aiva.Bot.Internal;
 using MahApps.Metro.Controls;
 using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Aiva.Bot.ViewModels {
 
     [PropertyChanged.AddINotifyPropertyChangedInterface]
-    class MainWindow {
-
+    internal class MainWindow {
         private static MainWindow _Instance;
+
         public static MainWindow Instance {
             get {
                 return _Instance;
@@ -24,8 +23,6 @@ namespace Aiva.Bot.ViewModels {
         public Models.MainWindow.TabItemsModel SelectedTab { get; set; }
 
         public MainWindow() {
-
-
             InitViewModel();
 
             Instance = this;

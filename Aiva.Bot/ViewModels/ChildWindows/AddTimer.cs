@@ -26,9 +26,11 @@ namespace Aiva.Bot.ViewModels.ChildWindows {
         #endregion Models
 
         #region Constructor
+
         public AddTimer() {
             SetCommands();
         }
+
         #endregion Constructor
 
         #region Methods

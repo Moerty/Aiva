@@ -1,9 +1,9 @@
 ﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using MahApps.Metro.SimpleChildWindow;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using MahApps.Metro.Controls.Dialogs;
 
 namespace Aiva.Bot.ViewModels {
 
@@ -21,13 +21,16 @@ namespace Aiva.Bot.ViewModels {
         #endregion Models
 
         #region Constructor
+
         public Timers() {
             Handler = new Extensions.Timers.Handler();
             SetCommands();
         }
+
         #endregion Constructor
 
         #region Methods
+
         /// <summary>
         /// Set commands
         /// </summary>

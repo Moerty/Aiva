@@ -3,6 +3,7 @@ using TwitchLib.Events.Client;
 using TwitchLib.Extensions.Client;
 
 namespace Aiva.Core.Client.Internal {
+
     public class Chat {
 
         /// <summary>

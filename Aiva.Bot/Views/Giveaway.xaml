@@ -167,7 +167,6 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-
         </Grid>
     </Grid>
 </controls:MetroContentControl>

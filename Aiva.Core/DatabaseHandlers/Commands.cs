@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aiva.Core.DatabaseHandlers {
+
     public class Commands {
+
         /// <summary>
         /// Increate the stack from the command
         /// </summary>

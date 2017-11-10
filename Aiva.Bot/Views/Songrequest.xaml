@@ -131,7 +131,6 @@
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Button>
-
                 </WrapPanel>
                 <StackPanel
                     Margin="0,5,10,5"
@@ -158,7 +157,6 @@
                         Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                         Value="85" />
                 </StackPanel>
-
             </DockPanel>
             <Separator HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
         </Grid>
@@ -259,6 +257,5 @@
                 </i:Interaction.Triggers>
             </DataGrid>
         </Grid>
-
     </Grid>
 </controls:MetroContentControl>

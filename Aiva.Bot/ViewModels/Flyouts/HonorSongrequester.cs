@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels.Flyouts {
@@ -14,7 +13,6 @@ namespace Aiva.Bot.ViewModels.Flyouts {
         private string _twitchID;
         private readonly string _username;
         private Core.DatabaseHandlers.Currency.AddCurrency _addCurrencyDatabaseHandler;
-
 
         public HonorSongrequester(string username, string twitchID = null) {
             _addCurrencyDatabaseHandler = new Core.DatabaseHandlers.Currency.AddCurrency();

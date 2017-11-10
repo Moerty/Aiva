@@ -1,22 +1,21 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using TwitchLib.Events.Client;
-using TwitchLib;
-using System;
-using Aiva.Core.Models;
 
 namespace Aiva.Core.DatabaseHandlers {
+
     public class Users {
 
         /// <summary>
         /// Add User Class
         /// </summary>
         public class AddUser {
+
             /// <summary>
             /// Add or Update User in Database
             /// </summary>
             /// <param name="User">todo: describe User parameter on AddUser</param>
             private static void AddUserToDatabase(TwitchLib.Models.API.v5.Users.User User) {
-
                 if (User != null) {
                     using (var context = new Storage.StorageEntities()) {
                         var databaseUser = context.Users.SingleOrDefault(u => String.Compare(u.Id, User.Id) == 0);
@@ -85,7 +84,7 @@ namespace Aiva.Core.DatabaseHandlers {
             internal static void AddUserToDatabase(object sender, OnUserJoinedArgs e) {
                 var twitchUser = AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(e.Username).Result;
 
-                if(twitchUser != null) {
+                if (twitchUser != null) {
                     AddUserToDatabase(twitchUser.Matches[0]);
                 }
             }

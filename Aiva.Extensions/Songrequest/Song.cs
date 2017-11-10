@@ -1,6 +1,5 @@
 ﻿using Google.Apis.YouTube.v3;
 using System;
-using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -8,7 +7,6 @@ namespace Aiva.Extensions.Songrequest {
 
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Song {
-
         public string Title { get; set; }
         public TimeSpan Duration { get; set; }
         public string VideoID { get; set; }

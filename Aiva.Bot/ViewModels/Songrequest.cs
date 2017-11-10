@@ -1,8 +1,7 @@
 ﻿using MahApps.Metro.Controls;
-using System.Windows.Input;
-using System.Windows;
 using MahApps.Metro.SimpleChildWindow;
-using System;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
 
@@ -23,6 +22,7 @@ namespace Aiva.Bot.ViewModels {
         #endregion Models
 
         #region Constructor
+
         public Songrequest() {
             SetCommands();
         }

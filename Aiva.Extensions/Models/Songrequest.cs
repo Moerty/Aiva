@@ -1,9 +1,4 @@
 ﻿using Aiva.Extensions.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aiva.Extensions.Models {
 
@@ -13,6 +8,7 @@ namespace Aiva.Extensions.Models {
         [PropertyChanged.AddINotifyPropertyChangedInterface]
         public class AddModel {
             private string _Command;
+
             public string Command {
                 get {
                     return _Command;

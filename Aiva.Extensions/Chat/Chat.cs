@@ -1,25 +1,21 @@
-﻿using System;
+﻿using Aiva.Core;
+using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Drawing;
 using System.Linq;
 using System.Windows;
-using Aiva.Core.Models;
 using TwitchLib.Events.Client;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using Aiva.Core;
 
 namespace Aiva.Extensions.Chat {
-
     /*
      * Can show Messages for GUI
      * Store Messages in Database
      * Write Messages from GUI
      */
+
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Chat {
-
         public ObservableCollection<Models.Chat.MessageModel> Messages { get; set; }
         public ObservableCollection<Models.Chat.Viewers> Viewers { get; set; }
         public Models.Chat.Viewers SelectedViewer { get; set; }
@@ -54,7 +50,6 @@ namespace Aiva.Extensions.Chat {
         }
 
         private void OnNewUserFound(string name, string id) {
-
             if (Viewers.Any(v => String.Compare(v.TwitchID, id) == 0)) // check if user is already in List
                 return;
 
@@ -72,7 +67,6 @@ namespace Aiva.Extensions.Chat {
             };
 
             Application.Current.Dispatcher.Invoke(() => { Viewers.Add(viewer); });
-
 
             // Get Channel Moderators to fire "ModeratorsReceived"
             Core.AivaClient.Instance.AivaTwitchClient.GetChannelModerators(Core.AivaClient.Instance.Channel);
@@ -101,7 +95,6 @@ namespace Aiva.Extensions.Chat {
             var viewer = Viewers.SingleOrDefault(u => u.Name == e.Username);
 
             if (viewer != null) {
-
                 Application.Current.Dispatcher.Invoke(() => {
                     Viewers.Remove(viewer);
                 });
@@ -129,7 +122,6 @@ namespace Aiva.Extensions.Chat {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ChatMessageReceived(object sender, OnMessageReceivedArgs e) {
-
             var message = new Models.Chat.MessageModel {
                 Color = e.ChatMessage.Color.IsEmpty ? GetChatColor(e.ChatMessage.UserId) : e.ChatMessage.Color,
                 DisplayName = e.ChatMessage.DisplayName,

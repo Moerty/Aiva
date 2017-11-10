@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Markup;
 
 namespace Aiva.Bot.Internal {
@@ -12,6 +6,7 @@ namespace Aiva.Bot.Internal {
     // http://brianlagunas.com/a-better-way-to-data-bind-enums-in-wpf/
     public class EnumBindingSourceExtension : MarkupExtension {
         private Type _enumType;
+
         public Type EnumType {
             get { return this._enumType; }
             set {
@@ -27,7 +22,8 @@ namespace Aiva.Bot.Internal {
             }
         }
 
-        public EnumBindingSourceExtension() { }
+        public EnumBindingSourceExtension() {
+        }
 
         public EnumBindingSourceExtension(Type enumType) {
             this.EnumType = enumType;

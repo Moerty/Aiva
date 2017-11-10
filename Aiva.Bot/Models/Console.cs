@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aiva.Bot.Models {
 
@@ -13,6 +8,7 @@ namespace Aiva.Bot.Models {
         public ObservableCollection<MessageModel> Messages { get; set; }
 
         private string _MessageToSend;
+
         public string MessageToSend {
             get {
                 return _MessageToSend;
@@ -38,4 +34,3 @@ namespace Aiva.Bot.Models {
         public long TwitchID { get; set; }
     }
 }
-

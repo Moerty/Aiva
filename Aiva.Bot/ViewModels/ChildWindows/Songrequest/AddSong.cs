@@ -21,9 +21,11 @@ namespace Aiva.Bot.ViewModels.ChildWindows.Songrequest {
         #endregion Models
 
         #region Constructor
+
         public AddSong() {
             SetCommands();
         }
+
         #endregion Constructor
 
         #region Methods

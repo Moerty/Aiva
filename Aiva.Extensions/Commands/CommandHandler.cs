@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aiva.Extensions.Commands {
+
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class CommandHandler {
-
         public List<Core.Storage.Commands> CommandList { get; private set; }
         public Core.Storage.Commands SelectedCommand { get; set; }
 
@@ -35,7 +31,6 @@ namespace Aiva.Extensions.Commands {
         /// <param name="AddModel"></param>
         public async void AddCommandAsync(Models.Commands.AddModel AddModel) {
             //using (var context = new Core.Storage.StorageEntities()) {
-
             //    var commandEntry = context.Commands.SingleOrDefault(c => String.Compare(c.Command, AddModel.Command, true) == 0);
 
             //    // Command doesnt exist, create new

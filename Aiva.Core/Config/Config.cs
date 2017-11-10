@@ -1,11 +1,12 @@
-﻿using System.IO;
-using Aiva.Core.Models;
+﻿using Aiva.Core.Models;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace Aiva.Core.Config {
-    public class Config {
 
+    public class Config {
         private static Config _Instance;
+
         public static Config Instance {
             get {
                 if (_Instance == null)
@@ -21,7 +22,7 @@ namespace Aiva.Core.Config {
         public ConfigStorage.Root Storage;
 
         public Config() {
-            if(File.Exists("ConfigFiles\\config.json")) {
+            if (File.Exists("ConfigFiles\\config.json")) {
                 LoadConfig();
             }
         }
@@ -46,6 +47,7 @@ namespace Aiva.Core.Config {
     }
 
     public static class Serialize {
+
         public static string ToJson(this ConfigStorage.Root self) => JsonConvert.SerializeObject(self, ConfigStorage.Converter.Settings);
     }
 }

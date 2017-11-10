@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
 using TwitchLib.Enums;
 using TwitchLib.Events.Client;
 
 namespace Aiva.Extensions.Commands {
-    public class CommandReceiver {
 
+    public class CommandReceiver {
         private Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
         private Core.DatabaseHandlers.Commands _commandsDatabaseHandler;
 
         public CommandReceiver() {
-
             _currencyDatabaseHandler = new Core.DatabaseHandlers.Currency();
             _commandsDatabaseHandler = new Core.DatabaseHandlers.Commands();
 
@@ -24,7 +21,6 @@ namespace Aiva.Extensions.Commands {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CommandReceived(object sender, OnChatCommandReceivedArgs e) {
-
             //using (var context = new Core.Storage.StorageEntities()) {
             //    var command = context.Commands.SingleOrDefault(c => String.Compare(e.Command.CommandText, c.Name, true) == 0);
 
@@ -72,6 +68,7 @@ namespace Aiva.Extensions.Commands {
                     return (int)userType == 1 ? true : (int)userType == 2 ? true : false; // Mod&GloabelMod:
                 case (2): // return true if it is the broeadcaster or admin; staff will be ignored
                     return (int)userType > 3 ? true : false;
+
                 default:
                     return true;
             }
@@ -83,7 +80,6 @@ namespace Aiva.Extensions.Commands {
         /// <param name="command"></param>
         /// <param name="args"></param>
         private void ExecuteCommand(Core.Storage.Commands command, OnChatCommandReceivedArgs args) {
-
             /*
             * User
             * Stack (Count)
@@ -127,7 +123,6 @@ namespace Aiva.Extensions.Commands {
             // botname
             if (stringToSend.Contains("%botname%"))
                 stringToSend = stringToSend.Replace("%botname%", Core.AivaClient.Instance.Username);
-
 
             Core.AivaClient.Instance.AivaTwitchClient.SendMessage(stringToSend);
         }
@@ -181,7 +176,6 @@ namespace Aiva.Extensions.Commands {
 
             if (stringToSend.Contains("%spendonbits%"))
                 stringToSend = stringToSend.Replace("%spendonbits%", args.Command.ChatMessage.BitsInDollars.ToString());
-
 
             return stringToSend;
         }

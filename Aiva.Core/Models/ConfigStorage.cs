@@ -5,6 +5,7 @@
     public class ConfigStorage {
 
         public partial class Root {
+
             [JsonProperty("Chat")]
             public Chat Chat { get; set; }
 
@@ -28,11 +29,13 @@
         }
 
         public partial class StreamGames {
+
             [JsonProperty("Bankheist")]
             public Bankheist Bankheist { get; set; }
         }
 
         public partial class Bankheist {
+
             [JsonProperty("Cooldowns")]
             public Cooldowns Cooldowns { get; set; }
 
@@ -44,6 +47,7 @@
         }
 
         public partial class Settings {
+
             [JsonProperty("Bank1")]
             public Bank Bank1 { get; set; }
 
@@ -61,6 +65,7 @@
         }
 
         public partial class Bank3 {
+
             [JsonProperty("MinimumPlayers")]
             public long MinimumPlayers { get; set; }
 
@@ -72,6 +77,7 @@
         }
 
         public partial class Bank {
+
             [JsonProperty("MinimumPlayers")]
             public long MinimumPlayers { get; set; }
 
@@ -83,6 +89,7 @@
         }
 
         public partial class PurpleGeneral {
+
             [JsonProperty("Active")]
             public bool Active { get; set; }
 
@@ -91,6 +98,7 @@
         }
 
         public partial class Cooldowns {
+
             [JsonProperty("BankheistCooldown")]
             public long BankheistCooldown { get; set; }
 
@@ -99,11 +107,13 @@
         }
 
         public partial class ModCommands {
+
             [JsonProperty("ModCurrency")]
             public ModCurrency ModCurrency { get; set; }
         }
 
         public partial class ModCurrency {
+
             [JsonProperty("AddCurrency")]
             public string AddCurrency { get; set; }
 
@@ -115,6 +125,7 @@
         }
 
         public partial class Interactions {
+
             [JsonProperty("WriteInChatNormalSub")]
             public bool WriteInChatNormalSub { get; set; }
 
@@ -123,6 +134,7 @@
         }
 
         public partial class FluffyGeneral {
+
             [JsonProperty("BotName")]
             public string BotName { get; set; }
 
@@ -134,6 +146,7 @@
         }
 
         public partial class Currency {
+
             [JsonProperty("AddCurrencyFrquently")]
             public bool AddCurrencyFrquently { get; set; }
 
@@ -145,6 +158,7 @@
         }
 
         public partial class Credentials {
+
             [JsonProperty("TwitchClientID")]
             public string TwitchClientID { get; set; }
 
@@ -153,6 +167,7 @@
         }
 
         public partial class Chat {
+
             [JsonProperty("BlacklistWordsChecker")]
             public bool BlacklistWordsChecker { get; set; }
 
@@ -164,10 +179,12 @@
         }
 
         public partial class Root {
+
             public static Root FromJson(string json) => JsonConvert.DeserializeObject<Root>(json, Converter.Settings);
         }
 
         public class Converter {
+
             public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings {
                 MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
                 DateParseHandling = DateParseHandling.None,

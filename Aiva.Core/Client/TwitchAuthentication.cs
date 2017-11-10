@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using System.Web;
 
 namespace Aiva.Core.Client {
-    public class TwitchAuthentication {
 
-        HttpListener TwitchListener;
-        const string ReturnUrl = "http://localhost:56207";
+    public class TwitchAuthentication {
+        private HttpListener TwitchListener;
+        private const string ReturnUrl = "http://localhost:56207";
 
         public TwitchAuthentication() {
             TwitchListener = new HttpListener();
@@ -31,7 +31,8 @@ namespace Aiva.Core.Client {
         private bool StartListener() {
             try {
                 TwitchListener.Start();
-            } catch (HttpListenerException ex) {
+            }
+            catch (HttpListenerException ex) {
                 throw new Exception("Cant start listener for TwitchAuthentication" + Environment.NewLine + ex.ToString());
             }
 
@@ -50,7 +51,6 @@ namespace Aiva.Core.Client {
         /// </summary>
         /// <returns></returns>
         public AuthenticationModel GetAuthenticationValues() {
-
             StartListener();
 
             AuthenticationModel Values = null;

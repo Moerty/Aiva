@@ -1,7 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace Aiva.Core {
+
     internal class Bootstrapper {
 
         internal static void StartBootstrapper() {
@@ -12,7 +12,7 @@ namespace Aiva.Core {
         /// Checks if the database is there
         /// </summary>
         internal static void CheckNeededFiles() {
-            if(!File.Exists("ConfigFiles\\Database.db")) {
+            if (!File.Exists("ConfigFiles\\Database.db")) {
                 DatabaseHandlers.Creator.CreateDatabaseIfNotExist();
             }
         }

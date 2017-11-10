@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace Aiva.Core.DatabaseHandlers {
+
     public class Creator {
 
         /// <summary>
         /// Creates the database
         /// </summary>
         public static void CreateDatabaseIfNotExist() {
-            using(var context = new Storage.StorageEntities()) {
-
-                if(!File.Exists(context.Database.Connection.ConnectionString.Replace(@"data source=", ""))) {
+            using (var context = new Storage.StorageEntities()) {
+                if (!File.Exists(context.Database.Connection.ConnectionString.Replace(@"data source=", ""))) {
                     context.Database.CreateIfNotExists();
 
                     context.Database.ExecuteSqlCommand(Properties.Resources.Users);

@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
+
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Setup {
         public string OAuthKey { get; set; }
@@ -17,7 +15,6 @@ namespace Aiva.Bot.ViewModels {
         public string BotName { get; set; }
         public bool IsYoutubeAuthenticated { get; set; }
         public bool IsTwitchAuthenticated { get; set; }
-
 
         public ICommand RequestTwitchOAuthKeyCommand { get; set; }
         public ICommand RequestGoogleAuthCommand { get; set; }
