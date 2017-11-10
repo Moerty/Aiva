@@ -1,9 +1,7 @@
 ﻿using System.IO;
 
 namespace Aiva.Core.DatabaseHandlers {
-
     public class Creator {
-
         /// <summary>
         /// Creates the database
         /// </summary>

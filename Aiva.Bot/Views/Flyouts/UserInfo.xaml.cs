@@ -1,5 +1,4 @@
 ﻿namespace Aiva.Bot.Views.Flyouts {
-
     /// <summary>
     /// Interaktionslogik für UserInfo.xaml
     /// </summary>

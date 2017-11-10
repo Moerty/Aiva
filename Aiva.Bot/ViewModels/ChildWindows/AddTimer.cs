@@ -2,10 +2,8 @@
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels.ChildWindows {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class AddTimer {
-
         #region Models
 
         public string Name { get; set; }

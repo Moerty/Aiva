@@ -2,9 +2,7 @@
 using TwitchLib.Events.Client;
 
 namespace Aiva.Core.DatabaseHandlers {
-
     public class Chat {
-
         /// <summary>
         /// Add raw Message to Database
         /// </summary>

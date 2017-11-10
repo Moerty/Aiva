@@ -2,7 +2,6 @@
 using System.Linq;
 
 namespace Aiva.Bot.ViewModels {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Users {
         public ObservableCollection<Core.Storage.Users> UsersList { get; set; }

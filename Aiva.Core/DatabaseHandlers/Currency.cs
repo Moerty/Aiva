@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Aiva.Core.DatabaseHandlers {
-
     public class Currency {
         public AddCurrency Add;
         public RemoveCurrency Remove;
@@ -16,7 +15,6 @@ namespace Aiva.Core.DatabaseHandlers {
         }
 
         public class AddCurrency {
-
             /// <summary>
             /// Add list of Users Currency
             /// </summary>
@@ -64,7 +62,6 @@ namespace Aiva.Core.DatabaseHandlers {
         }
 
         public class RemoveCurrency {
-
             /// <summary>
             /// Remove Currency from User
             /// </summary>

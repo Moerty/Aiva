@@ -3,7 +3,6 @@ using TwitchLib.Enums;
 using TwitchLib.Events.Client;
 
 namespace Aiva.Extensions.Commands {
-
     public class CommandReceiver {
         private Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
         private Core.DatabaseHandlers.Commands _commandsDatabaseHandler;

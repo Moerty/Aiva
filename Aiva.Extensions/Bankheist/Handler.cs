@@ -4,7 +4,6 @@ using System;
 using TwitchLib.Events.Client;
 
 namespace Aiva.Extensions.Bankheist {
-
     public class Handler {
         public Bankheist CurrentBankheist { get; private set; }
         public Models.Bankheist.BankheistInitModel InitModel { get; private set; }

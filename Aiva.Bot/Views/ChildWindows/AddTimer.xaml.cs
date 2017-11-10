@@ -1,12 +1,10 @@
 ﻿using MahApps.Metro.SimpleChildWindow;
 
 namespace Aiva.Bot.Views.ChildWindows {
-
     /// <summary>
     /// Interaktionslogik für AddTimer.xaml
     /// </summary>
     public partial class AddTimer : ChildWindow {
-
         public AddTimer() {
             InitializeComponent();
             this.DataContext = new ViewModels.ChildWindows.AddTimer();

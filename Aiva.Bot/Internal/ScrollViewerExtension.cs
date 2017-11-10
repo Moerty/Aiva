@@ -1,11 +1,9 @@
 ﻿namespace Aiva.Bot.Internal {
-
     using System.Windows;
     using System.Windows.Controls;
 
     //  Helpers to add autoscrolling functionality to ScrollViewer control
     public static class ScrollViewerExtension {
-
         public static bool GetAutoScroll(DependencyObject obj) {
             return (bool)obj.GetValue(AutoScrollProperty);
         }

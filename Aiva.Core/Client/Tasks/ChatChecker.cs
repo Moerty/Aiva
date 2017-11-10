@@ -6,9 +6,7 @@ using TwitchLib.Events.Client;
 using TwitchLib.Extensions.Client;
 
 namespace Aiva.Core.Client.Tasks {
-
     internal class ChatChecker {
-
         /// <summary>
         /// Caps checker for Viewers
         /// </summary>

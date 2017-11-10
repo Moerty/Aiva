@@ -6,10 +6,8 @@ using System.Windows;
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Timers {
-
         #region Models
 
         public ICommand AddTimerCommand { get; set; }

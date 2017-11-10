@@ -1,7 +1,5 @@
 ﻿namespace Aiva.Core.Client.Internal {
-
     public class Currency {
-
         /// <summary>
         /// Add Currency frequently class
         /// </summary>

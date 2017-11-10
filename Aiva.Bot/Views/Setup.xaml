@@ -14,7 +14,7 @@
                                  IsDesignTimeCreatable=True}"
     mc:Ignorable="d">
     <controls:MetroWindow.DataContext>
-        <mvvm:Setup />
+        <mvvm:Setup/>
     </controls:MetroWindow.DataContext>
     <Grid>
         <StackPanel Orientation="Vertical">
@@ -24,7 +24,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Stretch"
                     controls:TextBoxHelper.Watermark="Twitch ClientID"
-                    Text="{Binding ClientID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding ClientID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <Rectangle
                     Name="Mod"
                     Width="24"
@@ -33,10 +33,10 @@
                     HorizontalAlignment="Right"
                     Fill="Black">
                     <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}" />
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}"/>
                     </Rectangle.OpacityMask>
                     <Rectangle.ToolTip>
-                        <TextBlock Text="1. Go to the Twitch website and log in to your account.&#10;2. In the menu bar, click your user name, Settings.&#10;3. On the Settings page, click Connections.&#10;4. On the Connections page, under Other Connections, click Register your application.&#10;5. Complete the form and click Register.&#10;6. Note the generated client ID that you will use to set your console variables.&#10;" />
+                        <TextBlock Text="1. Go to the Twitch website and log in to your account.&#10;2. In the menu bar, click your user name, Settings.&#10;3. On the Settings page, click Connections.&#10;4. On the Connections page, under Other Connections, click Register your application.&#10;5. Complete the form and click Register.&#10;6. Note the generated client ID that you will use to set your console variables.&#10;"/>
                     </Rectangle.ToolTip>
                     <!--  &#10;  -->
                 </Rectangle>
@@ -52,10 +52,10 @@
                     FontStyle="Normal">
                     <Button.Style>
                         <Style BasedOn="{StaticResource MetroButton}" TargetType="Button">
-                            <Setter Property="Background" Value="OrangeRed" />
+                            <Setter Property="Background" Value="OrangeRed"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsTwitchAuthenticated, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                    <Setter Property="Background" Value="Green" />
+                                    <Setter Property="Background" Value="Green"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -64,9 +64,9 @@
                 <TextBox
                     controls:TextBoxHelper.Watermark="OAuthKey"
                     IsReadOnly="True"
-                    Text="{Binding OAuthKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding OAuthKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
-            <Separator />
+            <Separator/>
             <StackPanel Orientation="Vertical">
                 <Button
                     Width="280"
@@ -78,22 +78,22 @@
                     FontStyle="Normal">
                     <Button.Style>
                         <Style BasedOn="{StaticResource MetroButton}" TargetType="Button">
-                            <Setter Property="Background" Value="OrangeRed" />
+                            <Setter Property="Background" Value="OrangeRed"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsYoutubeAuthenticated, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                    <Setter Property="Background" Value="Green" />
+                                    <Setter Property="Background" Value="Green"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
                 </Button>
             </StackPanel>
-            <Separator />
-            <TextBox controls:TextBoxHelper.Watermark="Channel to join" Text="{Binding Channel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Separator />
-            <TextBox controls:TextBoxHelper.Watermark="Bot Name" Text="{Binding BotName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Separator />
-            <Button Command="{Binding ConfirmCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="Confirm" />
+            <Separator/>
+            <TextBox controls:TextBoxHelper.Watermark="Channel to join" Text="{Binding Channel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Separator/>
+            <TextBox controls:TextBoxHelper.Watermark="Bot Name" Text="{Binding BotName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Separator/>
+            <Button Command="{Binding ConfirmCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="Confirm"/>
         </StackPanel>
         <Expander
             Height="49"
@@ -103,7 +103,7 @@
             Header="Requested Twitch Scopes"
             IsExpanded="False">
             <Grid Background="#FFE5E5E5">
-                <ListView ItemsSource="{Binding TwitchScopes}" />
+                <ListView ItemsSource="{Binding TwitchScopes}"/>
             </Grid>
         </Expander>
     </Grid>

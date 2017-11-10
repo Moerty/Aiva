@@ -2,7 +2,6 @@
 using TwitchLib.Events.Client;
 
 namespace Aiva.Core.Client.Internal {
-
     public class Commands {
         public ModCommands Mods;
 

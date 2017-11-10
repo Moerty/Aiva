@@ -5,7 +5,6 @@ using Google.Apis.YouTube.v3;
 using System.Threading;
 
 namespace Aiva.Core.Client {
-
     public class YoutubeConnector {
         private const string ClientId = "235778313506-9i7s8ghgtgn9v767murqk740i7febtho.apps.googleusercontent.com";
         private const string ClientSecret = "ttM4CVByzNNXO8AFmqe4kvC2";

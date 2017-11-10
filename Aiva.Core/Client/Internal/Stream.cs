@@ -1,9 +1,7 @@
 ﻿using TwitchLib.Extensions.Client;
 
 namespace Aiva.Core.Client.Internal {
-
     public class Stream {
-
         /// <summary>
         /// Unmod a User
         /// </summary>

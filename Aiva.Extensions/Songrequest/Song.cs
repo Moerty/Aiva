@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 
 namespace Aiva.Extensions.Songrequest {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Song {
         public string Title { get; set; }

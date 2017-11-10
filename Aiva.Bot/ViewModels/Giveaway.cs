@@ -6,10 +6,8 @@ using System.Windows;
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Giveaway {
-
         #region Models
 
         public Extensions.Giveaway.GiveawayHandler Handler { get; set; }

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Web;
 
 namespace Aiva.Core.Client {
-
     public class TwitchAuthentication {
         private HttpListener TwitchListener;
         private const string ReturnUrl = "http://localhost:56207";

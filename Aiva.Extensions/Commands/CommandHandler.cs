@@ -2,7 +2,6 @@
 using System.Linq;
 
 namespace Aiva.Extensions.Commands {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class CommandHandler {
         public List<Core.Storage.Commands> CommandList { get; private set; }

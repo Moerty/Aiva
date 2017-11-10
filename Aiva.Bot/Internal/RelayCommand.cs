@@ -2,10 +2,8 @@
 using System.Windows.Input;
 
 namespace Aiva.Bot.Internal {
-
     // http://stackoverflow.com/questions/22285866/why-relaycommand
     public class RelayCommand<T> : ICommand {
-
         #region Fields
 
         private readonly Action<T> _execute = null;
@@ -72,7 +70,6 @@ namespace Aiva.Bot.Internal {
     }
 
     public class RelayCommand : ICommand {
-
         #region Fields
 
         private Action<object> execute;

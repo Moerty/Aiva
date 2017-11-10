@@ -2,7 +2,6 @@
 using System.Linq;
 
 namespace Aiva.Bot.Models {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Console {
         public ObservableCollection<MessageModel> Messages { get; set; }

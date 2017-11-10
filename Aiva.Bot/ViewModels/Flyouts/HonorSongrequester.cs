@@ -2,7 +2,6 @@
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels.Flyouts {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class HonorSongrequester {
         public int CurrencyToAdd { get; set; }

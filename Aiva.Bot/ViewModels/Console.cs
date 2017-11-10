@@ -2,10 +2,8 @@
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Console {
-
         #region Models
 
         public Models.Console Model { get; set; }

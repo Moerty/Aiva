@@ -4,10 +4,8 @@ using System.Windows;
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Songrequest {
-
         #region Models
 
         public ICommand StartSongrequestCommand { get; set; }

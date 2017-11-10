@@ -3,14 +3,11 @@ using System.Linq;
 using TwitchLib.Events.Client;
 
 namespace Aiva.Core.DatabaseHandlers {
-
     public class Users {
-
         /// <summary>
         /// Add User Class
         /// </summary>
         public class AddUser {
-
             /// <summary>
             /// Add or Update User in Database
             /// </summary>
@@ -94,7 +91,6 @@ namespace Aiva.Core.DatabaseHandlers {
         /// Remove User class
         /// </summary>
         public class Removeuser {
-
             /// <summary>
             /// Remove ActiveUser Entry
             /// and add TimeWatched values

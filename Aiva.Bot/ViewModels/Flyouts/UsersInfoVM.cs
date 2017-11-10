@@ -2,7 +2,6 @@
 using System.Linq;
 
 namespace Aiva.Bot.ViewModels.Flyouts {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class UsersInfoVM {
         public string Username { get; set; }

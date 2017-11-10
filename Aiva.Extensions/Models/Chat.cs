@@ -3,13 +3,10 @@ using System.Drawing;
 using TwitchLib.Enums;
 
 namespace Aiva.Extensions.Models {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Chat {
-
         [PropertyChanged.AddINotifyPropertyChangedInterface]
         public class MessageModel {
-
             //
             // Zusammenfassung:
             //     Chat message from broadcaster identifier flag

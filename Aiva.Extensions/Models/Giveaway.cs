@@ -1,7 +1,6 @@
 ﻿using Aiva.Extensions.Enums;
 
 namespace Aiva.Extensions.Models {
-
     public class Giveaway {
         public string Username { get; set; }
         public string UserID { get; set; }

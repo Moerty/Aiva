@@ -13,30 +13,30 @@
     <Grid>
         <StackPanel Width="300">
             <StackPanel Width="300" Orientation="Horizontal">
-                <TextBlock Margin="0,0,0,0" Text="Name: " />
+                <TextBlock Margin="0,0,0,0" Text="Name: "/>
                 <TextBox
                     Width="200"
                     Margin="62,0,0,0"
                     HorizontalAlignment="Right"
                     IsReadOnly="True"
-                    Text="{Binding Username}" />
+                    Text="{Binding Username}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Id: " />
+                <TextBlock Text="Id: "/>
                 <TextBox
                     Width="200"
                     Margin="84,0,0,0"
                     HorizontalAlignment="Right"
                     IsReadOnly="True"
-                    Text="{Binding ID}" />
+                    Text="{Binding ID}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock HorizontalAlignment="Left" Text="Currency: " />
+                <TextBlock HorizontalAlignment="Left" Text="Currency: "/>
                 <TextBox
                     Width="200"
                     Margin="47,0,0,0"
                     IsReadOnly="True"
-                    Text="{Binding Currency}" />
+                    Text="{Binding Currency}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

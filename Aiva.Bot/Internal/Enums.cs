@@ -2,7 +2,6 @@
 using System.Windows.Markup;
 
 namespace Aiva.Bot.Internal {
-
     // http://brianlagunas.com/a-better-way-to-data-bind-enums-in-wpf/
     public class EnumBindingSourceExtension : MarkupExtension {
         private Type _enumType;

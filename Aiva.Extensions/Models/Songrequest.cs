@@ -1,10 +1,8 @@
 ﻿using Aiva.Extensions.Enums;
 
 namespace Aiva.Extensions.Models {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Songrequest {
-
         [PropertyChanged.AddINotifyPropertyChangedInterface]
         public class AddModel {
             private string _Command;

@@ -4,7 +4,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Aiva.Bot.Models {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class MainWindow {
         public ObservableCollection<TabItemsModel> TabItems { get; set; }

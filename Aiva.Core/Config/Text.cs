@@ -1,7 +1,6 @@
 ﻿using System.Resources;
 
 namespace Aiva.Core.Config {
-
     public class Text {
         private static ResourceManager _Instance;
 

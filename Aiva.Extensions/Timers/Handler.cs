@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 using System.Timers;
 
 namespace Aiva.Extensions.Timers {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Handler {
-
         #region Models
 
         public ObservableCollection<Core.Storage.Timers> Timers { get; set; }

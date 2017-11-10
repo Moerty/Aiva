@@ -1,8 +1,6 @@
 ﻿namespace Aiva.Extensions.Models {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Commands {
-
         [PropertyChanged.AddINotifyPropertyChangedInterface]
         public class AddModel {
             public string Command { get; set; }

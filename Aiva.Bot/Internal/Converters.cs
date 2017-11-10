@@ -5,9 +5,7 @@ using System.Windows.Media;
 using Drawing = System.Drawing;
 
 namespace Aiva.Bot.Internal {
-
     public class ChatColorConverter : IValueConverter {
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             var converted = (Drawing.Color)value;
 
@@ -37,7 +35,6 @@ namespace Aiva.Bot.Internal {
     }
 
     public class AddSongCostCheckedConverter : IValueConverter {
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             return !(bool)value;
         }

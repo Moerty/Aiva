@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Aiva.Core.DatabaseHandlers {
-
     /// <summary>
     /// Database Handler for timers
     /// </summary>
     public class Timers {
-
         /// <summary>
         /// Add a timer to the database
         /// </summary>

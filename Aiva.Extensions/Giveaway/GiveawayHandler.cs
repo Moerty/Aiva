@@ -9,7 +9,6 @@ using System.Windows;
 using TwitchLib.Events.Client;
 
 namespace Aiva.Extensions.Giveaway {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class GiveawayHandler {
         public ObservableCollection<Models.Giveaway> JoinedUsers { get; set; }

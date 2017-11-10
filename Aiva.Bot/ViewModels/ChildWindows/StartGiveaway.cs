@@ -3,10 +3,8 @@ using System;
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels.ChildWindows {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class StartGiveaway {
-
         #region Models
 
         public string Command { get; set; }

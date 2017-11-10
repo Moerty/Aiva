@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 
 namespace Aiva.Bot.ViewModels {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     internal class MainWindow {
         private static MainWindow _Instance;

@@ -3,12 +3,10 @@ using System.IO;
 using System.Windows;
 
 namespace Aiva.Bot {
-
     /// <summary>
     /// Interaktionslogik für "App.xaml"
     /// </summary>
     public partial class App : Application {
-
         private void StartApp(object sender, EventArgs e) {
             if (File.Exists("ConfigFiles\\config.json")) {
                 Core.Bootstrapper.StartBootstrapper();

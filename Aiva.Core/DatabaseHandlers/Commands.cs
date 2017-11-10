@@ -2,9 +2,7 @@
 using System.Linq;
 
 namespace Aiva.Core.DatabaseHandlers {
-
     public class Commands {
-
         /// <summary>
         /// Increate the stack from the command
         /// </summary>

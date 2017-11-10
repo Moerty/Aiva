@@ -2,10 +2,8 @@
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels.ChildWindows.Songrequest {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class StartSongrequest {
-
         #region Models
 
         public Extensions.Models.Songrequest.AddModel AddModel { get; set; }

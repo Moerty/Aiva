@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Setup {
         public string OAuthKey { get; set; }

@@ -22,18 +22,18 @@
             x:Key="JoinedUsersHeadersTemplate"
             BasedOn="{StaticResource MetroDataGridColumnHeader}"
             TargetType="{x:Type DataGridColumnHeader}">
-            <Setter Property="TextBlock.Width" Value="{Binding ElementName=JoinedUsersGrid, Path=ActualWidth}" />
+            <Setter Property="TextBlock.Width" Value="{Binding ElementName=JoinedUsersGrid, Path=ActualWidth}"/>
         </Style>
     </controls:MetroContentControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="317*" />
-            <RowDefinition Height="154*" />
+            <RowDefinition Height="317*"/>
+            <RowDefinition Height="154*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="31*" />
-            <ColumnDefinition Width="89*" />
+            <ColumnDefinition Width="31*"/>
+            <ColumnDefinition Width="89*"/>
         </Grid.ColumnDefinitions>
 
         <Grid
@@ -53,7 +53,7 @@
                         CanUserResize="True"
                         CanUserSort="True"
                         Header="Username"
-                        IsReadOnly="True" />
+                        IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -78,19 +78,19 @@
                         Height="40"
                         Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_gift}" />
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_gift}"/>
                         </Rectangle.OpacityMask>
                     </Rectangle>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Checked">
-                            <i:InvokeCommandAction Command="{Binding StartGiveawayCommand}" />
+                            <i:InvokeCommandAction Command="{Binding StartGiveawayCommand}"/>
                         </i:EventTrigger>
                         <i:EventTrigger EventName="Unchecked">
-                            <i:InvokeCommandAction Command="{Binding StopGiveawayCommand}" />
+                            <i:InvokeCommandAction Command="{Binding StopGiveawayCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <ToggleButton.ToolTip>
-                        <ToolTip Content="Start / Stop Giveaway" />
+                        <ToolTip Content="Start / Stop Giveaway"/>
                     </ToggleButton.ToolTip>
                 </ToggleButton>
 
@@ -108,11 +108,11 @@
                         Height="40"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_reset}" />
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_reset}"/>
                         </Rectangle.OpacityMask>
                     </Rectangle>
                     <Button.ToolTip>
-                        <ToolTip Content="Reset Giveaway" />
+                        <ToolTip Content="Reset Giveaway"/>
                     </Button.ToolTip>
                 </Button>
 
@@ -129,11 +129,11 @@
                         Height="40"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_star_add}" />
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_star_add}"/>
                         </Rectangle.OpacityMask>
                     </Rectangle>
                     <Button.ToolTip>
-                        <ToolTip Content="Select Winner" />
+                        <ToolTip Content="Select Winner"/>
                     </Button.ToolTip>
                 </Button>
             </DockPanel>
@@ -141,7 +141,7 @@
             <DockPanel
                 Height="200"
                 HorizontalAlignment="Stretch"
-                VerticalAlignment="Bottom" />
+                VerticalAlignment="Bottom"/>
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="1">
@@ -154,7 +154,7 @@
                 controls:TextBoxHelper.Watermark="Winner..."
                 IsReadOnly="True"
                 Text="{Binding Handler.Winner}"
-                TextWrapping="Wrap" />
+                TextWrapping="Wrap"/>
             <ListView
                 Width="513"
                 Height="100"
@@ -163,7 +163,7 @@
                 VerticalAlignment="Top">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn />
+                        <GridViewColumn/>
                     </GridView>
                 </ListView.View>
             </ListView>

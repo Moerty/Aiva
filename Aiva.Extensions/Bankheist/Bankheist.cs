@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 
 namespace Aiva.Extensions.Bankheist {
-
     public class Bankheist {
         private Models.Bankheist.BankheistInitModel InitModel;
 

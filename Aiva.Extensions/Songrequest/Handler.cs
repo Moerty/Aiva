@@ -6,10 +6,8 @@ using System.Windows;
 using TwitchLib.Events.Client;
 
 namespace Aiva.Extensions.Songrequest {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Handler {
-
         #region Models
 
         public bool IsStarted { get; set; }

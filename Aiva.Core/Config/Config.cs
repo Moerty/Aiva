@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using System.IO;
 
 namespace Aiva.Core.Config {
-
     public class Config {
         private static Config _Instance;
 
@@ -47,7 +46,6 @@ namespace Aiva.Core.Config {
     }
 
     public static class Serialize {
-
         public static string ToJson(this ConfigStorage.Root self) => JsonConvert.SerializeObject(self, ConfigStorage.Converter.Settings);
     }
 }

@@ -2,9 +2,7 @@
 using TwitchLib;
 
 namespace Aiva.Core {
-
     public class AivaClient {
-
         /// <summary>
         /// Static AivaClientMember
         /// Thread safe
