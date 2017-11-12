@@ -1,7 +1,7 @@
 ﻿namespace Aiva.Core.Models {
     using Newtonsoft.Json;
 
-    public class ConfigStorage {
+    public static class ConfigStorage {
         public partial class Root {
             [JsonProperty("Chat")]
             public Chat Chat { get; set; }
@@ -165,7 +165,7 @@
             public static Root FromJson(string json) => JsonConvert.DeserializeObject<Root>(json, Converter.Settings);
         }
 
-        public class Converter {
+        public static class Converter {
             public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings {
                 MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
                 DateParseHandling = DateParseHandling.None,

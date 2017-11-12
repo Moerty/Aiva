@@ -1,7 +1,7 @@
 ﻿using System.IO;
 
 namespace Aiva.Core {
-    internal class Bootstrapper {
+    internal static class Bootstrapper {
         internal static void StartBootstrapper() {
             CheckNeededFiles();
         }
