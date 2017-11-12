@@ -16,7 +16,6 @@ namespace Aiva.Bot.ViewModels {
         public bool IsTwitchAuthenticated { get; set; }
 
         public ICommand RequestTwitchOAuthKeyCommand { get; set; }
-        public ICommand RequestGoogleAuthCommand { get; set; }
         public ICommand ConfirmCommand { get; set; }
 
         public ObservableCollection<string> TwitchScopes { get; set; }
@@ -30,7 +29,6 @@ namespace Aiva.Bot.ViewModels {
 
         private void SetupCommands() {
             RequestTwitchOAuthKeyCommand = new Internal.RelayCommand(t => RequestTwitchOAuthKey(), p => !String.IsNullOrEmpty(ClientID));
-            RequestGoogleAuthCommand = new Internal.RelayCommand(g => RequestGoogleAuth());
             ConfirmCommand = new Internal.RelayCommand(c => Confirm(), c => !String.IsNullOrEmpty(OAuthKey) &&
                                                                             !String.IsNullOrEmpty(Channel) &&
                                                                             TwitchScopes != null &&
@@ -57,11 +55,6 @@ namespace Aiva.Bot.ViewModels {
         private void RestartProgram() {
             Process.Start(Application.ResourceAssembly.Location);
             Application.Current.Shutdown();
-        }
-
-        private void RequestGoogleAuth() {
-            var youtubeService = Core.Client.YoutubeConnector.CreateYouTubeService();
-            IsYoutubeAuthenticated = youtubeService != null;
         }
 
         private async void RequestTwitchOAuthKey() {

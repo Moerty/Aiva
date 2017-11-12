@@ -198,7 +198,7 @@
                     <TextBlock
                         HorizontalAlignment="Right"
                         DockPanel.Dock="Right"
-                        Text="{Binding Handler.Player.CurrentSong.Length}"/>
+                        Text="{Binding Handler.Player.CurrentSong.LengthFormatted}"/>
                 </DockPanel>
 
                 <DockPanel>

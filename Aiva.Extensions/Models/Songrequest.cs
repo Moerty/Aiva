@@ -1,8 +1,9 @@
 ﻿using Aiva.Extensions.Enums;
+using System;
 
 namespace Aiva.Extensions.Models {
     [PropertyChanged.AddINotifyPropertyChangedInterface]
-    public class Songrequest {
+    public static class Songrequest {
         [PropertyChanged.AddINotifyPropertyChangedInterface]
         public class AddModel {
             private string _Command;
@@ -33,10 +34,18 @@ namespace Aiva.Extensions.Models {
         public class SongModel {
             public string Title { get; set; }
             public string Length { get; set; }
+            public string LengthFormatted {
+                get {
+                    var ts = TimeSpan.FromSeconds(Convert.ToInt32(Length));
+                    return ts.ToString();
+                }
+            }
             public string Url { get; set; }
             public string Requester { get; set; }
             public string RequesterID { get; set; }
             public string VideoID { get; set; }
+            public string ImageUrl { get; set; }
+            public string ViewCount { get; set; }
         }
     }
 }

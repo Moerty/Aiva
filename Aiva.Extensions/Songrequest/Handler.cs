@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Web;
 using System.Windows;
 using TwitchLib.Events.Client;
 
@@ -123,42 +124,54 @@ namespace Aiva.Extensions.Songrequest {
         /// <param name="displayName"></param>
         /// <param name="userID"></param>
         /// <param name="autoStart"></param>
-        private void AddSong(string args, string displayName, string userID, bool autoStart = false) {
-            // check song on youtube
-            var song = new Song(args);
-            if (!song.FoundVideo) {
+        private async void AddSong(string args, string displayName, string userID, bool autoStart = false) {
+            var videoid = ExtractVideoID(args);
+
+            var youtubeInfo = new YouTubeInfo(videoid);
+            var songModel = await youtubeInfo.GetVideoDetails().ConfigureAwait(false);
+
+            if (songModel == null) {
                 return;
             }
 
-            // create model to add to songlist
-            var songlistSongModel = new Models.Songrequest.SongModel {
-                Url = song.Url,
-                Length = song.Duration.ToString(),
-                Requester = displayName,
-                RequesterID = userID,
-                Title = song.Title,
-                VideoID = song.VideoID
-            };
+            songModel.Requester = displayName;
+            songModel.RequesterID = userID;
+            songModel.Url = $"https://www.youtube.com/watch?v={videoid}";
 
             // add to songlist
             Application.Current.Dispatcher.Invoke(() => {
-                SongList.Add(songlistSongModel);
+                SongList.Add(songModel);
             });
 
             // dont call to play the video twice
             if (!autoStart) {
                 // if first song -> play song if auto start is selected
                 if (Properties.AutoStart && !IsPlaying) {
-                    Player.ChangeSong(songlistSongModel);
+                    Player.ChangeSong(songModel);
                     IsPlaying = true;
                 }
             }
 
             if (autoStart) {
-                Player.ChangeSong(songlistSongModel);
+                Player.ChangeSong(songModel);
                 if (!IsPlaying)
                     IsPlaying = !IsPlaying;
             }
+        }
+
+        /// <summary>
+        /// Extract the VideoID
+        /// </summary>
+        /// <returns></returns>
+        private string ExtractVideoID(string userInput) {
+            // https://www.youtube.com/watch?v=ARfqiQRSPFc
+            if (userInput.StartsWith("https://", StringComparison.OrdinalIgnoreCase)) {
+                var query = HttpUtility.ParseQueryString(new Uri(userInput).Query);
+                return query.AllKeys.Contains("v") ? query["v"] : new Uri(userInput).Segments.Last();
+            }
+
+            // /watch?v=ARfqiQRSPFc || VideoID
+            return userInput.StartsWith("/watch?", StringComparison.OrdinalIgnoreCase) ? userInput.Substring(9, userInput.Length - 9) : userInput;
         }
 
         public void AddSong(string video, bool instantStart) {
