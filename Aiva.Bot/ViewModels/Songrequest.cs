@@ -60,17 +60,13 @@ namespace Aiva.Bot.ViewModels {
         /// </summary>
         /// <param name="startTimerWindow"></param>
         private void CloseAddWindow(Views.ChildWindows.Songrequest.AddSong startTimerWindow) {
-            Views.ChildWindows.Songrequest.AddSong window;
-            ChildWindows.Songrequest.AddSong dataContext;
+            var dataContext = Internal.SimpleChildWindow.GetDataContext<Views.ChildWindows.Songrequest.AddSong, ChildWindows.Songrequest.AddSong>
+                (startTimerWindow, startTimerWindow.DataContext);
 
-            if ((window = startTimerWindow as Views.ChildWindows.Songrequest.AddSong) != null) {
-                if ((dataContext = window.DataContext as ChildWindows.Songrequest.AddSong) != null) {
-                    if (dataContext.IsCompleted) {
-                        Handler.AddSong(dataContext.Video, dataContext.InstantStart);
-                    }
-                }
+            if(dataContext?.Item1 != null && dataContext?.Item2 != null) {
+                Handler.AddSong(dataContext.Item2.Video, dataContext.Item2.InstantStart);
 
-                window.Close();
+                dataContext.Item1.Close();
             }
         }
 
