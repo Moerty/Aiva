@@ -27,24 +27,24 @@
                 Width="250"
                 Height="15"
                 controls:TextBoxHelper.Watermark="Video..."
-                Text="{Binding Video}" />
-            <Separator />
-            <CheckBox Content="Instant start" />
-            <Separator />
+                Text="{Binding Video}"/>
+            <Separator/>
+            <CheckBox Content="Instant start"/>
+            <Separator/>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50*" />
-                    <ColumnDefinition Width="50*" />
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
 
                 <Button
                     Grid.Column="0"
                     Command="{Binding SubmitCommand, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    Content="Submit" />
+                    Content="Submit"/>
                 <Button
                     Grid.Column="1"
                     Command="{Binding CancelCommand}"
-                    Content="Cancel" />
+                    Content="Cancel"/>
             </Grid>
         </StackPanel>
     </Grid>

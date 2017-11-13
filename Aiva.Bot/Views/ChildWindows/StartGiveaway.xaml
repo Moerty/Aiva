@@ -31,18 +31,18 @@
                 Width="250"
                 Height="15"
                 controls:TextBoxHelper.Watermark="Command..."
-                Text="{Binding Command}" />
-            <Separator />
+                Text="{Binding Command}"/>
+            <Separator/>
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="Join permission" />
-                <ComboBox ItemsSource="{Binding Source={internal:EnumBindingSource {x:Type enums:JoinPermission}}}" SelectedValue="{Binding SelectedJoinPermission}" />
+                <TextBlock Text="Join permission"/>
+                <ComboBox ItemsSource="{Binding Source={internal:EnumBindingSource {x:Type enums:JoinPermission}}}" SelectedValue="{Binding SelectedJoinPermission}"/>
             </StackPanel>
-            <Separator />
+            <Separator/>
             <DockPanel>
                 <TextBlock
                     Width="40"
                     HorizontalAlignment="Left"
-                    Text="Cost: " />
+                    Text="Cost: "/>
                 <controls:NumericUpDown
                     Height="15"
                     HorizontalAlignment="Stretch"
@@ -50,11 +50,11 @@
                     HasDecimals="False"
                     Interval="10"
                     Minimum="1"
-                    Value="{Binding Price}" />
+                    Value="{Binding Price}"/>
             </DockPanel>
-            <Separator />
+            <Separator/>
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="Minutes active" />
+                <TextBlock Text="Minutes active"/>
                 <Slider
                     controls:SliderHelper.ChangeValueBy="SmallChange"
                     controls:SliderHelper.EnableMouseWheel="MouseHover"
@@ -64,11 +64,11 @@
                     Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                     TickFrequency="1"
                     TickPlacement="BottomRight"
-                    Value="{Binding MinutesActive}" />
+                    Value="{Binding MinutesActive}"/>
             </StackPanel>
-            <Separator />
+            <Separator/>
             <StackPanel Orientation="Vertical">
-                <CheckBox Content="Subscriber luck" IsChecked="{Binding IsSubluckActive}" />
+                <CheckBox Content="Subscriber luck" IsChecked="{Binding IsSubluckActive}"/>
                 <Slider
                     controls:SliderHelper.ChangeValueBy="SmallChange"
                     controls:SliderHelper.EnableMouseWheel="MouseHover"
@@ -78,7 +78,7 @@
                     Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                     TickFrequency="1"
                     TickPlacement="BottomRight"
-                    Value="{Binding SubLuck}" />
+                    Value="{Binding SubLuck}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical">
                 <CheckBox
@@ -86,40 +86,40 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Content="Must be following to win"
-                    IsChecked="{Binding BeFollower}" />
+                    IsChecked="{Binding BeFollower}"/>
                 <CheckBox
                     Margin="0,10,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Content="Notify winner in chat"
-                    IsChecked="{Binding NotifyWinner}" />
+                    IsChecked="{Binding NotifyWinner}"/>
                 <CheckBox
                     Margin="0,10,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Content="Remove winner from list"
-                    IsChecked="{Binding RemoveWinnerFromList}" />
+                    IsChecked="{Binding RemoveWinnerFromList}"/>
                 <CheckBox
                     Margin="0,10,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Content="Block re-entry of previous winners"
-                    IsChecked="{Binding BlockReEntry}" />
+                    IsChecked="{Binding BlockReEntry}"/>
             </StackPanel>
             <Grid Margin="0,5,0,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50*" />
-                    <ColumnDefinition Width="50*" />
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
 
                 <Button
                     Grid.Column="0"
                     Command="{Binding SubmitCommand}"
-                    Content="Submit" />
+                    Content="Submit"/>
                 <Button
                     Grid.Column="1"
                     Command="{Binding CancelCommand}"
-                    Content="Cancel" />
+                    Content="Cancel"/>
             </Grid>
         </StackPanel>
     </Grid>

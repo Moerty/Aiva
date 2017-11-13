@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 
@@ -24,9 +19,8 @@ namespace Aiva.Bot.Internal {
             }
         }
 
-        private void AssociatedObject_KeyDown(object sender, System.Windows.Input.KeyEventArgs e) {
-            TextBox textBox = sender as TextBox;
-            if (textBox != null) {
+        private void AssociatedObject_KeyDown(object sender, KeyEventArgs e) {
+            if (sender is TextBox textBox) {
                 if (e.Key == Key.Return) {
                     if (e.Key == Key.Enter) {
                         textBox.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));

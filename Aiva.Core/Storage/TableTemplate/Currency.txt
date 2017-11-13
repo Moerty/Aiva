@@ -1,0 +1,6 @@
+﻿CREATE TABLE `Currency` (
+	`ID`	TEXT,
+	`Value`	integer NOT NULL,
+	PRIMARY KEY(`ID`),
+	FOREIGN KEY(`ID`) REFERENCES `Users`(`ID`)
+);

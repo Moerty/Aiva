@@ -1,18 +1,16 @@
-﻿using System;
+﻿using Aiva.Core;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using TwitchLib.Events.Client;
 
 namespace Aiva.Extensions.Giveaway {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class GiveawayHandler {
-
         public ObservableCollection<Models.Giveaway> JoinedUsers { get; set; }
         public ObservableCollection<Models.Giveaway> Winners { get; set; }
         public ObservableCollection<Models.Giveaway.Messages> Messages { get; set; }
@@ -23,7 +21,7 @@ namespace Aiva.Extensions.Giveaway {
         public Models.Giveaway.Properties Properties;
 
         private Timer _endTimer;
-        private Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
+        private readonly Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
 
         public GiveawayHandler() {
             _currencyDatabaseHandler = new Core.DatabaseHandlers.Currency();
@@ -36,7 +34,7 @@ namespace Aiva.Extensions.Giveaway {
             JoinedUsers = new ObservableCollection<Models.Giveaway>();
             Winners = new ObservableCollection<Models.Giveaway>();
 
-            Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived += ChatCommandReceived;
+            AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived += ChatCommandReceived;
             IsStarted = true;
 
             if (IsTimerActive)
@@ -48,18 +46,18 @@ namespace Aiva.Extensions.Giveaway {
         /// Stop from joining the giveaway
         /// </summary>
         public void StopRegistration() {
-            Core.AivaClient.Instance.AivaTwitchClient.OnMessageReceived -= ChatMessageReceived;
-            Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived -= ChatCommandReceived;
+            AivaClient.Instance.AivaTwitchClient.OnMessageReceived -= ChatMessageReceived;
+            AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived -= ChatCommandReceived;
         }
 
         /// <summary>
         /// Stop the Giveaway
         /// </summary>
         public void StopGiveaway() {
-            Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived -= ChatCommandReceived;
+            AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived -= ChatCommandReceived;
             IsStarted = false;
 
-            Core.AivaClient.Instance.AivaTwitchClient.OnMessageReceived += ChatMessageReceived;
+            AivaClient.Instance.AivaTwitchClient.OnMessageReceived += ChatMessageReceived;
         }
 
         /// <summary>
@@ -95,7 +93,7 @@ namespace Aiva.Extensions.Giveaway {
                 }
             }
 
-            var winner = tempList.ElementAt(new Random().Next(tempList.Count));
+            var winner = tempList[new Random().Next(tempList.Count)];
             Winner = winner;
 
             var joinedUsersWinnerEntry = JoinedUsers.SingleOrDefault(w => String.Compare(w.Username, winner, true) == 0);
@@ -114,7 +112,7 @@ namespace Aiva.Extensions.Giveaway {
         /// </summary>
         /// <param name="winner"></param>
         private void DoNotification(string winner) {
-            Core.AivaClient.Instance.AivaTwitchClient.SendMessage($"Winner is: @{winner}");
+            AivaClient.Instance.AivaTwitchClient.SendMessage($"Winner is: @{winner}");
         }
 
         /// <summary>
@@ -124,11 +122,9 @@ namespace Aiva.Extensions.Giveaway {
         /// <param name="e"></param>
         private async void ChatCommandReceived(object sender, OnChatCommandReceivedArgs e) {
             if (String.Compare(Properties.Command.TrimStart('!'), e.Command.CommandText, true) == 0) {
-
                 if (HasUserAlreadyJoined(e.Command.ChatMessage.UserId)) {
                     return;
                 }
-
 
                 if (HasUserAlreadyWon(e.Command.ChatMessage.UserId)) {
                     if (Properties.BlockReEntry)
@@ -143,7 +139,7 @@ namespace Aiva.Extensions.Giveaway {
 
                 // Check if the User is a follower
                 if (Properties.BeFollower) {
-                    var isFollowing = await TwitchLib.TwitchAPI.Users.v5.UserFollowsChannelAsync(e.Command.ChatMessage.UserId, Core.AivaClient.Instance.ChannelID);
+                    var isFollowing = await AivaClient.Instance.TwitchApi.Users.v5.UserFollowsChannelAsync(e.Command.ChatMessage.UserId, Core.AivaClient.Instance.ChannelID).ConfigureAwait(false);
 
                     if (!isFollowing) {
                         return;
@@ -154,7 +150,7 @@ namespace Aiva.Extensions.Giveaway {
                 _currencyDatabaseHandler.Remove.Remove(e.Command.ChatMessage.UserId, Properties.Price);
 
                 // add user to list
-                var isUserSub = await IsUserSub(e.Command.ChatMessage.Username);
+                var isUserSub = await IsUserSub(e.Command.ChatMessage.Username).ConfigureAwait(false);
                 Application.Current.Dispatcher.Invoke(() => {
                     JoinedUsers.Add(
                     new Models.Giveaway {
@@ -172,7 +168,7 @@ namespace Aiva.Extensions.Giveaway {
         /// <param name="username"></param>
         /// <returns></returns>
         private async Task<bool> IsUserSub(string username) {
-            return await TwitchLib.TwitchAPI.Subscriptions.v3.ChannelHasUserSubscribedAsync(Core.AivaClient.Instance.Channel, username) != null;
+            return await AivaClient.Instance.TwitchApi.Subscriptions.v3.ChannelHasUserSubscribedAsync(Core.AivaClient.Instance.Channel, username).ConfigureAwait(false) != null;
         }
 
         /// <summary>
@@ -181,7 +177,7 @@ namespace Aiva.Extensions.Giveaway {
         /// <param name="userId"></param>
         /// <returns></returns>
         private bool HasUserAlreadyWon(string userId) {
-            return (Winners != null && Winners.SingleOrDefault(u => String.Compare(userId, u.UserID, true) == 0) != null);
+            return Winners?.SingleOrDefault(u => String.Compare(userId, u.UserID, true) == 0) != null;
         }
 
         /// <summary>
@@ -191,7 +187,7 @@ namespace Aiva.Extensions.Giveaway {
         /// <returns></returns>
         private bool HasUserAlreadyJoined(string userId) {
             // exist in joinedusers || winners ?
-            return JoinedUsers != null && JoinedUsers.SingleOrDefault(u => String.Compare(u.UserID, userId, true) == 0) != null;
+            return JoinedUsers?.SingleOrDefault(u => String.Compare(u.UserID, userId, true) == 0) != null;
         }
 
         /// <summary>
@@ -212,6 +208,7 @@ namespace Aiva.Extensions.Giveaway {
         }
 
         #region Timer
+
         /// <summary>
         /// Set the Timer
         /// </summary>
@@ -236,6 +233,7 @@ namespace Aiva.Extensions.Giveaway {
                 StopGiveaway();
             }
         }
+
         #endregion Timer
     }
 }

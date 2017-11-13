@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Aiva.Core.Config;
+using System;
 using System.Linq;
 using TwitchLib.Enums;
 using TwitchLib.Events.Client;
 using TwitchLib.Extensions.Client;
-using Aiva.Core.Config;
-using System.Text.RegularExpressions;
 
 namespace Aiva.Core.Client.Tasks {
-    class ChatChecker {
+    internal static class ChatChecker {
         /// <summary>
         /// Caps checker for Viewers
         /// </summary>
@@ -36,7 +35,7 @@ namespace Aiva.Core.Client.Tasks {
         /// <param name="e"></param>
         public static void LinkChecker(object sender, OnMessageReceivedArgs e) {
             if (e.ChatMessage.UserType == UserType.Viewer) {
-                if(e.ChatMessage.Message.Contains("www.") || e.ChatMessage.Message.Contains("http://")) {
+                if (e.ChatMessage.Message.Contains("www.") || e.ChatMessage.Message.Contains("http://")) {
                     AivaClient.Instance.AivaTwitchClient.TimeoutUser(e.ChatMessage.Username, new TimeSpan(0, 5, 0), Text.Instance.GetString("LinkTimeoutText"));
                 }
             }

@@ -1,14 +1,11 @@
 ﻿using MahApps.Metro.Controls;
-using System.Windows.Input;
-using System.Windows;
 using MahApps.Metro.SimpleChildWindow;
-using System;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Songrequest {
-
         #region Models
 
         public ICommand StartSongrequestCommand { get; set; }
@@ -23,6 +20,7 @@ namespace Aiva.Bot.ViewModels {
         #endregion Models
 
         #region Constructor
+
         public Songrequest() {
             SetCommands();
         }
@@ -32,7 +30,7 @@ namespace Aiva.Bot.ViewModels {
             StopSongrequestCommand = new Internal.RelayCommand(stop => StopRegisterSongrequest());
             AddSongCommand = new Internal.RelayCommand(add => AddSong(), add => Handler != null);
             ResetSongrequestCommand = new Internal.RelayCommand(reset => Handler = null);
-            NextSongCommand = new Internal.RelayCommand(next => NextSong(), next => Handler != null && Handler.SongList.Count > 0);
+            NextSongCommand = new Internal.RelayCommand(next => NextSong(), next => Handler?.SongList.Count > 0);
             PlaySongCommand = new Internal.RelayCommand(play => PlaySong());
         }
 
@@ -54,7 +52,7 @@ namespace Aiva.Bot.ViewModels {
             var startAddWindow = new Views.ChildWindows.Songrequest.AddSong() { IsModal = true, AllowMove = true };
             ((ChildWindows.Songrequest.AddSong)startAddWindow.DataContext).CloseEvent += (sender, EventArgs) => CloseAddWindow(startAddWindow);
 
-            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(startAddWindow);
+            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(startAddWindow).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -62,17 +60,13 @@ namespace Aiva.Bot.ViewModels {
         /// </summary>
         /// <param name="startTimerWindow"></param>
         private void CloseAddWindow(Views.ChildWindows.Songrequest.AddSong startTimerWindow) {
-            Views.ChildWindows.Songrequest.AddSong window;
-            ChildWindows.Songrequest.AddSong dataContext;
+            var dataContext = Internal.SimpleChildWindow.GetDataContext<Views.ChildWindows.Songrequest.AddSong, ChildWindows.Songrequest.AddSong>
+                (startTimerWindow, startTimerWindow.DataContext);
 
-            if ((window = startTimerWindow as Views.ChildWindows.Songrequest.AddSong) != null) {
-                if ((dataContext = window.DataContext as ChildWindows.Songrequest.AddSong) != null) {
-                    if (dataContext.IsCompleted) {
-                        Handler.AddSong(dataContext.Video, dataContext.InstantStart);
-                    }
-                }
+            if(dataContext?.Item1 != null && dataContext?.Item2 != null) {
+                Handler.AddSong(dataContext.Item2.Video, dataContext.Item2.InstantStart);
 
-                window.Close();
+                dataContext.Item1.Close();
             }
         }
 
@@ -89,7 +83,7 @@ namespace Aiva.Bot.ViewModels {
             var startSongrequestWindow = new Views.ChildWindows.Songrequest.StartSongrequest() { IsModal = true, AllowMove = true };
             ((ChildWindows.Songrequest.StartSongrequest)startSongrequestWindow.DataContext).CloseEvent += (sender, EventArgs) => CloseStartWindow(startSongrequestWindow);
 
-            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(startSongrequestWindow);
+            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(startSongrequestWindow).ConfigureAwait(false);
         }
 
         /// <summary>

@@ -7,9 +7,8 @@ using System.Web;
 
 namespace Aiva.Core.Client {
     public class TwitchAuthentication {
-
-        HttpListener TwitchListener;
-        const string ReturnUrl = "http://localhost:56207";
+        private readonly HttpListener TwitchListener;
+        private const string ReturnUrl = "http://localhost:56207";
 
         public TwitchAuthentication() {
             TwitchListener = new HttpListener();
@@ -20,8 +19,8 @@ namespace Aiva.Core.Client {
         /// Get Twitch Authentication Async
         /// </summary>
         /// <returns></returns>
-        public async Task<AuthenticationModel> GetAuthenticationValuesAsync() {
-            return await Task.Run(() => GetAuthenticationValues());
+        public Task<AuthenticationModel> GetAuthenticationValuesAsync() {
+            return Task.Run(() => GetAuthenticationValues());
         }
 
         /// <summary>
@@ -31,8 +30,9 @@ namespace Aiva.Core.Client {
         private bool StartListener() {
             try {
                 TwitchListener.Start();
-            } catch (HttpListenerException ex) {
-                throw new Exception("Cant start listener for TwitchAuthentication" + Environment.NewLine + ex.ToString());
+            }
+            catch (HttpListenerException ex) {
+                throw new Exception("Cant start listener for TwitchAuthentication" + Environment.NewLine + ex);
             }
 
             return TwitchListener.IsListening;
@@ -50,7 +50,6 @@ namespace Aiva.Core.Client {
         /// </summary>
         /// <returns></returns>
         public AuthenticationModel GetAuthenticationValues() {
-
             StartListener();
 
             AuthenticationModel Values = null;
@@ -135,10 +134,11 @@ namespace Aiva.Core.Client {
         /// <summary>
         /// Starts the Request for the User to authorize for twitch
         /// </summary>
+        /// <param name="ClientID"></param>
         public void SendRequestToBrowser(string ClientID) {
             Thread.Sleep(500);
 
-            string urlS = getUrl(ClientID);
+            string urlS = GetUrl(ClientID);
             Uri uri = new Uri(urlS);
 
             System.Diagnostics.Process.Start(urlS);
@@ -147,13 +147,14 @@ namespace Aiva.Core.Client {
         /// <summary>
         /// Returns the URL which we call to create a oauth token
         /// </summary>
+        /// <param name="ClientID"></param>
         /// <returns></returns>
-        private static string getUrl(string ClientID) {
+        private static string GetUrl(string ClientID) {
             var sb = new StringBuilder();
             sb.Append("https://api.twitch.tv/kraken/oauth2/authorize");
             sb.Append("?response_type=token");
-            sb.Append($"&client_id={ClientID}");
-            sb.Append($"&redirect_uri={ReturnUrl}");
+            sb.Append("&client_id=").Append(ClientID);
+            sb.Append("&redirect_uri=").Append(ReturnUrl);
             sb.Append("&scope=user_read+user_blocks_edit+user_blocks_read+user_follows_edit+channel_read+channel_editor+channel_commercial+channel_stream+channel_subscriptions+user_subscriptions+channel_check_subscription+chat_login+channel_feed_read+channel_feed_edit");
             return sb.ToString();
         }

@@ -3,8 +3,7 @@ using TwitchLib.Events.Client;
 using TwitchLib.Extensions.Client;
 
 namespace Aiva.Core.Client.Internal {
-    public class Chat {
-
+    public static class Chat {
         /// <summary>
         /// Send Message when new Susbcriber
         /// </summary>
@@ -12,13 +11,13 @@ namespace Aiva.Core.Client.Internal {
         /// <param name="e"></param>
         public static void Client_OnNewSubscriber(object sender, OnNewSubscriberArgs e) {
             if (!e.Subscriber.IsTwitchPrime) {
-                if (Convert.ToBoolean(Config.Config.Instance["Interactions"]["WriteInChatNormalSub"])) {
+                if (Config.Config.Instance.Storage.Interactions.WriteInChatNormalSub) {
                     AivaClient.Instance.AivaTwitchClient.SendMessage(
                         Config.Text.Instance.GetString("InteractionChatMessageNormalSub")
                         .Replace("@USERNAME@", e.Subscriber.DisplayName));
                 }
             } else {
-                if (Convert.ToBoolean(Config.Config.Instance["Interactions"]["WriteInChatPrimeSub"])) {
+                if (Config.Config.Instance.Storage.Interactions.WriteInChatPrimeSub) {
                     AivaClient.Instance.AivaTwitchClient.SendMessage(
                         Config.Text.Instance.GetString("InteractionChatMessagePrimeSub")
                         .Replace("@USERNAME@", e.Subscriber.DisplayName));

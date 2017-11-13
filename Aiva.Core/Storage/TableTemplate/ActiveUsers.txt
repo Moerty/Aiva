@@ -1,0 +1,6 @@
+﻿CREATE TABLE `ActiveUsers` (
+	`ID`	TEXT,
+	`JoinedTime`	datetime,
+	PRIMARY KEY(`ID`),
+	FOREIGN KEY(`ID`) REFERENCES `Users`(`ID`)
+);

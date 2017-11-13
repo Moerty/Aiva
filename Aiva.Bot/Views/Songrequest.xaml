@@ -17,10 +17,10 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="85" />
-            <RowDefinition Height="35" />
-            <RowDefinition Height="130" />
-            <RowDefinition Height="288*" />
+            <RowDefinition Height="85"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="130"/>
+            <RowDefinition Height="288*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -36,19 +36,19 @@
                     Height="46"
                     Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}">
                     <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_control_play_live}" />
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_control_play_live}"/>
                     </Rectangle.OpacityMask>
                 </Rectangle>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Checked">
-                        <i:InvokeCommandAction Command="{Binding StartSongrequestCommand}" />
+                        <i:InvokeCommandAction Command="{Binding StartSongrequestCommand}"/>
                     </i:EventTrigger>
                     <i:EventTrigger EventName="Unchecked">
-                        <i:InvokeCommandAction Command="{Binding StopSongrequestCommand}" />
+                        <i:InvokeCommandAction Command="{Binding StopSongrequestCommand}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <ToggleButton.ToolTip>
-                    <ToolTip Content="Start / Stop Songrequest" />
+                    <ToolTip Content="Start / Stop Songrequest"/>
                 </ToggleButton.ToolTip>
             </ToggleButton>
             <Button
@@ -63,12 +63,12 @@
                     Height="46"
                     Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                     <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_add}" />
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_add}"/>
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </Button>
 
-            <Separator HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+            <Separator HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
         </Grid>
 
         <Grid Grid.Row="1">
@@ -85,7 +85,7 @@
                             Height="10"
                             Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}">
                             <!--<Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_control_play}" />
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_control_play}"/>
                         </Rectangle.OpacityMask>-->
                             <Rectangle.Style>
                                 <Style TargetType="{x:Type Rectangle}">
@@ -93,14 +93,14 @@
                                         <DataTrigger Binding="{Binding Handler.IsPlaying}" Value="False">
                                             <Setter Property="OpacityMask">
                                                 <Setter.Value>
-                                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_control_play}" />
+                                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_control_play}"/>
                                                 </Setter.Value>
                                             </Setter>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding Handler.IsPlaying}" Value="True">
                                             <Setter Property="OpacityMask">
                                                 <Setter.Value>
-                                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_control_pause}" />
+                                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_control_pause}"/>
                                                 </Setter.Value>
                                             </Setter>
                                         </DataTrigger>
@@ -110,10 +110,10 @@
                         </Rectangle>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Checked">
-                                <i:InvokeCommandAction Command="{Binding StartCommand, ElementName=Player}" />
+                                <i:InvokeCommandAction Command="{Binding StartCommand, ElementName=Player}"/>
                             </i:EventTrigger>
                             <i:EventTrigger EventName="Unchecked">
-                                <i:InvokeCommandAction Command="{Binding PauseCommand, ElementName=Player}" />
+                                <i:InvokeCommandAction Command="{Binding PauseCommand, ElementName=Player}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </ToggleButton>
@@ -127,11 +127,10 @@
                             Height="10"
                             Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                             <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_navigate_next}" />
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_navigate_next}"/>
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Button>
-
                 </WrapPanel>
                 <StackPanel
                     Margin="0,5,10,5"
@@ -144,7 +143,7 @@
                         Margin="0,0,5,0"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_sound_3}" />
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_sound_3}"/>
                         </Rectangle.OpacityMask>
                     </Rectangle>
                     <Slider
@@ -156,17 +155,16 @@
                         Maximum="100"
                         Minimum="1"
                         Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
-                        Value="85" />
+                        Value="85"/>
                 </StackPanel>
-
             </DockPanel>
-            <Separator HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+            <Separator HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
         </Grid>
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="157*" />
-                <ColumnDefinition Width="563*" />
+                <ColumnDefinition Width="157*"/>
+                <ColumnDefinition Width="563*"/>
             </Grid.ColumnDefinitions>
             <yt:CefYoutubeController
                 Name="Player"
@@ -176,7 +174,7 @@
                 HorizontalAlignment="Left"
                 CurrentQuality="hd1080"
                 VideoId="{Binding Handler.Player.CurrentSong.VideoID}"
-                Volume="{Binding ElementName=sliderVolume, Path=Value}" />
+                Volume="{Binding ElementName=sliderVolume, Path=Value}"/>
 
             <StackPanel
                 Grid.Column="1"
@@ -186,51 +184,51 @@
                     <TextBlock
                         HorizontalAlignment="Left"
                         DockPanel.Dock="Left"
-                        Text="Title: " />
+                        Text="Title: "/>
                     <TextBlock
                         HorizontalAlignment="Right"
                         DockPanel.Dock="Right"
-                        Text="{Binding Handler.Player.CurrentSong.Title}" />
+                        Text="{Binding Handler.Player.CurrentSong.Title}"/>
                 </DockPanel>
                 <DockPanel>
                     <TextBlock
                         HorizontalAlignment="Left"
                         DockPanel.Dock="Left"
-                        Text="Length: " />
+                        Text="Length: "/>
                     <TextBlock
                         HorizontalAlignment="Right"
                         DockPanel.Dock="Right"
-                        Text="{Binding Handler.Player.CurrentSong.Length}" />
+                        Text="{Binding Handler.Player.CurrentSong.LengthFormatted}"/>
                 </DockPanel>
 
                 <DockPanel>
                     <TextBlock
                         HorizontalAlignment="Left"
                         DockPanel.Dock="Left"
-                        Text="Url: " />
+                        Text="Url: "/>
                     <TextBlock
                         HorizontalAlignment="Right"
                         DockPanel.Dock="Right"
-                        Text="{Binding Handler.Player.CurrentSong.Url}" />
+                        Text="{Binding Handler.Player.CurrentSong.Url}"/>
                 </DockPanel>
                 <DockPanel>
                     <TextBlock
                         HorizontalAlignment="Left"
                         DockPanel.Dock="Left"
-                        Text="Requester: " />
+                        Text="Requester: "/>
                     <TextBlock
                         HorizontalAlignment="Right"
                         DockPanel.Dock="Right"
-                        Text="{Binding Handler.Player.CurrentSong.Requester}" />
+                        Text="{Binding Handler.Player.CurrentSong.Requester}"/>
                 </DockPanel>
             </StackPanel>
 
             <Grid.Style>
                 <Style TargetType="Grid">
-                    <Setter Property="Visibility" Value="Hidden" />
+                    <Setter Property="Visibility" Value="Hidden"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Handler.IsPlaying}" Value="True">
-                            <Setter Property="Visibility" Value="Visible" />
+                            <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -250,15 +248,14 @@
                         Binding="{Binding Path=Title}"
                         CanUserSort="False"
                         Header="Title"
-                        IsReadOnly="True" />
+                        IsReadOnly="True"/>
                 </DataGrid.Columns>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
-                        <i:InvokeCommandAction Command="{Binding PlaySongCommand}" />
+                        <i:InvokeCommandAction Command="{Binding PlaySongCommand}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </DataGrid>
         </Grid>
-
     </Grid>
 </controls:MetroContentControl>

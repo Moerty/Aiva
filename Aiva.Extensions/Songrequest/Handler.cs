@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Aiva.Core;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Web;
 using System.Windows;
 using TwitchLib.Events.Client;
 
 namespace Aiva.Extensions.Songrequest {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Handler {
-
         #region Models
 
         public bool IsStarted { get; set; }
@@ -20,11 +20,12 @@ namespace Aiva.Extensions.Songrequest {
 
         public Player Player { get; set; }
 
-        private Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
+        private readonly Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
 
         #endregion Models
 
         #region Constructor
+
         public Handler() {
             _currencyDatabaseHandler = new Core.DatabaseHandlers.Currency();
             SongList = new ObservableCollection<Models.Songrequest.SongModel>();
@@ -32,6 +33,7 @@ namespace Aiva.Extensions.Songrequest {
             Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived += AddSongCommandReceived;
             IsStarted = true;
         }
+
         #endregion Constructor
 
         #region Functions
@@ -62,7 +64,6 @@ namespace Aiva.Extensions.Songrequest {
                 Player.CurrentSong = SongList[0];
             }
         }
-
 
         /// <summary>
         /// Fires when a command was received
@@ -104,7 +105,7 @@ namespace Aiva.Extensions.Songrequest {
 
                 // follower
                 if (Properties.BeFollower) {
-                    var followerCheck = await TwitchLib.TwitchAPI.Users.v5.UserFollowsChannelAsync(e.Command.ChatMessage.UserId, Core.AivaClient.Instance.ChannelID);
+                    var followerCheck = await AivaClient.Instance.TwitchApi.Users.v5.UserFollowsChannelAsync(e.Command.ChatMessage.UserId, Core.AivaClient.Instance.ChannelID).ConfigureAwait(false);
 
                     if (!followerCheck) {
                         return;
@@ -113,6 +114,12 @@ namespace Aiva.Extensions.Songrequest {
 
                 // add the song to the list
                 AddSong(e.Command.ArgumentsAsString, e.Command.ChatMessage.DisplayName, e.Command.ChatMessage.UserId);
+
+                if (Properties.IsCostEnabled) {
+                    _currencyDatabaseHandler.Remove.Remove(
+                        e.Command.ChatMessage.UserId,
+                        Properties.Cost);
+                }
             }
         }
 
@@ -123,42 +130,53 @@ namespace Aiva.Extensions.Songrequest {
         /// <param name="displayName"></param>
         /// <param name="userID"></param>
         /// <param name="autoStart"></param>
-        private void AddSong(string args, string displayName, string userID, bool autoStart = false) {
-            // check song on youtube
-            var song = new Song(args);
-            if (!song.FoundVideo) {
+        private async void AddSong(string args, string displayName, string userID, bool autoStart = false) {
+            var videoid = ExtractVideoID(args);
+
+            var youtubeInfo = new YouTubeInfo(videoid);
+            var songModel = await youtubeInfo.GetVideoDetails().ConfigureAwait(false);
+
+            if (songModel == null) {
                 return;
             }
 
-            // create model to add to songlist
-            var songlistSongModel = new Models.Songrequest.SongModel {
-                Url = song.Url,
-                Length = song.Duration.ToString(),
-                Requester = displayName,
-                RequesterID = userID,
-                Title = song.Title,
-                VideoID = song.VideoID
-            };
+            songModel.Requester = displayName;
+            songModel.RequesterID = userID;
+            songModel.Url = $"https://www.youtube.com/watch?v={videoid}";
 
             // add to songlist
-            Application.Current.Dispatcher.Invoke(() => {
-                SongList.Add(songlistSongModel);
-            });
+            Application.Current.Dispatcher.Invoke(() => SongList.Add(songModel));
 
             // dont call to play the video twice
             if (!autoStart) {
                 // if first song -> play song if auto start is selected
                 if (Properties.AutoStart && !IsPlaying) {
-                    Player.ChangeSong(songlistSongModel);
+                    Player.ChangeSong(songModel);
                     IsPlaying = true;
                 }
             }
 
             if (autoStart) {
-                Player.ChangeSong(songlistSongModel);
+                Player.ChangeSong(songModel);
                 if (!IsPlaying)
                     IsPlaying = !IsPlaying;
             }
+        }
+
+        /// <summary>
+        /// Extract the VideoID
+        /// </summary>
+        /// <param name="userInput"></param>
+        /// <returns></returns>
+        private string ExtractVideoID(string userInput) {
+            // https://www.youtube.com/watch?v=ARfqiQRSPFc
+            if (userInput.StartsWith("https://", StringComparison.OrdinalIgnoreCase)) {
+                var query = HttpUtility.ParseQueryString(new Uri(userInput).Query);
+                return query.AllKeys.Contains("v") ? query["v"] : new Uri(userInput).Segments.Last();
+            }
+
+            // /watch?v=ARfqiQRSPFc || VideoID
+            return userInput.StartsWith("/watch?", StringComparison.OrdinalIgnoreCase) ? userInput.Substring(9, userInput.Length - 9) : userInput;
         }
 
         public void AddSong(string video, bool instantStart) {

@@ -1,0 +1,6 @@
+﻿CREATE TABLE `Chat` (
+	`Index`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`TwitchID`	TEXT NOT NULL,
+	`Timestamp`	datetime NOT NULL,
+	`ChatMessage`	text NOT NULL
+);

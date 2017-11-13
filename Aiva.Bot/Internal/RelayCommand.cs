@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Aiva.Bot.Internal {
@@ -10,10 +6,10 @@ namespace Aiva.Bot.Internal {
     public class RelayCommand<T> : ICommand {
         #region Fields
 
-        readonly Action<T> _execute = null;
-        readonly Predicate<T> _canExecute = null;
+        private readonly Action<T> _execute = null;
+        private readonly Predicate<T> _canExecute = null;
 
-        #endregion
+        #endregion Fields
 
         #region Constructors
 
@@ -32,14 +28,11 @@ namespace Aiva.Bot.Internal {
         /// <param name="execute">The execution logic.</param>
         /// <param name="canExecute">The execution status logic.</param>
         public RelayCommand(Action<T> execute, Predicate<T> canExecute) {
-            if (execute == null)
-                throw new ArgumentNullException("execute");
-
-            _execute = execute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
 
-        #endregion
+        #endregion Constructors
 
         #region ICommand Members
 
@@ -70,14 +63,14 @@ namespace Aiva.Bot.Internal {
             _execute((T)parameter);
         }
 
-        #endregion
+        #endregion ICommand Members
     }
 
     public class RelayCommand : ICommand {
         #region Fields
 
-        private Action<object> execute;
-        private Func<object, bool> canExecute;
+        private readonly Action<object> execute;
+        private readonly Func<object, bool> canExecute;
 
         #endregion Fields
 

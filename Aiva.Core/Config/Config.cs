@@ -1,48 +1,48 @@
-﻿using IniParser.Model;
-using System.Text;
+﻿using Aiva.Core.Models;
+using Newtonsoft.Json;
 using System.IO;
-using System;
 
 namespace Aiva.Core.Config {
     public class Config {
+        private static Config _Instance;
 
-        private static IniData _Instance;
-        public static IniData Instance {
+        public static Config Instance {
             get {
-                if (_Instance == null)
-                    InitConfig();
-
-                return _Instance;
+                return _Instance ?? (_Instance = new Config());
             }
             private set {
                 _Instance = value;
             }
         }
 
-        /// <summary>
-        /// Init Config
-        /// </summary>
-        private static void InitConfig() {
-            if (!File.Exists("ConfigFiles\\config.ini"))
-                throw new Exception("No config File found in \"ConfigFiles\\config.ini\"");
+        public ConfigStorage.Root Storage;
 
-            Instance = new IniData(new IniParser.FileIniDataParser().ReadFile("ConfigFiles\\config.ini"));
-        }
-
-        /// <summary>
-        /// Save Config
-        /// </summary>
-        public static void WriteConfig() {
-            new IniParser.FileIniDataParser().WriteFile("ConfigFiles\\config.ini", Instance, Encoding.UTF8);
-        }
-
-        /// <summary>
-        /// Create the default config for tests without Credentials
-        /// </summary>
-        public static void CreateDefaultConfig() {
-            if (File.Exists("ConfigFiles\\config.ini.default")) {
-                File.Copy("ConfigFiles\\config.ini.default", "ConfigFiles\\config.ini");
+        public Config() {
+            if (File.Exists("ConfigFiles\\config.json")) {
+                LoadConfig();
             }
         }
+
+        private void LoadConfig() {
+            Storage = ConfigStorage.Root.FromJson(File.ReadAllText("ConfigFiles\\config.json"));
+        }
+
+        public void LoadDefaultConfigFile() {
+            CreateConfig();
+            LoadConfig();
+        }
+
+        public void CreateConfig() {
+            File.Move("ConfigFiles\\config.json.default", "ConfigFiles\\config.json");
+        }
+
+        public void WriteConfig() {
+            var json = Storage.ToJson();
+            File.WriteAllText("ConfigFiles\\config.json", json);
+        }
+    }
+
+    public static class Serialize {
+        public static string ToJson(this ConfigStorage.Root self) => JsonConvert.SerializeObject(self, ConfigStorage.Converter.Settings);
     }
 }

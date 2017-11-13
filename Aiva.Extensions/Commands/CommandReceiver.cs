@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
 using TwitchLib.Enums;
 using TwitchLib.Events.Client;
 
 namespace Aiva.Extensions.Commands {
     public class CommandReceiver {
-
-        private Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
-        private Core.DatabaseHandlers.Commands _commandsDatabaseHandler;
+        private readonly Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
+        private readonly Core.DatabaseHandlers.Commands _commandsDatabaseHandler;
 
         public CommandReceiver() {
-
             _currencyDatabaseHandler = new Core.DatabaseHandlers.Currency();
             _commandsDatabaseHandler = new Core.DatabaseHandlers.Commands();
 
@@ -24,40 +20,39 @@ namespace Aiva.Extensions.Commands {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CommandReceived(object sender, OnChatCommandReceivedArgs e) {
+            //using (var context = new Core.Storage.StorageEntities()) {
+            //    var command = context.Commands.SingleOrDefault(c => String.Compare(e.Command.CommandText, c.Name, true) == 0);
 
-            using (var context = new Core.Storage.StorageEntities()) {
-                var command = context.Commands.SingleOrDefault(c => String.Compare(e.Command.CommandText, c.Command, true) == 0);
+            //    if (command != null) {
+            //        // can user execute command?
+            //        if (CanUserExecuteCommand(e.Command.ChatMessage.UserType, command.ExecutionRight)) {
+            //            // check if cooldown is over 0
+            //            if (command.Cooldown.HasValue && command.Cooldown > 0) {
+            //                if (command.LastExecution.HasValue) {
+            //                    // last execution is not empty
+            //                    var nextTime = command.LastExecution.Value.AddMinutes(command.Cooldown.Value);
 
-                if (command != null) {
-                    // can user execute command?
-                    if (CanUserExecuteCommand(e.Command.ChatMessage.UserType, command.ExecutionRight)) {
-                        // check if cooldown is over 0
-                        if (command.Cooldown.HasValue && command.Cooldown > 0) {
-                            if (command.LastExecution.HasValue) {
-                                // last execution is not empty
-                                var nextTime = command.LastExecution.Value.AddMinutes(command.Cooldown.Value);
+            //                    // if next execution time <= now
+            //                    if (nextTime <= DateTime.Now) {
+            //                        ExecuteCommand(command, e);
+            //                        command.LastExecution = DateTime.Now;
 
-                                // if next execution time <= now
-                                if (nextTime <= DateTime.Now) {
-                                    ExecuteCommand(command, e);
-                                    command.LastExecution = DateTime.Now;
+            //                        context.SaveChanges();
+            //                    }
 
-                                    context.SaveChanges();
-                                }
-
-                            } else {
-                                // last execution is empty - start command
-                                ExecuteCommand(command, e);
-                                command.LastExecution = DateTime.Now;
-                            }
-                        } else {
-                            // cooldown has no value or is < 0
-                            ExecuteCommand(command, e);
-                            command.LastExecution = DateTime.Now;
-                        }
-                    }
-                }
-            }
+            //                } else {
+            //                    // last execution is empty - start command
+            //                    ExecuteCommand(command, e);
+            //                    command.LastExecution = DateTime.Now;
+            //                }
+            //            } else {
+            //                // cooldown has no value or is < 0
+            //                ExecuteCommand(command, e);
+            //                command.LastExecution = DateTime.Now;
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>
@@ -69,9 +64,10 @@ namespace Aiva.Extensions.Commands {
         private bool CanUserExecuteCommand(UserType userType, long executionRight) {
             switch (executionRight) {
                 case (1): // TODO: Difference between Mod and gloabel Mod
-                    return (int)userType == 1 ? true : (int)userType == 2 ? true : false; // Mod&GloabelMod:
+                    return (int)userType == 1 ? true : (int)userType == 2; // Mod&GloabelMod:
                 case (2): // return true if it is the broeadcaster or admin; staff will be ignored
-                    return (int)userType > 3 ? true : false;
+                    return (int)userType > 3;
+
                 default:
                     return true;
             }
@@ -83,7 +79,6 @@ namespace Aiva.Extensions.Commands {
         /// <param name="command"></param>
         /// <param name="args"></param>
         private void ExecuteCommand(Core.Storage.Commands command, OnChatCommandReceivedArgs args) {
-
             /*
             * User
             * Stack (Count)
@@ -110,7 +105,7 @@ namespace Aiva.Extensions.Commands {
             // stack
             if (stringToSend.Contains("%stack%")) {
                 stringToSend = stringToSend.Replace("%stack%", (command.Count + 1).ToString());
-                Task.Run(() => _commandsDatabaseHandler.IncreaseCommandCount(command.Command));
+                //Task.Run(() => _commandsDatabaseHandler.IncreaseCommandCount(command.Command));
             }
 
             // time
@@ -127,7 +122,6 @@ namespace Aiva.Extensions.Commands {
             // botname
             if (stringToSend.Contains("%botname%"))
                 stringToSend = stringToSend.Replace("%botname%", Core.AivaClient.Instance.Username);
-
 
             Core.AivaClient.Instance.AivaTwitchClient.SendMessage(stringToSend);
         }
@@ -181,7 +175,6 @@ namespace Aiva.Extensions.Commands {
 
             if (stringToSend.Contains("%spendonbits%"))
                 stringToSend = stringToSend.Replace("%spendonbits%", args.Command.ChatMessage.BitsInDollars.ToString());
-
 
             return stringToSend;
         }

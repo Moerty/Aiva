@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Markup;
 
 namespace Aiva.Bot.Internal {
-
     // http://brianlagunas.com/a-better-way-to-data-bind-enums-in-wpf/
     public class EnumBindingSourceExtension : MarkupExtension {
         private Type _enumType;
+
         public Type EnumType {
             get { return this._enumType; }
             set {
                 if (value != this._enumType) {
-                    if (null != value) {
+                    if (value != null) {
                         Type enumType = Nullable.GetUnderlyingType(value) ?? value;
                         if (!enumType.IsEnum)
                             throw new ArgumentException("Type must be for an Enum.");
@@ -27,14 +21,15 @@ namespace Aiva.Bot.Internal {
             }
         }
 
-        public EnumBindingSourceExtension() { }
+        public EnumBindingSourceExtension() {
+        }
 
         public EnumBindingSourceExtension(Type enumType) {
             this.EnumType = enumType;
         }
 
         public override object ProvideValue(IServiceProvider serviceProvider) {
-            if (null == this._enumType)
+            if (this._enumType == null)
                 throw new InvalidOperationException("The EnumType must be specified.");
 
             Type actualEnumType = Nullable.GetUnderlyingType(this._enumType) ?? this._enumType;

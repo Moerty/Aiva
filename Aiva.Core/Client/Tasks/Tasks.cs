@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Timers;
 using TwitchLib;
-using System.Linq;
-using System.Collections.Generic;
 using TwitchLib.Events.Client;
 
 namespace Aiva.Core.Client.Tasks {
     public class Tasks {
-
         /// <summary>
         /// Error from TwitchLib cause "OnModeratorsReceived" ist null.
         /// Listen to this event from the Client fíx this issue
@@ -23,7 +19,6 @@ namespace Aiva.Core.Client.Tasks {
         /// <param name="client"></param>
         /// <returns></returns>
         public TwitchClient SetTasks(TwitchClient client) {
-
             _modCommandsHandler = new Internal.Commands.ModCommands();
             client = OnModeratorsReceived(client);
             client = OnExistingUsersDetected(client);
@@ -38,7 +33,7 @@ namespace Aiva.Core.Client.Tasks {
         }
 
         private void SetCurrencyTimer() {
-            if (Convert.ToBoolean(Config.Config.Instance["Currency"]["AddCurrencyFrequently"])) {
+            if (Config.Config.Instance.Storage.Currency.AddCurrencyFrquently) {
                 _currencyTimer = new Internal.Currency();
             }
         }
@@ -99,14 +94,13 @@ namespace Aiva.Core.Client.Tasks {
         /// <param name="client"></param>
         /// <returns></returns>
         public TwitchClient OnMessageReceived(TwitchClient client) {
-
-            if (Convert.ToBoolean(Config.Config.Instance["Chat"]["BlacklistedWordsChecker"]))
+            if (Config.Config.Instance.Storage.Chat.BlacklistWordsChecker)
                 client.OnMessageReceived += ChatChecker.BlacklistWordsChecker;
 
-            if (Convert.ToBoolean(Config.Config.Instance["Chat"]["CapsChecker"]))
+            if (Config.Config.Instance.Storage.Chat.CapsChecker)
                 client.OnMessageReceived += ChatChecker.CapsChecker;
 
-            if (Convert.ToBoolean(Config.Config.Instance["Chat"]["LinkChecker"]))
+            if (Config.Config.Instance.Storage.Chat.LinkChecker)
                 client.OnMessageReceived += ChatChecker.LinkChecker;
 
             return client;

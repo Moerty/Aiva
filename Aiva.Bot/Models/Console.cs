@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aiva.Bot.Models {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Console {
         public ObservableCollection<MessageModel> Messages { get; set; }
 
         private string _MessageToSend;
+
         public string MessageToSend {
             get {
                 return _MessageToSend;
@@ -20,11 +15,7 @@ namespace Aiva.Bot.Models {
             set {
                 _MessageToSend = value;
 
-                if (_MessageToSend.Any()) {
-                    CanSendMessage = true;
-                } else {
-                    CanSendMessage = false;
-                }
+                CanSendMessage = _MessageToSend.Length > 0;
             }
         }
 
@@ -38,4 +29,3 @@ namespace Aiva.Bot.Models {
         public long TwitchID { get; set; }
     }
 }
-

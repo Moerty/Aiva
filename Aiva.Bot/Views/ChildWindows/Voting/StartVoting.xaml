@@ -1,0 +1,109 @@
+﻿<simpleChildWindow:ChildWindow
+    x:Class="Aiva.Bot.Views.ChildWindows.Voting.StartVoting"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:enums="clr-namespace:Aiva.Extensions.Enums;assembly=Aiva.Extensions"
+    xmlns:internal="clr-namespace:Aiva.Bot.Internal"
+    xmlns:local="clr-namespace:Aiva.Bot.Views.ChildWindows"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mvvm="clr-namespace:Aiva.Bot.ViewModels.ChildWindows.Voting"
+    xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
+    Title="StartVoting"
+    d:DataContext="{d:DesignInstance d:Type=mvvm:Start}"
+    AllowDrop="True"
+    AllowMove="False"
+    BorderBrush="{DynamicResource AccentBaseColorBrush}"
+    BorderThickness="1"
+    ChildWindowHeight="305"
+    ChildWindowWidth="252"
+    EnableDropShadow="True"
+    GlowBrush="{DynamicResource AccentColorBrush}"
+    IsOpen="True"
+    ShowCloseButton="True"
+    ShowTitleBar="True"
+    mc:Ignorable="d">
+    <simpleChildWindow:ChildWindow.Resources>
+        <internal:AddSongCostCheckedConverter x:Key="CostConverter" />
+    </simpleChildWindow:ChildWindow.Resources>
+
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <TextBox
+                Width="250"
+                Height="15"
+                controls:TextBoxHelper.Watermark="Command..."
+                Text="{Binding Properties.Command, UpdateSourceTrigger=PropertyChanged}" />
+            <Separator />
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Vote permission" />
+                <ComboBox ItemsSource="{Binding Source={internal:EnumBindingSource {x:Type enums:JoinPermission}}}" SelectedValue="{Binding Properties.JoinPermission}" />
+            </StackPanel>
+            <Separator />
+            <DockPanel>
+                <CheckBox
+                    x:Name="cbCost"
+                    Margin="0,0,10,0"
+                    HorizontalAlignment="Left"
+                    Content="Cost"
+                    IsChecked="{Binding Properties.IsCostEnabled}" />
+                <controls:NumericUpDown
+                    Height="15"
+                    HorizontalAlignment="Stretch"
+                    Culture="de-DE"
+                    HasDecimals="False"
+                    Interval="10"
+                    IsReadOnly="{Binding ElementName=cbCost, Path=IsChecked, Converter={StaticResource CostConverter}}"
+                    Minimum="1"
+                    Value="{Binding Properties.Cost}" />
+            </DockPanel>
+            <Separator />
+            <StackPanel Orientation="Vertical">
+                <CheckBox Content="Minutes active" IsChecked="{Binding Properties.IsMinutesActive}" />
+                <Slider
+                    controls:SliderHelper.ChangeValueBy="SmallChange"
+                    controls:SliderHelper.EnableMouseWheel="MouseHover"
+                    IsSnapToTickEnabled="True"
+                    Maximum="30"
+                    Minimum="1"
+                    Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
+                    TickFrequency="1"
+                    TickPlacement="BottomRight"
+                    Value="{Binding Properties.MinutesActive}" />
+                <Separator />
+                <Button Command="{Binding OptionsCommand}" Content="Options" />
+            </StackPanel>
+            <Separator />
+            <StackPanel Orientation="Vertical">
+                <CheckBox
+                    Margin="0,10,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="Must be following to vote"
+                    IsChecked="{Binding Properties.BeFollower, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                <CheckBox
+                    Margin="0,10,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="Block multi vote"
+                    IsChecked="{Binding Properties.BlockMultiRegister, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            </StackPanel>
+            <Grid Margin="0,5,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*" />
+                    <ColumnDefinition Width="50*" />
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    Grid.Column="0"
+                    Command="{Binding SubmitCommand}"
+                    Content="Submit" />
+                <Button
+                    Grid.Column="1"
+                    Command="{Binding CancelCommand}"
+                    Content="Cancel" />
+            </Grid>
+        </StackPanel>
+    </Grid>
+</simpleChildWindow:ChildWindow>

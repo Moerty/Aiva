@@ -1,13 +1,10 @@
 ﻿using Aiva.Extensions.Enums;
-using Aiva.Extensions.Models;
 using System;
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels.ChildWindows {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class StartGiveaway {
-
         #region Models
 
         public string Command { get; set; }
@@ -31,9 +28,11 @@ namespace Aiva.Bot.ViewModels.ChildWindows {
         #endregion Models
 
         #region Constructor
+
         public StartGiveaway() {
             SetCommands();
         }
+
         #endregion Constructor
 
         #region Methods

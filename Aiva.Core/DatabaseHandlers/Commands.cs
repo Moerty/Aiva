@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aiva.Core.DatabaseHandlers {
     public class Commands {
@@ -12,7 +9,7 @@ namespace Aiva.Core.DatabaseHandlers {
         /// <param name="commandName"></param>
         public void IncreaseCommandCount(string commandName) {
             using (var context = new Core.Storage.StorageEntities()) {
-                var command = context.Commands.SingleOrDefault(c => String.Compare(commandName, c.Command, true) == 0);
+                var command = context.Commands.SingleOrDefault(c => String.Compare(commandName, c.Name, true) == 0);
 
                 if (command != null) {
                     command.Count++;

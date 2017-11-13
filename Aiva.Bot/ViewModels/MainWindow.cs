@@ -1,34 +1,17 @@
 ﻿using Aiva.Bot.Internal;
 using MahApps.Metro.Controls;
 using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Aiva.Bot.ViewModels {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
-    class MainWindow {
-
-        private static MainWindow _Instance;
-        public static MainWindow Instance {
-            get {
-                return _Instance;
-            }
-            private set {
-                _Instance = value;
-            }
-        }
-
+    internal class MainWindow {
         public Models.MainWindow Model { get; set; }
         public Models.MainWindow.TabItemsModel SelectedTab { get; set; }
 
         public MainWindow() {
-
-
             InitViewModel();
-
-            Instance = this;
         }
 
         private void InitViewModel() {
@@ -63,10 +46,10 @@ namespace Aiva.Bot.ViewModels {
                         Header = "Songrequest",
                         Content = new Views.Songrequest()
                     },
-                    new Models.MainWindow.TabItemsModel {
-                        Header = "Commands",
-                        Content = new Views.Commands()
-                    },
+                    //new Models.MainWindow.TabItemsModel {
+                    //    Header = "Commands",
+                    //    Content = new Views.Commands()
+                    //},
                     new Models.MainWindow.TabItemsModel {
                         Header = "Giveaway",
                         Content = new Views.Giveaway()
@@ -74,6 +57,10 @@ namespace Aiva.Bot.ViewModels {
                     new Models.MainWindow.TabItemsModel {
                         Header = "Timers",
                         Content = new Views.Timers()
+                    },
+                    new Models.MainWindow.TabItemsModel {
+                        Header = "Voting",
+                        Content = new Views.Voting()
                     }
                 }
             };

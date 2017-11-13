@@ -1,22 +1,18 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using TwitchLib.Events.Client;
-using TwitchLib;
-using System;
-using Aiva.Core.Models;
 
 namespace Aiva.Core.DatabaseHandlers {
-    public class Users {
-
+    public static class Users {
         /// <summary>
         /// Add User Class
         /// </summary>
-        public class AddUser {
+        public static class AddUser {
             /// <summary>
             /// Add or Update User in Database
             /// </summary>
             /// <param name="User">todo: describe User parameter on AddUser</param>
             private static void AddUserToDatabase(TwitchLib.Models.API.v5.Users.User User) {
-
                 if (User != null) {
                     using (var context = new Storage.StorageEntities()) {
                         var databaseUser = context.Users.SingleOrDefault(u => String.Compare(u.Id, User.Id) == 0);
@@ -77,15 +73,15 @@ namespace Aiva.Core.DatabaseHandlers {
             /// <param name="e"></param>
             internal static void AddUserToDatabase(object sender, OnExistingUsersDetectedArgs e) {
                 e.Users.ForEach(user => {
-                    var twitchUser = TwitchAPI.Users.v5.GetUserByNameAsync(user).Result;
+                    var twitchUser = AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(user).Result;
                     AddUserToDatabase(twitchUser.Matches[0]);
                 });
             }
 
             internal static void AddUserToDatabase(object sender, OnUserJoinedArgs e) {
-                var twitchUser = TwitchAPI.Users.v5.GetUserByNameAsync(e.Username).Result;
+                var twitchUser = AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(e.Username).Result;
 
-                if(twitchUser != null) {
+                if (twitchUser != null) {
                     AddUserToDatabase(twitchUser.Matches[0]);
                 }
             }
@@ -94,8 +90,7 @@ namespace Aiva.Core.DatabaseHandlers {
         /// <summary>
         /// Remove User class
         /// </summary>
-        public class Removeuser {
-
+        public static class Removeuser {
             /// <summary>
             /// Remove ActiveUser Entry
             /// and add TimeWatched values
@@ -105,9 +100,9 @@ namespace Aiva.Core.DatabaseHandlers {
             public async static void RemoveUserFromActiveUsers(object sender, OnUserLeftArgs e) {
                 using (var context = new Storage.StorageEntities()) {
                     //var twitchID = TwitchApi.Users.GetUser(e.Username);
-                    var twitchID = await TwitchAPI.Users.v5.GetUserByNameAsync(e.Username);
+                    var twitchID = await AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(e.Username).ConfigureAwait(false);
 
-                    if (twitchID != null && twitchID.Total > 0) {
+                    if (twitchID?.Total > 0) {
                         foreach (var userMatch in twitchID.Matches) {
                             if (String.Compare(userMatch.Name, e.Username, true) != 0)
                                 continue;

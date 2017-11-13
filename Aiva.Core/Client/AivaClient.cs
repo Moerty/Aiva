@@ -3,15 +3,16 @@ using TwitchLib;
 
 namespace Aiva.Core {
     public class AivaClient {
-
         /// <summary>
         /// Static AivaClientMember
         /// Thread safe
         /// </summary>
         private static readonly Lazy<AivaClient> lazyAivaClient = new Lazy<AivaClient>();
+
         public static AivaClient Instance => lazyAivaClient.Value;
 
         public TwitchClient AivaTwitchClient;
+        public TwitchAPI TwitchApi;
         public string Username;
         public string Channel;
         public string ChannelID;
@@ -24,10 +25,10 @@ namespace Aiva.Core {
 
         public AivaClient() {
             // Get config related informations
-            Username = Config.Config.Instance["General"]["BotName"];      //Switch to OAuth Validation
-            OAuthKey = Config.Config.Instance["Credentials"]["TwitchOAuth"];
-            Channel = Config.Config.Instance["General"]["Channel"].ToLower();
-            ClientID = Config.Config.Instance["Credentials"]["TwitchClientID"];
+            Username = Config.Config.Instance.Storage.General.BotName;
+            OAuthKey = Config.Config.Instance.Storage.Credentials.TwitchOAuth;
+            Channel = Config.Config.Instance.Storage.General.Channel;
+            ClientID = Config.Config.Instance.Storage.Credentials.TwitchClientID;
 
             // setup TwitchApi
             SetupTwitch();
@@ -39,20 +40,19 @@ namespace Aiva.Core {
         /// Get the channel id from twitch
         /// </summary>
         private async void GetChannelID() {
-            var channelDetails = await TwitchAPI.Channels.v5.GetChannelAsync();
+            var channelDetails = await TwitchApi.Channels.v5.GetChannelAsync().ConfigureAwait(false);
 
-            ChannelID = channelDetails.Id.ToString();
+            ChannelID = channelDetails.Id;
         }
 
         /// <summary>
         /// Validation for Twitch ClientID & OAuthKey
         /// </summary>
-        private void DoValidation() {
-            if (String.IsNullOrEmpty(TwitchAPI.Settings.AccessToken))
-                TwitchAPI.Settings.AccessToken = OAuthKey;
+        private async void DoValidation() {
+            if (String.IsNullOrEmpty(TwitchApi.Settings.AccessToken))
+                TwitchApi.Settings.AccessToken = OAuthKey;
 
-            var root = TwitchAPI.Root.v5.GetRoot(OAuthKey);
-
+            var root = await TwitchApi.Root.v5.GetRoot(OAuthKey).ConfigureAwait(false);
 
             if (root.Token.Valid) {
                 ClientID = root.Token.ClientId;
@@ -68,15 +68,14 @@ namespace Aiva.Core {
         /// </summary>
         private void SetupTwitch() {
             // TwitchApi
-            TwitchAPI.Settings.AccessToken = OAuthKey;
-            TwitchAPI.Settings.ClientId = ClientID;
+            TwitchApi = new TwitchAPI(ClientID, OAuthKey);
 
             // TwitchClient
             var TwitchCredentials = new TwitchLib.Models.Client.ConnectionCredentials(Username, OAuthKey);
             AivaTwitchClient = new TwitchClient(
                 credentials: TwitchCredentials,
                 channel: null,
-                chatCommandIdentifier: Convert.ToChar(Config.Config.Instance["General"]["CommandIdentifier"]),
+                chatCommandIdentifier: Convert.ToChar(Config.Config.Instance.Storage.General.CommandIdentifier),
                 whisperCommandIdentifier: '@',
                 logging: false,
                 logger: null,

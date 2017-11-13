@@ -2,10 +2,8 @@
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels.ChildWindows.Songrequest {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class AddSong {
-
         #region Models
 
         public string Video { get; set; }
@@ -21,9 +19,11 @@ namespace Aiva.Bot.ViewModels.ChildWindows.Songrequest {
         #endregion Models
 
         #region Constructor
+
         public AddSong() {
             SetCommands();
         }
+
         #endregion Constructor
 
         #region Methods

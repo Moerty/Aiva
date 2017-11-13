@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Aiva.Extensions.Models {
-    public class Bankheist {
-
+﻿namespace Aiva.Extensions.Models {
+    public static class Bankheist {
         public class BankheistInitModel {
             public bool IsEnabled { get; set; }
             public string Command { get; set; }

@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Aiva.Bot.Views.ChildWindows;
+﻿using Aiva.Bot.Views.ChildWindows;
 using MahApps.Metro.Controls;
-using System.Windows;
 using MahApps.Metro.SimpleChildWindow;
+using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Giveaway {
-
         #region Models
+
         public Extensions.Giveaway.GiveawayHandler Handler { get; set; }
 
         public ICommand StartGiveawayCommand { get; set; }
@@ -26,6 +20,7 @@ namespace Aiva.Bot.ViewModels {
         #endregion Models
 
         #region Constructor
+
         public Giveaway() {
             SetCommands();
         }
@@ -40,13 +35,12 @@ namespace Aiva.Bot.ViewModels {
         #endregion Constructor
 
         #region Functions
+
         /// <summary>
         /// Resets the giveaway
         /// </summary>
         private void Reset() {
-            if (Handler != null) {
-                Handler.StopGiveaway();
-            }
+            Handler?.StopGiveaway();
             Handler = null;
         }
 
@@ -88,7 +82,7 @@ namespace Aiva.Bot.ViewModels {
             var startTimerWindow = new Views.ChildWindows.StartGiveaway() { IsModal = true, AllowMove = true };
             ((ViewModels.ChildWindows.StartGiveaway)startTimerWindow.DataContext).CloseEvent += (sender, EventArgs) => CloseStartWindow(startTimerWindow);
 
-            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(startTimerWindow);
+            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(startTimerWindow).ConfigureAwait(false);
         }
 
         /// <summary>

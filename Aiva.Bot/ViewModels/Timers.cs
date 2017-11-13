@@ -1,15 +1,13 @@
 ﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using MahApps.Metro.SimpleChildWindow;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using MahApps.Metro.Controls.Dialogs;
 
 namespace Aiva.Bot.ViewModels {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Timers {
-
         #region Models
 
         public ICommand AddTimerCommand { get; set; }
@@ -21,18 +19,21 @@ namespace Aiva.Bot.ViewModels {
         #endregion Models
 
         #region Constructor
+
         public Timers() {
             Handler = new Extensions.Timers.Handler();
             SetCommands();
         }
+
         #endregion Constructor
 
         #region Methods
+
         /// <summary>
         /// Set commands
         /// </summary>
         private void SetCommands() {
-            AddTimerCommand = new Internal.RelayCommand(async add => await ShowAddWindow());
+            AddTimerCommand = new Internal.RelayCommand(async add => await ShowAddWindow().ConfigureAwait(false));
             EditTimerCommand = new Internal.RelayCommand(edit => EditTimer(), edit => Handler.SelectedTimer != null);
             RemoveTimerCommand = new Internal.RelayCommand(remove => RemoveTimer(), remove => Handler.SelectedTimer != null);
         }
@@ -47,7 +48,7 @@ namespace Aiva.Bot.ViewModels {
             var addTimerWindow = new Views.ChildWindows.AddTimer(Handler.SelectedTimer.Name, Handler.SelectedTimer.Text, (int)Handler.SelectedTimer.Interval, Handler.SelectedTimer.ID);
             ((ViewModels.ChildWindows.AddTimer)addTimerWindow.DataContext).CloseEvent += (sender, EventArgs) => ClosingAddWindow(addTimerWindow);
 
-            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(addTimerWindow);
+            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(addTimerWindow).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -60,39 +61,37 @@ namespace Aiva.Bot.ViewModels {
             ((ViewModels.ChildWindows.AddTimer)addTimerWindow.DataContext).CloseEvent += (sender, EventArgs) => ClosingAddWindow(addTimerWindow);
             //addTimerWindow.Closing += (sender, CancelEventArgs) => ClosingAddWindow(addTimerWindow.DataContext);
 
-            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(addTimerWindow);
+            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(addTimerWindow).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Fires when add child window close
         /// </summary>
         /// <param name="rawWindow"></param>
-        private void ClosingAddWindow(object rawWindow) {
-            Views.ChildWindows.AddTimer window;
-            ChildWindows.AddTimer dataContext;
+        private void ClosingAddWindow(Views.ChildWindows.AddTimer rawWindow) {
+            var dataContext = Internal.SimpleChildWindow.GetDataContext<Views.ChildWindows.AddTimer, ViewModels.ChildWindows.AddTimer>
+                (rawWindow, rawWindow.DataContext);
 
-            if ((window = rawWindow as Views.ChildWindows.AddTimer) != null) {
-                if ((dataContext = window.DataContext as ChildWindows.AddTimer) != null) {
-                    if (dataContext.IsCompleted) {
-                        if (!dataContext.IsEditing) {
-                            var result = Handler.AddTimerToDatabase(dataContext.Name, dataContext.Text, dataContext.Interval, dataContext.Lines);
-                            if (result) {
-                                ShowConfirmWindow();
-                            }
-                        } else {
-                            Handler.EditTimer(dataContext.Name, dataContext.Text, dataContext.Interval, dataContext.Lines, dataContext.DatabaseID);
+            if(dataContext?.Item1 != null && dataContext?.Item2 != null) {
+                if(!dataContext.Item2.IsCompleted) {
+                    if (!dataContext.Item2.IsEditing) {
+                        var result = Handler.AddTimerToDatabase(dataContext.Item2.Name, dataContext.Item2.Text, dataContext.Item2.Interval);
+                        if (result) {
+                            ShowConfirmWindow();
                         }
+                    } else {
+                        Handler.EditTimer(dataContext.Item2.Name, dataContext.Item2.Text, dataContext.Item2.Interval, dataContext.Item2.DatabaseID);
                     }
                 }
 
-                window.Close();
+                dataContext.Item1.Close();
             }
         }
 
         /// <summary>
         /// Shows the confirm message for successfull
         /// </summary>
-        private async void ShowConfirmWindow() => await ((MetroWindow)Application.Current.MainWindow).ShowMessageAsync("Successful", "Timer saved");
+        private async void ShowConfirmWindow() => await ((MetroWindow)Application.Current.MainWindow).ShowMessageAsync("Successful", "Timer saved").ConfigureAwait(false);
 
         #endregion Methods
     }
