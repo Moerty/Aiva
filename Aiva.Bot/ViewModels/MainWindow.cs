@@ -7,24 +7,11 @@ using System.Windows.Controls;
 namespace Aiva.Bot.ViewModels {
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     internal class MainWindow {
-        private static MainWindow _Instance;
-
-        public static MainWindow Instance {
-            get {
-                return _Instance;
-            }
-            private set {
-                _Instance = value;
-            }
-        }
-
         public Models.MainWindow Model { get; set; }
         public Models.MainWindow.TabItemsModel SelectedTab { get; set; }
 
         public MainWindow() {
             InitViewModel();
-
-            Instance = this;
         }
 
         private void InitViewModel() {

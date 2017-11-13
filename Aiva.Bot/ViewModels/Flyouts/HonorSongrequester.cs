@@ -9,9 +9,9 @@ namespace Aiva.Bot.ViewModels.Flyouts {
 
         public ICommand HonorRequesterCommand { get; set; }
 
-        private string _twitchID;
+        private readonly string _twitchID;
         private readonly string _username;
-        private Core.DatabaseHandlers.Currency.AddCurrency _addCurrencyDatabaseHandler;
+        private readonly Core.DatabaseHandlers.Currency.AddCurrency _addCurrencyDatabaseHandler;
 
         public HonorSongrequester(string username, string twitchID = null) {
             _addCurrencyDatabaseHandler = new Core.DatabaseHandlers.Currency.AddCurrency();

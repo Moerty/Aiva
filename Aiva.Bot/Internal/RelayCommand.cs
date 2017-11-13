@@ -28,10 +28,7 @@ namespace Aiva.Bot.Internal {
         /// <param name="execute">The execution logic.</param>
         /// <param name="canExecute">The execution status logic.</param>
         public RelayCommand(Action<T> execute, Predicate<T> canExecute) {
-            if (execute == null)
-                throw new ArgumentNullException("execute");
-
-            _execute = execute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
 
@@ -72,8 +69,8 @@ namespace Aiva.Bot.Internal {
     public class RelayCommand : ICommand {
         #region Fields
 
-        private Action<object> execute;
-        private Func<object, bool> canExecute;
+        private readonly Action<object> execute;
+        private readonly Func<object, bool> canExecute;
 
         #endregion Fields
 

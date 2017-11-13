@@ -34,7 +34,7 @@ namespace Aiva.Extensions.Giveaway {
             JoinedUsers = new ObservableCollection<Models.Giveaway>();
             Winners = new ObservableCollection<Models.Giveaway>();
 
-            Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived += ChatCommandReceived;
+            AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived += ChatCommandReceived;
             IsStarted = true;
 
             if (IsTimerActive)
@@ -46,18 +46,18 @@ namespace Aiva.Extensions.Giveaway {
         /// Stop from joining the giveaway
         /// </summary>
         public void StopRegistration() {
-            Core.AivaClient.Instance.AivaTwitchClient.OnMessageReceived -= ChatMessageReceived;
-            Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived -= ChatCommandReceived;
+            AivaClient.Instance.AivaTwitchClient.OnMessageReceived -= ChatMessageReceived;
+            AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived -= ChatCommandReceived;
         }
 
         /// <summary>
         /// Stop the Giveaway
         /// </summary>
         public void StopGiveaway() {
-            Core.AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived -= ChatCommandReceived;
+            AivaClient.Instance.AivaTwitchClient.OnChatCommandReceived -= ChatCommandReceived;
             IsStarted = false;
 
-            Core.AivaClient.Instance.AivaTwitchClient.OnMessageReceived += ChatMessageReceived;
+            AivaClient.Instance.AivaTwitchClient.OnMessageReceived += ChatMessageReceived;
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Aiva.Extensions.Giveaway {
         /// </summary>
         /// <param name="winner"></param>
         private void DoNotification(string winner) {
-            Core.AivaClient.Instance.AivaTwitchClient.SendMessage($"Winner is: @{winner}");
+            AivaClient.Instance.AivaTwitchClient.SendMessage($"Winner is: @{winner}");
         }
 
         /// <summary>

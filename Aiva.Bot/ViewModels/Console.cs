@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Aiva.Bot.ViewModels {
@@ -48,8 +49,10 @@ namespace Aiva.Bot.ViewModels {
         }
 
         private void ShowUserinfo() {
-            MainWindow.Instance.SelectedTab.Flyouts[0].DataContext = new ViewModels.Flyouts.UsersInfoVM(ChatHandler.SelectedViewer.Name);
-            MainWindow.Instance.SelectedTab.Flyouts[0].IsOpen = true;
+            var dataContext = (MainWindow)Application.Current.MainWindow.DataContext;
+
+            dataContext.SelectedTab.Flyouts[0].DataContext = new ViewModels.Flyouts.UsersInfoVM(ChatHandler.SelectedViewer.Name);
+            dataContext.SelectedTab.Flyouts[0].IsOpen = true;
         }
 
         /// <summary>

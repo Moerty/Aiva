@@ -16,7 +16,7 @@ namespace Aiva.Core.DatabaseHandlers {
         /// <param name="interval"></param>
         /// <param name="lines"></param>
         /// <returns></returns>
-        public bool AddTimer(string name, string text, int interval, int lines) {
+        public bool AddTimer(string name, string text, int interval) {
             var entry = new Storage.Timers {
                 CreatedAt = DateTime.Now,
                 Interval = interval,
@@ -46,8 +46,8 @@ namespace Aiva.Core.DatabaseHandlers {
         /// <param name="timer"></param>
         /// <returns></returns>
         public bool AddTimer(Storage.Timers timer) {
-            if (!String.IsNullOrEmpty(timer.Name) &&
-                !String.IsNullOrEmpty(timer.Text)) {
+            if (!String.IsNullOrEmpty(timer.Name)
+                && !String.IsNullOrEmpty(timer.Text)) {
                 using (var context = new StorageEntities()) {
                     var searchEntry = context.Timers.SingleOrDefault(t => String.Compare(t.Name, timer.Name, true) == 0);
 
@@ -80,6 +80,7 @@ namespace Aiva.Core.DatabaseHandlers {
         /// <summary>
         /// Get timers to start
         /// </summary>
+        /// <param name="refreshTimers"></param>
         /// <returns></returns>
         public List<Storage.Timers> GetStartTimers(bool refreshTimers = false) {
             List<Storage.Timers> timersToStart;
@@ -89,7 +90,7 @@ namespace Aiva.Core.DatabaseHandlers {
 
                 timersToStart = context.Timers.Where(t => t.NextExecution.HasValue && t.NextExecution <= substracted).ToList();
 
-                if (timersToStart.Any() && refreshTimers) {
+                if (timersToStart.Count > 0 && refreshTimers) {
                     RefreshTimers(substracted);
                 }
 
@@ -131,7 +132,7 @@ namespace Aiva.Core.DatabaseHandlers {
         /// <param name="interval"></param>
         /// <param name="lines"></param>
         /// <param name="id"></param>
-        public void EditTimer(string name, string text, int interval, int lines, long id) {
+        public void EditTimer(string name, string text, int interval, long id) {
             using (var context = new StorageEntities()) {
                 var timer = context.Timers.SingleOrDefault(t => t.ID == id);
 

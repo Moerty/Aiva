@@ -6,10 +6,7 @@ namespace Aiva.Core.Config {
 
         public static ResourceManager Instance {
             get {
-                if (_Instance == null)
-                    _Instance = new ResourceManager("Aiva.Core.ConfigFiles.AivaText", System.Reflection.Assembly.GetExecutingAssembly());
-
-                return _Instance;
+                return _Instance ?? (_Instance = new ResourceManager("Aiva.Core.ConfigFiles.AivaText", System.Reflection.Assembly.GetExecutingAssembly()));
             }
         }
 

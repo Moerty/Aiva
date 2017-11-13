@@ -20,7 +20,7 @@ namespace Aiva.Extensions.Songrequest {
 
         public Player Player { get; set; }
 
-        private Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
+        private readonly Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
 
         #endregion Models
 
@@ -105,7 +105,7 @@ namespace Aiva.Extensions.Songrequest {
 
                 // follower
                 if (Properties.BeFollower) {
-                    var followerCheck = await AivaClient.Instance.TwitchApi.Users.v5.UserFollowsChannelAsync(e.Command.ChatMessage.UserId, Core.AivaClient.Instance.ChannelID);
+                    var followerCheck = await AivaClient.Instance.TwitchApi.Users.v5.UserFollowsChannelAsync(e.Command.ChatMessage.UserId, Core.AivaClient.Instance.ChannelID).ConfigureAwait(false);
 
                     if (!followerCheck) {
                         return;
@@ -139,9 +139,7 @@ namespace Aiva.Extensions.Songrequest {
             songModel.Url = $"https://www.youtube.com/watch?v={videoid}";
 
             // add to songlist
-            Application.Current.Dispatcher.Invoke(() => {
-                SongList.Add(songModel);
-            });
+            Application.Current.Dispatcher.Invoke(() => SongList.Add(songModel));
 
             // dont call to play the video twice
             if (!autoStart) {
@@ -162,6 +160,7 @@ namespace Aiva.Extensions.Songrequest {
         /// <summary>
         /// Extract the VideoID
         /// </summary>
+        /// <param name="userInput"></param>
         /// <returns></returns>
         private string ExtractVideoID(string userInput) {
             // https://www.youtube.com/watch?v=ARfqiQRSPFc

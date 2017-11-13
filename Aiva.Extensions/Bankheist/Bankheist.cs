@@ -7,12 +7,12 @@ using System.Text;
 
 namespace Aiva.Extensions.Bankheist {
     public class Bankheist {
-        private Models.Bankheist.BankheistInitModel InitModel;
+        private readonly Models.Bankheist.BankheistInitModel InitModel;
 
         public List<Models.Bankheist.BankheistUserModel> UserList;
-        public bool IsStarted { get; private set; }
+        public bool IsStarted { get; }
 
-        private Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
+        private readonly Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
 
         public Bankheist(Models.Bankheist.BankheistInitModel InitModel) {
             this.InitModel = InitModel;
@@ -92,7 +92,7 @@ namespace Aiva.Extensions.Bankheist {
                 }
             }
 
-            if (Winners.Any())
+            if (Winners.Count > 0)
                 _currencyDatabaseHandler.Add.Add(Winners);
 
             _currencyDatabaseHandler.Remove.Remove(Loosers);
@@ -111,7 +111,7 @@ namespace Aiva.Extensions.Bankheist {
                 sb.Append("The Winners are: ");
 
             foreach (var winner in Winners) {
-                sb.Append($"{winner.Name} - {winner.Value} | ");
+                sb.Append(winner.Name).Append(" - ").Append(winner.Value).Append(" | ");
             }
 
             AivaClient.Instance.AivaTwitchClient.SendMessage(sb.ToString());

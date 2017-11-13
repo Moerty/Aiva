@@ -3,11 +3,11 @@ using System.Linq;
 using TwitchLib.Events.Client;
 
 namespace Aiva.Core.DatabaseHandlers {
-    public class Users {
+    public static class Users {
         /// <summary>
         /// Add User Class
         /// </summary>
-        public class AddUser {
+        public static class AddUser {
             /// <summary>
             /// Add or Update User in Database
             /// </summary>
@@ -90,7 +90,7 @@ namespace Aiva.Core.DatabaseHandlers {
         /// <summary>
         /// Remove User class
         /// </summary>
-        public class Removeuser {
+        public static class Removeuser {
             /// <summary>
             /// Remove ActiveUser Entry
             /// and add TimeWatched values
@@ -100,9 +100,9 @@ namespace Aiva.Core.DatabaseHandlers {
             public async static void RemoveUserFromActiveUsers(object sender, OnUserLeftArgs e) {
                 using (var context = new Storage.StorageEntities()) {
                     //var twitchID = TwitchApi.Users.GetUser(e.Username);
-                    var twitchID = await AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(e.Username);
+                    var twitchID = await AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(e.Username).ConfigureAwait(false);
 
-                    if (twitchID != null && twitchID.Total > 0) {
+                    if (twitchID?.Total > 0) {
                         foreach (var userMatch in twitchID.Matches) {
                             if (String.Compare(userMatch.Name, e.Username, true) != 0)
                                 continue;

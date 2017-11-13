@@ -33,7 +33,7 @@ namespace Aiva.Bot.ViewModels {
         /// Set commands
         /// </summary>
         private void SetCommands() {
-            AddTimerCommand = new Internal.RelayCommand(async add => await ShowAddWindow());
+            AddTimerCommand = new Internal.RelayCommand(async add => await ShowAddWindow().ConfigureAwait(false));
             EditTimerCommand = new Internal.RelayCommand(edit => EditTimer(), edit => Handler.SelectedTimer != null);
             RemoveTimerCommand = new Internal.RelayCommand(remove => RemoveTimer(), remove => Handler.SelectedTimer != null);
         }
@@ -48,7 +48,7 @@ namespace Aiva.Bot.ViewModels {
             var addTimerWindow = new Views.ChildWindows.AddTimer(Handler.SelectedTimer.Name, Handler.SelectedTimer.Text, (int)Handler.SelectedTimer.Interval, Handler.SelectedTimer.ID);
             ((ViewModels.ChildWindows.AddTimer)addTimerWindow.DataContext).CloseEvent += (sender, EventArgs) => ClosingAddWindow(addTimerWindow);
 
-            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(addTimerWindow);
+            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(addTimerWindow).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Aiva.Bot.ViewModels {
             ((ViewModels.ChildWindows.AddTimer)addTimerWindow.DataContext).CloseEvent += (sender, EventArgs) => ClosingAddWindow(addTimerWindow);
             //addTimerWindow.Closing += (sender, CancelEventArgs) => ClosingAddWindow(addTimerWindow.DataContext);
 
-            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(addTimerWindow);
+            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(addTimerWindow).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -76,12 +76,12 @@ namespace Aiva.Bot.ViewModels {
                 if ((dataContext = window.DataContext as ChildWindows.AddTimer) != null) {
                     if (dataContext.IsCompleted) {
                         if (!dataContext.IsEditing) {
-                            var result = Handler.AddTimerToDatabase(dataContext.Name, dataContext.Text, dataContext.Interval, dataContext.Lines);
+                            var result = Handler.AddTimerToDatabase(dataContext.Name, dataContext.Text, dataContext.Interval);
                             if (result) {
                                 ShowConfirmWindow();
                             }
                         } else {
-                            Handler.EditTimer(dataContext.Name, dataContext.Text, dataContext.Interval, dataContext.Lines, dataContext.DatabaseID);
+                            Handler.EditTimer(dataContext.Name, dataContext.Text, dataContext.Interval, dataContext.DatabaseID);
                         }
                     }
                 }
@@ -93,7 +93,7 @@ namespace Aiva.Bot.ViewModels {
         /// <summary>
         /// Shows the confirm message for successfull
         /// </summary>
-        private async void ShowConfirmWindow() => await ((MetroWindow)Application.Current.MainWindow).ShowMessageAsync("Successful", "Timer saved");
+        private async void ShowConfirmWindow() => await ((MetroWindow)Application.Current.MainWindow).ShowMessageAsync("Successful", "Timer saved").ConfigureAwait(false);
 
         #endregion Methods
     }

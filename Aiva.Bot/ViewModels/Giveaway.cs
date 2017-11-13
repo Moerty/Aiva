@@ -40,9 +40,7 @@ namespace Aiva.Bot.ViewModels {
         /// Resets the giveaway
         /// </summary>
         private void Reset() {
-            if (Handler != null) {
-                Handler.StopGiveaway();
-            }
+            Handler?.StopGiveaway();
             Handler = null;
         }
 
@@ -84,7 +82,7 @@ namespace Aiva.Bot.ViewModels {
             var startTimerWindow = new Views.ChildWindows.StartGiveaway() { IsModal = true, AllowMove = true };
             ((ViewModels.ChildWindows.StartGiveaway)startTimerWindow.DataContext).CloseEvent += (sender, EventArgs) => CloseStartWindow(startTimerWindow);
 
-            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(startTimerWindow);
+            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(startTimerWindow).ConfigureAwait(false);
         }
 
         /// <summary>

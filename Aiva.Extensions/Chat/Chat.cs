@@ -59,14 +59,14 @@ namespace Aiva.Extensions.Chat {
             var viewer = new Models.Chat.Viewers {
                 Name = name,
                 TwitchID = id,
-                IsSub = IsUserSubscriber != null ? true : false,
+                IsSub = IsUserSubscriber != null,
                 Type = IsUserSubscriber != null ? nameof(Models.Chat.SortDirectionListView.Subscriber)
                                             : nameof(Models.Chat.SortDirectionListView.Viewer),
                 ChatNameColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256))
                 //IsMod = will be filled from the event "ModeratoersReceived"
             };
 
-            Application.Current.Dispatcher.Invoke(() => { Viewers.Add(viewer); });
+            Application.Current.Dispatcher.Invoke(() => Viewers.Add(viewer));
 
             // Get Channel Moderators to fire "ModeratorsReceived"
             Core.AivaClient.Instance.AivaTwitchClient.GetChannelModerators(Core.AivaClient.Instance.Channel);
@@ -95,9 +95,7 @@ namespace Aiva.Extensions.Chat {
             var viewer = Viewers.SingleOrDefault(u => u.Name == e.Username);
 
             if (viewer != null) {
-                Application.Current.Dispatcher.Invoke(() => {
-                    Viewers.Remove(viewer);
-                });
+                Application.Current.Dispatcher.Invoke(() => Viewers.Remove(viewer));
             }
         }
 
@@ -109,9 +107,7 @@ namespace Aiva.Extensions.Chat {
         private void MessagesCountCheck(object sender, NotifyCollectionChangedEventArgs e) {
             if (e.Action == NotifyCollectionChangedAction.Add) {
                 if (Messages.Count >= 1000) {
-                    Application.Current.Dispatcher.Invoke(() => {
-                        Messages.RemoveAt(0);
-                    });
+                    Application.Current.Dispatcher.Invoke(() => Messages.RemoveAt(0));
                 }
             }
         }
@@ -137,9 +133,7 @@ namespace Aiva.Extensions.Chat {
                 UserType = e.ChatMessage.UserType,
             };
 
-            Application.Current.Dispatcher.Invoke(() => {
-                Messages.Add(message);
-            });
+            Application.Current.Dispatcher.Invoke(() => Messages.Add(message));
 
             // Save in Database
             StoreIndatabase(e.ChatMessage.UserId, e.ChatMessage.Message, DateTime.Now);
@@ -160,6 +154,9 @@ namespace Aiva.Extensions.Chat {
         /// Store Message in Database
         /// </summary>
         /// <param name="AddModel"></param>
+        /// <param name="twitchId"></param>
+        /// <param name="chatMessage"></param>
+        /// <param name="timeStamp"></param>
         private static void StoreIndatabase(string twitchId, string chatMessage, DateTime timeStamp) {
             using (var context = new Core.Storage.StorageEntities()) {
                 context.Chat.Add(

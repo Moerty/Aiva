@@ -17,7 +17,7 @@ namespace Aiva.Bot.ViewModels.Flyouts {
 
                     if (user != null) {
                         Username = user.DisplayName;
-                        ID = user.Id.ToString();
+                        ID = user.Id;
                         Currency = user.Currency.Value.ToString();
                     }
                 }

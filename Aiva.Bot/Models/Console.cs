@@ -15,11 +15,7 @@ namespace Aiva.Bot.Models {
             set {
                 _MessageToSend = value;
 
-                if (_MessageToSend.Any()) {
-                    CanSendMessage = true;
-                } else {
-                    CanSendMessage = false;
-                }
+                CanSendMessage = _MessageToSend.Length > 0;
             }
         }
 

@@ -40,6 +40,7 @@ namespace Aiva.Extensions.Models {
                     return ts.ToString();
                 }
             }
+
             public string Url { get; set; }
             public string Requester { get; set; }
             public string RequesterID { get; set; }

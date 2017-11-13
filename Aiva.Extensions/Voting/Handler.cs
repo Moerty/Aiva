@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using TwitchLib.Events.Client;
 
 namespace Aiva.Extensions.Voting {
-
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Handler {
         public bool IsStarted { get; set; }

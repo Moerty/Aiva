@@ -3,9 +3,9 @@
         /// <summary>
         /// Add Currency frequently class
         /// </summary>
-        public System.Timers.Timer Timer { get; private set; }
+        public System.Timers.Timer Timer { get; }
 
-        private Core.DatabaseHandlers.Currency.AddCurrency _addCurrencyDatabaseHandler;
+        private readonly Core.DatabaseHandlers.Currency.AddCurrency _addCurrencyDatabaseHandler;
 
         public Currency() {
             Timer = new System.Timers.Timer();

@@ -36,7 +36,6 @@ namespace Aiva.Extensions.Models {
 
         [PropertyChanged.AddINotifyPropertyChangedInterface]
         public class Options {
-
             public OptionsMember Option1 { get; set; } = new OptionsMember();
             public OptionsMember Option2 { get; set; } = new OptionsMember();
             public OptionsMember Option3 { get; set; } = new OptionsMember();
@@ -79,7 +78,6 @@ namespace Aiva.Extensions.Models {
 
             public ObservableValue Option6 { get; set; } = new ObservableValue(0);
             public ObservableCollection<string> Option6Usernames { get; set; }
-
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Aiva.Bot.ViewModels {
             StopSongrequestCommand = new Internal.RelayCommand(stop => StopRegisterSongrequest());
             AddSongCommand = new Internal.RelayCommand(add => AddSong(), add => Handler != null);
             ResetSongrequestCommand = new Internal.RelayCommand(reset => Handler = null);
-            NextSongCommand = new Internal.RelayCommand(next => NextSong(), next => Handler != null && Handler.SongList.Count > 0);
+            NextSongCommand = new Internal.RelayCommand(next => NextSong(), next => Handler?.SongList.Count > 0);
             PlaySongCommand = new Internal.RelayCommand(play => PlaySong());
         }
 
@@ -52,7 +52,7 @@ namespace Aiva.Bot.ViewModels {
             var startAddWindow = new Views.ChildWindows.Songrequest.AddSong() { IsModal = true, AllowMove = true };
             ((ChildWindows.Songrequest.AddSong)startAddWindow.DataContext).CloseEvent += (sender, EventArgs) => CloseAddWindow(startAddWindow);
 
-            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(startAddWindow);
+            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(startAddWindow).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Aiva.Bot.ViewModels {
             var startSongrequestWindow = new Views.ChildWindows.Songrequest.StartSongrequest() { IsModal = true, AllowMove = true };
             ((ChildWindows.Songrequest.StartSongrequest)startSongrequestWindow.DataContext).CloseEvent += (sender, EventArgs) => CloseStartWindow(startSongrequestWindow);
 
-            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(startSongrequestWindow);
+            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(startSongrequestWindow).ConfigureAwait(false);
         }
 
         /// <summary>

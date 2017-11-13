@@ -13,8 +13,8 @@ namespace Aiva.Extensions.Timers {
         public ObservableCollection<Core.Storage.Timers> Timers { get; set; }
         public Core.Storage.Timers SelectedTimer { get; set; }
 
-        private Core.DatabaseHandlers.Timers _databaseHandler;
-        private Dictionary<string, Task> _internalTimersList;
+        private readonly Core.DatabaseHandlers.Timers _databaseHandler;
+        private readonly Dictionary<string, Task> _internalTimersList;
 
         #endregion Models
 
@@ -46,7 +46,7 @@ namespace Aiva.Extensions.Timers {
 
         private void SetTimer(Core.Storage.Timers timer) {
             var task = Task.Run(async () => {
-                await Task.Delay(TimeSpan.FromMinutes(timer.Interval).Milliseconds);
+                await Task.Delay(TimeSpan.FromMinutes(timer.Interval).Milliseconds).ConfigureAwait(false);
                 StartTimer(timer);
             });
 
@@ -71,10 +71,10 @@ namespace Aiva.Extensions.Timers {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void _checker_Elapsed(object sender, ElapsedEventArgs e) {
-            bool refreshTimers = true;
+            const bool refreshTimers = true;
             var timersToStart = _databaseHandler.GetStartTimers(refreshTimers: refreshTimers);
 
-            if (timersToStart != null && timersToStart.Any()) {
+            if (timersToStart?.Any() == true) {
                 foreach (var timer in timersToStart) {
                     Core.AivaClient.Instance.AivaTwitchClient.SendMessage(timer.Text);
                 }
@@ -115,7 +115,7 @@ namespace Aiva.Extensions.Timers {
         /// <param name="text"></param>
         /// <param name="interval"></param>
         /// <param name="lines"></param>
-        public bool AddTimerToDatabase(string name, string text, int interval, int lines) {
+        public bool AddTimerToDatabase(string name, string text, int interval) {
             var timer = new Core.Storage.Timers {
                 Name = name.Replace(" ", ""),
                 Text = text,
@@ -138,8 +138,8 @@ namespace Aiva.Extensions.Timers {
         /// <param name="interval"></param>
         /// <param name="lines"></param>
         /// <param name="id"></param>
-        public void EditTimer(string name, string text, int interval, int lines, long id) {
-            _databaseHandler.EditTimer(name, text, interval, lines, id);
+        public void EditTimer(string name, string text, int interval, long id) {
+            _databaseHandler.EditTimer(name, text, interval, id);
             LoadTimers();
         }
 

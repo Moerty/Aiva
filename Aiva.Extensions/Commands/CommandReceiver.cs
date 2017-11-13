@@ -4,8 +4,8 @@ using TwitchLib.Events.Client;
 
 namespace Aiva.Extensions.Commands {
     public class CommandReceiver {
-        private Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
-        private Core.DatabaseHandlers.Commands _commandsDatabaseHandler;
+        private readonly Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
+        private readonly Core.DatabaseHandlers.Commands _commandsDatabaseHandler;
 
         public CommandReceiver() {
             _currencyDatabaseHandler = new Core.DatabaseHandlers.Currency();
@@ -64,9 +64,9 @@ namespace Aiva.Extensions.Commands {
         private bool CanUserExecuteCommand(UserType userType, long executionRight) {
             switch (executionRight) {
                 case (1): // TODO: Difference between Mod and gloabel Mod
-                    return (int)userType == 1 ? true : (int)userType == 2 ? true : false; // Mod&GloabelMod:
+                    return (int)userType == 1 ? true : (int)userType == 2; // Mod&GloabelMod:
                 case (2): // return true if it is the broeadcaster or admin; staff will be ignored
-                    return (int)userType > 3 ? true : false;
+                    return (int)userType > 3;
 
                 default:
                     return true;

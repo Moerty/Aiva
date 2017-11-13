@@ -8,10 +8,7 @@ namespace Aiva.Core.Config {
 
         public static Config Instance {
             get {
-                if (_Instance == null)
-                    _Instance = new Config();
-
-                return _Instance;
+                return _Instance ?? (_Instance = new Config());
             }
             private set {
                 _Instance = value;

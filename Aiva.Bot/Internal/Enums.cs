@@ -10,7 +10,7 @@ namespace Aiva.Bot.Internal {
             get { return this._enumType; }
             set {
                 if (value != this._enumType) {
-                    if (null != value) {
+                    if (value != null) {
                         Type enumType = Nullable.GetUnderlyingType(value) ?? value;
                         if (!enumType.IsEnum)
                             throw new ArgumentException("Type must be for an Enum.");
@@ -29,7 +29,7 @@ namespace Aiva.Bot.Internal {
         }
 
         public override object ProvideValue(IServiceProvider serviceProvider) {
-            if (null == this._enumType)
+            if (this._enumType == null)
                 throw new InvalidOperationException("The EnumType must be specified.");
 
             Type actualEnumType = Nullable.GetUnderlyingType(this._enumType) ?? this._enumType;

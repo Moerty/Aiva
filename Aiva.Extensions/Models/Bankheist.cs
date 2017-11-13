@@ -1,5 +1,5 @@
 ﻿namespace Aiva.Extensions.Models {
-    public class Bankheist {
+    public static class Bankheist {
         public class BankheistInitModel {
             public bool IsEnabled { get; set; }
             public string Command { get; set; }

@@ -29,7 +29,7 @@ namespace Aiva.Core.DatabaseHandlers {
                         }
                     }
 
-                    await context.SaveChangesAsync();
+                    await context.SaveChangesAsync().ConfigureAwait(false);
                 }
             }
 
@@ -93,7 +93,7 @@ namespace Aiva.Core.DatabaseHandlers {
                         }
                     }
 
-                    await context.SaveChangesAsync();
+                    await context.SaveChangesAsync().ConfigureAwait(false);
                 }
             }
         }
@@ -153,7 +153,7 @@ namespace Aiva.Core.DatabaseHandlers {
                             Value = 0
                         });
 
-                    await context.SaveChangesAsync();
+                    await context.SaveChangesAsync().ConfigureAwait(false);
                 }
             }
         }

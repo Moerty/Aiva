@@ -20,7 +20,7 @@ namespace Aiva.Bot.ViewModels {
 
         public ObservableCollection<string> TwitchScopes { get; set; }
 
-        private Core.Client.TwitchAuthentication TwitchAuthenticator;
+        private readonly Core.Client.TwitchAuthentication TwitchAuthenticator;
 
         public Setup() {
             SetupCommands();
@@ -29,12 +29,12 @@ namespace Aiva.Bot.ViewModels {
 
         private void SetupCommands() {
             RequestTwitchOAuthKeyCommand = new Internal.RelayCommand(t => RequestTwitchOAuthKey(), p => !String.IsNullOrEmpty(ClientID));
-            ConfirmCommand = new Internal.RelayCommand(c => Confirm(), c => !String.IsNullOrEmpty(OAuthKey) &&
-                                                                            !String.IsNullOrEmpty(Channel) &&
-                                                                            TwitchScopes != null &&
-                                                                            IsYoutubeAuthenticated &&
-                                                                            IsTwitchAuthenticated &&
-                                                                            !String.IsNullOrEmpty(BotName));
+            ConfirmCommand = new Internal.RelayCommand(c => Confirm(), c => !String.IsNullOrEmpty(OAuthKey)
+                                                                            && !String.IsNullOrEmpty(Channel)
+                                                                            && TwitchScopes != null
+                                                                            && IsYoutubeAuthenticated
+                                                                            && IsTwitchAuthenticated
+                                                                            && !String.IsNullOrEmpty(BotName));
         }
 
         private void Confirm() {
@@ -62,7 +62,7 @@ namespace Aiva.Bot.ViewModels {
             Task.Run(() => TwitchAuthenticator.SendRequestToBrowser(ClientID));
 #pragma warning restore CS4014 // Da dieser Aufruf nicht abgewartet wird, wird die Ausführung der aktuellen Methode fortgesetzt, bevor der Aufruf abgeschlossen ist
 
-            var result = await TwitchAuthenticator.GetAuthenticationValuesAsync();
+            var result = await TwitchAuthenticator.GetAuthenticationValuesAsync().ConfigureAwait(false);
 
             if (result != null) {
                 OAuthKey = result.Token;

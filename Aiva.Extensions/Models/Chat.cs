@@ -4,7 +4,7 @@ using TwitchLib.Enums;
 
 namespace Aiva.Extensions.Models {
     [PropertyChanged.AddINotifyPropertyChangedInterface]
-    public class Chat {
+    public static class Chat {
         [PropertyChanged.AddINotifyPropertyChangedInterface]
         public class MessageModel {
             //
@@ -67,9 +67,10 @@ namespace Aiva.Extensions.Models {
             //     Twitch-unique integer assigned on per account basis.
             public string UserId { get; set; }
 
-            ///
-            /// Zusammenfassung:
+            /// <summary>
+            /// /// Zusammenfassung:
             ///     Timestamp of the message.
+            /// </summary>
             public DateTime Timestamp { get; set; }
         }
 
