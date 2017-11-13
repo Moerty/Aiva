@@ -114,6 +114,12 @@ namespace Aiva.Extensions.Songrequest {
 
                 // add the song to the list
                 AddSong(e.Command.ArgumentsAsString, e.Command.ChatMessage.DisplayName, e.Command.ChatMessage.UserId);
+
+                if (Properties.IsCostEnabled) {
+                    _currencyDatabaseHandler.Remove.Remove(
+                        e.Command.ChatMessage.UserId,
+                        Properties.Cost);
+                }
             }
         }
 

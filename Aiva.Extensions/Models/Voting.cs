@@ -62,22 +62,17 @@ namespace Aiva.Extensions.Models {
         [PropertyChanged.AddINotifyPropertyChangedInterface]
         public class ChartValues {
             public ObservableValue Option1 { get; set; } = new ObservableValue(0);
-            public ObservableCollection<string> Option1Usernames { get; set; }
-
             public ObservableValue Option2 { get; set; } = new ObservableValue(0);
-            public ObservableCollection<string> Option2Usernames { get; set; }
-
             public ObservableValue Option3 { get; set; } = new ObservableValue(0);
-            public ObservableCollection<string> Option3Usernames { get; set; }
-
             public ObservableValue Option4 { get; set; } = new ObservableValue(0);
-            public ObservableCollection<string> Option4Usernames { get; set; }
-
             public ObservableValue Option5 { get; set; } = new ObservableValue(0);
-            public ObservableCollection<string> Option5Usernames { get; set; }
-
             public ObservableValue Option6 { get; set; } = new ObservableValue(0);
-            public ObservableCollection<string> Option6Usernames { get; set; }
+        }
+
+        public class VotedUsers {
+            public string Name { get; set; }
+            public string Id { get; set; }
+            public string Option { get; set; }
         }
     }
 }

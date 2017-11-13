@@ -47,6 +47,7 @@ namespace Aiva.Bot.ViewModels {
         private void Reset() {
             Handler?.StopVoting();
             Handler = null;
+            Chart = null;
         }
 
         private bool CanStopVoting() {
@@ -63,7 +64,8 @@ namespace Aiva.Bot.ViewModels {
         /// Stop the giveaway
         /// prevent joining
         /// </summary>
-        private void StopGiveaway() => Handler.StopRegistration();
+        private void StopGiveaway()
+            => Handler.StopRegistration();
 
         /// <summary>
         /// Start giveaway form
@@ -82,9 +84,6 @@ namespace Aiva.Bot.ViewModels {
         /// <param name="startTimerWindow"></param>
         /// <param name="startVotingWindow"></param>
         private void CloseStartWindow(Views.ChildWindows.Voting.StartVoting startVotingWindow) {
-            //Views.ChildWindows.StartGiveaway window;
-            //ChildWindows.StartGiveaway dataContext;
-
             var dataContext = Internal.SimpleChildWindow.GetDataContext<Views.ChildWindows.Voting.StartVoting, ChildWindows.Voting.Start>
                 (startVotingWindow, startVotingWindow.DataContext);
 
@@ -102,14 +101,7 @@ namespace Aiva.Bot.ViewModels {
             Handler = new Extensions.Voting.Handler {
                 IsStarted = true,
                 Properties = dataContext.Properties,
-                ChartValues = new Extensions.Models.Voting.ChartValues {
-                    Option1Usernames = new System.Collections.ObjectModel.ObservableCollection<string>(),
-                    Option2Usernames = new System.Collections.ObjectModel.ObservableCollection<string>(),
-                    Option3Usernames = new System.Collections.ObjectModel.ObservableCollection<string>(),
-                    Option4Usernames = new System.Collections.ObjectModel.ObservableCollection<string>(),
-                    Option5Usernames = new System.Collections.ObjectModel.ObservableCollection<string>(),
-                    Option6Usernames = new System.Collections.ObjectModel.ObservableCollection<string>()
-                }
+                ChartValues = new Extensions.Models.Voting.ChartValues()
             };
             Handler.StartRegistration();
 
@@ -129,7 +121,7 @@ namespace Aiva.Bot.ViewModels {
                     new PieSeries {
                         Title = addModel.Options.Option1.Option,
                         Values = new ChartValues<ObservableValue> { Handler.ChartValues.Option1 },
-                        DataLabels = true
+                        DataLabels = true,
                     });
             }
 
@@ -138,7 +130,7 @@ namespace Aiva.Bot.ViewModels {
                     new PieSeries {
                         Title = addModel.Options.Option2.Option,
                         Values = new ChartValues<ObservableValue> { Handler.ChartValues.Option2 },
-                        DataLabels = true
+                        DataLabels = true,
                     });
             }
 
@@ -147,7 +139,7 @@ namespace Aiva.Bot.ViewModels {
                     new PieSeries {
                         Title = addModel.Options.Option3.Option,
                         Values = new ChartValues<ObservableValue> { Handler.ChartValues.Option3 },
-                        DataLabels = true
+                        DataLabels = true,
                     });
             }
 
@@ -156,7 +148,7 @@ namespace Aiva.Bot.ViewModels {
                     new PieSeries {
                         Title = addModel.Options.Option4.Option,
                         Values = new ChartValues<ObservableValue> { Handler.ChartValues.Option4 },
-                        DataLabels = true
+                        DataLabels = true,
                     });
             }
 
@@ -178,26 +170,6 @@ namespace Aiva.Bot.ViewModels {
                     });
             }
         }
-
-        ///// <summary>
-        ///// Creates the handler
-        ///// </summary>
-        ///// <param name="data"></param>
-        //private void StartGiveaway(ChildWindows.StartGiveaway data) {
-        //    Handler = new Extensions.Giveaway.GiveawayHandler() {
-        //        Properties = new Extensions.Models.Giveaway.Properties {
-        //            BeFollower = data.BeFollower,
-        //            BlockReEntry = data.BlockReEntry,
-        //            Command = data.Command,
-        //            SubLuck = data.IsSubluckActive ? data.SubLuck : 1,
-        //            IsSubLuckActive = data.IsSubluckActive,
-        //            Price = data.Price,
-        //            JoinPermission = data.SelectedJoinPermission
-        //        }
-        //    };
-
-        //    Handler.StartGiveaway();
-        //}
 
         #endregion Functions
     }

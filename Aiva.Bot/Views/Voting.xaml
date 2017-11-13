@@ -44,16 +44,20 @@
             <DataGrid
                 x:Name="JoinedUsers"
                 AutoGenerateColumns="False"
-                ColumnHeaderStyle="{StaticResource JoinedUsersHeadersTemplate}"
-                ItemsSource="{Binding Handler.JoinedUsers}">
+                ItemsSource="{Binding Handler.VotedUsers}">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="*"
-                        Binding="{Binding Path=Username}"
+                        Binding="{Binding Path=Name}"
                         CanUserReorder="True"
                         CanUserResize="True"
                         CanUserSort="True"
                         Header="Username"
+                        IsReadOnly="True" />
+                    <DataGridTextColumn
+                        Header="Option"
+                        Width="70"
+                        Binding="{Binding Path=Option}"
                         IsReadOnly="True" />
                 </DataGrid.Columns>
             </DataGrid>
@@ -122,6 +126,7 @@
 
         <DockPanel Grid.Row="1" Grid.Column="1">
             <lvc:PieChart
+                x:Name="Chart"
                 InnerRadius="50"
                 LegendLocation="Right"
                 Series="{Binding Chart}">
