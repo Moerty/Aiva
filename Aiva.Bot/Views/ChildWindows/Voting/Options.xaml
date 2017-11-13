@@ -1,0 +1,74 @@
+﻿<simpleChildWindow:ChildWindow
+    x:Class="Aiva.Bot.Views.ChildWindows.Voting.Options"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Aiva.Bot.Views.ChildWindows.Voting"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mvvm="clr-namespace:Aiva.Bot.ViewModels.ChildWindows.Voting"
+    xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
+    Title="Options"
+    d:DataContext="{d:DesignInstance d:Type=mvvm:Options}"
+    AllowDrop="True"
+    AllowMove="False"
+    BorderBrush="{DynamicResource AccentBaseColorBrush}"
+    BorderThickness="1"
+    ChildWindowHeight="260"
+    ChildWindowWidth="252"
+    EnableDropShadow="True"
+    GlowBrush="{DynamicResource AccentColorBrush}"
+    IsOpen="True"
+    ShowCloseButton="True"
+    ShowTitleBar="True"
+    mc:Ignorable="d">
+
+    <Grid Margin="5">
+        <StackPanel>
+            <DockPanel>
+                <CheckBox IsChecked="{Binding OptionsModel.Option1.ActiveOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="False" />
+                <TextBox controls:TextBoxHelper.Watermark="Options 1..." Text="{Binding OptionsModel.Option1.Option, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            </DockPanel>
+            <Separator />
+
+            <DockPanel>
+                <CheckBox IsChecked="{Binding OptionsModel.Option2.ActiveOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="False" />
+                <TextBox controls:TextBoxHelper.Watermark="Options 2..." Text="{Binding OptionsModel.Option2.Option, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            </DockPanel>
+
+            <Separator />
+
+            <DockPanel>
+                <CheckBox IsChecked="{Binding OptionsModel.Option3.ActiveOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="False" />
+                <TextBox controls:TextBoxHelper.Watermark="Options 3..." Text="{Binding OptionsModel.Option3.Option, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            </DockPanel>
+
+            <Separator />
+
+            <DockPanel>
+                <CheckBox IsChecked="{Binding OptionsModel.Option4.ActiveOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="False" />
+                <Separator />
+                <TextBox controls:TextBoxHelper.Watermark="Options 4..." Text="{Binding OptionsModel.Option4.Option, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            </DockPanel>
+
+            <Separator />
+
+            <DockPanel>
+                <CheckBox IsChecked="{Binding OptionsModel.Option5.ActiveOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="False" />
+                <TextBox controls:TextBoxHelper.Watermark="Options 5..." Text="{Binding OptionsModel.Option5.Option, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            </DockPanel>
+
+            <Separator />
+
+            <DockPanel>
+                <CheckBox IsChecked="{Binding OptionsModel.Option6.ActiveOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="False" />
+                <TextBox controls:TextBoxHelper.Watermark="Options 6..." Text="{Binding OptionsModel.Option6.Option, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            </DockPanel>
+
+            <Separator />
+
+            <Button Command="{Binding SubmitCommand}" Content="Submit" />
+
+        </StackPanel>
+    </Grid>
+</simpleChildWindow:ChildWindow>

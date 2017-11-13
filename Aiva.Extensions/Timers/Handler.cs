@@ -14,7 +14,6 @@ namespace Aiva.Extensions.Timers {
         public Core.Storage.Timers SelectedTimer { get; set; }
 
         private Core.DatabaseHandlers.Timers _databaseHandler;
-        private Timer _checker;
         private Dictionary<string, Task> _internalTimersList;
 
         #endregion Models

@@ -69,6 +69,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
@@ -173,15 +179,19 @@
     <Compile Include="Internal\Enums.cs" />
     <Compile Include="Internal\RelayCommand.cs" />
     <Compile Include="Internal\ScrollViewerExtension.cs" />
+    <Compile Include="Internal\SimpleChildWindow.cs" />
     <Compile Include="Internal\TextBoxEnterKeyUpdateBehavior.cs" />
     <Compile Include="Internal\Converters.cs" />
     <Compile Include="Models\Commands.cs" />
     <Compile Include="Models\Console.cs" />
     <Compile Include="Models\MainWindow.cs" />
+    <Compile Include="ViewModels\ChildWindows\AddTimer.cs" />
     <Compile Include="ViewModels\ChildWindows\Songrequest\AddSong.cs" />
     <Compile Include="ViewModels\ChildWindows\Songrequest\StartSongrequest.cs" />
     <Compile Include="ViewModels\ChildWindows\StartGiveaway.cs" />
-    <Compile Include="ViewModels\ChildWindows\AddTimer.cs" />
+    <Compile Include="ViewModels\ChildWindows\Voting\Options.cs" />
+    <Compile Include="ViewModels\ChildWindows\Voting\Start.cs" />
+    <Compile Include="ViewModels\Voting.cs" />
     <Compile Include="ViewModels\Songrequest.cs" />
     <Compile Include="Views\ChildWindows\Songrequest\AddSong.xaml.cs">
       <DependentUpon>AddSong.xaml</DependentUpon>
@@ -203,6 +213,15 @@
     <Compile Include="ViewModels\Users.cs" />
     <Compile Include="ViewModels\Console.cs" />
     <Compile Include="ViewModels\MainWindow.cs" />
+    <Compile Include="Views\ChildWindows\Voting\Options.xaml.cs">
+      <DependentUpon>Options.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChildWindows\Voting\StartVoting.xaml.cs">
+      <DependentUpon>StartVoting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Voting.xaml.cs">
+      <DependentUpon>Voting.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Giveaway.xaml.cs">
       <DependentUpon>Giveaway.xaml</DependentUpon>
     </Compile>
@@ -270,6 +289,18 @@
     <Page Include="Views\ChildWindows\AddTimer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChildWindows\Voting\Options.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChildWindows\Voting\StartVoting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Voting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Giveaway.xaml">
       <SubType>Designer</SubType>

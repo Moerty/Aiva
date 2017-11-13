@@ -42,7 +42,7 @@ namespace Aiva.Core {
         private async void GetChannelID() {
             var channelDetails = await TwitchApi.Channels.v5.GetChannelAsync();
 
-            ChannelID = channelDetails.Id.ToString();
+            ChannelID = channelDetails.Id;
         }
 
         /// <summary>

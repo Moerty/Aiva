@@ -60,6 +60,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -144,11 +147,13 @@
     <Compile Include="Models\Commands.cs" />
     <Compile Include="Models\Giveaway.cs" />
     <Compile Include="Models\Songrequest.cs" />
+    <Compile Include="Models\Voting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Songrequest\Handler.cs" />
     <Compile Include="Songrequest\Player.cs" />
     <Compile Include="Songrequest\YouTubeInfo.cs" />
     <Compile Include="Timers\Handler.cs" />
+    <Compile Include="Voting\Handler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

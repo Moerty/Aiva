@@ -21,7 +21,7 @@ namespace Aiva.Extensions.Giveaway {
         public Models.Giveaway.Properties Properties;
 
         private Timer _endTimer;
-        private Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
+        private readonly Core.DatabaseHandlers.Currency _currencyDatabaseHandler;
 
         public GiveawayHandler() {
             _currencyDatabaseHandler = new Core.DatabaseHandlers.Currency();
@@ -93,7 +93,7 @@ namespace Aiva.Extensions.Giveaway {
                 }
             }
 
-            var winner = tempList.ElementAt(new Random().Next(tempList.Count));
+            var winner = tempList[new Random().Next(tempList.Count)];
             Winner = winner;
 
             var joinedUsersWinnerEntry = JoinedUsers.SingleOrDefault(w => String.Compare(w.Username, winner, true) == 0);
@@ -139,7 +139,7 @@ namespace Aiva.Extensions.Giveaway {
 
                 // Check if the User is a follower
                 if (Properties.BeFollower) {
-                    var isFollowing = await AivaClient.Instance.TwitchApi.Users.v5.UserFollowsChannelAsync(e.Command.ChatMessage.UserId, Core.AivaClient.Instance.ChannelID);
+                    var isFollowing = await AivaClient.Instance.TwitchApi.Users.v5.UserFollowsChannelAsync(e.Command.ChatMessage.UserId, Core.AivaClient.Instance.ChannelID).ConfigureAwait(false);
 
                     if (!isFollowing) {
                         return;
@@ -150,7 +150,7 @@ namespace Aiva.Extensions.Giveaway {
                 _currencyDatabaseHandler.Remove.Remove(e.Command.ChatMessage.UserId, Properties.Price);
 
                 // add user to list
-                var isUserSub = await IsUserSub(e.Command.ChatMessage.Username);
+                var isUserSub = await IsUserSub(e.Command.ChatMessage.Username).ConfigureAwait(false);
                 Application.Current.Dispatcher.Invoke(() => {
                     JoinedUsers.Add(
                     new Models.Giveaway {
@@ -168,7 +168,7 @@ namespace Aiva.Extensions.Giveaway {
         /// <param name="username"></param>
         /// <returns></returns>
         private async Task<bool> IsUserSub(string username) {
-            return await AivaClient.Instance.TwitchApi.Subscriptions.v3.ChannelHasUserSubscribedAsync(Core.AivaClient.Instance.Channel, username) != null;
+            return await AivaClient.Instance.TwitchApi.Subscriptions.v3.ChannelHasUserSubscribedAsync(Core.AivaClient.Instance.Channel, username).ConfigureAwait(false) != null;
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace Aiva.Extensions.Giveaway {
         /// <param name="userId"></param>
         /// <returns></returns>
         private bool HasUserAlreadyWon(string userId) {
-            return (Winners != null && Winners.SingleOrDefault(u => String.Compare(userId, u.UserID, true) == 0) != null);
+            return Winners?.SingleOrDefault(u => String.Compare(userId, u.UserID, true) == 0) != null;
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace Aiva.Extensions.Giveaway {
         /// <returns></returns>
         private bool HasUserAlreadyJoined(string userId) {
             // exist in joinedusers || winners ?
-            return JoinedUsers != null && JoinedUsers.SingleOrDefault(u => String.Compare(u.UserID, userId, true) == 0) != null;
+            return JoinedUsers?.SingleOrDefault(u => String.Compare(u.UserID, userId, true) == 0) != null;
         }
 
         /// <summary>
