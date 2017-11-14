@@ -4,10 +4,14 @@ Involves you in it and announces mistakes!
 
 <p align="center">
 <a href="https://github.com/Moerty/Aiva"><img src="https://ci.appveyor.com/api/projects/status/i0vhnnfhk0rmh12g?svg=true" style="max-height: 300px;"></a>
-<a href="https://www.microsoft.com/net"><img src="https://img.shields.io/badge/.NET%20Framework-4.5-orange.svg" style="max-height: 300px;"></a>
+<a href="https://www.microsoft.com/net"><img src="https://img.shields.io/badge/.NET%20Framework-4.6.2-orange.svg" style="max-height: 300px;"></a>
 <img src="https://img.shields.io/badge/Platform-.NET-lightgrey.svg" style="max-height: 300px;" alt="Platform: iOS">
 </p>
 
+## Documentation
+For (semi-)complete function documentation, view the docs <a href="https://aiva.it0.me/" target="_blank">here</a>.
+
+(Just started with it)
 
 # Dependencies
 
