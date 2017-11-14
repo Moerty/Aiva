@@ -3,16 +3,29 @@ using System.Linq;
 using TwitchLib.Events.Client;
 
 namespace Aiva.Core.DatabaseHandlers {
-    public static class Users {
+    public class Users {
+        #region Models
+        public AddUser Add;
+        public Removeuser Remove;
+        #endregion Models
+
+        #region Constructor
+        public Users() {
+            Add = new AddUser();
+            Remove = new Removeuser();
+        }
+        #endregion Construcot
+
+        #region Add
         /// <summary>
         /// Add User Class
         /// </summary>
-        public static class AddUser {
+        public class AddUser {
             /// <summary>
             /// Add or Update User in Database
             /// </summary>
             /// <param name="User">todo: describe User parameter on AddUser</param>
-            private static void AddUserToDatabase(TwitchLib.Models.API.v5.Users.User User) {
+            public void AddUserToDatabase(TwitchLib.Models.API.v5.Users.User User) {
                 if (User != null) {
                     using (var context = new Storage.StorageEntities()) {
                         var databaseUser = context.Users.SingleOrDefault(u => String.Compare(u.Id, User.Id) == 0);
@@ -71,14 +84,14 @@ namespace Aiva.Core.DatabaseHandlers {
             /// </summary>
             /// <param name="sender"></param>
             /// <param name="e"></param>
-            internal static void AddUserToDatabase(object sender, OnExistingUsersDetectedArgs e) {
+            internal void AddUserToDatabase(object sender, OnExistingUsersDetectedArgs e) {
                 e.Users.ForEach(user => {
                     var twitchUser = AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(user).Result;
                     AddUserToDatabase(twitchUser.Matches[0]);
                 });
             }
 
-            internal static void AddUserToDatabase(object sender, OnUserJoinedArgs e) {
+            internal void AddUserToDatabase(object sender, OnUserJoinedArgs e) {
                 var twitchUser = AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(e.Username).Result;
 
                 if (twitchUser != null) {
@@ -86,18 +99,20 @@ namespace Aiva.Core.DatabaseHandlers {
                 }
             }
         }
+        #endregion Add
 
+        #region Remove
         /// <summary>
         /// Remove User class
         /// </summary>
-        public static class Removeuser {
+        public class Removeuser {
             /// <summary>
             /// Remove ActiveUser Entry
             /// and add TimeWatched values
             /// </summary>
             /// <param name="sender">todo: describe sender parameter on RemoveUserFromActiveUsers</param>
             /// <param name="e">todo: describe e parameter on RemoveUserFromActiveUsers</param>
-            public async static void RemoveUserFromActiveUsers(object sender, OnUserLeftArgs e) {
+            public async void RemoveUserFromActiveUsers(object sender, OnUserLeftArgs e) {
                 using (var context = new Storage.StorageEntities()) {
                     //var twitchID = TwitchApi.Users.GetUser(e.Username);
                     var twitchID = await AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(e.Username).ConfigureAwait(false);
@@ -123,16 +138,31 @@ namespace Aiva.Core.DatabaseHandlers {
                 }
             }
         }
+        #endregion Remove
 
+        #region Functions
         /// <summary>
-        /// Check if the user is in the Database
+        /// Check if the user is in thedDatabase
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        public static bool IsUserInDatabase(string username) {
+        public bool IsUserInDatabaseUsername(string username) {
             using (var context = new Storage.StorageEntities()) {
                 return context.Users.Any(u => String.Compare(u.Name, username, true) == 0);
             }
         }
+
+        /// <summary>
+        /// Check if the user is in the database
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public bool IsUserInDatabaseUserId(string userid) {
+            using (var context = new Storage.StorageEntities()) {
+                return context.Users.Any(u => string.Compare(u.Id, userid) == 0);
+            }
+        }
+
+        #endregion Functions
     }
 }

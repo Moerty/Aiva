@@ -4,6 +4,7 @@ using TwitchLib.Events.Client;
 
 namespace Aiva.Core.Client.Tasks {
     public class Tasks {
+        #region Models
         /// <summary>
         /// Error from TwitchLib cause "OnModeratorsReceived" ist null.
         /// Listen to this event from the Client fíx this issue
@@ -11,25 +12,15 @@ namespace Aiva.Core.Client.Tasks {
         public event EventHandler<OnModeratorsReceivedArgs> OnModeratorsReceivedEvent;
 
         private Client.Internal.Currency _currencyTimer;
-        private Internal.Commands.ModCommands _modCommandsHandler;
+        private readonly Client.Internal.Commands.Commands _commands;
+        private readonly DatabaseHandlers.Users _usersHandler;
+        #endregion Models
 
-        /// <summary>
-        /// Set AivaClient Tasks
-        /// </summary>
-        /// <param name="client"></param>
-        /// <returns></returns>
-        public TwitchClient SetTasks(TwitchClient client) {
-            _modCommandsHandler = new Internal.Commands.ModCommands();
-            client = OnModeratorsReceived(client);
-            client = OnExistingUsersDetected(client);
-            client = OnUserJoined(client);
-            client = OnMessageReceived(client);
-            client = OnUserLeft(client);
-            client = OnNewSubscriber(client);
-            client = ModCommands(client);
+        #region Constructor
+        public Tasks() {
+            _commands = new Internal.Commands.Commands();
+            _usersHandler = new DatabaseHandlers.Users();
             SetCurrencyTimer();
-
-            return client;
         }
 
         private void SetCurrencyTimer() {
@@ -37,9 +28,31 @@ namespace Aiva.Core.Client.Tasks {
                 _currencyTimer = new Internal.Currency();
             }
         }
+        #endregion Constructor
+
+        #region Functions
+
+        /// <summary>
+        /// Set AivaClient Tasks
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        public TwitchClient SetTasks(TwitchClient client) {
+            client = OnModeratorsReceived(client);
+            client = OnExistingUsersDetected(client);
+            client = OnUserJoined(client);
+            client = OnMessageReceived(client);
+            client = OnUserLeft(client);
+            client = OnNewSubscriber(client);
+#pragma warning disable RCS1212 // Remove redundant assignment.
+            client = ModCommands(client);
+#pragma warning restore RCS1212 // Remove redundant assignment.
+
+            return client;
+        }
 
         public TwitchClient ModCommands(TwitchClient client) {
-            client.OnChatCommandReceived += _modCommandsHandler.ParseModCommand;
+            client.OnChatCommandReceived += _commands.ModCommands.Currency.CommandReceived;
 
             return client;
         }
@@ -61,7 +74,7 @@ namespace Aiva.Core.Client.Tasks {
         /// <param name="client"></param>
         /// <returns></returns>
         public TwitchClient OnUserLeft(TwitchClient client) {
-            client.OnUserLeft += DatabaseHandlers.Users.Removeuser.RemoveUserFromActiveUsers;
+            client.OnUserLeft += _usersHandler.Remove.RemoveUserFromActiveUsers;
 
             return client;
         }
@@ -72,7 +85,7 @@ namespace Aiva.Core.Client.Tasks {
         /// <param name="client"></param>
         /// <returns></returns>
         public TwitchClient OnUserJoined(TwitchClient client) {
-            client.OnUserJoined += DatabaseHandlers.Users.AddUser.AddUserToDatabase;
+            client.OnUserJoined += _usersHandler.Add.AddUserToDatabase;
 
             return client;
         }
@@ -83,7 +96,7 @@ namespace Aiva.Core.Client.Tasks {
         /// <param name="client"></param>
         /// <returns></returns>
         public TwitchClient OnExistingUsersDetected(TwitchClient client) {
-            client.OnExistingUsersDetected += DatabaseHandlers.Users.AddUser.AddUserToDatabase;
+            client.OnExistingUsersDetected += _usersHandler.Add.AddUserToDatabase;
 
             return client;
         }
@@ -114,5 +127,6 @@ namespace Aiva.Core.Client.Tasks {
         public void Client_OnModeratorsReceived(object sender, TwitchLib.Events.Client.OnModeratorsReceivedArgs e) {
             OnModeratorsReceivedEvent.Invoke(null, e);
         }
+        #endregion Functions
     }
 }

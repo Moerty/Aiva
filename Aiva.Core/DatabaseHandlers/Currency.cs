@@ -4,16 +4,21 @@ using System.Linq;
 
 namespace Aiva.Core.DatabaseHandlers {
     public class Currency {
+        #region Models
         public AddCurrency Add;
         public RemoveCurrency Remove;
         public TransferCurrency Transfer;
+        #endregion Models
 
+        #region Constructor
         public Currency() {
             Add = new AddCurrency();
             Remove = new RemoveCurrency();
             Transfer = new TransferCurrency();
         }
+        #endregion Constructor
 
+        #region Add
         public class AddCurrency {
             /// <summary>
             /// Add list of Users Currency
@@ -33,7 +38,7 @@ namespace Aiva.Core.DatabaseHandlers {
                 }
             }
 
-            public void Add(string twitchID, int value) {
+            public bool Add(string twitchID, int value) {
                 using (var context = new Storage.StorageEntities()) {
                     var user = context.Users.SingleOrDefault(u => String.Compare(u.Id, twitchID) == 0);
 
@@ -41,8 +46,12 @@ namespace Aiva.Core.DatabaseHandlers {
                         user.Currency.Value += value;
 
                         context.SaveChanges();
+
+                        return true;
                     }
                 }
+
+                return false;
             }
 
             /// <summary>
@@ -60,6 +69,9 @@ namespace Aiva.Core.DatabaseHandlers {
                 }
             }
         }
+        #endregion Add
+
+        #region Remove
 
         public class RemoveCurrency {
             /// <summary>
@@ -67,7 +79,7 @@ namespace Aiva.Core.DatabaseHandlers {
             /// </summary>
             /// <param name="twitchID"></param>
             /// <param name="value"></param>
-            public void Remove(string twitchID, int value) {
+            public bool Remove(string twitchID, int value) {
                 using (var context = new Storage.StorageEntities()) {
                     var user = context.Users.SingleOrDefault(u => String.Compare(u.Id, twitchID) == 0);
 
@@ -75,8 +87,12 @@ namespace Aiva.Core.DatabaseHandlers {
                         user.Currency.Value -= value;
 
                         context.SaveChanges();
+
+                        return true;
                     }
                 }
+
+                return false;
             }
 
             /// <summary>
@@ -97,9 +113,41 @@ namespace Aiva.Core.DatabaseHandlers {
                 }
             }
         }
+        #endregion Remove
+
+        #region Transfer
 
         public class TransferCurrency {
+            /// <summary>
+            /// Transfer currency from a user to a user
+            /// </summary>
+            /// <param name="userid1"></param>
+            /// <param name="userid2"></param>
+            /// <param name="value"></param>
+            internal bool Transfer(string userid1, string userid2, int value) {
+                using (var context = new Storage.StorageEntities()) {
+                    var user1 = context.Users.SingleOrDefault(u => String.Compare(u.Id, userid1) == 0);
+                    var user2 = context.Users.SingleOrDefault(u => String.Compare(u.Id, userid2) == 0);
+
+                    if (userid1 != null && userid2 != null) {
+                        if (user1.Currency.Value >= value) {
+                            user1.Currency.Value -= value;
+                            user2.Currency.Value += value;
+
+                            context.SaveChanges();
+
+                            return true;
+                        }
+                    }
+                }
+
+                return false;
+            }
         }
+
+        #endregion Transfer
+
+        #region Functions
 
         /// <summary>
         /// Get Currency from a user
@@ -157,5 +205,7 @@ namespace Aiva.Core.DatabaseHandlers {
                 }
             }
         }
+
+        #endregion Functions
     }
 }

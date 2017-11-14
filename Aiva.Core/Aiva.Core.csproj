@@ -55,7 +55,9 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Client\AivaClient.cs" />
     <Compile Include="Client\Internal\Chat.cs" />
-    <Compile Include="Client\Internal\Commands.cs" />
+    <Compile Include="Client\Internal\Commands\Commands.cs" />
+    <Compile Include="Client\Internal\Commands\ModCommands\Currency.cs" />
+    <Compile Include="Client\Internal\Commands\ModCommands\Handler.cs" />
     <Compile Include="Client\Internal\Currency.cs" />
     <Compile Include="Client\TwitchAuthentication.cs" />
     <Compile Include="Client\Internal\Stream.cs" />
@@ -74,6 +76,7 @@
     <Compile Include="DatabaseHandlers\Currency.cs" />
     <Compile Include="DatabaseHandlers\Timers.cs" />
     <Compile Include="DatabaseHandlers\Users.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Models\ConfigStorage.cs" />
     <Compile Include="Models\DatabaseCurrencyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
