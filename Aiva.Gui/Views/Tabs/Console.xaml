@@ -1,0 +1,246 @@
+﻿<controls:MetroContentControl
+    x:Class="Aiva.Gui.Views.Tabs.Console"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:clr="clr-namespace:System;assembly=mscorlib"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:Aiva.Gui.Internal"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mvvm="clr-namespace:Aiva.Gui.ViewModels"
+    Width="720"
+    Height="470"
+    d:DataContext="{d:DesignInstance d:Type=mvvm:Chat}"
+    mc:Ignorable="d">
+    <controls:MetroContentControl.Resources>
+        <CollectionViewSource
+            x:Key="cvsViewers"
+            IsLiveGroupingRequested="True"
+            Source="{Binding Viewer}">
+            <CollectionViewSource.LiveGroupingProperties>
+                <clr:String>Type</clr:String>
+            </CollectionViewSource.LiveGroupingProperties>
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Type" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+
+        <helpers:ChatColorConverter x:Key="colorConverter" />
+    </controls:MetroContentControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="570*" />
+            <ColumnDefinition Width="1" />
+            <ColumnDefinition Width="150" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="440*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer
+            Grid.Row="0"
+            Padding="4"
+            helpers:ScrollViewerExtension.AutoScroll="True"
+            BorderBrush="BlanchedAlmond"
+            BorderThickness="2"
+            HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl ItemsSource="{Binding Messages}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Background="GhostWhite" TextWrapping="Wrap">
+                            <Run Text="{Binding Timestamp, StringFormat='{}{0: HH:mm:ss}'}" />
+                            <Separator />
+                            <InlineUIContainer>
+                                <Image
+                                    Width="18"
+                                    Height="18"
+                                    Source="pack://application:,,,/Images/broadcaster_symbol.png">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Visibility" Value="Hidden" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsBroadcaster}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </InlineUIContainer>
+                            <InlineUIContainer>
+                                <Image
+                                    Width="18"
+                                    Height="18"
+                                    Source="pack://application:,,,/Images/moderator_symbol.png">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Visibility" Value="Hidden" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsModerator}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </InlineUIContainer>
+                            <InlineUIContainer>
+                                <Image
+                                    Width="18"
+                                    Height="18"
+                                    Source="pack://application:,,,/Images/turbo_symbol.png">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Visibility" Value="Hidden" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsTurbo}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </InlineUIContainer>
+                            <Separator />
+                            <Run Foreground="{Binding Color, Converter={StaticResource colorConverter}}" Text="{Binding Username, StringFormat={}{0}:}" />
+                            <Separator />
+                            <Run FontWeight="Bold" Text="{Binding MessageText}" />
+                        </TextBlock>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ContextMenu>
+                    <ContextMenu Name="MessagesContextMenu">
+                        <MenuItem Header="TODO: Copy Message" />
+                        <MenuItem Header="TODO: Copy Twitch Username" />
+                    </ContextMenu>
+                </ItemsControl.ContextMenu>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <ListView
+            Name="lvUsers"
+            Grid.Column="3"
+            ItemsSource="{Binding Source={StaticResource cvsViewers}}"
+            SelectedItem="{Binding SelectedViewer}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle
+                                Name="Mod"
+                                Width="24"
+                                Height="24"
+                                Fill="Black">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_crown}" />
+                                </Rectangle.OpacityMask>
+                                <Rectangle.Style>
+                                    <Style TargetType="Rectangle">
+                                        <Setter Property="Visibility" Value="Hidden" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=IsMod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Rectangle.Style>
+                            </Rectangle>
+                            <Rectangle
+                                Name="Sub"
+                                Width="24"
+                                Height="24"
+                                Fill="Black">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_heart}" />
+                                </Rectangle.OpacityMask>
+                                <Rectangle.Style>
+                                    <Style TargetType="Rectangle">
+                                        <Setter Property="Visibility" Value="Hidden" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=IsSub}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Rectangle.Style>
+                            </Rectangle>
+                            <TextBlock
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                Text="{Binding Path=Name}" />
+                        </StackPanel>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            DataContext="{Binding Items}"
+                                            Foreground="Transparent"
+                                            IsExpanded="True">
+                                            <Expander.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock
+                                                        VerticalAlignment="Top"
+                                                        FontSize="22"
+                                                        FontWeight="Bold"
+                                                        Foreground="Gray"
+                                                        Text="{Binding Path=Type}" />
+                                                </StackPanel>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListView.GroupStyle>
+            <ListView.ContextMenu>
+                <ContextMenu Name="ViewerContextMenu">
+                    <MenuItem Command="{Binding MuteCommand}" Header="Mute Viewer" />
+                    <MenuItem Command="{Binding UnmuteCommand}" Header="Unmute Viewer" />
+                    <MenuItem Command="{Binding ModCommand}" Header="Mod Viewer" />
+                    <MenuItem Command="{Binding UnmodCommand}" Header="Unmod Viewer" />
+                    <MenuItem Command="{Binding ShowUserInfo}" Header="User Information" />
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
+        <TextBox
+            Name="tbMessage"
+            Grid.Row="1"
+            controls:TextBoxHelper.AutoWatermark="True"
+            controls:TextBoxHelper.Watermark="Text to send..."
+            controls:TextBoxHelper.WatermarkAlignment="Left"
+            Text="{Binding MessageToSend, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            TextWrapping="Wrap">
+            <!--<i:Interaction.Behaviors>
+                <helpers:TextBoxEnterKeyUpdateBehavior/>
+            </i:Interaction.Behaviors>-->
+            <TextBox.InputBindings>
+                <KeyBinding Key="Return" Command="{Binding SendMessageCommand}" />
+            </TextBox.InputBindings>
+        </TextBox>
+        <Button
+            Grid.Row="1"
+            Grid.Column="3"
+            Command="{Binding SendMessageCommand}"
+            Content="Send" />
+
+        <GridSplitter
+            Grid.Column="1"
+            Width="5"
+            HorizontalAlignment="Stretch" />
+    </Grid>
+</controls:MetroContentControl>

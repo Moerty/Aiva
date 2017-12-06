@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Platforms>AnyCPU;x86</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="microsoft.data.sqlite" Version="2.0.0" />
+    <PackageReference Include="microsoft.data.sqlite.core" Version="2.0.0" />
+    <PackageReference Include="microsoft.entityframeworkcore" Version="2.0.1" />
+    <PackageReference Include="microsoft.entityframeworkcore.relational" Version="2.0.1" />
+    <PackageReference Include="microsoft.entityframeworkcore.sqlite" Version="2.0.1" />
+    <PackageReference Include="TwitchLib" Version="1.5.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aiva.Models\Aiva.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Config\config.json.default">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="if exist &quot;$(TargetPath).locked&quot; del &quot;$(TargetPath).locked&quot;&#xD;&#xA;if exist &quot;$(TargetPath)&quot; if not exist &quot;$(TargetPath).locked&quot; move &quot;$(TargetPath)&quot; &quot;$(TargetPath).locked&quot;" />
+  </Target>
+
+</Project>

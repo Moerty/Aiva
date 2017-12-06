@@ -1,0 +1,168 @@
+﻿<controls:MetroContentControl
+    x:Class="Aiva.Gui.Views.Tabs.Giveaway"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mvvm="clr-namespace:Aiva.Gui.ViewModels.Tabs"
+    Width="720"
+    Height="470"
+    d:DataContext="{d:DesignInstance d:Type=mvvm:Giveaway,
+                                     IsDesignTimeCreatable=True}"
+    mc:Ignorable="d">
+
+    <controls:MetroContentControl.Resources>
+        <Style
+            x:Key="JoinedUsersHeadersTemplate"
+            BasedOn="{StaticResource MetroDataGridColumnHeader}"
+            TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="TextBlock.Width" Value="{Binding ElementName=JoinedUsersGrid, Path=ActualWidth}"/>
+        </Style>
+    </controls:MetroContentControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="317*"/>
+            <RowDefinition Height="154*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="31*"/>
+            <ColumnDefinition Width="89*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid
+            x:Name="JoinedUsersGrid"
+            Grid.RowSpan="2"
+            Grid.Column="0">
+            <DataGrid
+                x:Name="JoinedUsers"
+                AutoGenerateColumns="False"
+                ColumnHeaderStyle="{StaticResource JoinedUsersHeadersTemplate}"
+                ItemsSource="{Binding JoinedUsers}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding Path=Username}"
+                        CanUserReorder="True"
+                        CanUserResize="True"
+                        CanUserSort="True"
+                        Header="Username"
+                        IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <!--  http://www.c-sharpcorner.com/UploadFile/dpatra/customize-expander-control-in-wpf/  -->
+        <Grid Grid.Column="1">
+
+            <DockPanel
+                Height="100"
+                Margin="0,0,0,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                LastChildFill="True">
+                <ToggleButton
+                    Width="80"
+                    Height="80"
+                    Margin="0,10,10,0"
+                    DockPanel.Dock="Left"
+                    IsChecked="{Binding IsStarted, Mode=TwoWay}"
+                    Style="{DynamicResource MetroCircleToggleButtonStyle}">
+                    <Rectangle
+                        Width="40"
+                        Height="40"
+                        Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_gift}"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Checked">
+                            <i:InvokeCommandAction Command="{Binding StartCommand}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Unchecked">
+                            <i:InvokeCommandAction Command="{Binding StopCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ToggleButton.ToolTip>
+                        <ToolTip Content="Start / Stop Giveaway"/>
+                    </ToggleButton.ToolTip>
+                </ToggleButton>
+
+                <Button
+                    Name="ResetButton"
+                    Width="80"
+                    Height="80"
+                    Margin="0,10,10,0"
+                    Command="{Binding ResetCommand}"
+                    DockPanel.Dock="Right"
+                    Opacity="100"
+                    Style="{DynamicResource MetroCircleButtonStyle}">
+                    <Rectangle
+                        Width="40"
+                        Height="40"
+                        Fill="Black">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_reset}"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button.ToolTip>
+                        <ToolTip Content="Reset Giveaway"/>
+                    </Button.ToolTip>
+                </Button>
+
+                <Button
+                    Name="GetWinnerButton"
+                    Width="80"
+                    Height="80"
+                    Margin="0,10,10,0"
+                    Command="{Binding TakeWinnerCommand}"
+                    Opacity="100"
+                    Style="{DynamicResource MetroCircleButtonStyle}">
+                    <Rectangle
+                        Width="40"
+                        Height="40"
+                        Fill="Black">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_star_add}"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button.ToolTip>
+                        <ToolTip Content="Select Winner"/>
+                    </Button.ToolTip>
+                </Button>
+            </DockPanel>
+
+            <DockPanel
+                Height="200"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <TextBox
+                Width="512"
+                Height="23"
+                Margin="11,5,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                controls:TextBoxHelper.Watermark="Winner..."
+                IsReadOnly="True"
+                Text="{Binding Winners}"
+                TextWrapping="Wrap"/>
+            <ListView
+                Width="513"
+                Height="100"
+                Margin="14,36,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</controls:MetroContentControl>
