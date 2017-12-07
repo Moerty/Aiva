@@ -1,17 +1,15 @@
 ﻿using Aiva.Core.Config;
 using Aiva.Core.Twitch;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using TwitchLib.Events.Client;
-using System.Linq;
-using System.Timers;
 using Aiva.Models.Enums;
 using Aiva.Models.Streamgames.Bankheist;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using TwitchLib.Events.Client;
 
 namespace Aiva.Extensions.Streamgames.Bankheist {
     public class Handler {
-
         private DateTime _nextStartAfterCooldown;
         private List<Models.Streamgames.Bankheist.UserBetModel> _userList;
         private readonly Core.Database.Handlers.Currency _databaseCurrencyHandler;
@@ -23,8 +21,6 @@ namespace Aiva.Extensions.Streamgames.Bankheist {
                 AivaClient.Instance.TwitchClient.OnChatCommandReceived += ChatCommandReceived;
             }
         }
-
-
 
         private void ChatCommandReceived(object sender, OnChatCommandReceivedArgs e) {
             if (string.Compare(e.Command.CommandText, Config.Instance.Storage.StreamGames.Bankheist.General.Command) == 0) {
@@ -55,7 +51,6 @@ namespace Aiva.Extensions.Streamgames.Bankheist {
                     AivaClient.Instance.TwitchClient.SendMessage("Bankheist is on cooldown!");
                 }
             }
-
         }
 
         private void StartBankheistEndTimer() {
@@ -81,7 +76,7 @@ namespace Aiva.Extensions.Streamgames.Bankheist {
                 }
             }
 
-            if(Winners.Count > 0) {
+            if (Winners.Count > 0) {
                 Winners.ForEach(u => _databaseCurrencyHandler.Add.Add(u.TwitchID, u.Bet));
             }
 

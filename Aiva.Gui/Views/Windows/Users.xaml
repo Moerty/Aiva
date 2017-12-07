@@ -25,33 +25,33 @@
                     x:Name="nameColumn"
                     Width="*"
                     Binding="{Binding Name}"
-                    Header="Name" />
+                    Header="Name"/>
                 <DataGridTextColumn
                     x:Name="createdAtColumn"
                     Width="115"
                     Binding="{Binding CreatedAt}"
-                    Header="Created At" />
+                    Header="Created At"/>
                 <DataGridCheckBoxColumn
                     x:Name="isModeratorColumn"
                     Width="64"
                     Binding="{Binding IsModerator}"
-                    Header="Is Mod" />
+                    Header="Is Mod"/>
                 <DataGridCheckBoxColumn
                     x:Name="isViewingColumn"
                     Width="85"
                     Binding="{Binding IsViewing}"
                     Header="Is Viewing"
-                    IsReadOnly="True" />
+                    IsReadOnly="True"/>
                 <DataGridTextColumn
                     x:Name="twitchIDColumn"
                     Width="82"
                     Binding="{Binding Id}"
-                    Header="Twitch ID" />
+                    Header="Twitch ID"/>
                 <DataGridTextColumn
                     x:Name="typeColumn"
                     Width="100"
                     Binding="{Binding Type}"
-                    Header="Type" />
+                    Header="Type"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

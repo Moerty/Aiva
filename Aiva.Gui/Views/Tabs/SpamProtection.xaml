@@ -13,16 +13,16 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="90" />
-            <ColumnDefinition Width="90" />
-            <ColumnDefinition Width="90*" />
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="90*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="383*" />
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="383*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="0">
@@ -31,7 +31,7 @@
                 VerticalAlignment="Center"
                 FontSize="20"
                 FontWeight="SemiBold"
-                Text="Options" />
+                Text="Options"/>
         </Grid>
 
         <Grid Grid.Row="0" Grid.Column="1">
@@ -40,7 +40,7 @@
                 VerticalAlignment="Center"
                 FontSize="20"
                 FontWeight="SemiBold"
-                Text="Active" />
+                Text="Active"/>
         </Grid>
 
         <Grid Grid.Row="0" Grid.Column="2">
@@ -49,7 +49,7 @@
                 VerticalAlignment="Center"
                 FontSize="20"
                 FontWeight="SemiBold"
-                Text="Description" />
+                Text="Description"/>
         </Grid>
 
         <!--  First row of items  -->
@@ -65,7 +65,7 @@
                         Height="25"
                         Visibility="Visible">
                         <Rectangle.Fill>
-                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_book_perspective_help}" />
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_book_perspective_help}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                 </Button>
@@ -79,7 +79,7 @@
                         Height="25"
                         Visibility="Visible">
                         <Rectangle.Fill>
-                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_settings}" />
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_settings}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                 </Button>
@@ -93,10 +93,10 @@
             <ToggleButton Focusable="False" IsChecked="{Binding IsCapsActive}">
                 <ToggleButton.Style>
                     <Style TargetType="ToggleButton">
-                        <Setter Property="Content" Value="Activate" />
+                        <Setter Property="Content" Value="Activate"/>
                         <Style.Triggers>
                             <Trigger Property="IsChecked" Value="True">
-                                <Setter Property="Content" Value="Deactivate" />
+                                <Setter Property="Content" Value="Deactivate"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -109,8 +109,8 @@
             Grid.Column="2"
             Margin="10">
             <StackPanel>
-                <TextBlock FontWeight="Bold" Text="Caps Protection" />
-                <TextBlock Text="Check every message for excess using uf caps" />
+                <TextBlock FontWeight="Bold" Text="Caps Protection"/>
+                <TextBlock Text="Check every message for excess using uf caps"/>
             </StackPanel>
         </Grid>
 
@@ -127,7 +127,7 @@
                         Height="25"
                         Visibility="Visible">
                         <Rectangle.Fill>
-                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_book_perspective_help}" />
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_book_perspective_help}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                 </Button>
@@ -141,7 +141,7 @@
                         Height="25"
                         Visibility="Visible">
                         <Rectangle.Fill>
-                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_settings}" />
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_settings}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                 </Button>
@@ -155,10 +155,10 @@
             <ToggleButton Focusable="False" IsChecked="{Binding IsLinksActive}">
                 <ToggleButton.Style>
                     <Style TargetType="ToggleButton">
-                        <Setter Property="Content" Value="Activate" />
+                        <Setter Property="Content" Value="Activate"/>
                         <Style.Triggers>
                             <Trigger Property="IsChecked" Value="True">
-                                <Setter Property="Content" Value="Deactivate" />
+                                <Setter Property="Content" Value="Deactivate"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -171,8 +171,8 @@
             Grid.Column="2"
             Margin="10">
             <StackPanel>
-                <TextBlock FontWeight="Bold" Text="Link Protection" />
-                <TextBlock Text="Check every message for links" />
+                <TextBlock FontWeight="Bold" Text="Link Protection"/>
+                <TextBlock Text="Check every message for links"/>
             </StackPanel>
         </Grid>
 
@@ -189,7 +189,7 @@
                         Height="25"
                         Visibility="Visible">
                         <Rectangle.Fill>
-                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_book_perspective_help}" />
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_book_perspective_help}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                 </Button>
@@ -203,7 +203,7 @@
                         Height="25"
                         Visibility="Visible">
                         <Rectangle.Fill>
-                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_settings}" />
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_settings}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                 </Button>
@@ -217,10 +217,10 @@
             <ToggleButton Focusable="False" IsChecked="{Binding IsBlacklistActive}">
                 <ToggleButton.Style>
                     <Style TargetType="ToggleButton">
-                        <Setter Property="Content" Value="Activate" />
+                        <Setter Property="Content" Value="Activate"/>
                         <Style.Triggers>
                             <Trigger Property="IsChecked" Value="True">
-                                <Setter Property="Content" Value="Deactivate" />
+                                <Setter Property="Content" Value="Deactivate"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -233,8 +233,8 @@
             Grid.Column="2"
             Margin="10">
             <StackPanel>
-                <TextBlock FontWeight="Bold" Text="Blacklist" />
-                <TextBlock Text="Check every message for using a blacklisted word" />
+                <TextBlock FontWeight="Bold" Text="Blacklist"/>
+                <TextBlock Text="Check every message for using a blacklisted word"/>
             </StackPanel>
         </Grid>
     </Grid>

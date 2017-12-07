@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PropertyChanged;
-using System.Windows.Input;
-using MahApps.Metro.Controls;
-using System.Windows;
-using MahApps.Metro.SimpleChildWindow;
-using Aiva.Gui.ViewModels.ChildWindows.Voting;
-using Aiva.Models.Voting;
+﻿using Aiva.Models.Voting;
 using LiveCharts;
-using LiveCharts.Wpf;
 using LiveCharts.Defaults;
+using LiveCharts.Wpf;
+using MahApps.Metro.Controls;
+using MahApps.Metro.SimpleChildWindow;
+using PropertyChanged;
 using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Aiva.Gui.ViewModels.Tabs {
     [AddINotifyPropertyChangedInterface]
@@ -65,14 +59,14 @@ namespace Aiva.Gui.ViewModels.Tabs {
 
             start.Closing += (sender, EventArgs) => CloseStartWindow(start);
 
-            await((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(start).ConfigureAwait(false);
+            await ((MetroWindow)Application.Current.MainWindow).ShowChildWindowAsync(start).ConfigureAwait(false);
         }
 
         private void CloseStartWindow(Views.ChildWindows.Voting.Start start, bool fromDatacontext = false) {
             var dataContext = Internal.ChildWindow.GetDatacontext
                 <ViewModels.ChildWindows.Voting.Start>(start.DataContext);
 
-            if(dataContext?.IsCompleted() == true && fromDatacontext) {
+            if (dataContext?.IsCompleted() == true && fromDatacontext) {
                 _handler = new Extensions.Voting.Handler(dataContext.Properties);
                 _handler.StartListining();
                 ChartValues = new Models.ChartValues();

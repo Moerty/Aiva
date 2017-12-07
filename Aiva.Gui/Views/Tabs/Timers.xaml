@@ -13,8 +13,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="107*" />
-            <RowDefinition Height="364*" />
+            <RowDefinition Height="107*"/>
+            <RowDefinition Height="364*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -34,11 +34,11 @@
                         Height="50"
                         Visibility="Visible">
                         <Rectangle.Fill>
-                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_add}" />
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_add}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                     <Button.ToolTip>
-                        <ToolTip Content="Add Timer" />
+                        <ToolTip Content="Add Timer"/>
                     </Button.ToolTip>
                 </Button>
                 <Button
@@ -53,11 +53,11 @@
                         Height="50"
                         Visibility="Visible">
                         <Rectangle.Fill>
-                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_edit}" />
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_edit}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                     <Button.ToolTip>
-                        <ToolTip Content="Edit Timer" />
+                        <ToolTip Content="Edit Timer"/>
                     </Button.ToolTip>
                 </Button>
                 <Button
@@ -72,11 +72,11 @@
                         Height="50"
                         Visibility="Visible">
                         <Rectangle.Fill>
-                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_delete}" />
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_delete}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                     <Button.ToolTip>
-                        <ToolTip Content="Remove Timer" />
+                        <ToolTip Content="Remove Timer"/>
                     </Button.ToolTip>
                 </Button>
             </StackPanel>
@@ -93,11 +93,11 @@
                     <DataGridTextColumn
                         Width="100"
                         Binding="{Binding Name}"
-                        Header="Name" />
+                        Header="Name"/>
                     <DataGridTextColumn
                         Width="70"
                         Binding="{Binding Interval}"
-                        Header="Interval" />
+                        Header="Interval"/>
                     <!--<DataGridTextColumn
                         Width="100"
                         Binding="{Binding NextExecution, StringFormat='HH:mm:ss'}"
@@ -105,7 +105,7 @@
                     <DataGridTextColumn
                         Width="*"
                         Binding="{Binding Text}"
-                        Header="Text" />
+                        Header="Text"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

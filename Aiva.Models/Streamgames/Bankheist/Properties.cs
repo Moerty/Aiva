@@ -1,5 +1,5 @@
-﻿using PropertyChanged;
-using Aiva.Models.Extensions;
+﻿using Aiva.Models.Extensions;
+using PropertyChanged;
 
 namespace Aiva.Models.Streamgames.Bankheist {
     [AddINotifyPropertyChangedInterface]

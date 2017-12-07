@@ -20,18 +20,18 @@
             x:Key="JoinedUsersHeadersTemplate"
             BasedOn="{StaticResource MetroDataGridColumnHeader}"
             TargetType="{x:Type DataGridColumnHeader}">
-            <Setter Property="TextBlock.Width" Value="{Binding ElementName=JoinedUsersGrid, Path=ActualWidth}" />
+            <Setter Property="TextBlock.Width" Value="{Binding ElementName=JoinedUsersGrid, Path=ActualWidth}"/>
         </Style>
     </controls:MetroContentControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="31*" />
-            <ColumnDefinition Width="89*" />
+            <ColumnDefinition Width="31*"/>
+            <ColumnDefinition Width="89*"/>
         </Grid.ColumnDefinitions>
 
         <Grid
@@ -50,12 +50,12 @@
                         CanUserResize="True"
                         CanUserSort="True"
                         Header="Username"
-                        IsReadOnly="True" />
+                        IsReadOnly="True"/>
                     <DataGridTextColumn
                         Width="70"
                         Binding="{Binding Option}"
                         Header="Option"
-                        IsReadOnly="True" />
+                        IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -79,19 +79,19 @@
                         Height="40"
                         Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_uservoice}" />
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_uservoice}"/>
                         </Rectangle.OpacityMask>
                     </Rectangle>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Checked">
-                            <i:InvokeCommandAction Command="{Binding StartCommand}" />
+                            <i:InvokeCommandAction Command="{Binding StartCommand}"/>
                         </i:EventTrigger>
                         <i:EventTrigger EventName="Unchecked">
-                            <i:InvokeCommandAction Command="{Binding StopCommand}" />
+                            <i:InvokeCommandAction Command="{Binding StopCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <ToggleButton.ToolTip>
-                        <ToolTip Content="Start / Stop Giveaway" />
+                        <ToolTip Content="Start / Stop Giveaway"/>
                     </ToggleButton.ToolTip>
                 </ToggleButton>
 
@@ -110,11 +110,11 @@
                         Height="40"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_reset}" />
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_reset}"/>
                         </Rectangle.OpacityMask>
                     </Rectangle>
                     <Button.ToolTip>
-                        <ToolTip Content="Reset Giveaway" />
+                        <ToolTip Content="Reset Giveaway"/>
                     </Button.ToolTip>
                 </Button>
             </DockPanel>
@@ -127,10 +127,10 @@
                 LegendLocation="Right"
                 Series="{Binding Chart}">
                 <lvc:PieChart.ChartLegend>
-                    <lvc:DefaultLegend BulletSize="15" />
+                    <lvc:DefaultLegend BulletSize="15"/>
                 </lvc:PieChart.ChartLegend>
                 <lvc:PieChart.DataTooltip>
-                    <lvc:DefaultTooltip BulletSize="15" />
+                    <lvc:DefaultTooltip BulletSize="15"/>
                 </lvc:PieChart.DataTooltip>
             </lvc:PieChart>
         </DockPanel>

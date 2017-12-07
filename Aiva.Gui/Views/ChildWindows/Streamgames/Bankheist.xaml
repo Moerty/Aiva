@@ -24,16 +24,16 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50*" />
-            <ColumnDefinition Width="50*" />
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
             <StackPanel Orientation="Vertical">
-                <TextBox Text="{Binding Properties.Command}" controls:TextBoxHelper.Watermark="Command..." />
-                <Separator />
+                <TextBox Text="{Binding Properties.Command}" controls:TextBoxHelper.Watermark="Command..."/>
+                <Separator/>
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Bankheist duration in minutes" />
+                    <TextBlock Text="Bankheist duration in minutes"/>
                     <Slider
                         controls:SliderHelper.ChangeValueBy="SmallChange"
                         controls:SliderHelper.EnableMouseWheel="MouseHover"
@@ -45,9 +45,9 @@
                         TickPlacement="BottomRight"
                         Value="{Binding Properties.BankheistDuration}"/>
                 </StackPanel>
-                <Separator />
+                <Separator/>
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Bankheist cooldown in minutes" />
+                    <TextBlock Text="Bankheist cooldown in minutes"/>
                     <Slider
                         controls:SliderHelper.ChangeValueBy="SmallChange"
                         controls:SliderHelper.EnableMouseWheel="MouseHover"
@@ -72,10 +72,10 @@
                         HorizontalAlignment="Right"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}" />
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}"/>
                         </Rectangle.OpacityMask>
                         <Rectangle.ToolTip>
-                            <TextBlock Text="Bank 1 Minimum Players" />
+                            <TextBlock Text="Bank 1 Minimum Players"/>
                         </Rectangle.ToolTip>
                         <!--  &#10;  -->
                     </Rectangle>
@@ -99,10 +99,10 @@
                         HorizontalAlignment="Right"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}" />
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}"/>
                         </Rectangle.OpacityMask>
                         <Rectangle.ToolTip>
-                            <TextBlock Text="Bank 1 success rate" />
+                            <TextBlock Text="Bank 1 success rate"/>
                         </Rectangle.ToolTip>
                         <!--  &#10;  -->
                     </Rectangle>
@@ -116,7 +116,7 @@
                         Minimum="1"
                         Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                         TickFrequency="10"
-                        TickPlacement="BottomRight" />
+                        TickPlacement="BottomRight"/>
                 </DockPanel>
                 <DockPanel LastChildFill="True">
                     <Rectangle
@@ -126,10 +126,10 @@
                         HorizontalAlignment="Right"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}" />
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}"/>
                         </Rectangle.OpacityMask>
                         <Rectangle.ToolTip>
-                            <TextBlock Text="Bank 1 winning multiplier" />
+                            <TextBlock Text="Bank 1 winning multiplier"/>
                         </Rectangle.ToolTip>
                         <!--  &#10;  -->
                     </Rectangle>
@@ -143,9 +143,9 @@
                         Minimum="0.25"
                         Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                         TickFrequency="0.25"
-                        TickPlacement="BottomRight" />
+                        TickPlacement="BottomRight"/>
                 </DockPanel>
-                <Separator />
+                <Separator/>
                 <DockPanel LastChildFill="True">
                     <Rectangle
                         Width="14"
@@ -154,10 +154,10 @@
                         HorizontalAlignment="Right"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}" />
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}"/>
                         </Rectangle.OpacityMask>
                         <Rectangle.ToolTip>
-                            <TextBlock Text="Bank 2 Minimum Players" />
+                            <TextBlock Text="Bank 2 Minimum Players"/>
                         </Rectangle.ToolTip>
                         <!--  &#10;  -->
                     </Rectangle>
@@ -171,7 +171,7 @@
                         Minimum="1"
                         Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                         TickFrequency="5"
-                        TickPlacement="BottomRight" />
+                        TickPlacement="BottomRight"/>
                 </DockPanel>
                 <DockPanel LastChildFill="True">
                     <Rectangle
@@ -181,10 +181,10 @@
                         HorizontalAlignment="Right"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}" />
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}"/>
                         </Rectangle.OpacityMask>
                         <Rectangle.ToolTip>
-                            <TextBlock Text="Bank 2 success rate" />
+                            <TextBlock Text="Bank 2 success rate"/>
                         </Rectangle.ToolTip>
                         <!--  &#10;  -->
                     </Rectangle>
@@ -198,7 +198,7 @@
                         Minimum="1"
                         Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                         TickFrequency="10"
-                        TickPlacement="BottomRight" />
+                        TickPlacement="BottomRight"/>
                 </DockPanel>
                 <DockPanel LastChildFill="True">
                     <Rectangle
@@ -208,10 +208,10 @@
                         HorizontalAlignment="Right"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}" />
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}"/>
                         </Rectangle.OpacityMask>
                         <Rectangle.ToolTip>
-                            <TextBlock Text="Bank 2 winning multiplier" />
+                            <TextBlock Text="Bank 2 winning multiplier"/>
                         </Rectangle.ToolTip>
                         <!--  &#10;  -->
                     </Rectangle>
@@ -225,9 +225,9 @@
                         Minimum="0.25"
                         Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                         TickFrequency="0.25"
-                        TickPlacement="BottomRight" />
+                        TickPlacement="BottomRight"/>
                 </DockPanel>
-                <Separator />
+                <Separator/>
                 <DockPanel LastChildFill="True">
                     <Rectangle
                         Width="14"
@@ -236,10 +236,10 @@
                         HorizontalAlignment="Right"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}" />
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}"/>
                         </Rectangle.OpacityMask>
                         <Rectangle.ToolTip>
-                            <TextBlock Text="Bank 3 Minimum Players" />
+                            <TextBlock Text="Bank 3 Minimum Players"/>
                         </Rectangle.ToolTip>
                         <!--  &#10;  -->
                     </Rectangle>
@@ -253,7 +253,7 @@
                         Value="{Binding Properties.MinUserBank3}"
                         Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                         TickFrequency="5"
-                        TickPlacement="BottomRight" />
+                        TickPlacement="BottomRight"/>
                 </DockPanel>
                 <DockPanel LastChildFill="True">
                     <Rectangle
@@ -263,10 +263,10 @@
                         HorizontalAlignment="Right"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}" />
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}"/>
                         </Rectangle.OpacityMask>
                         <Rectangle.ToolTip>
-                            <TextBlock Text="Bank 3 success rate" />
+                            <TextBlock Text="Bank 3 success rate"/>
                         </Rectangle.ToolTip>
                         <!--  &#10;  -->
                     </Rectangle>
@@ -280,7 +280,7 @@
                         Minimum="1"
                         Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                         TickFrequency="10"
-                        TickPlacement="BottomRight" />
+                        TickPlacement="BottomRight"/>
                 </DockPanel>
                 <DockPanel LastChildFill="True">
                     <Rectangle
@@ -290,10 +290,10 @@
                         HorizontalAlignment="Right"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}" />
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}"/>
                         </Rectangle.OpacityMask>
                         <Rectangle.ToolTip>
-                            <TextBlock Text="Bank 3 winning multiplier" />
+                            <TextBlock Text="Bank 3 winning multiplier"/>
                         </Rectangle.ToolTip>
                         <!--  &#10;  -->
                     </Rectangle>
@@ -307,9 +307,9 @@
                         Minimum="0.25"
                         Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                         TickFrequency="0.25"
-                        TickPlacement="BottomRight" />
+                        TickPlacement="BottomRight"/>
                 </DockPanel>
-                <Separator />
+                <Separator/>
                 <DockPanel LastChildFill="True">
                     <Rectangle
                         Width="14"
@@ -318,10 +318,10 @@
                         HorizontalAlignment="Right"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}" />
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}"/>
                         </Rectangle.OpacityMask>
                         <Rectangle.ToolTip>
-                            <TextBlock Text="Bank 4 Minimum Players" />
+                            <TextBlock Text="Bank 4 Minimum Players"/>
                         </Rectangle.ToolTip>
                         <!--  &#10;  -->
                     </Rectangle>
@@ -335,7 +335,7 @@
                         Minimum="1"
                         Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                         TickFrequency="5"
-                        TickPlacement="BottomRight" />
+                        TickPlacement="BottomRight"/>
                 </DockPanel>
                 <DockPanel LastChildFill="True">
                     <Rectangle
@@ -345,10 +345,10 @@
                         HorizontalAlignment="Right"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}" />
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}"/>
                         </Rectangle.OpacityMask>
                         <Rectangle.ToolTip>
-                            <TextBlock Text="Bank 4 success rate" />
+                            <TextBlock Text="Bank 4 success rate"/>
                         </Rectangle.ToolTip>
                         <!--  &#10;  -->
                     </Rectangle>
@@ -362,7 +362,7 @@
                         Minimum="1"
                         Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                         TickFrequency="10"
-                        TickPlacement="BottomRight" />
+                        TickPlacement="BottomRight"/>
                 </DockPanel>
                 <DockPanel LastChildFill="True">
                     <Rectangle
@@ -372,10 +372,10 @@
                         HorizontalAlignment="Right"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}" />
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}"/>
                         </Rectangle.OpacityMask>
                         <Rectangle.ToolTip>
-                            <TextBlock Text="Bank 4 winning multiplier" />
+                            <TextBlock Text="Bank 4 winning multiplier"/>
                         </Rectangle.ToolTip>
                         <!--  &#10;  -->
                     </Rectangle>
@@ -389,9 +389,9 @@
                         Minimum="0.25"
                         Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                         TickFrequency="0.25"
-                        TickPlacement="BottomRight" />
+                        TickPlacement="BottomRight"/>
                 </DockPanel>
-                <Separator />
+                <Separator/>
                 <DockPanel LastChildFill="True">
                     <Rectangle
                         Width="14"
@@ -400,10 +400,10 @@
                         HorizontalAlignment="Right"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}" />
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}"/>
                         </Rectangle.OpacityMask>
                         <Rectangle.ToolTip>
-                            <TextBlock Text="Bank 5 Minimum Players" />
+                            <TextBlock Text="Bank 5 Minimum Players"/>
                         </Rectangle.ToolTip>
                         <!--  &#10;  -->
                     </Rectangle>
@@ -417,7 +417,7 @@
                         Minimum="1"
                         Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                         TickFrequency="5"
-                        TickPlacement="BottomRight" />
+                        TickPlacement="BottomRight"/>
                 </DockPanel>
                 <DockPanel LastChildFill="True">
                     <Rectangle
@@ -427,10 +427,10 @@
                         HorizontalAlignment="Right"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}" />
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}"/>
                         </Rectangle.OpacityMask>
                         <Rectangle.ToolTip>
-                            <TextBlock Text="Bank 5 success rate" />
+                            <TextBlock Text="Bank 5 success rate"/>
                         </Rectangle.ToolTip>
                         <!--  &#10;  -->
                     </Rectangle>
@@ -444,7 +444,7 @@
                         Minimum="1"
                         Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                         TickFrequency="10"
-                        TickPlacement="BottomRight" />
+                        TickPlacement="BottomRight"/>
                 </DockPanel>
                 <DockPanel LastChildFill="True">
                     <Rectangle
@@ -454,10 +454,10 @@
                         HorizontalAlignment="Right"
                         Fill="Black">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}" />
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}"/>
                         </Rectangle.OpacityMask>
                         <Rectangle.ToolTip>
-                            <TextBlock Text="Bank 5 winning multiplier" />
+                            <TextBlock Text="Bank 5 winning multiplier"/>
                         </Rectangle.ToolTip>
                         <!--  &#10;  -->
                     </Rectangle>
@@ -471,7 +471,7 @@
                         Minimum="0.25"
                         Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                         TickFrequency="0.25"
-                        TickPlacement="BottomRight" />
+                        TickPlacement="BottomRight"/>
                 </DockPanel>
             </StackPanel>
         </Grid>

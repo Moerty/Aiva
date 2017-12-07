@@ -1,10 +1,10 @@
-﻿using Aiva.Core.Twitch;
+﻿using Aiva.Core.Database.Storage;
+using Aiva.Core.Twitch;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using TwitchLib.Events.Client;
-using Aiva.Core.Database.Storage;
-using System.Collections.Generic;
 
 namespace Aiva.Core.Database.Handlers {
     public class Users {
@@ -178,7 +178,7 @@ namespace Aiva.Core.Database.Handlers {
         /// </summary>
         /// <returns></returns>
         public List<Storage.Users> GetUsers() {
-            using(var context = new DatabaseContext()) {
+            using (var context = new DatabaseContext()) {
                 return context.Users.ToList();
             }
         }

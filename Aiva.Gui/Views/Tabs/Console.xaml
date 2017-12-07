@@ -21,22 +21,22 @@
                 <clr:String>Type</clr:String>
             </CollectionViewSource.LiveGroupingProperties>
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Type" />
+                <PropertyGroupDescription PropertyName="Type"/>
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
 
-        <helpers:ChatColorConverter x:Key="colorConverter" />
+        <helpers:ChatColorConverter x:Key="colorConverter"/>
     </controls:MetroContentControl.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="570*" />
-            <ColumnDefinition Width="1" />
-            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="570*"/>
+            <ColumnDefinition Width="1"/>
+            <ColumnDefinition Width="150"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="440*" />
-            <RowDefinition Height="30" />
+            <RowDefinition Height="440*"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
         <ScrollViewer
@@ -50,8 +50,8 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Background="GhostWhite" TextWrapping="Wrap">
-                            <Run Text="{Binding Timestamp, StringFormat='{}{0: HH:mm:ss}'}" />
-                            <Separator />
+                            <Run Text="{Binding Timestamp, StringFormat='{}{0: HH:mm:ss}'}"/>
+                            <Separator/>
                             <InlineUIContainer>
                                 <Image
                                     Width="18"
@@ -59,10 +59,10 @@
                                     Source="pack://application:,,,/Images/broadcaster_symbol.png">
                                     <Image.Style>
                                         <Style TargetType="Image">
-                                            <Setter Property="Visibility" Value="Hidden" />
+                                            <Setter Property="Visibility" Value="Hidden"/>
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding IsBroadcaster}" Value="True">
-                                                    <Setter Property="Visibility" Value="Visible" />
+                                                    <Setter Property="Visibility" Value="Visible"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
@@ -76,10 +76,10 @@
                                     Source="pack://application:,,,/Images/moderator_symbol.png">
                                     <Image.Style>
                                         <Style TargetType="Image">
-                                            <Setter Property="Visibility" Value="Hidden" />
+                                            <Setter Property="Visibility" Value="Hidden"/>
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding IsModerator}" Value="True">
-                                                    <Setter Property="Visibility" Value="Visible" />
+                                                    <Setter Property="Visibility" Value="Visible"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
@@ -93,27 +93,27 @@
                                     Source="pack://application:,,,/Images/turbo_symbol.png">
                                     <Image.Style>
                                         <Style TargetType="Image">
-                                            <Setter Property="Visibility" Value="Hidden" />
+                                            <Setter Property="Visibility" Value="Hidden"/>
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding IsTurbo}" Value="True">
-                                                    <Setter Property="Visibility" Value="Visible" />
+                                                    <Setter Property="Visibility" Value="Visible"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </Image.Style>
                                 </Image>
                             </InlineUIContainer>
-                            <Separator />
-                            <Run Foreground="{Binding Color, Converter={StaticResource colorConverter}}" Text="{Binding Username, StringFormat={}{0}:}" />
-                            <Separator />
-                            <Run FontWeight="Bold" Text="{Binding MessageText}" />
+                            <Separator/>
+                            <Run Foreground="{Binding Color, Converter={StaticResource colorConverter}}" Text="{Binding Username, StringFormat={}{0}:}"/>
+                            <Separator/>
+                            <Run FontWeight="Bold" Text="{Binding MessageText}"/>
                         </TextBlock>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ContextMenu>
                     <ContextMenu Name="MessagesContextMenu">
-                        <MenuItem Header="TODO: Copy Message" />
-                        <MenuItem Header="TODO: Copy Twitch Username" />
+                        <MenuItem Header="TODO: Copy Message"/>
+                        <MenuItem Header="TODO: Copy Twitch Username"/>
                     </ContextMenu>
                 </ItemsControl.ContextMenu>
             </ItemsControl>
@@ -134,14 +134,14 @@
                                 Height="24"
                                 Fill="Black">
                                 <Rectangle.OpacityMask>
-                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_crown}" />
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_crown}"/>
                                 </Rectangle.OpacityMask>
                                 <Rectangle.Style>
                                     <Style TargetType="Rectangle">
-                                        <Setter Property="Visibility" Value="Hidden" />
+                                        <Setter Property="Visibility" Value="Hidden"/>
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding Path=IsMod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                                <Setter Property="Visibility" Value="Visible" />
+                                                <Setter Property="Visibility" Value="Visible"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -153,14 +153,14 @@
                                 Height="24"
                                 Fill="Black">
                                 <Rectangle.OpacityMask>
-                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_heart}" />
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_heart}"/>
                                 </Rectangle.OpacityMask>
                                 <Rectangle.Style>
                                     <Style TargetType="Rectangle">
-                                        <Setter Property="Visibility" Value="Hidden" />
+                                        <Setter Property="Visibility" Value="Hidden"/>
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding Path=IsSub}" Value="True">
-                                                <Setter Property="Visibility" Value="Visible" />
+                                                <Setter Property="Visibility" Value="Visible"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -170,7 +170,7 @@
                                 Margin="10,0,0,0"
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
-                                Text="{Binding Path=Name}" />
+                                Text="{Binding Path=Name}"/>
                         </StackPanel>
                     </WrapPanel>
                 </DataTemplate>
@@ -195,10 +195,10 @@
                                                         FontSize="22"
                                                         FontWeight="Bold"
                                                         Foreground="Gray"
-                                                        Text="{Binding Path=Type}" />
+                                                        Text="{Binding Path=Type}"/>
                                                 </StackPanel>
                                             </Expander.Header>
-                                            <ItemsPresenter />
+                                            <ItemsPresenter/>
                                         </Expander>
                                     </ControlTemplate>
                                 </Setter.Value>
@@ -209,11 +209,11 @@
             </ListView.GroupStyle>
             <ListView.ContextMenu>
                 <ContextMenu Name="ViewerContextMenu">
-                    <MenuItem Command="{Binding MuteCommand}" Header="Mute Viewer" />
-                    <MenuItem Command="{Binding UnmuteCommand}" Header="Unmute Viewer" />
-                    <MenuItem Command="{Binding ModCommand}" Header="Mod Viewer" />
-                    <MenuItem Command="{Binding UnmodCommand}" Header="Unmod Viewer" />
-                    <MenuItem Command="{Binding ShowUserInfo}" Header="User Information" />
+                    <MenuItem Command="{Binding MuteCommand}" Header="Mute Viewer"/>
+                    <MenuItem Command="{Binding UnmuteCommand}" Header="Unmute Viewer"/>
+                    <MenuItem Command="{Binding ModCommand}" Header="Mod Viewer"/>
+                    <MenuItem Command="{Binding UnmodCommand}" Header="Unmod Viewer"/>
+                    <MenuItem Command="{Binding ShowUserInfo}" Header="User Information"/>
                 </ContextMenu>
             </ListView.ContextMenu>
         </ListView>
@@ -229,18 +229,18 @@
                 <helpers:TextBoxEnterKeyUpdateBehavior/>
             </i:Interaction.Behaviors>-->
             <TextBox.InputBindings>
-                <KeyBinding Key="Return" Command="{Binding SendMessageCommand}" />
+                <KeyBinding Key="Return" Command="{Binding SendMessageCommand}"/>
             </TextBox.InputBindings>
         </TextBox>
         <Button
             Grid.Row="1"
             Grid.Column="3"
             Command="{Binding SendMessageCommand}"
-            Content="Send" />
+            Content="Send"/>
 
         <GridSplitter
             Grid.Column="1"
             Width="5"
-            HorizontalAlignment="Stretch" />
+            HorizontalAlignment="Stretch"/>
     </Grid>
 </controls:MetroContentControl>

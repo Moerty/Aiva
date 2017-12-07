@@ -1,8 +1,5 @@
 ﻿using Aiva.Gui.Interfaces;
-using MahApps.Metro.Controls;
-using MahApps.Metro.SimpleChildWindow;
 using System;
-using System.Windows;
 using System.Windows.Input;
 
 namespace Aiva.Gui.ViewModels.ChildWindows.Voting {

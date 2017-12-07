@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Aiva.Models.Voting;
-using Aiva.Core.Twitch;
-using TwitchLib.Events.Client;
-using Aiva.Core.Config;
-using System.Linq;
+﻿using Aiva.Core.Twitch;
 using Aiva.Models.Enums;
+using Aiva.Models.Voting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using TwitchLib.Events.Client;
 
 namespace Aiva.Extensions.Voting {
     public class Handler {

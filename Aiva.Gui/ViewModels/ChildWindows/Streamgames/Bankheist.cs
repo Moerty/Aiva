@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Aiva.Core.Config;
 using PropertyChanged;
-using Aiva.Core.Config;
-using Aiva.Models.Extensions;
 
 namespace Aiva.Gui.ViewModels.ChildWindows.Streamgames {
     [AddINotifyPropertyChangedInterface]
@@ -42,7 +36,6 @@ namespace Aiva.Gui.ViewModels.ChildWindows.Streamgames {
                 SuccessRateBank5 = Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank5.SuccessRate,
                 WinningMultiplierBank5 = Config.Instance.Storage.StreamGames.Bankheist.Settings.Bank5.WinningMultiplier,
             };
-
         }
     }
 }
