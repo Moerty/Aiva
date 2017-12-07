@@ -7,7 +7,7 @@ namespace Aiva.Gui.Views.Tabs {
     public partial class SpamProtection : MetroContentControl {
         public SpamProtection() {
             InitializeComponent();
-            this.DataContext = new ViewModels.Tabs.Streamgames();
+            this.DataContext = new ViewModels.Tabs.SpamProtection();
         }
     }
 }
