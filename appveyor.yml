@@ -1,3 +1,6 @@
+before_build:
+  - nuget restore
+
 platform:
   - x86
 
