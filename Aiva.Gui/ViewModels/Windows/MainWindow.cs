@@ -37,7 +37,10 @@ namespace Aiva.Gui.ViewModels.Windows {
                     },
                     new Models.MainWindow.TabItemsModel {
                         Header = "Songrequest",
-                        Content = new Views.Tabs.Songrequest()
+                        Content = new Views.Tabs.Songrequest(),
+                        Flyouts = new List<MahApps.Metro.Controls.Flyout> {
+                            new Views.Flyouts.HonorSongrequester()
+                        }
                     },
                     new Models.MainWindow.TabItemsModel {
                         Header = "Giveaway",

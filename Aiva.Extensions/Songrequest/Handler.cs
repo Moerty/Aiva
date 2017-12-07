@@ -81,7 +81,7 @@ namespace Aiva.Extensions.Songrequest {
                 }
 
                 // get song model
-                var songModel = await GenerateSongModel(e.Command.ArgumentsAsString, e.Command.ChatMessage.DisplayName, e.Command.ChatMessage.UserId).ConfigureAwait(false);
+                var songModel = await GenerateSongModel(e.Command.ArgumentsAsString, e.Command.ChatMessage.DisplayName, Convert.ToInt32(e.Command.ChatMessage.UserId)).ConfigureAwait(false);
 
                 // remove currency from user
                 if (Properties.IsCostEnabled) {
@@ -109,12 +109,12 @@ namespace Aiva.Extensions.Songrequest {
             var songModel = await GenerateSongModel(
                 url,
                 Core.Config.Config.Instance.Storage.General.BotName,
-                Core.Config.Config.Instance.Storage.General.BotUserID).ConfigureAwait(false);
+                Convert.ToInt32(Core.Config.Config.Instance.Storage.General.BotUserID)).ConfigureAwait(false);
 
             OnNewSong?.Invoke(this, songModel);
         }
 
-        private async Task<Models.Songrequest.Song> GenerateSongModel(string argumentsAsString, string displayName, string userId) {
+        private async Task<Models.Songrequest.Song> GenerateSongModel(string argumentsAsString, string displayName, int userId) {
             var videoid = ExtractVideoID(argumentsAsString);
             var songModel = await new YouTubeInfo(videoid).GetVideoDetails().ConfigureAwait(false);
 

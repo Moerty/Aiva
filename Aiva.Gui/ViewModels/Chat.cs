@@ -189,7 +189,7 @@ namespace Aiva.Gui.ViewModels {
                 IsTurbo = e.ChatMessage.IsTurbo,
                 MessageText = e.ChatMessage.Message,
                 SubscribedMonthCount = e.ChatMessage.SubscribedMonthCount,
-                UserId = e.ChatMessage.UserId,
+                UserId = Convert.ToInt32(e.ChatMessage.UserId),
                 Username = e.ChatMessage.Username,
                 UserType = e.ChatMessage.UserType,
             };

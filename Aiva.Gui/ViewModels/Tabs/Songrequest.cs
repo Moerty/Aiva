@@ -30,6 +30,7 @@ namespace Aiva.Gui.ViewModels.Tabs {
         public ICommand OpenUrlCommand { get; set; }
         public ICommand PlaySelectedSongCommand { get; set; }
         public ICommand ChangeSettingsCommand { get; set; }
+        public ICommand HonorRequesterCommand { get; set; }
 
         private readonly Extensions.Songrequest.Handler _handler;
 
@@ -63,6 +64,31 @@ namespace Aiva.Gui.ViewModels.Tabs {
 
             ChangeSettingsCommand = new Internal.RelayCommand(
                 edit => EditSongrequestSettings());
+
+            HonorRequesterCommand = new Internal.RelayCommand(
+                honor => HonorRequester(),
+                honor => CurrentSong != null);
+        }
+
+        private void HonorRequester() {
+            var dataContextMainWindow = (ViewModels.Windows.MainWindow)Application.Current.MainWindow.DataContext;
+            var dataContextHonorRequester = new Flyouts.HonorSongrequester(
+                userId: CurrentSong.RequesterID,
+                username: CurrentSong.Requester);
+
+            // close the flyout
+            dataContextHonorRequester.OnClose
+                += (sender, EventArgs)
+                => CloseHonorRequesterCommand();
+
+            dataContextMainWindow.SelectedTab.Flyouts[0].DataContext = dataContextHonorRequester;
+
+            dataContextMainWindow.SelectedTab.Flyouts[0].IsOpen = true;
+        }
+
+        private void CloseHonorRequesterCommand() {
+            var dataContextMainWindow = (ViewModels.Windows.MainWindow)Application.Current.MainWindow.DataContext;
+            dataContextMainWindow.SelectedTab.Flyouts[0].IsOpen = false;
         }
 
         private async void EditSongrequestSettings() {

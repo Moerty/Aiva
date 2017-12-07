@@ -15,7 +15,6 @@ namespace Aiva.Gui.Internal {
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static void InitCefSharp() {
             var settings = new CefSettings {
-
                 // Set BrowserSubProcessPath based on app bitness at runtime
                 BrowserSubprocessPath = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase,
                                                    Environment.Is64BitProcess ? "x64" : "x86",

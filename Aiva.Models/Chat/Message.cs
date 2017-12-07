@@ -16,7 +16,7 @@ namespace Aiva.Models.Chat {
         public Color Color { get; set; }
         public string DisplayName { get; set; }
         public string Username { get; set; }
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
         public string MessageText { get; set; }
     }

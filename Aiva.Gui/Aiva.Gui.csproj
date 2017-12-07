@@ -188,6 +188,7 @@
     <Compile Include="ViewModels\ChildWindows\Streamgames\Bankheist.cs" />
     <Compile Include="ViewModels\ChildWindows\Timers\Add.cs" />
     <Compile Include="ViewModels\ChildWindows\Voting\Start.cs" />
+    <Compile Include="ViewModels\Flyouts\HonorSongrequester.cs" />
     <Compile Include="ViewModels\Tabs\Giveaway.cs" />
     <Compile Include="ViewModels\Tabs\Songrequest.cs" />
     <Compile Include="ViewModels\Tabs\SpamProtection.cs" />
@@ -223,6 +224,9 @@
     </Compile>
     <Compile Include="Views\ChildWindows\Voting\Start.xaml.cs">
       <DependentUpon>Start.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Flyouts\HonorSongrequester.xaml.cs">
+      <DependentUpon>HonorSongrequester.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Tabs\Console.xaml.cs">
       <DependentUpon>Console.xaml</DependentUpon>
@@ -312,6 +316,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ChildWindows\Voting\Start.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Flyouts\HonorSongrequester.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -410,10 +418,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\Flyouts\" />
-    <Folder Include="Views\Flyouts\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Icon.ico" />
   </ItemGroup>

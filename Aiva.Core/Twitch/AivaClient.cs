@@ -11,10 +11,10 @@ namespace Aiva.Core.Twitch {
         public TwitchClient TwitchClient;
         public TwitchAPI TwitchApi;
         public string BotName;
-        public string BotId;
+        public int BotId;
         public string Channel;
         public string ChannelId;
-        public string TwitchId;
+        public int TwitchId;
 
         public readonly Tasks.Tasks Tasks;
 
