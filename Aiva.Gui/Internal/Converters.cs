@@ -43,4 +43,19 @@ namespace Aiva.Gui.Internal {
             return !(bool)value;
         }
     }
+
+    public class YoutubePlayerStateConverter : IValueConverter {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+            var v = (YoutubePlayerLib.YoutubePlayerState)value;
+
+            return v == YoutubePlayerLib.YoutubePlayerState.playing;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+            //var v = (YoutubePlayerLib.YoutubePlayerState)value;
+
+            //return v == YoutubePlayerLib.YoutubePlayerState.playing;
+            return value;
+        }
+    }
 }

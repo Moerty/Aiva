@@ -20,7 +20,6 @@ namespace Aiva.Gui.ViewModels.Tabs {
             }
         }
 
-        public bool IsPlaying { get; set; }
         public Aiva.Models.Songrequest.Song CurrentSong { get; set; }
         public Aiva.Models.Songrequest.Song SelectedSong { get; set; }
         public ObservableCollection<Aiva.Models.Songrequest.Song> SongList { get; set; }
@@ -106,7 +105,6 @@ namespace Aiva.Gui.ViewModels.Tabs {
         /// Play next song
         /// </summary>
         private void PlayNextSong() {
-            IsPlaying = true;
             CurrentSong = SongList[0];
             SongList.RemoveAt(0);
         }
