@@ -1,6 +1,7 @@
 ﻿using Aiva.Core.Twitch;
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using TwitchLib.Events.Client;
@@ -111,21 +112,26 @@ namespace Aiva.Extensions.Songrequest {
                 Core.Config.Config.Instance.Storage.General.BotName,
                 Convert.ToInt32(Core.Config.Config.Instance.Storage.General.BotUserID)).ConfigureAwait(false);
 
-            OnNewSong?.Invoke(this, songModel);
+            if (songModel != null) {
+                OnNewSong?.Invoke(this, songModel);
+            }
         }
 
         private async Task<Models.Songrequest.Song> GenerateSongModel(string argumentsAsString, string displayName, int userId) {
-            var videoid = ExtractVideoID(argumentsAsString);
-            var songModel = await new YouTubeInfo(videoid).GetVideoDetails().ConfigureAwait(false);
+            if (IsVideoId(argumentsAsString, out string videoid)) {
+                var songModel = await new YouTubeInfo(videoid).GetVideoDetails().ConfigureAwait(false);
 
-            if (songModel != null) {
-                songModel.Requester = displayName;
-                songModel.RequesterID = userId;
-                songModel.Url = $"https://www.youtube.com/watch?v={videoid}";
+                if (songModel != null) {
+                    songModel.Requester = displayName;
+                    songModel.RequesterID = userId;
+                    songModel.Url = $"https://www.youtube.com/watch?v={videoid}";
 
-                return songModel;
+                    return songModel;
+                } else {
+                    return default(Models.Songrequest.Song);
+                }
             } else {
-                return default(Models.Songrequest.Song);
+                return null;
             }
         }
 
@@ -133,16 +139,63 @@ namespace Aiva.Extensions.Songrequest {
         /// Extract the VideoID
         /// </summary>
         /// <param name="userInput"></param>
+        /// <param name="videoId"></param>
         /// <returns></returns>
-        private string ExtractVideoID(string userInput) {
+        private bool IsVideoId(string userInput, out string videoId) {
             // https://www.youtube.com/watch?v=ARfqiQRSPFc
-            if (userInput.StartsWith("https://", StringComparison.OrdinalIgnoreCase)) {
+            if (userInput.StartsWith("https://www.youtube.com/watch")) {
                 var query = HttpUtility.ParseQueryString(new Uri(userInput).Query);
-                return query.AllKeys.Contains("v") ? query["v"] : new Uri(userInput).Segments.Last();
+                if (query?.AllKeys?.Contains("v") == true) {
+                    videoId = query["v"];
+                    return true;
+                } else {
+                    videoId = string.Empty;
+                    return false;
+                }
             }
 
-            // /watch?v=ARfqiQRSPFc || VideoID
-            return userInput.StartsWith("/watch?", StringComparison.OrdinalIgnoreCase) ? userInput.Substring(9, userInput.Length - 9) : userInput;
+            // https://youtu.be/5ZECzjIyUOg
+            if (userInput.StartsWith("https://youtu.be/") && userInput.Length >= 28) {
+                videoId = userInput.Substring(17, 11);
+                return true;
+            }
+
+            if (userInput.StartsWith("/watch?v=") && userInput.Length >= 20) {
+                videoId = userInput.Substring(9, userInput.Length - 9);
+                return true;
+            }
+
+            // hole video id
+            var result = CheckHeaderResponse(userInput);
+
+            if (result) {
+                videoId = userInput;
+                return true;
+            } else {
+                videoId = string.Empty;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// check youtube headers
+        /// </summary>
+        /// <param name="userInput"></param>
+        /// <returns></returns>
+        private bool CheckHeaderResponse(string userInput) {
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create($"https://youtu.be/{userInput}");
+            request.Method = "HEAD";
+            try {
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse()) {
+                    if (response.ResponseUri.ToString().Contains("youtube.com")) {
+                        return true;
+                    }
+                }
+            }
+            catch {
+                return false;
+            }
+            return false;
         }
 
         /// <summary>
