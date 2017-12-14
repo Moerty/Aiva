@@ -9,6 +9,13 @@
     "CommandIdentifier": "!",
     "BotUserID": ""
   },
+  "Overlay": {
+    "ShowNewSubNormal": true,
+    "ShowMessageOnNewSubNormal":  true,
+    "ShowNewSubPrime": true,
+    "ShowMessageOnNewSubPrime":  true,
+    "ShowNewFollower":  true
+  },
   "Chat": {
     "CapsChecker": {
       "Active": true,

@@ -15,6 +15,7 @@ namespace Aiva.Core.Twitch {
         public string Channel;
         public string ChannelId;
         public int TwitchId;
+        public Tasks.Events Events;
 
         public readonly Tasks.Tasks Tasks;
 
@@ -22,7 +23,7 @@ namespace Aiva.Core.Twitch {
             BotName = Config.Config.Instance.Storage.General.BotName;
             Channel = Config.Config.Instance.Storage.General.Channel;
             Tasks = new Tasks.Tasks();
-
+            Events = new Tasks.Events();
             SetupTwitch();
         }
 
@@ -45,6 +46,7 @@ namespace Aiva.Core.Twitch {
                 autoReListenOnExceptions: true);
 
             Tasks.SetTasks(ref TwitchClient);
+            Events.SetEvents(ref TwitchClient);
 
             TwitchClient.OnConnected += OnConnected;
             TwitchClient.OnJoinedChannel += OnJoinedChannel;

@@ -31,7 +31,6 @@ namespace Aiva.Core.Twitch.Tasks {
             OnExistingUsersDetected(ref client);
             OnUserJoined(ref client);
             OnUserLeft(ref client);
-            OnNewSubscriber(ref client);
             ModCommands(ref client);
             CurrencyCommands(ref client);
         }
@@ -43,10 +42,6 @@ namespace Aiva.Core.Twitch.Tasks {
         private void ModCommands(ref TwitchClient client) {
             client.OnChatCommandReceived += _commandsHandler.ModCommands.Currency.CommandReceived;
             client.OnChatCommandReceived += _commandsHandler.ModCommands.CommandReceived;
-        }
-
-        private void OnNewSubscriber(ref TwitchClient client) {
-            client.OnNewSubscriber += Chat.Client_OnNewSubscriber;
         }
 
         private void OnUserLeft(ref TwitchClient client) {

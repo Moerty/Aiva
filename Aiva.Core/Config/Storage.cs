@@ -21,6 +21,9 @@
             [JsonProperty("ModCommands")]
             public ModCommands ModCommands { get; set; }
 
+            [JsonProperty("Overlay")]
+            public Overlay Overlay { get; set; }
+
             [JsonProperty("StreamGames")]
             public StreamGames StreamGames { get; set; }
         }
@@ -67,6 +70,23 @@
 
             [JsonProperty("WinningMultiplier")]
             public double WinningMultiplier { get; set; }
+        }
+
+        public partial class Overlay {
+            [JsonProperty("ShowNewSub")]
+            public bool ShowNewSub { get; set; }
+
+            [JsonProperty("ShowMessageOnNewSubNormal")]
+            public bool ShowMessageOnNewSubNormal { get; set; }
+
+            [JsonProperty("ShowNewSubPrime")]
+            public bool ShowNewSubPrime { get; set; }
+
+            [JsonProperty("ShowMessageOnNewSubPrime")]
+            public bool ShowMessageOnNewSubPrime { get; set; }
+
+            [JsonProperty("ShowNewFollower")]
+            public bool ShowNewFollower { get; set; }
         }
 
         public partial class PurpleGeneral {

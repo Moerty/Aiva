@@ -8,8 +8,11 @@ namespace Aiva.Gui.ViewModels.Windows {
     internal class MainWindow {
         public Models.MainWindow Model { get; set; }
         public Models.MainWindow.TabItemsModel SelectedTab { get; set; }
+        public Views.Windows.Events Events { get; set; }
 
         public MainWindow() {
+            Events = new Views.Windows.Events();
+            Events.Show();
             InitViewModel();
         }
 
