@@ -16,10 +16,10 @@ namespace Aiva.Gui.Views.Windows {
 #endif
 
             Core.Twitch.AivaClient.Instance.Events.ShowMessage
-                += (sender, e) => SetMessageAndStartAnimation(e);
+                += SetMessageAndStartAnimation;
 
             Core.Twitch.AivaClient.Instance.Events.ShowNewSub
-                += (sender, e) => SetNameAndStartAnimation(e);
+                += SetNameAndStartAnimation;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
@@ -34,14 +34,22 @@ namespace Aiva.Gui.Views.Windows {
             Application.Current.Dispatcher.Invoke(() => MessageAnimation.Begin());
         }
 
-        public void SetMessageAndStartAnimation(string text) {
+        public void SetMessageAndStartAnimation(object sender, string text) {
             Application.Current.Dispatcher.Invoke(() => EventMessageBox.Text = text);
             StartAnimationMessage();
         }
 
-        public void SetNameAndStartAnimation(string text) {
+        public void SetNameAndStartAnimation(object sender, string text) {
             Application.Current.Dispatcher.Invoke(() => EventName.Text = text);
             StartAnimationName();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+            Core.Twitch.AivaClient.Instance.Events.ShowMessage
+                -= SetMessageAndStartAnimation;
+
+            Core.Twitch.AivaClient.Instance.Events.ShowNewSub
+                -= SetNameAndStartAnimation;
         }
     }
 }

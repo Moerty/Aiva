@@ -11,6 +11,7 @@
     Width="660.18"
     Height="324.296"
     Background="#FF9BD79A"
+    Closing="Window_Closing"
     WindowStyle="SingleBorderWindow"
     mc:Ignorable="d">
 

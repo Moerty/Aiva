@@ -17,7 +17,7 @@
     mc:Ignorable="d">
 
     <controls:MetroWindow.RightWindowCommands>
-        <controls:WindowCommands Name="RightWindowCommand" ItemsSource="{Binding SelectedTab.WindowCommands.RightWindowCommands}">
+        <controls:WindowCommands Name="RightWindowCommand" ItemsSource="{Binding Model.WindowCommands.RightWindowCommands}">
             <controls:WindowCommands.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:MainWindow}">
                     <Button Command="{Binding Command}">
@@ -27,13 +27,13 @@
                                 Height="20"
                                 Fill="Black">
                                 <Rectangle.OpacityMask>
-                                    <VisualBrush Stretch="Fill" Visual="{Binding Icon}"/>
+                                    <VisualBrush Stretch="Fill" Visual="{Binding Icon}" />
                                 </Rectangle.OpacityMask>
                             </Rectangle>
                             <TextBlock
                                 Margin="4,0,0,0"
                                 VerticalAlignment="Center"
-                                Text="{Binding Header}"/>
+                                Text="{Binding Header}" />
                         </StackPanel>
                     </Button>
                 </DataTemplate>
@@ -42,7 +42,7 @@
     </controls:MetroWindow.RightWindowCommands>
 
     <controls:MetroWindow.LeftWindowCommands>
-        <controls:WindowCommands Name="LeftWindowCommand" ItemsSource="{Binding SelectedTab.WindowCommands.LeftWindowCommands}">
+        <controls:WindowCommands Name="LeftWindowCommand" ItemsSource="{Binding Model.WindowCommands.LeftWindowCommands}">
             <controls:WindowCommands.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:MainWindow}">
                     <Button Command="{Binding Command}">
@@ -52,13 +52,13 @@
                                 Height="20"
                                 Fill="Black">
                                 <Rectangle.OpacityMask>
-                                    <VisualBrush Stretch="Fill" Visual="{Binding Icon}"/>
+                                    <VisualBrush Stretch="Fill" Visual="{Binding Icon}" />
                                 </Rectangle.OpacityMask>
                             </Rectangle>
                             <TextBlock
                                 Margin="4,0,0,0"
                                 VerticalAlignment="Center"
-                                Text="{Binding Header}"/>
+                                Text="{Binding Header}" />
                         </StackPanel>
                     </Button>
                 </DataTemplate>
@@ -71,18 +71,18 @@
             <controls:FlyoutsControl.Template>
                 <ControlTemplate>
                     <Grid>
-                        <ItemsPresenter/>
+                        <ItemsPresenter />
                     </Grid>
                 </ControlTemplate>
             </controls:FlyoutsControl.Template>
             <controls:FlyoutsControl.ItemContainerStyle>
                 <Style BasedOn="{StaticResource {x:Type controls:Flyout}}" TargetType="{x:Type controls:Flyout}">
-                    <Setter Property="Header" Value="{Binding Header}"/>
-                    <Setter Property="Position" Value="{Binding Position}"/>
-                    <Setter Property="IsModal" Value="{Binding IsModal}"/>
-                    <Setter Property="Content" Value="{Binding Content}"/>
-                    <Setter Property="IsOpen" Value="{Binding IsOpen}"/>
-                    <Setter Property="Theme" Value="Accent"/>
+                    <Setter Property="Header" Value="{Binding Header}" />
+                    <Setter Property="Position" Value="{Binding Position}" />
+                    <Setter Property="IsModal" Value="{Binding IsModal}" />
+                    <Setter Property="Content" Value="{Binding Content}" />
+                    <Setter Property="IsOpen" Value="{Binding IsOpen}" />
+                    <Setter Property="Theme" Value="Accent" />
                 </Style>
             </controls:FlyoutsControl.ItemContainerStyle>
         </controls:FlyoutsControl>
@@ -98,7 +98,7 @@
             TabStripPlacement="Left">
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Width="150" Text="{Binding Header}"/>
+                    <TextBlock Width="150" Text="{Binding Header}" />
                 </DataTemplate>
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
@@ -106,7 +106,7 @@
                     <controls:MetroContentControl
                         Width="720"
                         Height="470"
-                        Content="{Binding Content}"/>
+                        Content="{Binding Content}" />
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </controls:MetroTabControl>
