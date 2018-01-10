@@ -9,32 +9,48 @@ namespace Aiva.Core.Config {
         public Storage.Root Storage;
 
         public Config() {
-            var path = Path.Combine(AppContext.BaseDirectory, "Config", "config.json");
-
-            if (File.Exists(path)) {
-                Storage = Core.Config.Storage.Root.FromJson(File.ReadAllText(path));
+            if (File.Exists(GetConfigPath())) {
+                Storage = Core.Config.Storage.Root.FromJson(File.ReadAllText(GetConfigPath()));
             } else {
-                LoadDefaultConfigFile(path);
-                Storage = Core.Config.Storage.Root.FromJson(File.ReadAllText(path));
+                LoadDefaultConfigFile();
+                Storage = Core.Config.Storage.Root.FromJson(File.ReadAllText(GetConfigPath()));
             }
         }
 
-        private void LoadDefaultConfigFile(string pathJsonFile) {
-            var sampleConfig = Path.Combine(
-                AppContext.BaseDirectory,
-                "Config",
-                "config.json.default");
-
-            File.Move(sampleConfig, pathJsonFile);
-        }
+        /// <summary>
+        /// Move default config file to "real" file
+        /// </summary>
+        private void LoadDefaultConfigFile()
+            => File.Move(GetSampleConfigPath(), GetConfigPath());
 
         /// <summary>
         /// Save config to disc
         /// </summary>
         public void SaveConfig() {
             var json = Storage.ToJson();
-            var path = Path.Combine(AppContext.BaseDirectory, "Config", "config.json");
-            File.WriteAllText(path, json);
+            File.WriteAllText(GetConfigPath(), json);
+        }
+
+        /// <summary>
+        /// Get sample Config Path
+        /// </summary>
+        /// <returns></returns>
+        public static string GetSampleConfigPath() {
+            return Path.Combine(
+                AppContext.BaseDirectory,
+                "Config",
+                "config.json.default");
+        }
+
+        /// <summary>
+        /// Get Config Path
+        /// </summary>
+        /// <returns></returns>
+        public static string GetConfigPath() {
+            return Path.Combine(
+                AppContext.BaseDirectory,
+                "Config",
+                "config.json");
         }
     }
 }

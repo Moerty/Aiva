@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="PropertyChanged.Fody" Version="2.2.2" />
-    <PackageReference Include="TwitchLib" Version="1.5.9" />
+    <PackageReference Include="PropertyChanged.Fody" Version="2.2.4" />
+    <PackageReference Include="TwitchLib" Version="1.6.0" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

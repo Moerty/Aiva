@@ -1,6 +1,7 @@
 ﻿using Aiva.Core.Config;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -29,19 +30,22 @@ namespace Aiva.Gui.ViewModels.Windows {
                     confirm => _isTwitchAuthenticated);
         }
 
-        private void ConfirmSetup() {
+        private async void ConfirmSetup() {
             Config.Instance.Storage.Credentials.TwitchClientID =
                 TwitchClientID;
 
             Config.Instance.Storage.Credentials.TwitchOAuth =
                 _twitchOAuthToken;
 
-            GetTwitchUserDetails();
+            var twitchDetailsResult = await GetTwitchUserDetails().ConfigureAwait(false);
+            if (twitchDetailsResult) {
+                Config.Instance.SaveConfig();
 
-            RestartProgram();
+                RestartProgram();
+            }
         }
 
-        private async void GetTwitchUserDetails() {
+        private async Task<bool> GetTwitchUserDetails() {
             var twitchApi = new TwitchLib.TwitchAPI(accessToken: _twitchOAuthToken);
 
             var twitchDetails = await twitchApi.Root.v5.GetRoot().ConfigureAwait(false);
@@ -51,6 +55,7 @@ namespace Aiva.Gui.ViewModels.Windows {
                 Config.Instance.Storage.Credentials.TwitchClientID = twitchDetails.Token.ClientId;
                 Config.Instance.Storage.General.BotUserID = twitchDetails.Token.UserId;
                 Config.Instance.Storage.General.Channel = twitchDetails.Token.Username.ToLower();
+                return true;
             } else {
                 throw new Exception("Can't validate Twitch OAuth Token");
             }
@@ -58,7 +63,7 @@ namespace Aiva.Gui.ViewModels.Windows {
 
         private void RestartProgram() {
             Process.Start(Application.ResourceAssembly.Location);
-            Application.Current.Shutdown();
+            Application.Current.Dispatcher.Invoke(() => Application.Current.Shutdown());
         }
 
         private async void RequestOAuthToken() {

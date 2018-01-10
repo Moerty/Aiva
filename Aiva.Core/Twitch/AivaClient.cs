@@ -30,7 +30,7 @@ namespace Aiva.Core.Twitch {
         private void SetupTwitch() {
             // TwitchApi
             TwitchApi = new TwitchAPI(Config.Config.Instance.Storage.Credentials.TwitchClientID,
-                Config.Config.Instance.Storage.Credentials.TwitchOAuth);
+                Config.Config.Instance.Storage.Credentials.TwitchOAuth, false);
 
             // TwitchClient
             var TwitchCredentials = new TwitchLib.Models.Client.ConnectionCredentials(BotName,

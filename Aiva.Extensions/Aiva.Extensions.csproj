@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="TwitchLib" Version="1.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Aiva.Core\Aiva.Core.csproj" />
     <ProjectReference Include="..\Aiva.Models\Aiva.Models.csproj" />
   </ItemGroup>

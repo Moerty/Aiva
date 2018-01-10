@@ -11,7 +11,7 @@
     <PackageReference Include="microsoft.entityframeworkcore" Version="2.0.1" />
     <PackageReference Include="microsoft.entityframeworkcore.relational" Version="2.0.1" />
     <PackageReference Include="microsoft.entityframeworkcore.sqlite" Version="2.0.1" />
-    <PackageReference Include="TwitchLib" Version="1.5.9" />
+    <PackageReference Include="TwitchLib" Version="1.6.0" />
   </ItemGroup>
 
   <ItemGroup>
