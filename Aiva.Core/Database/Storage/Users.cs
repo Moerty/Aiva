@@ -18,5 +18,6 @@ namespace Aiva.Core.Database.Storage {
         public virtual ActiveUsers ActiveUsers { get; set; }
         public virtual Currency Currency { get; set; }
         public virtual TimeWatched TimeWatched { get; set; }
+        public virtual ViewerStatistics ViewerStatics { get; set; }
     }
 }

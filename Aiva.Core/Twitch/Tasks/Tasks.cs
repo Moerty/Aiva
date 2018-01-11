@@ -13,10 +13,12 @@ namespace Aiva.Core.Twitch.Tasks {
         private Currency _currencyTimer;
         private readonly Commands.Handler _commandsHandler;
         private readonly Database.Handlers.Users _databaseUsersHandler;
+        private readonly Statistics _statisticsHandler;
 
         public Tasks() {
             _commandsHandler = new Commands.Handler();
             _databaseUsersHandler = new Database.Handlers.Users();
+            _statisticsHandler = new Statistics();
             SetCurrencyTimer();
         }
 

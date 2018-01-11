@@ -13,6 +13,7 @@ namespace Aiva.Core.Database.Storage {
         public virtual DbSet<Chat> Chat { get; set; }
         public virtual DbSet<Timers> Timers { get; set; }
         public virtual DbSet<Commands> Commands { get; set; }
+        public virtual DbSet<ViewerStatistics> ViewerStatistics { get; set; }
 
         /// <summary>
         /// This method connects the context with the database
@@ -37,6 +38,7 @@ namespace Aiva.Core.Database.Storage {
             modelBuilder.Entity<Chat>().HasKey(k => k.ChatId);
             modelBuilder.Entity<Commands>().HasKey(k => k.CommandsId);
             modelBuilder.Entity<Timers>().HasKey(k => k.TimersId);
+            modelBuilder.Entity<ViewerStatistics>().HasKey(k => k.Id);
         }
     }
 }
