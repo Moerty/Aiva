@@ -1,0 +1,31 @@
+﻿<controls:Flyout
+    x:Class="Aiva.Gui.Views.Flyouts.Commercial"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:enums="clr-namespace:Aiva.Models.Enums;assembly=Aiva.Models"
+    xmlns:internal="clr-namespace:Aiva.Gui.Internal"
+    xmlns:local="clr-namespace:Aiva.Gui.Views.Flyouts"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="300"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+
+    <Grid>
+        <ComboBox
+            Margin="20"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            ItemsSource="{Binding Source={internal:EnumBindingSource {x:Type enums:Commercial}}}"
+            SelectedValue="{Binding CommercialLength}" />
+
+        <Button
+            Margin="20"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom"
+            Command="{Binding ShowCommercialCommand}"
+            Content="Show advert" />
+    </Grid>
+</controls:Flyout>

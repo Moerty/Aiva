@@ -25,14 +25,14 @@
     ShowTitleBar="True"
     mc:Ignorable="d">
     <simpleChildWindow:ChildWindow.Resources>
-        <internal:AddSongCostCheckedConverter x:Key="CostConverter"/>
+        <internal:AddSongCostCheckedConverter x:Key="CostConverter" />
     </simpleChildWindow:ChildWindow.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="7"/>
-            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*" />
+            <ColumnDefinition Width="7" />
+            <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
             <StackPanel Orientation="Vertical">
@@ -40,9 +40,9 @@
                     Width="250"
                     Height="15"
                     controls:TextBoxHelper.Watermark="Command..."
-                    Text="{Binding Properties.Command, UpdateSourceTrigger=PropertyChanged}"/>
-                <Separator/>
-                <CheckBox Content="Minutes active" IsChecked="{Binding Properties.IsMinutesActive}"/>
+                    Text="{Binding Properties.Command, UpdateSourceTrigger=PropertyChanged}" />
+                <Separator />
+                <CheckBox Content="Minutes active" IsChecked="{Binding Properties.IsMinutesActive}" />
                 <Slider
                     controls:SliderHelper.ChangeValueBy="SmallChange"
                     controls:SliderHelper.EnableMouseWheel="MouseHover"
@@ -52,20 +52,20 @@
                     Template="{StaticResource MetroHorizontalSliderWithValueOnThumb}"
                     TickFrequency="1"
                     TickPlacement="BottomRight"
-                    Value="{Binding Properties.MinutesActive}"/>
-                <Separator/>
+                    Value="{Binding Properties.MinutesActive}" />
+                <Separator />
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Vote permission"/>
-                    <ComboBox ItemsSource="{Binding Source={internal:EnumBindingSource {x:Type enums:JoinPermission}}}" SelectedValue="{Binding Properties.JoinPermission}"/>
+                    <TextBlock Text="Vote permission" />
+                    <ComboBox ItemsSource="{Binding Source={internal:EnumBindingSource {x:Type enums:JoinPermission}}}" SelectedValue="{Binding Properties.JoinPermission}" />
                 </StackPanel>
-                <Separator/>
+                <Separator />
                 <DockPanel>
                     <CheckBox
                         x:Name="cbCost"
                         Margin="0,0,10,0"
                         HorizontalAlignment="Left"
                         Content="Cost"
-                        IsChecked="{Binding Properties.IsCostEnabled}"/>
+                        IsChecked="{Binding Properties.IsCostEnabled}" />
                     <controls:NumericUpDown
                         Height="15"
                         HorizontalAlignment="Stretch"
@@ -74,67 +74,67 @@
                         Interval="10"
                         IsReadOnly="{Binding ElementName=cbCost, Path=IsChecked, Converter={StaticResource CostConverter}}"
                         Minimum="1"
-                        Value="{Binding Properties.Cost}"/>
+                        Value="{Binding Properties.Cost}" />
                 </DockPanel>
-                <Separator/>
+                <Separator />
                 <StackPanel Orientation="Vertical">
                     <CheckBox
                         Margin="0,10,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Must be following to vote"
-                        IsChecked="{Binding Properties.BeFollower, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        IsChecked="{Binding Properties.BeFollower, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                     <CheckBox
                         Margin="0,10,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Block multi vote"
-                        IsChecked="{Binding Properties.BlockMultiRegister, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        IsChecked="{Binding Properties.BlockMultiRegister, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <Separator Grid.Column="1" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
+        <Separator Grid.Column="1" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
         <Grid Grid.Column="2" Margin="5">
             <StackPanel Orientation="Vertical">
                 <StackPanel>
                     <DockPanel>
-                        <CheckBox IsChecked="{Binding Properties.Options.Option1.ActiveOption, Mode=OneWay}" IsEnabled="False"/>
-                        <TextBox controls:TextBoxHelper.Watermark="Options 1..." Text="{Binding Properties.Options.Option1.Option, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <CheckBox IsChecked="{Binding Properties.Options.Option1.ActiveOption, Mode=OneWay}" IsEnabled="False" />
+                        <TextBox controls:TextBoxHelper.Watermark="Options 1..." Text="{Binding Properties.Options.Option1.Option, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                     </DockPanel>
-                    <Separator/>
+                    <Separator />
 
                     <DockPanel>
-                        <CheckBox IsChecked="{Binding Properties.Options.Option2.ActiveOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="False"/>
-                        <TextBox controls:TextBoxHelper.Watermark="Options 2..." Text="{Binding Properties.Options.Option2.Option, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <CheckBox IsChecked="{Binding Properties.Options.Option2.ActiveOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="False" />
+                        <TextBox controls:TextBoxHelper.Watermark="Options 2..." Text="{Binding Properties.Options.Option2.Option, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                     </DockPanel>
 
-                    <Separator/>
+                    <Separator />
 
                     <DockPanel>
-                        <CheckBox IsChecked="{Binding Properties.Options.Option3.ActiveOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="False"/>
-                        <TextBox controls:TextBoxHelper.Watermark="Options 3..." Text="{Binding Properties.Options.Option3.Option, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <CheckBox IsChecked="{Binding Properties.Options.Option3.ActiveOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="False" />
+                        <TextBox controls:TextBoxHelper.Watermark="Options 3..." Text="{Binding Properties.Options.Option3.Option, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                     </DockPanel>
 
-                    <Separator/>
+                    <Separator />
 
                     <DockPanel>
-                        <CheckBox IsChecked="{Binding Properties.Options.Option4.ActiveOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="False"/>
-                        <Separator/>
-                        <TextBox controls:TextBoxHelper.Watermark="Options 4..." Text="{Binding Properties.Options.Option4.Option, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <CheckBox IsChecked="{Binding Properties.Options.Option4.ActiveOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="False" />
+                        <Separator />
+                        <TextBox controls:TextBoxHelper.Watermark="Options 4..." Text="{Binding Properties.Options.Option4.Option, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                     </DockPanel>
 
-                    <Separator/>
+                    <Separator />
 
                     <DockPanel>
-                        <CheckBox IsChecked="{Binding Properties.Options.Option5.ActiveOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="False"/>
-                        <TextBox controls:TextBoxHelper.Watermark="Options 5..." Text="{Binding Properties.Options.Option5.Option, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <CheckBox IsChecked="{Binding Properties.Options.Option5.ActiveOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="False" />
+                        <TextBox controls:TextBoxHelper.Watermark="Options 5..." Text="{Binding Properties.Options.Option5.Option, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                     </DockPanel>
 
-                    <Separator/>
+                    <Separator />
 
                     <DockPanel>
-                        <CheckBox IsChecked="{Binding Properties.Options.Option6.ActiveOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="False"/>
-                        <TextBox controls:TextBoxHelper.Watermark="Options 6..." Text="{Binding Properties.Options.Option6.Option, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <CheckBox IsChecked="{Binding Properties.Options.Option6.ActiveOption, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="False" />
+                        <TextBox controls:TextBoxHelper.Watermark="Options 6..." Text="{Binding Properties.Options.Option6.Option, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                     </DockPanel>
                 </StackPanel>
                 <!--<Button Command="{Binding OptionsCommand}" Content="Options"/>-->
@@ -142,12 +142,12 @@
         </Grid>
 
         <Grid
-            VerticalAlignment="Bottom"
-            HorizontalAlignment="Stretch"
             Grid.ColumnSpan="3"
-            Height="30">
+            Height="30"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom">
 
-            <Button Command="{Binding SubmitCommand}" Content="Submit"/>
+            <Button Command="{Binding SubmitCommand}" Content="Submit" />
         </Grid>
     </Grid>
 </simpleChildWindow:ChildWindow>

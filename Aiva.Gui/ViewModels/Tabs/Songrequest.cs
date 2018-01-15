@@ -81,14 +81,14 @@ namespace Aiva.Gui.ViewModels.Tabs {
                 += (sender, EventArgs)
                 => CloseHonorRequesterCommand();
 
-            dataContextMainWindow.SelectedTab.Flyouts[0].DataContext = dataContextHonorRequester;
+            dataContextMainWindow.Model.SelectedTabItem.Flyouts[0].DataContext = dataContextHonorRequester;
 
-            dataContextMainWindow.SelectedTab.Flyouts[0].IsOpen = true;
+            dataContextMainWindow.Model.SelectedTabItem.Flyouts[0].IsOpen = true;
         }
 
         private void CloseHonorRequesterCommand() {
             var dataContextMainWindow = (ViewModels.Windows.MainWindow)Application.Current.MainWindow.DataContext;
-            dataContextMainWindow.SelectedTab.Flyouts[0].IsOpen = false;
+            dataContextMainWindow.Model.SelectedTabItem.Flyouts[0].IsOpen = false;
         }
 
         private async void EditSongrequestSettings() {

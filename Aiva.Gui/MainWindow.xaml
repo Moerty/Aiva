@@ -67,7 +67,7 @@
     </controls:MetroWindow.LeftWindowCommands>
 
     <controls:MetroWindow.Flyouts>
-        <controls:FlyoutsControl ItemsSource="{Binding SelectedTab.Flyouts}">
+        <controls:FlyoutsControl ItemsSource="{Binding Model.SelectedTabItem.Flyouts}">
             <controls:FlyoutsControl.Template>
                 <ControlTemplate>
                     <Grid>
@@ -93,7 +93,7 @@
             Name="MainTabControl"
             Grid.RowSpan="2"
             ItemsSource="{Binding Model.TabItems, Mode=OneTime}"
-            SelectedItem="{Binding SelectedTab}"
+            SelectedItem="{Binding Model.SelectedTabItem}"
             Style="{StaticResource TabControlStyle}"
             TabStripPlacement="Left">
             <TabControl.ItemTemplate>

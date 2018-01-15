@@ -9,16 +9,15 @@ namespace Aiva.Core.Twitch.Tasks {
         /// Listen to this event from the Client fíx this issue
         /// </summary>
         public event EventHandler<OnModeratorsReceivedArgs> OnModeratorsReceivedEvent;
+        public Channel Channel;
 
         private Currency _currencyTimer;
         private readonly Commands.Handler _commandsHandler;
         private readonly Database.Handlers.Users _databaseUsersHandler;
-        private readonly Statistics _statisticsHandler;
 
         public Tasks() {
             _commandsHandler = new Commands.Handler();
             _databaseUsersHandler = new Database.Handlers.Users();
-            _statisticsHandler = new Statistics();
             SetCurrencyTimer();
         }
 

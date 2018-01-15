@@ -7,7 +7,6 @@ namespace Aiva.Gui.ViewModels.Windows {
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     internal class MainWindow {
         public Models.MainWindow Model { get; set; }
-        public Models.MainWindow.TabItemsModel SelectedTab { get; set; }
         public Views.Windows.Events Events { get; set; }
 
         public MainWindow() {
@@ -37,6 +36,13 @@ namespace Aiva.Gui.ViewModels.Windows {
                     }
                 },
                 TabItems = new List<Models.MainWindow.TabItemsModel> {
+                    new Models.MainWindow.TabItemsModel {
+                        Header = "Dashboard",
+                        Content = new Views.Tabs.Dashboard(),
+                        Flyouts = new List<MahApps.Metro.Controls.Flyout> {
+                            new Views.Flyouts.Commercial()
+                        }
+                    },
                     new Models.MainWindow.TabItemsModel {
                         Header = "Console",
                         Content = new Views.Tabs.Console()
@@ -70,6 +76,9 @@ namespace Aiva.Gui.ViewModels.Windows {
                     },
                 }
             };
+
+            // dashboard default tabitem
+            Model.SelectedTabItem = Model.TabItems[0];
         }
 
         private void OpenUsers() {

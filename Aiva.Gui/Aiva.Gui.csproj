@@ -188,7 +188,9 @@
     <Compile Include="ViewModels\ChildWindows\Streamgames\Bankheist.cs" />
     <Compile Include="ViewModels\ChildWindows\Timers\Add.cs" />
     <Compile Include="ViewModels\ChildWindows\Voting\Start.cs" />
+    <Compile Include="ViewModels\Flyouts\Commercial.cs" />
     <Compile Include="ViewModels\Flyouts\HonorSongrequester.cs" />
+    <Compile Include="ViewModels\Tabs\Dashboard.cs" />
     <Compile Include="ViewModels\Tabs\Giveaway.cs" />
     <Compile Include="ViewModels\Tabs\Songrequest.cs" />
     <Compile Include="ViewModels\Tabs\SpamProtection.cs" />
@@ -228,8 +230,14 @@
     <Compile Include="Views\Flyouts\HonorSongrequester.xaml.cs">
       <DependentUpon>HonorSongrequester.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Flyouts\Commercial.xaml.cs">
+      <DependentUpon>Commercial.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Tabs\Console.xaml.cs">
       <DependentUpon>Console.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\Dashboard.xaml.cs">
+      <DependentUpon>Dashboard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Tabs\Giveaway.xaml.cs">
       <DependentUpon>Giveaway.xaml</DependentUpon>
@@ -326,7 +334,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Flyouts\Commercial.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Tabs\Console.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tabs\Dashboard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

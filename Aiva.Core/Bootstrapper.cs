@@ -1,7 +1,15 @@
-﻿namespace Aiva.Core {
+﻿using Aiva.Core.Twitch;
+using System;
+
+namespace Aiva.Core {
     public class Bootstrapper {
         public void Start() {
             CheckIfDatabaseExists();
+            LoadAivaTwitchClient();
+        }
+
+        private void LoadAivaTwitchClient() {
+            AivaClient.Instance.SetTasks();
         }
 
         /// <summary>

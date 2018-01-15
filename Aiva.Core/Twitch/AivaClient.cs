@@ -16,6 +16,7 @@ namespace Aiva.Core.Twitch {
         public string ChannelId;
         public int TwitchId;
         public Tasks.Events Events;
+        public bool IsPartnered;
 
         public readonly Tasks.Tasks Tasks;
 
@@ -38,28 +39,32 @@ namespace Aiva.Core.Twitch {
 
             TwitchClient = new TwitchClient(
                 credentials: TwitchCredentials,
-                channel: null,
+                channel: Channel,
                 chatCommandIdentifier: Convert.ToChar(Config.Config.Instance.Storage.General.CommandIdentifier),
                 whisperCommandIdentifier: '@',
                 logging: false,
                 logger: null,
                 autoReListenOnExceptions: true);
 
-            Tasks.SetTasks(ref TwitchClient);
-            Events.SetEvents(ref TwitchClient);
-
-            TwitchClient.OnConnected += OnConnected;
             TwitchClient.OnJoinedChannel += OnJoinedChannel;
 
             TwitchClient.Connect();
+        }
+
+        public void SetTasks() {
+            Tasks.SetTasks(ref TwitchClient);
+            Events.SetEvents(ref TwitchClient);
 
             GetChannelId();
         }
 
         private async void GetChannelId() {
             var channelDetails = await TwitchApi.Channels.v5.GetChannelAsync().ConfigureAwait(false);
-
             ChannelId = channelDetails.Id;
+            IsPartnered = channelDetails.Partner;
+
+            Tasks.Channel = new Channel();
+            Tasks.Channel.Start();
         }
 
         /// <summary>
@@ -71,15 +76,6 @@ namespace Aiva.Core.Twitch {
             TwitchClient.SendMessage(
                 message: "Aiva started, hi at all!",
                 dryRun: DryRun);
-        }
-
-        /// <summary>
-        /// Fires when Client connected
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnConnected(object sender, OnConnectedArgs e) {
-            TwitchClient.JoinChannel(Channel);
         }
     }
 }
