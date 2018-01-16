@@ -1,4 +1,9 @@
-﻿using System.Windows;
+﻿using Aiva.Core.Twitch;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Windows;
+using TwitchLib.Interfaces;
 
 namespace Aiva.Gui.Views.Windows {
     /// <summary>
@@ -12,11 +17,22 @@ namespace Aiva.Gui.Views.Windows {
             EventMessageBox.Text = "Test Event Text";
 #endif
 
-            Core.Twitch.AivaClient.Instance.Events.ShowMessage
+            AivaClient.Instance.Events.ShowMessage
                 += SetMessageAndStartAnimation;
 
-            Core.Twitch.AivaClient.Instance.Events.ShowNewSub
+            AivaClient.Instance.Events.ShowNewSub
                 += SetNameAndStartAnimation;
+
+            AivaClient.Instance.Events.OnNewFollower
+                += OnNewFollower;
+        }
+
+        private void OnNewFollower(object sender, List<IFollow> e) {
+            foreach(var follow in e) {
+                SetNameAndStartAnimation(this, $"New follow: {follow.User.DisplayName}");
+                StartAnimationName();
+                Thread.Sleep(1000); // wait 1 sec to display new name
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {

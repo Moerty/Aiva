@@ -34,7 +34,7 @@
                         <DoubleAnimation
                             AutoReverse="False"
                             RepeatBehavior="1x"
-                            Storyboard.TargetName="EventTextBlock"
+                            Storyboard.TargetName="EventName"
                             Storyboard.TargetProperty="(UIElement.Opacity)"
                             From="1.0"
                             To="0.0"
@@ -54,7 +54,7 @@
             FontWeight="Bold"
             Foreground="Black"
             RenderTransformOrigin="0.505,1.186"
-            Text="tewtwetwetwetwetwert">
+            Text="test test test">
             <Storyboard.Target>
                 <BeginStoryboard>
                     <Storyboard Name="MessageAnimation">

@@ -13,13 +13,15 @@ namespace Aiva.Core.Twitch.Tasks {
 
         private FollowerService _followerService;
 
-        public void SetEvents(ref TwitchClient client, ITwitchAPI api) {
+        public void SetEvents(ref TwitchClient client) {
             client.OnNewSubscriber += NewSub;
 
 #if DEBUG
             client.OnMessageReceived += MessageReceivedTest;
 #endif
+        }
 
+        public async void SetFollowerService(ITwitchAPI api) {
             // FollowerService
             _followerService = new FollowerService(api);
             _followerService.SetChannelByChannelId(AivaClient.Instance.ChannelId);
@@ -28,7 +30,7 @@ namespace Aiva.Core.Twitch.Tasks {
                 += (sender, e)
                 => OnNewFollower?.Invoke(this, e.NewFollowers);
 
-            _followerService.StartService();
+            await _followerService.StartService().ConfigureAwait(false);
         }
 
         private void NewSub(object sender, OnNewSubscriberArgs e) {
