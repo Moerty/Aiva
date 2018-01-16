@@ -43,6 +43,7 @@ namespace Aiva.Core.Twitch.Tasks {
         private void ModCommands(ref TwitchClient client) {
             client.OnChatCommandReceived += _commandsHandler.ModCommands.Currency.CommandReceived;
             client.OnChatCommandReceived += _commandsHandler.ModCommands.CommandReceived;
+            client.OnChatCommandReceived += _commandsHandler.ModCommands.EditCommands.CommandReceived;
         }
 
         private void OnUserLeft(ref TwitchClient client) {

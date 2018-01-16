@@ -25,7 +25,7 @@ namespace Aiva.Core.Database.Handlers {
         /// <param name="creater"></param>
         /// <param name="commandName"></param>
         /// <param name="text"></param>
-        internal void AddCommand(string creater, string commandName, string text) {
+        internal bool AddCommand(string creater, string commandName, string text) {
             // create command object
             var command = new Storage.Commands {
                 Stack = 0,
@@ -42,9 +42,11 @@ namespace Aiva.Core.Database.Handlers {
 
                 if (dbCommand == null) {
                     context.Commands.Add(command);
-                    context.SaveChanges();
+                    return context.SaveChanges() == 0;
                 }
             }
+
+            return false;
         }
 
         /// <summary>
@@ -52,32 +54,36 @@ namespace Aiva.Core.Database.Handlers {
         /// </summary>
         /// <param name="commandName"></param>
         /// <param name="text"></param>
-        internal void EditCommand(string commandName, string text) {
+        internal bool EditCommand(string commandName, string text) {
             using (var context = new Storage.DatabaseContext()) {
                 var command = context.Commands.SingleOrDefault(
                     c => string.Compare(c.Name, commandName, true) == 0);
 
                 if (command != null) {
                     command.Text = text;
-                    context.SaveChanges();
+                    return context.SaveChanges() == 0;
                 }
             }
+
+            return false;
         }
 
         /// <summary>
         /// Remove a command
         /// </summary>
         /// <param name="commandName"></param>
-        internal void RemoveCommand(string commandName) {
+        internal bool RemoveCommand(string commandName) {
             using (var context = new Storage.DatabaseContext()) {
                 var command = context.Commands.SingleOrDefault(
                     c => string.Compare(c.Name, commandName, true) == 0);
 
                 if (command != null) {
                     context.Commands.Remove(command);
-                    context.SaveChanges();
+                    return context.SaveChanges() == 0;
                 }
             }
+
+            return false;
         }
     }
 }

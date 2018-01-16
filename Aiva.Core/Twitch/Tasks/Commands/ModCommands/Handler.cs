@@ -4,6 +4,7 @@ namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
     public class Handler {
         #region Models
         public Currency Currency;
+        public EditCommands EditCommands;
         private readonly Database.Handlers.Commands _commandsDatabaseHandler;
         #endregion Models
 
@@ -11,6 +12,7 @@ namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
         public Handler() {
             Currency = new Currency();
             _commandsDatabaseHandler = new Database.Handlers.Commands();
+            EditCommands = new EditCommands();
         }
         #endregion Contructor
 
