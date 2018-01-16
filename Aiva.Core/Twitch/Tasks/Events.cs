@@ -1,22 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using TwitchLib;
 using TwitchLib.Events.Client;
+using TwitchLib.Interfaces;
+using TwitchLib.Services;
 
-namespace Aiva.Core.Twitch.Tasks
-{
-    public class Events
-    {
+namespace Aiva.Core.Twitch.Tasks {
+    public class Events {
         public EventHandler<string> ShowMessage;
         public EventHandler<string> ShowNewSub;
+        public EventHandler<List<IFollow>> OnNewFollower;
 
-        public void SetEvents(ref TwitchClient client) {
+        private FollowerService _followerService;
+
+        public void SetEvents(ref TwitchClient client, ITwitchAPI api) {
             client.OnNewSubscriber += NewSub;
 
 #if DEBUG
             client.OnMessageReceived += MessageReceivedTest;
 #endif
+
+            // FollowerService
+            _followerService = new FollowerService(api);
+            _followerService.SetChannelByChannelId(AivaClient.Instance.ChannelId);
+
+            _followerService.OnNewFollowersDetected
+                += (sender, e)
+                => OnNewFollower?.Invoke(this, e.NewFollowers);
+
+            _followerService.StartService();
         }
 
         private void NewSub(object sender, OnNewSubscriberArgs e) {
@@ -29,15 +41,15 @@ namespace Aiva.Core.Twitch.Tasks
                 }
 
                 // overlay
-                if(Config.Config.Instance.Storage.Overlay.ShowNewSub) {
-                    if(Config.Config.Instance.Storage.Overlay.ShowMessageOnNewSubNormal) {
+                if (Config.Config.Instance.Storage.Overlay.ShowNewSub) {
+                    if (Config.Config.Instance.Storage.Overlay.ShowMessageOnNewSubNormal) {
                         ShowNewSub?.Invoke(this, $"Thanks {e.Subscriber.DisplayName} for your subscription!");
                         ShowMessage?.Invoke(this, e.Subscriber.ResubMessage);
                     } else {
                         ShowNewSub?.Invoke(this, $"Thanks {e.Subscriber.DisplayName} for your subscription!");
                     }
                 }
-            // sub prime
+                // sub prime
             } else {
                 // chat
                 if (Config.Config.Instance.Storage.Interactions.WriteInChatPrimeSub) {

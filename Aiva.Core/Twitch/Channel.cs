@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using TwitchLib;
 using TwitchLib.Events.Client;
 using TwitchLib.Extensions.Client;
 using TwitchLib.Models.Client;
@@ -34,13 +32,13 @@ namespace Aiva.Core.Twitch {
         }
 
         private void GetChannelState() {
-            // run that in background, its not nessesary 
+            // run that in background, its not nessesary
             // that we get the data instant
             Task.Factory.StartNew(() => {
                 // fix for waiting that twitchclient is connect,
-                // cause we call a method that throws an exception 
+                // cause we call a method that throws an exception
                 // if twitchclient is not connected
-                while(!AivaClient.Instance.TwitchClient.IsConnected) {
+                while (!AivaClient.Instance.TwitchClient.IsConnected) {
                     Thread.Sleep(1000);
                 }
                 var state = AivaClient.Instance.TwitchClient.GetJoinedChannel(
@@ -55,7 +53,7 @@ namespace Aiva.Core.Twitch {
         private void SetChannelStateValues(ChannelState channelState) {
             IsSubOnlyModeActive = channelState.SubOnly == true;
             IsFollowersOnlyModeActive = channelState.FollowersOnly != TimeSpan.FromMinutes(0);
-            if(IsFollowersOnlyModeActive) {
+            if (IsFollowersOnlyModeActive) {
                 FollowersOnlyModeDuration = channelState.FollowersOnly;
             }
             IsSlowModeActive = channelState.SlowMode == true;
@@ -90,7 +88,7 @@ namespace Aiva.Core.Twitch {
             while (true) {
                 var channel = await AivaClient.Instance.TwitchApi.Channels.v5.GetChannelAsync().ConfigureAwait(false);
 
-                if(channel != null) {
+                if (channel != null) {
                     TotalFollowers = channel.Followers;
                     OnNewTotalFollower?.Invoke(this, TotalFollowers);
 

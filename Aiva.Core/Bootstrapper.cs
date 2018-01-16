@@ -1,5 +1,4 @@
 ﻿using Aiva.Core.Twitch;
-using System;
 
 namespace Aiva.Core {
     public class Bootstrapper {

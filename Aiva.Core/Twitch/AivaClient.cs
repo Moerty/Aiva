@@ -53,7 +53,7 @@ namespace Aiva.Core.Twitch {
 
         public void SetTasks() {
             Tasks.SetTasks(ref TwitchClient);
-            Events.SetEvents(ref TwitchClient);
+            Events.SetEvents(ref TwitchClient, AivaClient.Instance.TwitchApi);
 
             GetChannelId();
         }

@@ -15,10 +15,10 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35" />
-            <RowDefinition Height="251*" />
-            <RowDefinition Height="60" />
-            <RowDefinition Height="137*" />
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="251*"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="137*"/>
         </Grid.RowDefinitions>
 
         <Grid Name="StaticOptionGrid" Grid.Row="0">
@@ -29,7 +29,7 @@
                     Content="Current Viewers"
                     Focusable="False"
                     GroupName="Options"
-                    IsChecked="{Binding IsOptionsStaticCurrentViewerActive}" />
+                    IsChecked="{Binding IsOptionsStaticCurrentViewerActive}"/>
 
                 <RadioButton
                     Name="TotalFollowers"
@@ -37,7 +37,7 @@
                     Content="Total Followers"
                     Focusable="False"
                     GroupName="Options"
-                    IsChecked="{Binding IsTotalFollowersStatisticActuve}" />
+                    IsChecked="{Binding IsTotalFollowersStatisticActuve}"/>
             </StackPanel>
         </Grid>
         <Grid Name="StaticGrid" Grid.Row="1">
@@ -50,18 +50,18 @@
                     Series="{Binding CurrentViewersSeries}">
                     <lvc:CartesianChart.AxisX>
                         <!--  a small visual improvement, lets hide the first points (x = 0, x=1) to get better animations  -->
-                        <lvc:Axis MinValue="0" />
+                        <lvc:Axis MinValue="0"/>
                     </lvc:CartesianChart.AxisX>
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="Users" MinValue="0" />
+                        <lvc:Axis Title="Users" MinValue="0"/>
                     </lvc:CartesianChart.AxisY>
                 </lvc:CartesianChart>
                 <Grid.Style>
                     <Style TargetType="Grid">
-                        <Setter Property="Visibility" Value="Hidden" />
+                        <Setter Property="Visibility" Value="Hidden"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsOptionsStaticCurrentViewerActive}" Value="True">
-                                <Setter Property="Visibility" Value="Visible" />
+                                <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -77,18 +77,18 @@
                     Series="{Binding TotalFollowersSeries}">
                     <lvc:CartesianChart.AxisX>
                         <!--  a small visual improvement, lets hide the first points (x = 0, x=1) to get better animations  -->
-                        <lvc:Axis MinValue="0" />
+                        <lvc:Axis MinValue="0"/>
                     </lvc:CartesianChart.AxisX>
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="Users" MinValue="0" />
+                        <lvc:Axis Title="Users" MinValue="0"/>
                     </lvc:CartesianChart.AxisY>
                 </lvc:CartesianChart>
                 <Grid.Style>
                     <Style TargetType="Grid">
-                        <Setter Property="Visibility" Value="Hidden" />
+                        <Setter Property="Visibility" Value="Hidden"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsTotalFollowersStatisticActuve}" Value="True">
-                                <Setter Property="Visibility" Value="Visible" />
+                                <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -97,8 +97,8 @@
         </Grid>
         <Grid Name="StreamOptionsGrid" Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50*" />
-                <ColumnDefinition Width="50*" />
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
@@ -112,12 +112,12 @@
                             ItemsSource="{Binding Games}"
                             SelectedItem="{Binding SelectedGame, FallbackValue='You want to play a game?'}"
                             SelectedValuePath="Name"
-                            ToolTip="Press the button to change the game" />
+                            ToolTip="Press the button to change the game"/>
                         <TextBox
                             Margin="0,3,0,0"
                             controls:TextBoxHelper.ClearTextButton="True"
                             controls:TextBoxHelper.Watermark="Stream Title"
-                            Text="{Binding StreamTitle}" />
+                            Text="{Binding StreamTitle}"/>
                     </StackPanel>
 
                     <Button
@@ -131,7 +131,7 @@
                             Height="24"
                             Visibility="Visible">
                             <Rectangle.Fill>
-                                <VisualBrush Stretch="Uniform" Visual="{StaticResource update}" />
+                                <VisualBrush Stretch="Uniform" Visual="{StaticResource update}"/>
                             </Rectangle.Fill>
                         </Rectangle>
                     </Button>
@@ -153,7 +153,7 @@
                             ToolTip="Show Commercial"
                             Visibility="Visible">
                             <Rectangle.Fill>
-                                <VisualBrush Stretch="Uniform" Visual="{StaticResource clover}" />
+                                <VisualBrush Stretch="Uniform" Visual="{StaticResource clover}"/>
                             </Rectangle.Fill>
                         </Rectangle>
                     </Button>
@@ -162,20 +162,20 @@
         </Grid>
         <Grid Name="StreamLog" Grid.Row="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50*" />
-                <ColumnDefinition Width="50*" />
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
                 <StackPanel Margin="10" Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Total Views: " />
-                        <TextBlock Text="{Binding TotalViews, FallbackValue=123}" />
+                        <TextBlock Text="Total Views: "/>
+                        <TextBlock Text="{Binding TotalViews, FallbackValue=123}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Total Followers: " />
-                        <TextBlock Text="{Binding TotalFollowers, FallbackValue=123}" />
+                        <TextBlock Text="Total Followers: "/>
+                        <TextBlock Text="{Binding TotalFollowers, FallbackValue=123}"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>

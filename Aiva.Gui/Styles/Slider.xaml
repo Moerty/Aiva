@@ -12,10 +12,10 @@
 
     <!--  HorizontalSliderThumb  -->
     <Style x:Key="MetroHorizontalSliderThumbWithValue" TargetType="Thumb">
-        <Setter Property="Background" Value="{DynamicResource GrayBrush2}" />
-        <Setter Property="BorderThickness" Value="1,0" />
-        <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Background" Value="{DynamicResource GrayBrush2}"/>
+        <Setter Property="BorderThickness" Value="1,0"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Thumb">
@@ -24,40 +24,40 @@
                             Margin="{TemplateBinding BorderThickness}"
                             Fill="{TemplateBinding Background}"
                             RadiusX="3"
-                            RadiusY="3" />
+                            RadiusY="3"/>
                         <Rectangle
                             x:Name="DisabledVisualElement"
                             Fill="{DynamicResource DisabledWhiteBrush}"
                             IsHitTestVisible="False"
-                            Opacity="0" />
+                            Opacity="0"/>
                         <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontSize="9"
                             Foreground="Black"
-                            Text="{Binding Value, RelativeSource={RelativeSource AncestorType={x:Type Slider}}}" />
+                            Text="{Binding Value, RelativeSource={RelativeSource AncestorType={x:Type Slider}}}"/>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Normal"/>
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DisabledVisualElement" Storyboard.TargetProperty="Opacity">
-                                            <SplineDoubleKeyFrame KeyTime="0" Value="0.4" />
+                                            <SplineDoubleKeyFrame KeyTime="0" Value="0.4"/>
                                         </DoubleAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
-                                <VisualState x:Name="Pressed" />
+                                <VisualState x:Name="Pressed"/>
                                 <VisualState x:Name="Disabled">
                                     <Storyboard>
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DisabledVisualElement" Storyboard.TargetProperty="Opacity">
-                                            <SplineDoubleKeyFrame KeyTime="0" Value="0.6" />
+                                            <SplineDoubleKeyFrame KeyTime="0" Value="0.6"/>
                                         </DoubleAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
                             <VisualStateGroup x:Name="FocusStates">
-                                <VisualState x:Name="Focused" />
-                                <VisualState x:Name="Unfocused" />
+                                <VisualState x:Name="Focused"/>
+                                <VisualState x:Name="Unfocused"/>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                     </Grid>
@@ -70,9 +70,9 @@
         <Grid x:Name="Root">
             <Grid x:Name="HorizontalTemplate" Background="{TemplateBinding Background}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" MinHeight="{TemplateBinding Slider.MinHeight}" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" MinHeight="{TemplateBinding Slider.MinHeight}"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TickBar
                     x:Name="TopTick"
@@ -80,20 +80,20 @@
                     Height="4"
                     Fill="{TemplateBinding Foreground}"
                     Placement="Top"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed"/>
                 <TickBar
                     x:Name="BottomTick"
                     Grid.Row="2"
                     Height="4"
                     Fill="{TemplateBinding Foreground}"
                     Placement="Bottom"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed"/>
                 <Track x:Name="PART_Track" Grid.Row="1">
                     <Track.DecreaseRepeatButton>
-                        <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource HorizontalTrackValue}" />
+                        <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource HorizontalTrackValue}"/>
                     </Track.DecreaseRepeatButton>
                     <Track.IncreaseRepeatButton>
-                        <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource HorizontalTrackLargeDecrease}" />
+                        <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource HorizontalTrackLargeDecrease}"/>
                     </Track.IncreaseRepeatButton>
                     <Track.Thumb>
                         <controls:MetroThumb
@@ -101,32 +101,32 @@
                             Width="{DynamicResource HorizontalThumbWidth}"
                             Height="{DynamicResource HorizontalThumbHeight}"
                             IsTabStop="True"
-                            Style="{StaticResource MetroHorizontalSliderThumbWithValue}" />
+                            Style="{StaticResource MetroHorizontalSliderThumbWithValue}"/>
                     </Track.Thumb>
                 </Track>
             </Grid>
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal" />
-                    <VisualState x:Name="MouseOver" />
-                    <VisualState x:Name="Disabled" />
+                    <VisualState x:Name="Normal"/>
+                    <VisualState x:Name="MouseOver"/>
+                    <VisualState x:Name="Disabled"/>
                 </VisualStateGroup>
                 <VisualStateGroup x:Name="FocusStates">
-                    <VisualState x:Name="Unfocused" />
-                    <VisualState x:Name="Focused" />
+                    <VisualState x:Name="Unfocused"/>
+                    <VisualState x:Name="Focused"/>
                 </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="TickPlacement" Value="TopLeft">
-                <Setter TargetName="TopTick" Property="Visibility" Value="Visible" />
+                <Setter TargetName="TopTick" Property="Visibility" Value="Visible"/>
             </Trigger>
             <Trigger Property="TickPlacement" Value="BottomRight">
-                <Setter TargetName="BottomTick" Property="Visibility" Value="Visible" />
+                <Setter TargetName="BottomTick" Property="Visibility" Value="Visible"/>
             </Trigger>
             <Trigger Property="TickPlacement" Value="Both">
-                <Setter TargetName="BottomTick" Property="Visibility" Value="Visible" />
-                <Setter TargetName="TopTick" Property="Visibility" Value="Visible" />
+                <Setter TargetName="BottomTick" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="TopTick" Property="Visibility" Value="Visible"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

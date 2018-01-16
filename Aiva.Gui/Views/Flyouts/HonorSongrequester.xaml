@@ -17,19 +17,19 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Orientation="Vertical">
-                <TextBlock Margin="0,20,0,0" Text="Add currency to Viewer" />
-                <controls:NumericUpDown Margin="0,20,0,0" Value="{Binding CurrencyToAdd}" />
+                <TextBlock Margin="0,20,0,0" Text="Add currency to Viewer"/>
+                <controls:NumericUpDown Margin="0,20,0,0" Value="{Binding CurrencyToAdd}"/>
             </StackPanel>
-            <Separator Margin="0,20,0,0" />
+            <Separator Margin="0,20,0,0"/>
             <CheckBox
                 Margin="0,20,0,0"
                 Content="Write added Value in Chat"
-                IsChecked="{Binding WriteInChat}" />
+                IsChecked="{Binding WriteInChat}"/>
             <Button
                 Margin="0,50,0,0"
                 Command="{Binding HonorCommand}"
                 Content="Honor"
-                Focusable="False" />
+                Focusable="False"/>
         </StackPanel>
     </Grid>
 </controls:Flyout>

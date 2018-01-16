@@ -9,18 +9,18 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!--  MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive!  -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml"/>
                 <!--  Accent and AppTheme setting  -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Teal.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Teal.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
 
-                <ResourceDictionary Source="Styles/Icons.xaml" />
-                <ResourceDictionary Source="Styles/TabControl.xaml" />
-                <ResourceDictionary Source="Styles/Slider.xaml" />
-                <ResourceDictionary Source="Styles/Extensions.xaml" />
+                <ResourceDictionary Source="Styles/Icons.xaml"/>
+                <ResourceDictionary Source="Styles/TabControl.xaml"/>
+                <ResourceDictionary Source="Styles/Slider.xaml"/>
+                <ResourceDictionary Source="Styles/Extensions.xaml"/>
                 <!--
 
                 <ResourceDictionary Source="Styles/Expander.xaml"/>

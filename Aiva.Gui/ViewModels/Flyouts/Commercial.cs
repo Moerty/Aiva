@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PropertyChanged;
+using System;
 using System.Windows.Input;
-using Aiva.Core.Twitch;
-using PropertyChanged;
 
 namespace Aiva.Gui.ViewModels.Flyouts {
     [AddINotifyPropertyChangedInterface]

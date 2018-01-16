@@ -2,8 +2,7 @@
 
 namespace Aiva.Models.Enums {
     [TypeConverter(typeof(Extensions.EnumDescriptionTypeConverter))]
-    public enum Commercial
-    {
+    public enum Commercial {
         [Description("30 seconds")]
         Seconds30 = 30,
 

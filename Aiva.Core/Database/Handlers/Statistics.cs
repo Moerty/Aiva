@@ -10,7 +10,7 @@ namespace Aiva.Core.Database.Handlers {
         /// <param name="days"></param>
         /// <returns></returns>
         public List<Storage.ViewerStatistics> GetLastDays(int days = 20) {
-            using(var context = new Storage.DatabaseContext()) {
+            using (var context = new Storage.DatabaseContext()) {
                 var toDate = DateTime.Now.AddDays(-days);
                 return context.ViewerStatistics.Where(d => d.Date.Date <= toDate.Date).ToList();
             }
@@ -21,7 +21,7 @@ namespace Aiva.Core.Database.Handlers {
         /// </summary>
         /// <returns></returns>
         public Storage.ViewerStatistics GetToday() {
-            using(var context = new Storage.DatabaseContext()) {
+            using (var context = new Storage.DatabaseContext()) {
                 return context.ViewerStatistics.SingleOrDefault(d => d.Date.Date == DateTime.Now.Date);
             }
         }

@@ -1,15 +1,14 @@
-﻿using System;
+﻿using Aiva.Core.Twitch;
+using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
+using PropertyChanged;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Aiva.Core.Twitch;
-using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
-using PropertyChanged;
 using TwitchLib.Enums;
 using TwitchLib.Events.Client;
 
@@ -55,7 +54,7 @@ namespace Aiva.Gui.ViewModels.Tabs {
                 += ExistingUsersDetected;
             SetCurrentViewersChart();
             SetTotalFollowersChart();
-            IsOptionsStaticCurrentViewerActive = true; // default 
+            IsOptionsStaticCurrentViewerActive = true; // default
             Games = new List<Aiva.Models.Dashboard.Streamgame>();
 
             AivaClient.Instance.Tasks.Channel.OnNewStreamGame
@@ -101,7 +100,7 @@ namespace Aiva.Gui.ViewModels.Tabs {
             //FollowersOnlyOnCommand = new Internal.RelayCommand(
             //    followerOnlyOn => AivaClient.Instance.Tasks.Channel.SetFollowersMode(true));
 
-            Task.Factory.StartNew(async() => {
+            Task.Factory.StartNew(async () => {
                 var games = await AivaClient.Instance.TwitchApi.Games.v5.GetTopGamesAsync(100).ConfigureAwait(false);
 
                 if (games?.Top != null) {
@@ -124,7 +123,7 @@ namespace Aiva.Gui.ViewModels.Tabs {
 
         //private void SetSlowMode() {
         //    IsSlowModeActive = AivaClient.Instance.Tasks.Channel.IsSlowModeActive;
-            
+
         //    AivaClient.Instance.Tasks.Channel.SlowMode
         //        += (sender, e)
         //        => Application.Current.Dispatcher.Invoke(() => IsSlowModeActive = e);
@@ -144,7 +143,7 @@ namespace Aiva.Gui.ViewModels.Tabs {
         }
 
         private void SetStreamTitle() {
-            if(!string.IsNullOrEmpty(AivaClient.Instance.Tasks.Channel.StreamTitle)) {
+            if (!string.IsNullOrEmpty(AivaClient.Instance.Tasks.Channel.StreamTitle)) {
                 StreamTitle = AivaClient.Instance.Tasks.Channel.StreamTitle;
                 AivaClient.Instance.Tasks.Channel.OnNewStreamTitle
                     += (sender, e)
@@ -157,7 +156,7 @@ namespace Aiva.Gui.ViewModels.Tabs {
         }
 
         private void SetViewsAndFollowers() {
-            if(AivaClient.Instance.Tasks.Channel.TotalViews != 0) {
+            if (AivaClient.Instance.Tasks.Channel.TotalViews != 0) {
                 TotalViews = AivaClient.Instance.Tasks.Channel.TotalViews;
                 AivaClient.Instance.Tasks.Channel.OnNewTotalViews
                     += (sender, e)
@@ -168,7 +167,7 @@ namespace Aiva.Gui.ViewModels.Tabs {
                     => Application.Current.Dispatcher.Invoke(() => TotalViews = e);
             }
 
-            if(AivaClient.Instance.Tasks.Channel.TotalFollowers != 0) {
+            if (AivaClient.Instance.Tasks.Channel.TotalFollowers != 0) {
                 TotalFollowers = AivaClient.Instance.Tasks.Channel.TotalFollowers;
                 AivaClient.Instance.Tasks.Channel.OnNewTotalFollower
                     += (sender, e)

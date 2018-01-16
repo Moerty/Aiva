@@ -19,13 +19,13 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
             ItemsSource="{Binding Source={internal:EnumBindingSource {x:Type enums:Commercial}}}"
-            SelectedValue="{Binding CommercialLength}" />
+            SelectedValue="{Binding CommercialLength}"/>
 
         <Button
             Margin="20"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Bottom"
             Command="{Binding ShowCommercialCommand}"
-            Content="Show advert" />
+            Content="Show advert"/>
     </Grid>
 </controls:Flyout>

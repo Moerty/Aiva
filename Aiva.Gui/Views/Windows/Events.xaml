@@ -16,7 +16,7 @@
     mc:Ignorable="d">
 
     <Window.Resources>
-        <ResourceDictionary />
+        <ResourceDictionary/>
     </Window.Resources>
     <Canvas Name="MainCanvas">
         <TextBlock
@@ -38,7 +38,7 @@
                             Storyboard.TargetProperty="(UIElement.Opacity)"
                             From="1.0"
                             To="0.0"
-                            Duration="0:0:5" />
+                            Duration="0:0:5"/>
                     </Storyboard>
                 </BeginStoryboard>
             </Storyboard.Target>
@@ -65,7 +65,7 @@
                             Storyboard.TargetProperty="(UIElement.Opacity)"
                             From="1.0"
                             To="0.0"
-                            Duration="0:0:5" />
+                            Duration="0:0:5"/>
                     </Storyboard>
                 </BeginStoryboard>
             </Storyboard.Target>
@@ -80,6 +80,6 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Click="Button_Click"
-            Content="Button" />
+            Content="Button"/>
     </Grid>-->
 </Window>
