@@ -8,8 +8,8 @@
     xmlns:helpers="clr-namespace:Aiva.Gui.Internal"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvm="clr-namespace:Aiva.Gui.ViewModels"
-    Width="720"
-    Height="470"
+    Width="800"
+    Height="400"
     d:DataContext="{d:DesignInstance d:Type=mvvm:Chat}"
     mc:Ignorable="d">
     <controls:MetroContentControl.Resources>

@@ -9,8 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvm="clr-namespace:Aiva.Gui.ViewModels.Tabs"
     Name="window"
-    Width="720"
-    Height="470"
+    Width="800"
+    Height="400"
     d:DataContext="{d:DesignInstance d:Type=mvvm:Voting,
                                      IsDesignTimeCreatable=True}"
     mc:Ignorable="d">
