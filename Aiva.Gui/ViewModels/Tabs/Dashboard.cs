@@ -9,8 +9,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using TwitchLib.Enums;
-using TwitchLib.Events.Client;
+using TwitchLib.Api.Enums;
+using TwitchLib.Client.Events;
 
 namespace Aiva.Gui.ViewModels.Tabs {
     [AddINotifyPropertyChangedInterface]

@@ -1,8 +1,10 @@
 ﻿using System;
-using TwitchLib.Events.Client;
+using TwitchLib.Client.Events;
 
-namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
-    public class Currency {
+namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands
+{
+    public class Currency
+    {
         #region Models
         public AddCurrency Add;
         public TransferCurrency Transfer;
@@ -11,7 +13,8 @@ namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
         #endregion Models
 
         #region Constructor
-        public Currency() {
+        public Currency()
+        {
             Add = new AddCurrency();
             Transfer = new TransferCurrency();
             Remove = new RemoveCurrency();
@@ -25,16 +28,20 @@ namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void CommandReceived(object sender, OnChatCommandReceivedArgs e) {
-            if (String.Compare(Config.Config.Instance.Storage.ModCommands.ModCurrency.AddCurrency, e.Command.CommandText, true) == 0) {
+        public void CommandReceived(object sender, OnChatCommandReceivedArgs e)
+        {
+            if (String.Compare(Config.Config.Instance.Storage.ModCommands.ModCurrency.AddCurrency, e.Command.CommandText, true) == 0)
+            {
                 Add.ChatCommandReceived(sender, e);
             }
 
-            if (String.Compare(Config.Config.Instance.Storage.ModCommands.ModCurrency.RemoveCurrency, e.Command.CommandText, true) == 0) {
+            if (String.Compare(Config.Config.Instance.Storage.ModCommands.ModCurrency.RemoveCurrency, e.Command.CommandText, true) == 0)
+            {
                 Remove.ChatCommandReceived(sender, e);
             }
 
-            if (String.Compare(Config.Config.Instance.Storage.ModCommands.ModCurrency.TransferCurrency, e.Command.CommandText, true) == 0) {
+            if (String.Compare(Config.Config.Instance.Storage.ModCommands.ModCurrency.TransferCurrency, e.Command.CommandText, true) == 0)
+            {
                 Transfer.ChatCommandReceived(sender, e);
             }
         }
@@ -46,11 +53,13 @@ namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
         /// <summary>
         /// Add Currency ModCommands
         /// </summary>
-        public class AddCurrency {
+        public class AddCurrency
+        {
             private Database.Handlers.Currency.AddCurrency _addCurrency;
             private readonly Database.Handlers.Users _users;
 
-            public AddCurrency() {
+            public AddCurrency()
+            {
                 _addCurrency = new Database.Handlers.Currency.AddCurrency();
                 _users = new Database.Handlers.Users();
             }
@@ -61,13 +70,18 @@ namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
             /// </summary>
             /// <param name="sender"></param>
             /// <param name="e"></param>
-            public async void ChatCommandReceived(object sender, OnChatCommandReceivedArgs e) {
-                if (e.Command.ChatMessage.UserType.IsUserPermitted()) {
-                    if (e.Command.ArgumentsAsList.Count > 1) {
-                        if (int.TryParse(e.Command.ArgumentsAsList[1], out int value)) {
+            public async void ChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
+            {
+                if (e.Command.ChatMessage.UserType.IsUserPermitted())
+                {
+                    if (e.Command.ArgumentsAsList.Count > 1)
+                    {
+                        if (int.TryParse(e.Command.ArgumentsAsList[1], out int value))
+                        {
                             var user = await AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(e.Command.ArgumentsAsList[0]).ConfigureAwait(false);
 
-                            if (user?.Total > 0) {
+                            if (user?.Total > 0)
+                            {
                                 AddCurrencyToUser(
                                     senderName: e.Command.ChatMessage.DisplayName,
                                     username: user.Matches[0].DisplayName,
@@ -86,14 +100,17 @@ namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
             /// <param name="username"></param>
             /// <param name="userid"></param>
             /// <param name="value"></param>
-            public void AddCurrencyToUser(string senderName, string username, int userid, int value) {
+            public void AddCurrencyToUser(string senderName, string username, int userid, int value)
+            {
                 if (_addCurrency == null)
                     _addCurrency = new Database.Handlers.Currency.AddCurrency();
 
                 var result = _addCurrency.Add(userid, value);
 
-                if (result) {
+                if (result)
+                {
                     AivaClient.Instance.TwitchClient.SendMessage(
+                        AivaClient.Instance.Channel,
                                     $"@{senderName} : {username} added {value} currency!");
                 }
             }
@@ -105,20 +122,26 @@ namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
         /// <summary>
         /// Transfer Currency ModCommands
         /// </summary>
-        public class TransferCurrency {
+        public class TransferCurrency
+        {
             private readonly Database.Handlers.Currency.TransferCurrency _transferCurrency;
 
-            public TransferCurrency() {
+            public TransferCurrency()
+            {
                 _transferCurrency = new Database.Handlers.Currency.TransferCurrency();
             }
 
-            public async void ChatCommandReceived(object sender, OnChatCommandReceivedArgs e) {
-                if (e.Command.ChatMessage.UserType.IsUserPermitted()) {
-                    if (int.TryParse(e.Command.ArgumentsAsList[2], out int value)) {
+            public async void ChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
+            {
+                if (e.Command.ChatMessage.UserType.IsUserPermitted())
+                {
+                    if (int.TryParse(e.Command.ArgumentsAsList[2], out int value))
+                    {
                         var user1 = await AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(e.Command.ArgumentsAsList[0]).ConfigureAwait(false);
                         var user2 = await AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(e.Command.ArgumentsAsList[1]).ConfigureAwait(false);
 
-                        if (user1?.Total > 0 && user2?.Total > 0) {
+                        if (user1?.Total > 0 && user2?.Total > 0)
+                        {
                             TransferCurrencyFromUser(
                                 senderName: e.Command.ChatMessage.DisplayName,
                                 username1: user1.Matches[0].DisplayName,
@@ -140,11 +163,14 @@ namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
             /// <param name="username2"></param>
             /// <param name="userid2"></param>
             /// <param name="value"></param>
-            private void TransferCurrencyFromUser(string senderName, string username1, int userid1, string username2, int userid2, int value) {
+            private void TransferCurrencyFromUser(string senderName, string username1, int userid1, string username2, int userid2, int value)
+            {
                 var result = _transferCurrency.Transfer(userid1, userid2, value);
 
-                if (result) {
+                if (result)
+                {
                     AivaClient.Instance.TwitchClient.SendMessage(
+                        AivaClient.Instance.Channel,
                         $"@{senderName} : Transfer {value} currency from {username1} to {username2}");
                 }
             }
@@ -157,19 +183,25 @@ namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
         /// <summary>
         /// Remove Currency ModCommands
         /// </summary>
-        public class RemoveCurrency {
+        public class RemoveCurrency
+        {
             private readonly Database.Handlers.Currency.RemoveCurrency _removeCurrency;
 
-            public RemoveCurrency() {
+            public RemoveCurrency()
+            {
                 _removeCurrency = new Database.Handlers.Currency.RemoveCurrency();
             }
 
-            public async void ChatCommandReceived(object sender, OnChatCommandReceivedArgs e) {
-                if (e.Command.ChatMessage.UserType.IsUserPermitted()) {
-                    if (int.TryParse(e.Command.ArgumentsAsList[1], out int value)) {
+            public async void ChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
+            {
+                if (e.Command.ChatMessage.UserType.IsUserPermitted())
+                {
+                    if (int.TryParse(e.Command.ArgumentsAsList[1], out int value))
+                    {
                         var user = await AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(e.Command.ArgumentsAsList[0]).ConfigureAwait(false);
 
-                        if (user?.Total > 0) {
+                        if (user?.Total > 0)
+                        {
                             RemoveCurrencyFromUser(
                                 senderName: e.Command.ChatMessage.DisplayName,
                                 username: user.Matches[0].DisplayName,
@@ -180,11 +212,14 @@ namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
                 }
             }
 
-            private void RemoveCurrencyFromUser(string senderName, string username, int userid, int value) {
+            private void RemoveCurrencyFromUser(string senderName, string username, int userid, int value)
+            {
                 var result = _removeCurrency.Remove(userid, value);
 
-                if (result) {
+                if (result)
+                {
                     AivaClient.Instance.TwitchClient.SendMessage(
+                        AivaClient.Instance.Channel,
                         $"@{senderName} : {username} removed {value} currency!");
                 }
             }

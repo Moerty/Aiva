@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using TwitchLib.Events.Client;
-using TwitchLib.Extensions.Client;
-using TwitchLib.Models.Client;
+using TwitchLib.Client.Events;
+using TwitchLib.Client.Extensions;
+using TwitchLib.Client.Models;
 
 namespace Aiva.Core.Twitch {
     public class Channel {
@@ -56,7 +56,10 @@ namespace Aiva.Core.Twitch {
             if (IsFollowersOnlyModeActive) {
                 FollowersOnlyModeDuration = channelState.FollowersOnly;
             }
-            IsSlowModeActive = channelState.SlowMode == true;
+            //IsSlowModeActive = channelState.SlowMode == true;
+            IsSlowModeActive = channelState.SlowMode.HasValue
+                ? channelState.SlowMode.Value == 1
+                : false;
         }
 
         public void Start() {
@@ -124,26 +127,26 @@ namespace Aiva.Core.Twitch {
         }
 
         public void SetSlowMode(bool on_off, int seconds = 0) {
-            if (on_off) {
-                AivaClient.Instance.TwitchClient.SlowModeOn
-                    (TimeSpan.FromSeconds(seconds));
-            } else {
-                AivaClient.Instance.TwitchClient.SlowModeOff();
-            }
+            //if (on_off) {
+            //    AivaClient.Instance.TwitchClient.SlowModeOn
+            //        (TimeSpan.FromSeconds(seconds));
+            //} else {
+            //    AivaClient.Instance.TwitchClient.SlowModeOff();
+            //}
         }
 
         public void SetSubMode(bool on_off) {
-            if (on_off) {
-                AivaClient.Instance.TwitchClient.SubscribersOnlyOn();
-            } else {
-                AivaClient.Instance.TwitchClient.SubscribersOnlyOff();
-            }
+            //if (on_off) {
+            //    AivaClient.Instance.TwitchClient.SubscribersOnlyOn();
+            //} else {
+            //    AivaClient.Instance.TwitchClient.SubscribersOnlyOff();
+            //}
         }
 
         public void SetFollowersMode(bool on_off) {
-            if (!on_off) {
-                AivaClient.Instance.TwitchClient.FollowersOnlyOff();
-            }
+            //if (!on_off) {
+            //    AivaClient.Instance.TwitchClient.FollowersOnlyOff();
+            //}
             // add FollowersOnlyModeOn when fixed from Twitchlib
         }
     }

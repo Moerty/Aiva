@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using TwitchLib;
-using TwitchLib.Events.Client;
-using TwitchLib.Interfaces;
-using TwitchLib.Services;
+using TwitchLib.Api.Interfaces;
+using TwitchLib.Api.Services;
+using TwitchLib.Client;
+using TwitchLib.Client.Events;
 
 namespace Aiva.Core.Twitch.Tasks {
     public class Events {
@@ -34,28 +35,30 @@ namespace Aiva.Core.Twitch.Tasks {
         }
 
         private void NewSub(object sender, OnNewSubscriberArgs e) {
-            // sub normal
-            if (!e.Subscriber.IsTwitchPrime) {
-                // chat
-                if (Config.Config.Instance.Storage.Interactions.WriteInChatNormalSub) {
-                    AivaClient.Instance.TwitchClient.SendMessage(
-                        $"Thanks @{e.Subscriber.DisplayName} for your subscription!", AivaClient.DryRun);
-                }
+            //// sub normal
+            //if (!e.Subscriber.IsTwitchPrime) {
+            //    // chat
+            //    if (Config.Config.Instance.Storage.Interactions.WriteInChatNormalSub) {
+            //        AivaClient.Instance.TwitchClient.SendMessage(
+            //            AivaClient.Instance.Channel,
+            //            $"Thanks @{e.Subscriber.DisplayName} for your subscription!", AivaClient.DryRun);
+            //    }
 
-                // overlay
-                if (Config.Config.Instance.Storage.Overlay.ShowNewSub) {
-                    if (Config.Config.Instance.Storage.Overlay.ShowMessageOnNewSubNormal) {
-                        ShowNewSub?.Invoke(this, $"Thanks {e.Subscriber.DisplayName} for your subscription!");
-                        ShowMessage?.Invoke(this, e.Subscriber.ResubMessage);
-                    } else {
-                        ShowNewSub?.Invoke(this, $"Thanks {e.Subscriber.DisplayName} for your subscription!");
-                    }
-                }
-                // sub prime
-            } else {
+            //    // overlay
+            //    if (Config.Config.Instance.Storage.Overlay.ShowNewSub) {
+            //        if (Config.Config.Instance.Storage.Overlay.ShowMessageOnNewSubNormal) {
+            //            ShowNewSub?.Invoke(this, $"Thanks {e.Subscriber.DisplayName} for your subscription!");
+            //            ShowMessage?.Invoke(this, e.Subscriber.ResubMessage);
+            //        } else {
+            //            ShowNewSub?.Invoke(this, $"Thanks {e.Subscriber.DisplayName} for your subscription!");
+            //        }
+            //    }
+            //    // sub prime
+            //} else {
                 // chat
                 if (Config.Config.Instance.Storage.Interactions.WriteInChatPrimeSub) {
                     AivaClient.Instance.TwitchClient.SendMessage(
+                        AivaClient.Instance.Channel,
                         $"Thanks @{e.Subscriber.DisplayName} for your subscription via prime!", AivaClient.DryRun);
                 }
 
@@ -68,7 +71,7 @@ namespace Aiva.Core.Twitch.Tasks {
                         ShowNewSub?.Invoke(this, $"Thanks {e.Subscriber.DisplayName} for your subscription via prime!");
                     }
                 }
-            }
+            //}
         }
 
         public void MessageReceivedTest(object sender, OnMessageReceivedArgs e) {

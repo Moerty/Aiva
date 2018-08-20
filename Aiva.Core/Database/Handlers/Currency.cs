@@ -28,7 +28,7 @@ namespace Aiva.Core.Database.Handlers {
             public async void Add(List<Tuple<string, int, int>> UserList) {
                 using (var context = new Storage.DatabaseContext()) {
                     foreach (var user in UserList) {
-                        var userDb = context.Users.SingleOrDefault(u => u.TwitchUser == user.Item2);
+                        var userDb = context.Users.SingleOrDefault(u => u.UsersId == user.Item2);
 
                         if (userDb != null) {
                             userDb.Currency.Value += user.Item3;
@@ -43,7 +43,7 @@ namespace Aiva.Core.Database.Handlers {
                 using (var context = new Storage.DatabaseContext()) {
                     var user = context.Users
                         .Include(c => c.Currency)
-                        .SingleOrDefault(u => u.TwitchUser == twitchID);
+                        .SingleOrDefault(u => u.UsersId == twitchID);
 
                     if (user != null) {
                         user.Currency.Value += value;
@@ -86,7 +86,7 @@ namespace Aiva.Core.Database.Handlers {
                 using (var context = new Storage.DatabaseContext()) {
                     var user = context.Users
                         .Include(c => c.Currency)
-                        .SingleOrDefault(u => u.TwitchUser == twitchID);
+                        .SingleOrDefault(u => u.UsersId == twitchID);
 
                     if (user != null) {
                         user.Currency.Value -= value;
@@ -107,7 +107,7 @@ namespace Aiva.Core.Database.Handlers {
             public async void Remove(List<Tuple<string, int, int>> UserList) {
                 using (var context = new Storage.DatabaseContext()) {
                     foreach (var user in UserList) {
-                        var userDb = context.Users.SingleOrDefault(u => u.TwitchUser == user.Item2);
+                        var userDb = context.Users.SingleOrDefault(u => u.UsersId == user.Item2);
 
                         if (userDb != null) {
                             userDb.Currency.Value -= user.Item3;
@@ -131,8 +131,8 @@ namespace Aiva.Core.Database.Handlers {
             /// <param name="value"></param>
             internal bool Transfer(int userid1, int userid2, int value) {
                 using (var context = new Storage.DatabaseContext()) {
-                    var user1 = context.Users.SingleOrDefault(u => u.TwitchUser == userid1);
-                    var user2 = context.Users.SingleOrDefault(u => u.TwitchUser == userid2);
+                    var user1 = context.Users.SingleOrDefault(u => u.UsersId == userid1);
+                    var user2 = context.Users.SingleOrDefault(u => u.UsersId == userid2);
 
                     if (user1 != null && user2 != null) {
                         if (user1.Currency.Value >= value) {
@@ -163,7 +163,7 @@ namespace Aiva.Core.Database.Handlers {
             using (var context = new Storage.DatabaseContext()) {
                 var user = context.Users
                     .Include(u => u.Currency)
-                    .SingleOrDefault(u => u.TwitchUser == twitchID);
+                    .SingleOrDefault(u => u.UsersId == twitchID);
 
                 if (user != null) {
                     return user.Currency.Value;
@@ -181,7 +181,7 @@ namespace Aiva.Core.Database.Handlers {
         /// <returns></returns>
         public bool HasUserEnoughCurrency(int twitchID, int currencyToCheck) {
             using (var context = new Storage.DatabaseContext()) {
-                var user = context.Users.SingleOrDefault(u => twitchID == u.TwitchUser);
+                var user = context.Users.SingleOrDefault(u => twitchID == u.UsersId);
 
                 if (user != null) {
                     if (user.Currency.Value >= currencyToCheck) {
@@ -199,12 +199,12 @@ namespace Aiva.Core.Database.Handlers {
         /// <param name="twitchID"></param>
         public async void AddUserToCurrencyTable(int twitchID) {
             using (var context = new Storage.DatabaseContext()) {
-                var currencyEntry = context.Currency.SingleOrDefault(c => c.TwitchUser == twitchID);
+                var currencyEntry = context.Currency.SingleOrDefault(c => c.UsersId == twitchID);
 
                 if (currencyEntry == null) {
                     context.Currency.Add(
                         new Storage.Currency {
-                            TwitchUser = twitchID,
+                            UsersId = twitchID,
                             Value = 0
                         });
 

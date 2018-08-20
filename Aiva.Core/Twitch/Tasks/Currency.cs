@@ -1,5 +1,5 @@
 ﻿using System;
-using TwitchLib.Events.Client;
+using TwitchLib.Client.Events;
 
 namespace Aiva.Core.Twitch.Tasks {
     public class Currency {
@@ -16,6 +16,7 @@ namespace Aiva.Core.Twitch.Tasks {
 
                 if (currency.HasValue) {
                     AivaClient.Instance.TwitchClient.SendMessage(
+                        AivaClient.Instance.Channel,
                         $"@{e.Command.ChatMessage.DisplayName} : You have {currency.Value} currency!");
                 }
             }

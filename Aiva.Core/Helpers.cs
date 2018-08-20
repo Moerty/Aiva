@@ -1,6 +1,6 @@
 ﻿using Aiva.Core.Config;
 using Newtonsoft.Json;
-using TwitchLib.Enums;
+using TwitchLib.Client.Enums;
 
 namespace Aiva.Core {
     public static class Helpers {

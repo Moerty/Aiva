@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
-using TwitchLib.Events.Client;
+using TwitchLib.Client.Events;
 
 namespace Aiva.Extensions.Songrequest {
     public class Handler {

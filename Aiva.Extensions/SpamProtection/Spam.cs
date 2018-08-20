@@ -1,7 +1,7 @@
 ﻿using Aiva.Core.Twitch;
 using System;
-using TwitchLib.Events.Client;
-using TwitchLib.Extensions.Client;
+using TwitchLib.Client.Events;
+using TwitchLib.Client.Extensions;
 
 namespace Aiva.Extensions.SpamProtection {
     public class Spam {

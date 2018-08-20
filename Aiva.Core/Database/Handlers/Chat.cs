@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using TwitchLib.Events.Client;
+using TwitchLib.Client.Events;
 
 namespace Aiva.Core.Database.Handlers {
     public class Chat {
@@ -12,7 +12,7 @@ namespace Aiva.Core.Database.Handlers {
         public void AddReceivedMessageToDatabase(object sender, OnMessageReceivedArgs e) {
             using (var context = new Storage.DatabaseContext()) {
                 context.Chat.Add(new Storage.Chat {
-                    TwitchUser = Convert.ToInt32(e.ChatMessage.UserId),
+                    UsersId = Convert.ToInt32(e.ChatMessage.UserId),
                     ChatMessage = e.ChatMessage.Message,
                     Timestamp = DateTime.Now,
                 });
@@ -31,7 +31,7 @@ namespace Aiva.Core.Database.Handlers {
             using (var context = new Storage.DatabaseContext()) {
                 context.Chat.Add(
                     new Storage.Chat {
-                        TwitchUser = twitchID,
+                        UsersId = twitchID,
                         ChatMessage = message,
                         Timestamp = timeStamp
                     });
@@ -48,7 +48,7 @@ namespace Aiva.Core.Database.Handlers {
         public string GetLastMessageFromUser(string userId) {
             using (var context = new Storage.DatabaseContext()) {
                 var lastMessage = context.Chat.LastOrDefault(
-                    l => Convert.ToInt32(userId) == l.TwitchUser);
+                    l => Convert.ToInt32(userId) == l.UsersId);
 
                 return
                     lastMessage != null

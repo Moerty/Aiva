@@ -7,7 +7,7 @@ namespace Aiva.Core.Database.Storage {
         public DateTime Timestamp { get; set; }
         public string ChatMessage { get; set; }
 
-        public int TwitchUser { get; set; }
+        public int UsersId { get; set; }
         public virtual Users Users { get; set; }
     }
 }

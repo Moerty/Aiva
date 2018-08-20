@@ -1,6 +1,9 @@
 ﻿using System;
 using TwitchLib;
-using TwitchLib.Events.Client;
+using TwitchLib.Api;
+using TwitchLib.Client;
+using TwitchLib.Client.Events;
+using TwitchLib.Client.Models;
 
 namespace Aiva.Core.Twitch {
     public class AivaClient {
@@ -30,25 +33,27 @@ namespace Aiva.Core.Twitch {
 
         private void SetupTwitch() {
             // TwitchApi
-            TwitchApi = new TwitchAPI(Config.Config.Instance.Storage.Credentials.TwitchClientID,
-                Config.Config.Instance.Storage.Credentials.TwitchOAuth, false);
+            TwitchApi = new TwitchAPI();
+            TwitchApi.Settings.ClientId = Config.Config.Instance.Storage.Credentials.TwitchClientID;
+            TwitchApi.Settings.AccessToken = Config.Config.Instance.Storage.Credentials.TwitchOAuth;
 
             // TwitchClient
-            var TwitchCredentials = new TwitchLib.Models.Client.ConnectionCredentials(BotName,
+            var TwitchCredentials = new ConnectionCredentials(BotName,
                 Config.Config.Instance.Storage.Credentials.TwitchOAuth);
 
-            TwitchClient = new TwitchClient(
+            TwitchClient = new TwitchClient();
+            TwitchClient.Initialize(
                 credentials: TwitchCredentials,
                 channel: Channel,
                 chatCommandIdentifier: Convert.ToChar(Config.Config.Instance.Storage.General.CommandIdentifier),
                 whisperCommandIdentifier: '@',
-                logging: false,
-                logger: null,
                 autoReListenOnExceptions: true);
 
             TwitchClient.OnJoinedChannel += OnJoinedChannel;
 
             TwitchClient.Connect();
+
+            //GetChannelId();
         }
 
         public void SetTasks() {
@@ -59,7 +64,7 @@ namespace Aiva.Core.Twitch {
         }
 
         private async void GetChannelId() {
-            var channelDetails = await TwitchApi.Channels.v5.GetChannelAsync().ConfigureAwait(false);
+            var channelDetails = TwitchApi.Channels.v5.GetChannelAsync().Result;
             ChannelId = channelDetails.Id;
             IsPartnered = channelDetails.Partner;
 
@@ -74,6 +79,7 @@ namespace Aiva.Core.Twitch {
         /// <param name="e"></param>
         private void OnJoinedChannel(object sender, OnJoinedChannelArgs e) {
             TwitchClient.SendMessage(
+                channel: ChannelId,
                 message: "Aiva started, hi at all!",
                 dryRun: DryRun);
         }

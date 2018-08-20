@@ -16,7 +16,10 @@ namespace Aiva.Gui.ViewModels.Windows {
         private string _twitchOAuthToken;
         private bool _isTwitchAuthenticated;
 
+        private readonly TwitchLib.Api.TwitchAPI _apiClient;
+
         public Setup() {
+            _apiClient = new TwitchLib.Api.TwitchAPI();
             _authentication = new Core.Twitch.Authentication();
 
             RequestOAuthTokenCommand =
@@ -46,9 +49,10 @@ namespace Aiva.Gui.ViewModels.Windows {
         }
 
         private async Task<bool> GetTwitchUserDetails() {
-            var twitchApi = new TwitchLib.TwitchAPI(accessToken: _twitchOAuthToken);
+            //var twitchApi = new TwitchLib.TwitchAPI(accessToken: _twitchOAuthToken);
+            _apiClient.Settings.AccessToken = _twitchOAuthToken;
 
-            var twitchDetails = await twitchApi.Root.v5.GetRoot().ConfigureAwait(false);
+            var twitchDetails = await _apiClient.Root.v5.GetRootAsync().ConfigureAwait(false);
 
             if (twitchDetails?.Token.Valid == true) {
                 Config.Instance.Storage.General.BotName = twitchDetails.Token.Username;

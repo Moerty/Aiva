@@ -34,6 +34,7 @@ namespace Aiva.Core.Database.Storage {
             modelBuilder.Entity<Users>()
                 .HasKey(k => k.UsersId);
 
+            modelBuilder.Entity<ActiveUsers>().HasKey(k => k.TwitchUserId);
             modelBuilder.Entity<BlacklistedWords>().HasKey(k => k.BlacklistedWordsId);
             modelBuilder.Entity<Chat>().HasKey(k => k.ChatId);
             modelBuilder.Entity<Commands>().HasKey(k => k.CommandsId);

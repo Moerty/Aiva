@@ -1,6 +1,7 @@
 ﻿using System;
 using TwitchLib;
-using TwitchLib.Events.Client;
+using TwitchLib.Client;
+using TwitchLib.Client.Events;
 
 namespace Aiva.Core.Twitch.Tasks {
     public class Tasks {

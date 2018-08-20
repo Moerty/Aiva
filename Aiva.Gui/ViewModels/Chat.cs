@@ -6,8 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using TwitchLib.Events.Client;
-using TwitchLib.Extensions.Client;
+using TwitchLib.Client.Events;
+using TwitchLib.Client.Extensions;
 
 namespace Aiva.Gui.ViewModels {
     [PropertyChanged.AddINotifyPropertyChangedInterface]
@@ -59,16 +59,17 @@ namespace Aiva.Gui.ViewModels {
                 unmute => SelectedViewer != null);
 
             ModCommand = new Internal.RelayCommand(
-                mod => AivaClient.Instance.TwitchClient.Mod(SelectedViewer.Name),
+                mod => AivaClient.Instance.TwitchClient.Mod(AivaClient.Instance.ChannelId, SelectedViewer.Name),
                 mod => SelectedViewer != null);
 
             UnmodCommand = new Internal.RelayCommand(
-                unmod => AivaClient.Instance.TwitchClient.Unmod(SelectedViewer.Name),
+                unmod => AivaClient.Instance.TwitchClient.Unmod(AivaClient.Instance.ChannelId, SelectedViewer.Name),
                 unmod => SelectedViewer != null);
         }
 
         private void SendMessage() {
             AivaClient.Instance.TwitchClient.SendMessage(
+                channel: AivaClient.Instance.ChannelId,
                 message: MessageToSend,
                 dryRun: AivaClient.DryRun);
 
@@ -127,18 +128,18 @@ namespace Aiva.Gui.ViewModels {
         /// </summary>
         /// <param name="name"></param>
         /// <param name="id"></param>
-        private void AddViewerToList(string name, string id) {
+        private async void AddViewerToList(string name, string id) {
             if (Viewer.Any(v => String.Compare(v.TwitchID, id) == 0)) // check if user is already in List
                 return;
 
-            var IsUserSubscriber = AivaClient.Instance.TwitchApi.Subscriptions.v3.ChannelHasUserSubscribedAsync(AivaClient.Instance.Channel, name).Result;
+            var isUserSubscriber = await AivaClient.Instance.TwitchApi.Channels.v5.CheckChannelSubscriptionByUserAsync(AivaClient.Instance.ChannelId, name);
 
             var rnd = new Random();
             var viewer = new Aiva.Models.Chat.Viewer {
                 Name = name,
                 TwitchID = id,
-                IsSub = IsUserSubscriber != null,
-                Type = IsUserSubscriber != null ? nameof(Aiva.Models.Enums.SortDirectionListView.Subscriber)
+                IsSub = isUserSubscriber != null,
+                Type = isUserSubscriber != null ? nameof(Aiva.Models.Enums.SortDirectionListView.Subscriber)
                                             : nameof(Aiva.Models.Enums.SortDirectionListView.Viewer),
                 ChatNameColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256))
                 //IsMod = will be filled from the event "ModeratoersReceived"

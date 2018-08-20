@@ -1,7 +1,7 @@
 ﻿using PropertyChanged;
 using System;
 using System.Drawing;
-using TwitchLib.Enums;
+using TwitchLib.Client.Enums;
 
 namespace Aiva.Models.Chat {
     [AddINotifyPropertyChangedInterface]

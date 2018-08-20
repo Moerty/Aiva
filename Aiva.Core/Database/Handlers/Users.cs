@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TwitchLib.Events.Client;
+using TwitchLib.Api.Models.v5.Users;
+using TwitchLib.Client.Events;
 
 namespace Aiva.Core.Database.Handlers {
     public class Users {
@@ -29,12 +30,12 @@ namespace Aiva.Core.Database.Handlers {
             /// Add or Update User in Database
             /// </summary>
             /// <param name="User">todo: describe User parameter on AddUser</param>
-            public void AddUserToDatabase(TwitchLib.Models.API.v5.Users.User User) {
+            public void AddUserToDatabase(User User) {
                 if (User != null) {
                     using (var context = new Storage.DatabaseContext()) {
                         var databaseUser = context.Users
                             .Include(au => au.ActiveUsers)
-                            .SingleOrDefault(u => u.TwitchUser == Convert.ToInt32(User.Id));
+                            .SingleOrDefault(u => u.UsersId == Convert.ToInt32(User.Id));
 
                         // Update User
                         if (databaseUser != null) {
@@ -49,7 +50,7 @@ namespace Aiva.Core.Database.Handlers {
                             // Active users
                             if (databaseUser.ActiveUsers == null) {
                                 databaseUser.ActiveUsers = new Storage.ActiveUsers {
-                                    TwitchUser = databaseUser.TwitchUser,
+                                    UsersId = databaseUser.UsersId,
                                     JoinedTime = DateTime.Now,
                                     Users = databaseUser,
                                 };
@@ -58,7 +59,7 @@ namespace Aiva.Core.Database.Handlers {
                         // Create User
                         else {
                             var newUser = new Storage.Users {
-                                TwitchUser = Convert.ToInt32(User.Id),
+                                UsersId = Convert.ToInt32(User.Id),
                                 Bio = User.Bio,
                                 CreatedAt = User.CreatedAt,
                                 DisplayName = User.DisplayName,
@@ -67,15 +68,15 @@ namespace Aiva.Core.Database.Handlers {
                                 Type = User.Type,
                                 UpdatedAt = User.UpdatedAt,
                                 Currency = new Storage.Currency {
-                                    TwitchUser = Convert.ToInt32(User.Id),
+                                    UsersId = Convert.ToInt32(User.Id),
                                     Value = 0,
                                 },
                                 ActiveUsers = new Storage.ActiveUsers {
-                                    TwitchUser = Convert.ToInt32(User.Id),
+                                    UsersId = Convert.ToInt32(User.Id),
                                     JoinedTime = DateTime.Now,
                                 },
                                 TimeWatched = new Storage.TimeWatched {
-                                    TwitchUser = Convert.ToInt32(User.Id),
+                                    UsersId = Convert.ToInt32(User.Id),
                                     Time = 0,
                                 }
                             };
@@ -132,7 +133,7 @@ namespace Aiva.Core.Database.Handlers {
                                 continue;
 
                             var user = context.Users.SingleOrDefault(
-                                u => u.TwitchUser == Convert.ToInt32(userMatch.Id));
+                                u => u.UsersId == Convert.ToInt32(userMatch.Id));
 
                             if (user != null) {
                                 var duration = DateTime.Now.Subtract(user.ActiveUsers.JoinedTime);
@@ -169,7 +170,7 @@ namespace Aiva.Core.Database.Handlers {
         /// <returns></returns>
         public bool IsUserInDatabaseUserId(int userid) {
             using (var context = new Storage.DatabaseContext()) {
-                return context.Users.Any(u => u.TwitchUser == userid);
+                return context.Users.Any(u => u.UsersId == userid);
             }
         }
 

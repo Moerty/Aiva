@@ -2,11 +2,11 @@
 
 namespace Aiva.Core.Database.Storage {
     public class ActiveUsers {
-        public int ActiveUsersId { get; set; }
+        public int TwitchUserId { get; set; }
 
         public DateTime JoinedTime { get; set; }
 
-        public int TwitchUser { get; set; }
+        public int UsersId { get; set; }
         public virtual Users Users { get; set; }
     }
 }

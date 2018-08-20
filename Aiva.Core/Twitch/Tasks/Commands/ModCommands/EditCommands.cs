@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
-using TwitchLib.Events.Client;
+using TwitchLib.Client.Enums;
+using TwitchLib.Client.Events;
 
 namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
     public class EditCommands {
@@ -25,7 +26,7 @@ namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
                 if (text.Success) {
                     // have user permissions?
                     if ((int)e.Command.ChatMessage.UserType >= 1 // >= 1 == >= Mod
-                        && e.Command.ChatMessage.UserType != TwitchLib.Enums.UserType.Staff) {
+                        && e.Command.ChatMessage.UserType != UserType.Staff) {
                         // check parameters
                         if (e.Command.ArgumentsAsList.Count >= 1) {
                             switch (e.Command.ArgumentsAsList[0]) {
@@ -50,6 +51,7 @@ namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
 
         private void WriteHelpMessage(string displayName) {
             AivaClient.Instance.TwitchClient.SendMessage(
+                AivaClient.Instance.Channel,
                 $"@{displayName} HowTo: https://aiva.it0.me/Commands/modcommands");
         }
 
@@ -57,8 +59,9 @@ namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
             var result = _commandsDatabaseHandler.AddCommand(username, commandName, commandText);
 
             if(result) {
-                AivaClient.Instance.TwitchClient.SendMessage
-                    ($"@{username} successfully added command {commandName}", AivaClient.DryRun);
+                AivaClient.Instance.TwitchClient.SendMessage(
+                    AivaClient.Instance.Channel,
+                    $"@{username} successfully added command {commandName}", AivaClient.DryRun);
             }
         }
 
@@ -67,6 +70,7 @@ namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
 
             if(result) {
                 AivaClient.Instance.TwitchClient.SendMessage(
+                    AivaClient.Instance.Channel,
                     $"@{username} successfully edited command {commandName}", AivaClient.DryRun);
             }
         }
@@ -76,6 +80,7 @@ namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
 
             if(result) {
                 AivaClient.Instance.TwitchClient.SendMessage(
+                    AivaClient.Instance.Channel,
                     $"@{username} successfully removed command {commandName}", AivaClient.DryRun);
             }
         }

@@ -1,4 +1,6 @@
-﻿using TwitchLib.Events.Client;
+﻿
+using TwitchLib.Client.Enums;
+using TwitchLib.Client.Events;
 
 namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
     public class Handler {
@@ -23,8 +25,8 @@ namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public void CommandReceived(object sender, OnChatCommandReceivedArgs e) {
-            if (e.Command.ChatMessage.UserType != TwitchLib.Enums.UserType.Viewer
-                && e.Command.ChatMessage.UserType != TwitchLib.Enums.UserType.Staff) {
+            if (e.Command.ChatMessage.UserType != UserType.Viewer
+                && e.Command.ChatMessage.UserType != UserType.Staff) {
                 if (string.Compare(e.Command.CommandText, "command", false) == 0) {
                     if (e.Command.ArgumentsAsList?.Count >= 0) {
                         switch (e.Command.ArgumentsAsList[0]) {

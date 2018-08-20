@@ -2,7 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TwitchLib.Events.Client;
+using System.Threading.Tasks;
+using TwitchLib.Client.Events;
 
 namespace Aiva.Extensions.Giveaway {
     public class Handler {
@@ -46,7 +47,7 @@ namespace Aiva.Extensions.Giveaway {
             }
         }
 
-        private void ChatCommandReceived(object sender, OnChatCommandReceivedArgs e) {
+        private async void ChatCommandReceived(object sender, OnChatCommandReceivedArgs e) {
             if (!CheckCommand(e.Command.CommandText)) {
                 return;
             }
@@ -65,7 +66,7 @@ namespace Aiva.Extensions.Giveaway {
 
             RemoveCurrencyFromViewer(e.Command.ChatMessage.UserId);
 
-            var isSub = CheckIfUserIsSub(e.Command.ChatMessage.DisplayName);
+            var isSub = await CheckIfUserIsSub(e.Command.ChatMessage.UserId);
             var user = new Models.Giveaway.Users {
                 UserID = Convert.ToInt32(e.Command.ChatMessage.UserId),
                 IsSub = isSub,
@@ -132,13 +133,17 @@ namespace Aiva.Extensions.Giveaway {
         }
 
         private void DoNotification(string winnerName) {
-            AivaClient.Instance.TwitchClient.SendMessage($"Winner is: @{winnerName}");
+            AivaClient.Instance.TwitchClient.SendMessage(
+                AivaClient.Instance.Channel, 
+                $"Winner is: @{winnerName}");
         }
 
-        private bool CheckIfUserIsSub(string username) {
-            return AivaClient.Instance.TwitchApi.Subscriptions.v3.UserSubscribedToChannelAsync(
-                user: username,
-                targetChannel: AivaClient.Instance.Channel).Result != null;
+        private async Task<bool> CheckIfUserIsSub(string userId) {
+            var result = await AivaClient.Instance.TwitchApi.Users.v5.CheckUserSubscriptionByChannelAsync(
+                userId: userId,
+                channelId: AivaClient.Instance.ChannelId);
+
+            return result != null;
         }
 
         private void RemoveCurrencyFromViewer(string userId) {

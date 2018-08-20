@@ -4,8 +4,6 @@ namespace Aiva.Core.Database.Storage {
     public class Users {
         public int UsersId { get; set; }
 
-        public int TwitchUser { get; set; }
-
         public string DisplayName { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }

@@ -4,7 +4,7 @@ using Aiva.Models.Voting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TwitchLib.Events.Client;
+using TwitchLib.Client.Events;
 
 namespace Aiva.Extensions.Voting {
     public class Handler {
