@@ -2,6 +2,7 @@
     x:Class="Aiva.Gui.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:local="clr-namespace:Aiva.Gui"
     Exit="ExitApp"
     Startup="StartApp">
@@ -26,6 +27,27 @@
                 <ResourceDictionary Source="Styles/Expander.xaml"/>
                 -->
             </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type controls:HamburgerMenuIconItem}">
+                <Grid Height="64">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="64" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Viewbox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ToolTip="{Binding Label}" Width="32" Height="32" >
+                            <Viewbox.Child>
+                                <ContentControl Content="{Binding Path=Icon}"></ContentControl>
+                            </Viewbox.Child>
+                        </Viewbox>
+                    </Grid>
+                    <TextBlock Grid.Column="1"
+               VerticalAlignment="Center"
+               FontSize="16"
+               Foreground="White"
+               Text="{Binding Label}" />
+                </Grid>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
