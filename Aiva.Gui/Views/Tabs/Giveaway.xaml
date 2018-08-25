@@ -149,9 +149,10 @@
                 VerticalAlignment="Top"
                 controls:TextBoxHelper.Watermark="Winner..."
                 IsReadOnly="True"
-                Text="{Binding Winners}"
+                Text="{Binding WinnersSeperated, Mode=OneWay}"
                 TextWrapping="Wrap"/>
             <ListView
+                ItemsSource="{Binding WinnerMessages}"
                 Width="513"
                 Height="100"
                 Margin="14,36,0,0"
@@ -159,7 +160,8 @@
                 VerticalAlignment="Top">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn/>
+                        <GridViewColumn Header="Username"  DisplayMemberBinding="{Binding Username}" />
+                        <GridViewColumn Header="Message" DisplayMemberBinding="{Binding Message}" />
                     </GridView>
                 </ListView.View>
             </ListView>

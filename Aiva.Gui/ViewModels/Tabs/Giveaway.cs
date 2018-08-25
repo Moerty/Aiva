@@ -4,6 +4,7 @@ using MahApps.Metro.SimpleChildWindow;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Linq;
 
 namespace Aiva.Gui.ViewModels.Tabs {
     [PropertyChanged.AddINotifyPropertyChangedInterface]
@@ -15,6 +16,8 @@ namespace Aiva.Gui.ViewModels.Tabs {
         public ObservableCollection<Aiva.Models.Giveaway.Users> JoinedUsers { get; set; }
         public ObservableCollection<Aiva.Models.Giveaway.Users> Winners { get; set; }
         public ObservableCollection<Aiva.Models.Giveaway.Messages> WinnerMessages { get; set; }
+
+        public string WinnersSeperated { get; set; }
 
         public bool IsStarted { get; set; }
 
@@ -41,6 +44,7 @@ namespace Aiva.Gui.ViewModels.Tabs {
         private void DoReset() {
             _handler.DoReset();
             _handler = null;
+            WinnersSeperated = string.Empty;
             JoinedUsers = new ObservableCollection<Aiva.Models.Giveaway.Users>();
             Winners = new ObservableCollection<Aiva.Models.Giveaway.Users>();
             WinnerMessages = new ObservableCollection<Aiva.Models.Giveaway.Messages>();
@@ -101,11 +105,18 @@ namespace Aiva.Gui.ViewModels.Tabs {
         }
 
         private void WinnerMessageReceived(object sender, Aiva.Models.Giveaway.Messages e) {
-            WinnerMessages.Add(e);
+            Application.Current.Dispatcher.Invoke(() => WinnerMessages.Add(e));
         }
 
         private void WinnerFound(object sender, Aiva.Models.Giveaway.Users e) {
             Winners.Add(e);
+            JoinedUsers.Remove(e);
+
+            if(!string.IsNullOrEmpty(WinnersSeperated)) {
+                WinnersSeperated += $" | {e.Username}";
+            } else {
+                WinnersSeperated += e.Username;
+            }
         }
 
         private void UserJoined(object sender, Aiva.Models.Giveaway.Users e) {

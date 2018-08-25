@@ -66,7 +66,10 @@ namespace Aiva.Extensions.Giveaway {
 
             RemoveCurrencyFromViewer(e.Command.ChatMessage.UserId);
 
-            var isSub = await CheckIfUserIsSub(e.Command.ChatMessage.UserId);
+            bool isSub = false;
+            if (AivaClient.Instance.IsPartnered) {
+                isSub = await CheckIfUserIsSub(e.Command.ChatMessage.UserId);
+            }
             var user = new Models.Giveaway.Users {
                 UserID = Convert.ToInt32(e.Command.ChatMessage.UserId),
                 IsSub = isSub,
@@ -83,6 +86,8 @@ namespace Aiva.Extensions.Giveaway {
         }
 
         public void GetWinner() {
+            if (_joinedUsers?.Count == 0) return;
+
             // templist to add subluck (add multiple times the username to list)
             var tempList = new List<string>();
 

@@ -35,7 +35,7 @@
                 Width="250"
                 Height="15"
                 controls:TextBoxHelper.Watermark="Command..."
-                Text="{Binding AddModel.Command, UpdateSourceTrigger=PropertyChanged}"/>
+                Text="{Binding Properties.Command, UpdateSourceTrigger=PropertyChanged}"/>
             <Separator/>
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Wish permission"/>
