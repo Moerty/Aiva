@@ -37,7 +37,7 @@ namespace Aiva.Gui.ViewModels.Flyouts {
         private void WriteInfoInChat() {
             if (WriteInChat) {
                 AivaClient.Instance.TwitchClient.SendMessage(
-                    channel: AivaClient.Instance.ChannelId,
+                    channel: AivaClient.Instance.Channel,
                     message: $"@{_userName} was added {CurrencyToAdd} currency! Nice Song, dude!",
                     dryRun: AivaClient.DryRun);
             }

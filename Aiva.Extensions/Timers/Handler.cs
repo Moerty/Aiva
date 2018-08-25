@@ -64,7 +64,7 @@ namespace Aiva.Extensions.Timers
         private void ExecuteTimer(Core.Database.Storage.Timers timer)
         {
             AivaClient.Instance.TwitchClient.SendMessage(
-                channel: AivaClient.Instance.ChannelId,
+                channel: AivaClient.Instance.Channel,
                 message: timer.Text,
                 dryRun: AivaClient.DryRun);
         }

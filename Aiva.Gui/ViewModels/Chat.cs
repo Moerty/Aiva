@@ -69,7 +69,7 @@ namespace Aiva.Gui.ViewModels {
 
         private void SendMessage() {
             AivaClient.Instance.TwitchClient.SendMessage(
-                channel: AivaClient.Instance.ChannelId,
+                channel: AivaClient.Instance.Channel,
                 message: MessageToSend,
                 dryRun: AivaClient.DryRun);
 

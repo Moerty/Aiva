@@ -64,7 +64,7 @@ namespace Aiva.Extensions.Streamgames.Bankheist
                 else
                 {
                     AivaClient.Instance.TwitchClient.SendMessage(
-                        AivaClient.Instance.ChannelId,
+                        AivaClient.Instance.Channel,
                         "Bankheist is on cooldown!",
                         AivaClient.DryRun);
                 }
@@ -113,7 +113,7 @@ namespace Aiva.Extensions.Streamgames.Bankheist
             sb.Append("Winners: ");
             winners.ForEach(w => sb.Append(w.Name).Append("|"));
             AivaClient.Instance.TwitchClient.SendMessage(
-                channel: AivaClient.Instance.ChannelId,
+                channel: AivaClient.Instance.Channel,
                 message: sb.ToString().TrimEnd('|'),
                 dryRun: AivaClient.DryRun);
         }
@@ -190,7 +190,7 @@ namespace Aiva.Extensions.Streamgames.Bankheist
         private void WriteBankheistStartupInChat()
         {
             AivaClient.Instance.TwitchClient.SendMessage(
-                channel: AivaClient.Instance.ChannelId,
+                channel: AivaClient.Instance.Channel,
                 message: $"New Bankheist started! Write !{Config.Instance.Storage.StreamGames.Bankheist.General.Command} in the Chat to rob the bank!",
                 dryRun: AivaClient.DryRun);
         }

@@ -140,7 +140,8 @@ namespace Aiva.Extensions.Giveaway {
         private void DoNotification(string winnerName) {
             AivaClient.Instance.TwitchClient.SendMessage(
                 AivaClient.Instance.Channel, 
-                $"Winner is: @{winnerName}");
+                $"Winner is: @{winnerName}",
+                dryRun: AivaClient.DryRun);
         }
 
         private async Task<bool> CheckIfUserIsSub(string userId) {

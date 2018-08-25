@@ -79,7 +79,7 @@ namespace Aiva.Core.Twitch {
         /// <param name="e"></param>
         private void OnJoinedChannel(object sender, OnJoinedChannelArgs e) {
             TwitchClient.SendMessage(
-                channel: ChannelId,
+                channel: Channel,
                 message: "Aiva started, hi at all!",
                 dryRun: DryRun);
         }
