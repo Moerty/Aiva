@@ -119,7 +119,8 @@ namespace Aiva.Gui.ViewModels.Tabs {
             var twitchUser =
                 await AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(e.Username).ConfigureAwait(false);
 
-            if (twitchUser != null) {
+            if (twitchUser?.Total > 0) {
+                AddViewerToList(twitchUser.Matches[0].DisplayName, twitchUser.Matches[0].Id);
             }
         }
 
@@ -132,7 +133,10 @@ namespace Aiva.Gui.ViewModels.Tabs {
             if (Viewer.Any(v => String.Compare(v.TwitchID, id) == 0)) // check if user is already in List
                 return;
 
-            var isUserSubscriber = await AivaClient.Instance.TwitchApi.Channels.v5.CheckChannelSubscriptionByUserAsync(AivaClient.Instance.ChannelId, name);
+            TwitchLib.Api.Models.v5.Subscriptions.Subscription isUserSubscriber = null;
+            if (AivaClient.Instance.IsPartnered) {
+                isUserSubscriber = await AivaClient.Instance.TwitchApi.Channels.v5.CheckChannelSubscriptionByUserAsync(AivaClient.Instance.ChannelId, name);
+            }
 
             var rnd = new Random();
             var viewer = new Aiva.Models.Chat.Viewer {
