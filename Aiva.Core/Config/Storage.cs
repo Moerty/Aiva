@@ -31,6 +31,14 @@
         public partial class StreamGames {
             [JsonProperty("Bankheist")]
             public Bankheist Bankheist { get; set; }
+
+            [JsonProperty("Roulette")]
+            public Roulette Roulette { get; set; }
+        }
+
+        public partial class Roulette {
+            [JsonProperty("General")]
+            public PurpleGeneral General { get; set; }
         }
 
         public partial class Bankheist {

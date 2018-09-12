@@ -9,7 +9,11 @@ namespace Aiva.Gui.ViewModels.Tabs {
         public ICommand BankheistOptionsWindow { get; set; }
         public ICommand OpenWikiInBrowserBankheist { get; set; }
 
+        public ICommand RouletteOptionsWindow { get; set; }
+        public ICommand OpenWikiInBrowserRoulette { get; set; }
+
         private Extensions.Streamgames.Bankheist.Handler _bankheistHandler;
+        private Extensions.Streamgames.Roulette.Handler _rouletteHandler;
 
         public bool IsBankheistActive {
             get {
@@ -20,6 +24,8 @@ namespace Aiva.Gui.ViewModels.Tabs {
             }
         }
 
+        public bool IsRouletteActive { get; set; }
+
         public Streamgames() {
             BankheistOptionsWindow = new Internal.RelayCommand(
                 bankheist => ShowBankheistOptions());
@@ -28,6 +34,8 @@ namespace Aiva.Gui.ViewModels.Tabs {
                 open => Extensions.SpamProtection.Caps.OpenWikiInBrowser());
 
             _bankheistHandler = new Extensions.Streamgames.Bankheist.Handler();
+
+            _rouletteHandler = new Extensions.Streamgames.Roulette.Handler();
         }
 
         private async void ShowBankheistOptions() {

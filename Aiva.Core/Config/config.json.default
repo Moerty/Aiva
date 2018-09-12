@@ -59,6 +59,12 @@
     }
   },
   "StreamGames": {
+	"Roulette": {
+		"General": {
+			"Active": true,
+			"Command": "roulette"
+		}
+	},
     "Bankheist": {
       "General": {
         "Active": true,

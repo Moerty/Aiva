@@ -53,7 +53,7 @@
         </Grid>
 
         <!--  First row of items  -->
-        <Grid Grid.Row="1" Grid.Column="0">
+        <Grid Grid.Row="2" Grid.Column="0">
             <DockPanel>
                 <Button
                     Width="45"
@@ -87,10 +87,72 @@
         </Grid>
 
         <Grid
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="1"
             Margin="10">
             <ToggleButton Focusable="False" IsChecked="{Binding IsBankheistActive}">
+                <ToggleButton.Style>
+                    <Style TargetType="ToggleButton">
+                        <Setter Property="Content" Value="Activate"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Content" Value="Deactivate"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ToggleButton.Style>
+            </ToggleButton>
+        </Grid>
+
+        <Grid
+            Grid.Row="2"
+            Grid.Column="2"
+            Margin="10">
+            <StackPanel>
+                <TextBlock FontWeight="Bold" Text="Roulette"/>
+                <TextBlock Text="Bais roulette game for Twitchchat"/>
+            </StackPanel>
+        </Grid>
+
+        <!--  Second row of items  -->
+        <Grid Grid.Row="1" Grid.Column="0">
+            <DockPanel>
+                <Button
+                    Width="45"
+                    Command="{Binding OpenWikiInBrowserRoulette}"
+                    DockPanel.Dock="Left"
+                    Style="{DynamicResource MetroCircleButtonStyle}">
+                    <Rectangle
+                        Width="25"
+                        Height="25"
+                        Visibility="Visible">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_book_perspective_help}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Button
+                    Width="45"
+                    Command="{Binding BankheistOptionsWindow}"
+                    DockPanel.Dock="Right"
+                    Style="{DynamicResource MetroCircleButtonStyle}">
+                    <Rectangle
+                        Width="25"
+                        Height="25"
+                        Visibility="Visible">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_settings}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+            </DockPanel>
+        </Grid>
+
+        <Grid
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="10">
+            <ToggleButton Focusable="False" IsChecked="{Binding IsRouletteActive}">
                 <ToggleButton.Style>
                     <Style TargetType="ToggleButton">
                         <Setter Property="Content" Value="Activate"/>
