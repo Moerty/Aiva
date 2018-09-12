@@ -71,7 +71,6 @@
                 </Button>
                 <Button
                     Width="45"
-                    Command="{Binding BankheistOptionsWindow}"
                     DockPanel.Dock="Right"
                     Style="{DynamicResource MetroCircleButtonStyle}">
                     <Rectangle
@@ -90,7 +89,7 @@
             Grid.Row="2"
             Grid.Column="1"
             Margin="10">
-            <ToggleButton Focusable="False" IsChecked="{Binding IsBankheistActive}">
+            <ToggleButton Focusable="False" IsChecked="{Binding IsRouletteActive}">
                 <ToggleButton.Style>
                     <Style TargetType="ToggleButton">
                         <Setter Property="Content" Value="Activate"/>
@@ -152,7 +151,7 @@
             Grid.Row="1"
             Grid.Column="1"
             Margin="10">
-            <ToggleButton Focusable="False" IsChecked="{Binding IsRouletteActive}">
+            <ToggleButton Focusable="False" IsChecked="{Binding IsBankheistActive}">
                 <ToggleButton.Style>
                     <Style TargetType="ToggleButton">
                         <Setter Property="Content" Value="Activate"/>

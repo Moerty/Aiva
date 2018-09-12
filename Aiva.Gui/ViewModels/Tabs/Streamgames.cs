@@ -24,7 +24,19 @@ namespace Aiva.Gui.ViewModels.Tabs {
             }
         }
 
-        public bool IsRouletteActive { get; set; }
+        public bool IsRouletteActive {
+            get {
+                return Config.Instance.Storage.StreamGames.Roulette.General.Active;
+            } set {
+                if(value) {
+                    Config.Instance.Storage.StreamGames.Roulette.General.Active = value;
+                    _rouletteHandler.StartRoulette();
+                    } else {
+                    _rouletteHandler.StopRoulette();
+                    Config.Instance.Storage.StreamGames.Roulette.General.Active = value;
+                }
+            }
+        }
 
         public Streamgames() {
             BankheistOptionsWindow = new Internal.RelayCommand(
@@ -36,6 +48,10 @@ namespace Aiva.Gui.ViewModels.Tabs {
             _bankheistHandler = new Extensions.Streamgames.Bankheist.Handler();
 
             _rouletteHandler = new Extensions.Streamgames.Roulette.Handler();
+
+            if(Config.Instance.Storage.StreamGames.Roulette.General.Active) {
+                _rouletteHandler.StartRoulette();
+            }
         }
 
         private async void ShowBankheistOptions() {

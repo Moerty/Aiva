@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TwitchLib.Client.Events;
 using System.Linq;
+using Aiva.Core.Config;
 
 namespace Aiva.Extensions.Streamgames.Roulette {
     public class Handler {
@@ -14,10 +15,12 @@ namespace Aiva.Extensions.Streamgames.Roulette {
         private readonly TableLayout _tableLayout;
         private List<User> registeredUsers;
         private int _winningNumber;
+        private bool _isRunning;
+        private bool _shouldStop;
 
         private const int minNumber = 0;
         private const int maxNumber = 36;
-        private const int timeActiveRoulette = 300000;
+        private const int timeActiveRoulette = 10000; //300000;
         private const int timeToWaitForWinner = 30000;
 
         public Handler() {
@@ -27,49 +30,99 @@ namespace Aiva.Extensions.Streamgames.Roulette {
         }
 
         public async void StartRoulette() {
-            AivaClient.Instance.TwitchClient
-                .SendMessage(
-                    AivaClient.Instance.Channel,
-                    "Roulette started",
-                    AivaClient.DryRun);
+            while (Config.Instance.Storage.StreamGames.Roulette.General.Active) {
+                await Task.Delay(5000);
+                _isRunning = true;
 
-            registeredUsers = new List<User>();
+                AivaClient.Instance.TwitchClient
+                    .SendMessage(
+                        AivaClient.Instance.Channel,
+                        "Roulette started",
+                        AivaClient.DryRun);
 
-            AivaClient.Instance.TwitchClient.OnChatCommandReceived
-                += ChatMessageReceived;
-
-            await Task.Delay(timeActiveRoulette);
-            AivaClient.Instance.TwitchClient
-                .SendMessage(
-                    AivaClient.Instance.Channel,
-                    "Roulette closed",
-                    AivaClient.DryRun);
-
-            await Task.Delay(timeToWaitForWinner);
-            SpinTheWheel();
-
-            var winners = registeredUsers
-                .Where(w => w.IsWon);
-
-            var stringBuilder = new StringBuilder();
-
-            stringBuilder.Append($"Winning Number is {_winningNumber}.");
-            if(winners.Any()) {
-                foreach (var winner in winners) {
-                    stringBuilder.Append($"{winner.Name} - {winner.WonSum} ");
+                if (_shouldStop) {
+                    _isRunning = false;
+                    _shouldStop = false;
+                    return;
                 }
 
-                stringBuilder.Append(" Winner is: ");
-            } else {
-                stringBuilder.Append("No winners");
-            }
+                registeredUsers = new List<User>();
 
-            if(stringBuilder.ToString().Any()) {
-                AivaClient.Instance.TwitchClient.SendMessage(
-                    AivaClient.Instance.Channel,
-                    stringBuilder.ToString(),
-                    AivaClient.DryRun);
+                AivaClient.Instance.TwitchClient.OnChatCommandReceived
+                    += ChatMessageReceived;
+
+                if (_shouldStop) {
+                    _isRunning = false;
+                    _shouldStop = false;
+                    return;
+                }
+
+                await Task.Delay(timeActiveRoulette);
+                AivaClient.Instance.TwitchClient
+                    .SendMessage(
+                        AivaClient.Instance.Channel,
+                        "Roulette closed",
+                        AivaClient.DryRun);
+
+                if (_shouldStop) {
+                    _isRunning = false;
+                    _shouldStop = false;
+                    return;
+                }
+
+                await Task.Delay(timeToWaitForWinner);
+
+                if (_shouldStop) {
+                    _isRunning = false;
+                    _shouldStop = false;
+                    return;
+                }
+
+                SpinTheWheel();
+
+                if (_shouldStop) {
+                    _isRunning = false;
+                    _shouldStop = false;
+                    return;
+                }
+
+                var winners = registeredUsers
+                    .Where(w => w.IsWon);
+
+                var stringBuilder = new StringBuilder();
+
+                if (_shouldStop) {
+                    _isRunning = false;
+                    _shouldStop = false;
+                    return;
+                }
+
+                stringBuilder.Append($"Winning Number is {_winningNumber}.");
+                if (winners.Any()) {
+                    foreach (var winner in winners) {
+                        stringBuilder.Append($"{winner.Name} - {winner.WonSum} ");
+                    }
+
+                    stringBuilder.Append(" Winner is: ");
+                } else {
+                    stringBuilder.Append("No winners");
+                }
+
+                if (stringBuilder.ToString().Any()) {
+                    AivaClient.Instance.TwitchClient.SendMessage(
+                        AivaClient.Instance.Channel,
+                        stringBuilder.ToString(),
+                        AivaClient.DryRun);
+                }
+
+                _isRunning = false;
             }
+        }
+
+        public void StopRoulette() {
+            _shouldStop = true;
+            AivaClient.Instance.TwitchClient.OnChatCommandReceived -= ChatMessageReceived;
+            registeredUsers = null;
         }
 
         private void SpinTheWheel() {
@@ -114,10 +167,15 @@ namespace Aiva.Extensions.Streamgames.Roulette {
             }
 
             if(int.TryParse(e.Command.ArgumentsAsList[0], out int rouletteBet)) {
+                var userId = Convert.ToInt32(e.Command.ChatMessage.UserId);
+
+                // check if already registered
+                if(registeredUsers.Any(u => u.UserId == userId)) {
+                    return;
+                }
 
                 // check if user has enough currency
-                var userId = Convert.ToInt32(e.Command.ChatMessage.UserId);
-                if(!_databaseCurrencyHandler.HasUserEnoughCurrency(userId, rouletteBet)) {
+                if (!_databaseCurrencyHandler.HasUserEnoughCurrency(userId, rouletteBet)) {
                     return;
                 } else {
                     _databaseCurrencyHandler.Remove.Remove(userId, rouletteBet);
