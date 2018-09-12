@@ -20,7 +20,7 @@ namespace Aiva.Extensions.Streamgames.Roulette {
 
         private const int minNumber = 0;
         private const int maxNumber = 36;
-        private const int timeActiveRoulette = 10000; //300000;
+        private const int timeActiveRoulette = 300000;
         private const int timeToWaitForWinner = 30000;
 
         public Handler() {
