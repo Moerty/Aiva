@@ -181,10 +181,10 @@ namespace Aiva.Core.Database.Handlers {
         /// <returns></returns>
         public bool HasUserEnoughCurrency(int twitchID, int currencyToCheck) {
             using (var context = new Storage.DatabaseContext()) {
-                var user = context.Users.SingleOrDefault(u => twitchID == u.UsersId);
+                var user = context.Users.Include(c => c.Currency).SingleOrDefault(u => twitchID == u.UsersId);
 
                 if (user != null) {
-                    if (user.Currency.Value >= currencyToCheck) {
+                    if (user?.Currency?.Value >= currencyToCheck) {
                         return true;
                     }
                 }

@@ -28,6 +28,9 @@ namespace Aiva.Gui.ViewModels.Tabs {
                 open => Extensions.SpamProtection.Caps.OpenWikiInBrowser());
 
             _bankheistHandler = new Extensions.Streamgames.Bankheist.Handler();
+
+            //var roulette = new Extensions.Streamgames.Roulette.Handler();
+            //roulette.StartRoulette();
         }
 
         private async void ShowBankheistOptions() {
