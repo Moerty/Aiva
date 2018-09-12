@@ -44,6 +44,32 @@ namespace Aiva.Core.Twitch.Tasks.Commands.ModCommands
             {
                 Transfer.ChatCommandReceived(sender, e);
             }
+
+            if(e.Command.CommandText == "currency" && e.Command.ArgumentsAsList.Count == 1) {
+                GetCurrencyForUser(e);
+            }
+        }
+
+        /// <summary>
+        /// Get currency for user
+        /// </summary>
+        /// <param name="e"></param>
+        private async void GetCurrencyForUser(OnChatCommandReceivedArgs e) {
+            if(e.Command.ChatMessage.UserType.IsUserPermitted()) {
+                var user = await AivaClient.Instance.TwitchApi.Users.v5.GetUserByNameAsync(e.Command.ArgumentsAsList[0]).ConfigureAwait(false);
+
+                if(user?.Total > 0) {
+                    var currency = new Database.Handlers.Currency().GetCurrency(
+                        Convert.ToInt32(user.Matches[0].Id));
+
+                    if(currency.HasValue) {
+                        AivaClient.Instance.TwitchClient.SendMessage(
+                            AivaClient.Instance.Channel,
+                            $"@{e.Command.ChatMessage.DisplayName}: Viewer {e.Command.ArgumentsAsList[0]} has {currency.Value} currency!",
+                            AivaClient.DryRun);
+                    }
+                }
+            }
         }
 
         #endregion Functions
