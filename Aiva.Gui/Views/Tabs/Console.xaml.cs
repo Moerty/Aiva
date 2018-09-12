@@ -7,7 +7,7 @@ namespace Aiva.Gui.Views.Tabs {
     public partial class Console : MetroContentControl {
         public Console() {
             InitializeComponent();
-            this.DataContext = new ViewModels.Chat();
+            this.DataContext = new ViewModels.Tabs.Chat();
         }
     }
 }

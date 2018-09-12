@@ -9,7 +9,7 @@ using System.Windows.Input;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Extensions;
 
-namespace Aiva.Gui.ViewModels {
+namespace Aiva.Gui.ViewModels.Tabs {
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Chat {
         public ObservableCollection<Aiva.Models.Chat.Message> Messages { get; set; }

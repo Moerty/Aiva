@@ -232,7 +232,7 @@
     <Compile Include="Internal\ScrollViewerExtension.cs" />
     <Compile Include="Models\ChartValues.cs" />
     <Compile Include="Models\MainWindow.cs" />
-    <Compile Include="ViewModels\Chat.cs" />
+    <Compile Include="ViewModels\Tabs\Chat.cs" />
     <Compile Include="ViewModels\ChildWindows\Giveaway\Start.cs" />
     <Compile Include="ViewModels\ChildWindows\Songrequest\Add.cs" />
     <Compile Include="ViewModels\ChildWindows\Songrequest\Edit.cs" />
