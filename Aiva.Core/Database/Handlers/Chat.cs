@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using TwitchLib.Client.Events;
 
@@ -33,7 +34,7 @@ namespace Aiva.Core.Database.Handlers {
                     new Storage.Chat {
                         UsersId = twitchID,
                         ChatMessage = message,
-                        Timestamp = timeStamp
+                        Timestamp = timeStamp,
                     });
 
                 context.SaveChanges();

@@ -54,6 +54,7 @@ namespace Aiva.Core.Twitch {
             TwitchClient.Connect();
 
             //GetChannelId();
+            GetUserId();
         }
 
         public void SetTasks() {
@@ -63,13 +64,21 @@ namespace Aiva.Core.Twitch {
             Events.SetFollowerService(AivaClient.Instance.TwitchApi);
         }
 
-        private async void GetChannelId() {
+        private void GetChannelId() {
             var channelDetails = TwitchApi.Channels.v5.GetChannelAsync().Result;
             ChannelId = channelDetails.Id;
             IsPartnered = channelDetails.Partner;
 
             Tasks.Channel = new Channel();
             Tasks.Channel.Start();
+        }
+
+        private void GetUserId() {
+            var userId = TwitchApi.Users.v5.GetUserAsync().Result;
+
+            if(userId != null) {
+                TwitchId = Convert.ToInt32(userId.Id);
+            }
         }
 
         /// <summary>
